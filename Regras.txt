@@ -1,0 +1,10 @@
+Usuarios com acesso ao repositório:
+	leonesio
+
+1. Evitar uso de documentos indexados pelo Word neste repositório, isso devido o Git apresentar
+problemas para diferencias versões do mesmo arquivo com o comando "diff".
+2. Evitar arquivos comprimidos neste repositorio, com extenxões .zip, .rar e .tar
+3. Evitar usar acentuação e o "ç" em nome de arquivos, evitar tambem o uso de espaçoes e subitituir o espaço por "-", afim de facilitar a manipulação do arquivo sem o uso de aspas. 
+4. No nome do arquivo palavras importante devem inciciar com letra maiúcula.
+5. Correção de erros de ortografia não necessitam de revisão.
+6. Tentar decrever de forma simples e direta as mudanças feitas no commit.

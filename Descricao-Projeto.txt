@@ -1,0 +1,36 @@
+1. Visão Geral
+
+1.1. Tema do Projeto: Sistema de Gestão de Um Hospital
+
+1.2. Descrição
+
+Um sistema para gestão de um hospital, que permitirá a integração dos dados de diversos setores, tais como,
+consultas, farmácia, laboratório e recursos humanos (gestão dos funcionários), de modo que as informações
+possam ser acessadas através do sistema, pelos funcionários da administração. Com isso facilitaria o acesso
+a informações, sem a necessidade de funcionários se deslocarem fora dos seus setores, agilizando assim
+determinadas tarefas do dia a dia. 
+
+Os funcionários da área administrativa do hospital podem inserir, modificar, remover e pesquisar dados do
+sistema, referentes a diversos setores do mesmo. Estes dados são:
+
+Consulta. Para o funcionário registra um paciente em uma consulta, o paciente deve fornecer dados
+obrigatórios (como nome, CPF, endereço, data de nascimento, RG e o número de identificação do cartão do
+SUS).
+Farmácia. O funcionário poderá registra medicamentos, fornecendo informações obrigatórias, sobre tipo,
+quantidade e data de validade.
+Laboratório (exames). Para um funcionário registrar um paciente em exames no laboratório, o paciente deve
+fornecer os mesmos dados obrigatórios fornecidos em uma consulta.
+Funcionários. Para cadastro de funcionários no sistema será solicitado dados obrigatórios, nome, CPF, área
+que atua (qual trabalho desempenhara no hospital) e horários de trabalho. 
+
+O software do sistema a ser desenvolvido, deve apenas ser usado por funcionários do hospital que atuam na
+área administrativa. O funcionário deve marcar uma consulta ou exame no sistema, sempre informado qual
+paciente deve ser associado ao mesmo, realizando o seu cadastro caso necessário. Para que uma consulta
+seja marcada o funcionário também deve ter cadastrado um plantão determinando, o tipo, qual o 
+funcionário estará no plantão e a quantidade de vagas. Para marcar um exame no laboratório, o
+funcionário deve ter anteriormente cadastrado o tipo de exame a ser realizado.
+
+Ao marcar consulta ou exames de pacientes, como mulheres gestantes ou indivíduos com mais de 60 anos, o
+sistema deve determinar uma maior prioridade de atendimento. Já para pacientes que não se encaixem, nos
+critérios acima, serão organizados em fila de acordo com a ordem de cadastro. No caso da farmácia do
+hospital a cada retirada de medicamentos o sistema deve ser atualizado.
