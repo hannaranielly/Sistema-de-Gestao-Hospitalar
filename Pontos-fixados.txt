@@ -1,0 +1,3 @@
+Ter funções básicas para gestão de hospitais (cdastro de funcioários, jornadas de trabalho, consultas e pacientes);
+Verificação de dedesempenho dos funcionários (marcagem de presença, avaliando se o total de horas trabalhados é condizente com sua jornada de trabalho mínima, e no caso dos médicos avaliará o tempo médio na realização de consultas);
+Extra: Estimativa de tempo para o atendimento.
