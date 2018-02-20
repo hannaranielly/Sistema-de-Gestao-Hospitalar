@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistema.de.gestao.hospitalar.entidades;
+package sistema.de.gestao.consultas.entidades;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import java.util.Date;
  * @author leone
  */
 public class Pessoa {
-    protected int id;
+    protected Long id;
     protected String nome;
     protected String cpf;
     protected String rg;
