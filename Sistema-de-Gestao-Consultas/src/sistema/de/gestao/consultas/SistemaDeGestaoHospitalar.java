@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
 import sistema.de.gestao.consultas.entidades.Paciente;
 import sistema.de.gestao.consultas.entidades.Pessoa;
+import sistema.de.gestao.consultas.gui.telaLogin;
 
 /**
  *
@@ -38,7 +39,8 @@ public class SistemaDeGestaoHospitalar {
         session.flush();
         session.close();
         sf.close();
-        
+        telaLogin tela = new telaLogin();
+        tela.setVisible(true);
     }
     
 }

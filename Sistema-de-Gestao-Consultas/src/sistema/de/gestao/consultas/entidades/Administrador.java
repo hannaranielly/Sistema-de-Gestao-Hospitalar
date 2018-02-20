@@ -22,12 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="administrador")
 public class Administrador implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
     private String user;
-    @Column
     private String senha;    
     
     public Administrador(String user, String senha){
