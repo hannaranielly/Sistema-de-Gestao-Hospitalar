@@ -132,13 +132,13 @@ public class telaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        adm Administrador = new Administrador(txtUser.getText(), txtSenha.getText());
+       /* adm Administrador = new Administrador(txtUser.getText(), txtSenha.getText());
         if(adm.validaLogin()){
             JOptionPane.showMessageDialog(null, "Bem Vindo");
         }
         else{
             JOptionPane.showMessageDialog(null, " Login e/ou senha foram inválidos");
-        }
+        }*/
     }//GEN-LAST:event_btnEntrarActionPerformed
   
     /**

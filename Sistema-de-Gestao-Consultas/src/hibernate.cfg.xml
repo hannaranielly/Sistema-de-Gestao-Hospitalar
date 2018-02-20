@@ -43,10 +43,12 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistema_consultas?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.url">jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10222360?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">sql10222360</property>
+    <property name="hibernate.connection.password">Nl1qtKgP2J</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="sistema.de.gestao.consultas.entidades.Pessoa"/>
     <mapping class="sistema.de.gestao.consultas.entidades.Paciente"/>
+    <mapping class="sistema.de.gestao.consultas.entidades.Administrador"/>
   </session-factory>
 </hibernate-configuration>
