@@ -41,5 +41,26 @@ public class Administrador implements Serializable{
         else{
             return false;
         }
-    }    
+    }
+    public void registraEntrada(String medico, Date horario){
+        
+    }
+    public void registraSaida(String medico, Date horario){
+        
+    }
+    public void agendaConsulta(String paciente, Date horarioAtendimento, Date data){
+        
+    }
+    public void iniciaAtendimento(Date horarioAtendimento){
+        
+    }
+    public void proximoAtendimento(Date horarioAtendimento){
+        
+    }
+    public void finalizaAtendimento(Date horarioAtendimento){
+        
+    }
+    public void verificaAtendimento(String medico){
+        
+    }
 }
