@@ -5,6 +5,8 @@
  */
 package sistema.de.gestao.consultas;
 
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -36,6 +38,7 @@ public class SistemaDeGestaoHospitalar {
         session.saveOrUpdate(p);
         
         tx.commit();
+        
         session.flush();
         session.close();
         sf.close();
