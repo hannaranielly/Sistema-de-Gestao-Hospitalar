@@ -5,14 +5,12 @@
  */
 package sistema.de.gestao.consultas;
 
-import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
+import sistema.de.gestao.consultas.entidades.Administrador;
 import sistema.de.gestao.consultas.entidades.Paciente;
-import sistema.de.gestao.consultas.entidades.Pessoa;
 import sistema.de.gestao.consultas.gui.telaLogin;
 
 /**
@@ -36,9 +34,10 @@ public class SistemaDeGestaoHospitalar {
         //p.setId(1l);
         Transaction tx = session.beginTransaction();
         session.saveOrUpdate(p);
-        
         tx.commit();
-        
+        Administrador adb = (Administrador)session.get(Administrador.class, 1);
+        System.out.println(adb.user);
+        System.out.println(adb.senha);
         session.flush();
         session.close();
         sf.close();
