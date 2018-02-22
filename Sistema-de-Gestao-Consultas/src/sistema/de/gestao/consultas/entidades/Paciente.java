@@ -15,24 +15,40 @@ import javax.persistence.Table;
  * @author leone
  */
 @Entity
-@Table(name="paciente")
-@PrimaryKeyJoinColumn(name="id")
-public class Paciente extends Pessoa{
+@Table(name = "paciente")
+@PrimaryKeyJoinColumn(name = "id")
+public class Paciente extends Pessoa implements ICRUD {
+
     private String num_sus;
 
-    public Paciente(){
-        
-    }
-    public Paciente(Long id, String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep, String num_sus) {
-        super(id, nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
-        this.num_sus = num_sus;
-    }
-    
-    public Paciente(String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep, String num_sus) {
-        super(nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
-        this.num_sus = num_sus;
+    public Paciente(Pessoa pessoa, String num_sus) {
+        super(pessoa);
+        this.setNum_sus(num_sus);
     }
 
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    //* * * * * * * * * * * Getters and Setters * * * * * * * * * * * * * * * *
+    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public String getNum_sus() {
         return num_sus;
     }
@@ -40,5 +56,5 @@ public class Paciente extends Pessoa{
     public void setNum_sus(String num_sus) {
         this.num_sus = num_sus;
     }
-    
+
 }

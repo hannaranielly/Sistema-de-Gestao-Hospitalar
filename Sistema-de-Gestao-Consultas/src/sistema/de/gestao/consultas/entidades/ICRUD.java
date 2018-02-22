@@ -13,7 +13,7 @@ public interface ICRUD {
 
     void create();
 
-    void remove();
+    void read();
 
     void update();
 

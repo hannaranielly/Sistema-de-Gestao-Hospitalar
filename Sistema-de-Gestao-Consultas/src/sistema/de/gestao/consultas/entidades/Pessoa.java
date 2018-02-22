@@ -22,54 +22,84 @@ import javax.persistence.Temporal;
  * @author leone
  */
 @Entity
-@Table(name="pessoa")
+@Table(name = "pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable, ICRUD {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
     @Column
-    protected String nome;
+    private String nome;
     @Column
-    protected String cpf;
+    private String cpf;
     @Column
-    protected String rg;
+    private String rg;
     @Column
-    protected Date data_nascimento;
+    private Date data_nascimento;
     @Column
-    protected String telefone;
+    private String telefone;
     @Column
-    protected String cidade;
+    private String cidade;
 
-    public Pessoa(Long id, String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.rg = rg;
-        this.data_nascimento = data_nascimento;
-        this.telefone = telefone;
-        this.cidade = cidade;
-        this.bairro = bairro;
-        this.logradouro = logradouro;
-        this.cep = cep;
-    }
-    
-    public Pessoa(String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.rg = rg;
-        this.data_nascimento = data_nascimento;
-        this.telefone = telefone;
-        this.cidade = cidade;
-        this.bairro = bairro;
-        this.logradouro = logradouro;
-        this.cep = cep;
+    private String logradouro;
+
+    private String cep;
+
+    protected Pessoa(Pessoa pessoa) {
+        this(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(), pessoa.getRg(),
+                pessoa.getData_nascimento(), pessoa.getTelefone(), pessoa.getCidade(),
+                pessoa.getBairro(), pessoa.getLogradouro(),
+                pessoa.getCep());
     }
 
-    public Pessoa() {
+    public Pessoa(Long id, String nome, String cpf, String rg,
+            Date data_nascimento, String telefone, String cidade, String bairro,
+            String logradouro, String cep) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setCpf(cpf);
+        this.setRg(rg);
+        this.setData_nascimento(data_nascimento);
+        this.setTelefone(telefone);
+        this.setCidade(cidade);
+        this.setBairro(bairro);
+        this.setLogradouro(logradouro);
+        this.setCep(cep);
     }
-    protected String bairro;
 
+    public Pessoa(String nome, String cpf, String rg,
+            Date data_nascimento, String telefone,
+            String cidade, String bairro,
+            String logradouro, String cep) {
+        this(null, nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
+    }
+
+    private String bairro;
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    //* * * * * * * * * * * Getters and Setters * * * * * * * * * * * * * * * *
+    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public Long getId() {
         return id;
     }
@@ -149,6 +179,5 @@ public class Pessoa implements Serializable{
     public void setCep(String cep) {
         this.cep = cep;
     }
-    protected String logradouro;
-    protected String cep;
+
 }
