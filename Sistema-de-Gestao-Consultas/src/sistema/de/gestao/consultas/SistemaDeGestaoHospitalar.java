@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
 import sistema.de.gestao.consultas.entidades.Administrador;
 import sistema.de.gestao.consultas.entidades.Paciente;
-import sistema.de.gestao.consultas.gui.telaLogin;
+import sistema.de.gestao.consultas.gui.TelaLogin;
 
 /**
  *
@@ -56,8 +56,9 @@ public class SistemaDeGestaoHospitalar {
         session.flush();
         session.close();
         sf.close();*/
-        telaLogin tela = new telaLogin();
+        TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
         
        // Administrador adm = new Administrador("admin", "admin");
        // adm.validaLogin();
@@ -68,8 +69,7 @@ public class SistemaDeGestaoHospitalar {
         List<Administrador> list =  (List<Administrador>)query.list();
         System.out.println(list.get(0).getUser());
         session.flush();
-        session.close();
-        sf.close();*/
+        session.close();*/
     }
     
 }
