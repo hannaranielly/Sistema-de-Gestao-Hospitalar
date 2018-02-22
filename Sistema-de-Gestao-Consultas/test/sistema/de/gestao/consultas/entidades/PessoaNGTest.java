@@ -39,12 +39,60 @@ public class PessoaNGTest {
     }
 
     /**
+     * Test of create method, of class Pessoa.
+     */
+    @Test
+    public void testCreate() {
+        System.out.println("create");
+        Pessoa instance = null;
+        instance.create();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of read method, of class Pessoa.
+     */
+    @Test
+    public void testRead() {
+        System.out.println("read");
+        Pessoa instance = null;
+        instance.read();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of update method, of class Pessoa.
+     */
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        Pessoa instance = null;
+        instance.update();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of delete method, of class Pessoa.
+     */
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        Pessoa instance = null;
+        instance.delete();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of getId method, of class Pessoa.
      */
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         Long expResult = null;
         Long result = instance.getId();
         assertEquals(result, expResult);
@@ -59,7 +107,7 @@ public class PessoaNGTest {
     public void testSetId() {
         System.out.println("setId");
         Long id = null;
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -71,7 +119,7 @@ public class PessoaNGTest {
     @Test
     public void testGetNome() {
         System.out.println("getNome");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getNome();
         assertEquals(result, expResult);
@@ -86,7 +134,7 @@ public class PessoaNGTest {
     public void testSetNome() {
         System.out.println("setNome");
         String nome = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setNome(nome);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -98,7 +146,7 @@ public class PessoaNGTest {
     @Test
     public void testGetCpf() {
         System.out.println("getCpf");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getCpf();
         assertEquals(result, expResult);
@@ -113,7 +161,7 @@ public class PessoaNGTest {
     public void testSetCpf() {
         System.out.println("setCpf");
         String cpf = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setCpf(cpf);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -125,7 +173,7 @@ public class PessoaNGTest {
     @Test
     public void testGetRg() {
         System.out.println("getRg");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getRg();
         assertEquals(result, expResult);
@@ -140,7 +188,7 @@ public class PessoaNGTest {
     public void testSetRg() {
         System.out.println("setRg");
         String rg = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setRg(rg);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -152,7 +200,7 @@ public class PessoaNGTest {
     @Test
     public void testGetData_nascimento() {
         System.out.println("getData_nascimento");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         Date expResult = null;
         Date result = instance.getData_nascimento();
         assertEquals(result, expResult);
@@ -167,7 +215,7 @@ public class PessoaNGTest {
     public void testSetData_nascimento() {
         System.out.println("setData_nascimento");
         Date data_nascimento = null;
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setData_nascimento(data_nascimento);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -179,7 +227,7 @@ public class PessoaNGTest {
     @Test
     public void testGetTelefone() {
         System.out.println("getTelefone");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getTelefone();
         assertEquals(result, expResult);
@@ -194,7 +242,7 @@ public class PessoaNGTest {
     public void testSetTelefone() {
         System.out.println("setTelefone");
         String telefone = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setTelefone(telefone);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -206,7 +254,7 @@ public class PessoaNGTest {
     @Test
     public void testGetCidade() {
         System.out.println("getCidade");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getCidade();
         assertEquals(result, expResult);
@@ -221,7 +269,7 @@ public class PessoaNGTest {
     public void testSetCidade() {
         System.out.println("setCidade");
         String cidade = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setCidade(cidade);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -233,7 +281,7 @@ public class PessoaNGTest {
     @Test
     public void testGetBairro() {
         System.out.println("getBairro");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getBairro();
         assertEquals(result, expResult);
@@ -248,7 +296,7 @@ public class PessoaNGTest {
     public void testSetBairro() {
         System.out.println("setBairro");
         String bairro = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setBairro(bairro);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -260,7 +308,7 @@ public class PessoaNGTest {
     @Test
     public void testGetLogradouro() {
         System.out.println("getLogradouro");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getLogradouro();
         assertEquals(result, expResult);
@@ -275,7 +323,7 @@ public class PessoaNGTest {
     public void testSetLogradouro() {
         System.out.println("setLogradouro");
         String logradouro = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setLogradouro(logradouro);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -287,7 +335,7 @@ public class PessoaNGTest {
     @Test
     public void testGetCep() {
         System.out.println("getCep");
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         String expResult = "";
         String result = instance.getCep();
         assertEquals(result, expResult);
@@ -302,7 +350,7 @@ public class PessoaNGTest {
     public void testSetCep() {
         System.out.println("setCep");
         String cep = "";
-        Pessoa instance = new Pessoa();
+        Pessoa instance = null;
         instance.setCep(cep);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

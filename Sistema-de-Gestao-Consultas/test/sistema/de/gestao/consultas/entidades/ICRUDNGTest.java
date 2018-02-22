@@ -50,13 +50,13 @@ public class ICRUDNGTest {
     }
 
     /**
-     * Test of remove method, of class ICRUD.
+     * Test of read method, of class ICRUD.
      */
     @Test
-    public void testRemove() {
-        System.out.println("remove");
+    public void testRead() {
+        System.out.println("read");
         ICRUD instance = new ICRUDImpl();
-        instance.remove();
+        instance.read();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -90,7 +90,7 @@ public class ICRUDNGTest {
         public void create() {
         }
 
-        public void remove() {
+        public void read() {
         }
 
         public void update() {
