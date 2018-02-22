@@ -56,7 +56,7 @@ public class Administrador implements Serializable{
         query.setString(1, senha);
         List<Administrador> list =  (List<Administrador>) query.list();
         //session.flush();
-        //session.close();
+        session.close();
         //sf.close();
         if(!list.isEmpty()){
             return true;
