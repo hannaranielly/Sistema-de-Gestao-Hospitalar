@@ -19,6 +19,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
 
+
+
 /**
  *
  * @author jeffe
@@ -34,20 +36,25 @@ public class Administrador implements Serializable{
     @Column
     private String user;    
 
+
     public Administrador() {
+        
+
     }
     
     public Administrador(String user, String senha){
         this.user = user;
         this.senha = senha;
     }
+    
     public boolean validaLogin(){
+
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         Query query = session.createSQLQuery("select * from administrador where user = ? and senha = ?").addEntity(Administrador.class);
         query.setString(0, user);
         query.setString(1, senha);
-        List<Administrador> list =  (List<Administrador>)query.list();
+        List<Administrador> list =  (List<Administrador>) query.list();
         //session.flush();
         //session.close();
         //sf.close();
