@@ -60,13 +60,10 @@ public class SistemaDeGestaoHospitalar {
         session.close();
         sf.close();*/
         
-        //TelaLogin tela = new TelaLogin();
-        //tela.setVisible(true);
-        //tela.setLocationRelativeTo(null);
+        TelaLogin tela = new TelaLogin();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
         
-        CadPaciente cad = new CadPaciente();
-        cad.setVisible(true);
-        cad.setLocationRelativeTo(null);
         
         
        // Administrador adm = new Administrador("admin", "admin");
