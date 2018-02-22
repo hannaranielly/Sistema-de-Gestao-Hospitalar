@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
+import sistema.de.gestao.consultas.entidades.Administrador;
 import sistema.de.gestao.consultas.entidades.Paciente;
 import sistema.de.gestao.consultas.entidades.Pessoa;
 import sistema.de.gestao.consultas.gui.telaLogin;
@@ -26,6 +27,7 @@ public class SistemaDeGestaoHospitalar {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        /* Exemplo uso Hibernate
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         Paciente p = new Paciente();
@@ -41,9 +43,35 @@ public class SistemaDeGestaoHospitalar {
         
         session.flush();
         session.close();
-        sf.close();
+        sf.close();*/
+        
+        /*
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        Administrador p = new Administrador("eu", "eu");
+        //p.setId(1l);
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(p);
+        
+        tx.commit();
+        
+        session.flush();
+        session.close();
+        sf.close();*/
         telaLogin tela = new telaLogin();
         tela.setVisible(true);
+        
+       // Administrador adm = new Administrador("admin", "admin");
+       // adm.validaLogin();
+        /*
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        Query query = session.createSQLQuery("select * from administrador where id = 1").addEntity(Administrador.class);
+        List<Administrador> list =  (List<Administrador>)query.list();
+        System.out.println(list.get(0).getUser());
+        session.flush();
+        session.close();
+        sf.close();*/
     }
     
 }
