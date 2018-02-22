@@ -9,8 +9,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
+import sistema.de.gestao.consultas.bd.repositorio.PacienteCRUD;
 import sistema.de.gestao.consultas.entidades.Administrador;
 import sistema.de.gestao.consultas.entidades.Paciente;
+import sistema.de.gestao.consultas.entidades.Pessoa;
+import sistema.de.gestao.consultas.gui.CadPaciente;
 import sistema.de.gestao.consultas.gui.TelaLogin;
 
 /**
@@ -56,9 +59,15 @@ public class SistemaDeGestaoHospitalar {
         session.flush();
         session.close();
         sf.close();*/
-        TelaLogin tela = new TelaLogin();
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
+        
+        //TelaLogin tela = new TelaLogin();
+        //tela.setVisible(true);
+        //tela.setLocationRelativeTo(null);
+        
+        CadPaciente cad = new CadPaciente();
+        cad.setVisible(true);
+        cad.setLocationRelativeTo(null);
+        
         
        // Administrador adm = new Administrador("admin", "admin");
        // adm.validaLogin();

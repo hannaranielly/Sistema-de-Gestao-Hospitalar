@@ -22,84 +22,58 @@ import javax.persistence.Temporal;
  * @author leone
  */
 @Entity
-@Table(name = "pessoa")
+@Table(name="pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable, ICRUD {
-
+public class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
     @Column
-    private String nome;
+    protected String nome;
     @Column
-    private String cpf;
+    protected String cpf;
     @Column
-    private String rg;
+    protected String rg;
     @Column
-    private Date data_nascimento;
+    protected Date data_nascimento;
     @Column
-    private String telefone;
+    protected String telefone;
     @Column
-    private String cidade;
+    protected String cidade;
+    @Column
+    protected String logradouro;
+    @Column
+    protected String cep;
 
-    private String logradouro;
-
-    private String cep;
-
-    protected Pessoa(Pessoa pessoa) {
-        this(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(), pessoa.getRg(),
-                pessoa.getData_nascimento(), pessoa.getTelefone(), pessoa.getCidade(),
-                pessoa.getBairro(), pessoa.getLogradouro(),
-                pessoa.getCep());
+    public Pessoa(Long id, String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.data_nascimento = data_nascimento;
+        this.telefone = telefone;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.logradouro = logradouro;
+        this.cep = cep;
+    }
+    
+    public Pessoa(String nome, String cpf, String rg, Date data_nascimento, String telefone, String cidade, String bairro, String logradouro, String cep) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.data_nascimento = data_nascimento;
+        this.telefone = telefone;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.logradouro = logradouro;
+        this.cep = cep;
     }
 
-    public Pessoa(Long id, String nome, String cpf, String rg,
-            Date data_nascimento, String telefone, String cidade, String bairro,
-            String logradouro, String cep) {
-        this.setId(id);
-        this.setNome(nome);
-        this.setCpf(cpf);
-        this.setRg(rg);
-        this.setData_nascimento(data_nascimento);
-        this.setTelefone(telefone);
-        this.setCidade(cidade);
-        this.setBairro(bairro);
-        this.setLogradouro(logradouro);
-        this.setCep(cep);
+    public Pessoa() {
     }
+    protected String bairro;
 
-    public Pessoa(String nome, String cpf, String rg,
-            Date data_nascimento, String telefone,
-            String cidade, String bairro,
-            String logradouro, String cep) {
-        this(null, nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
-    }
-
-    private String bairro;
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * Getters and Setters * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public Long getId() {
         return id;
     }
@@ -179,5 +153,5 @@ public class Pessoa implements Serializable, ICRUD {
     public void setCep(String cep) {
         this.cep = cep;
     }
-
+    
 }
