@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import sistema.de.gestao.consultas.bd.repositorio.PacienteCRUD;
 import sistema.de.gestao.consultas.entidades.Paciente;
 import sistema.de.gestao.consultas.entidades.Pessoa;
+import sistema.de.gestao.consultas.validacao.CPF;
 
 /**
  *
@@ -303,12 +304,21 @@ public class CadPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Pessoa p = new Pessoa(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
-                bairroField.getText(), logradouroField.getText(), CEPField.getText());
-        Paciente pa = new Paciente(p, SUSField.getText());
-        PacienteCRUD pc = new PacienteCRUD();
-        pc.salvar_atualizar(pa);
-        JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+        if(!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate()!=null){
+            if (CPF.isCPF(CPFField.getText().replaceAll("[.-]", ""))) {
+                Pessoa p = new Pessoa(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
+                        bairroField.getText(), logradouroField.getText(), CEPField.getText());
+                Paciente pa = new Paciente(p, SUSField.getText());
+                PacienteCRUD pc = new PacienteCRUD();
+                pc.salvar_atualizar(pa);
+                JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(this, "CPF inválido");
+            }
+        }else{
+             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n" +
+                "RG e data de nascimento");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void SUSFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUSFieldActionPerformed
