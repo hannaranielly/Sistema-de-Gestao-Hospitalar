@@ -27,6 +27,9 @@ public class Paciente extends Pessoa implements ICRUD {
         super(pessoa);
         this.setNum_sus(num_sus);
     }
+    public Paciente(){
+        
+    }
 
     @Override
     public void create() {

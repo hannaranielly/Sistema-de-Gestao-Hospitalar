@@ -5,12 +5,15 @@
  */
 package sistema.de.gestao.consultas.bd.repositorio;
 
+import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import sistema.de.gestao.consultas.bd.HibernateUtil;
 import sistema.de.gestao.consultas.entidades.Paciente;
+import sistema.de.gestao.consultas.entidades.Pessoa;
 
 /**
  *
@@ -34,5 +37,33 @@ public class PacienteCRUD {
             ex.printStackTrace();
         }
     }
+    
+    public void apagar(Paciente paciente){
+        Session session = sf.openSession();
+        try {
+            Transaction tx = session.beginTransaction();
+            session.delete(paciente);
+            tx.commit();
+            session.flush();
+            session.close();
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public Paciente consulta_por_CPF(String cpf){
+        Session session = sf.openSession();
+        Query query = session.createSQLQuery("select * from pessoa AS p INNER JOIN paciente AS pa ON p.id =pa.id where p.cpf = ? ").addEntity(Paciente.class);
+        query.setString(0, cpf);
+        List<Paciente> list =  (List<Paciente>) query.list();
+        session.close();
+        if(list.isEmpty()){
+            return null;
+        }else{
+            return list.get(0);
+        }
+        
+    }
+
     
 }

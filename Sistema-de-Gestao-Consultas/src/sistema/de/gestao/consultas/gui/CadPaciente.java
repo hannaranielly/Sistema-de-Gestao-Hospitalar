@@ -310,8 +310,13 @@ public class CadPaciente extends javax.swing.JFrame {
                         bairroField.getText(), logradouroField.getText(), CEPField.getText());
                 Paciente pa = new Paciente(p, SUSField.getText());
                 PacienteCRUD pc = new PacienteCRUD();
-                pc.salvar_atualizar(pa);
-                JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+                if(pc.consulta_por_CPF(CPFField.getText())==null){
+                    pc.salvar_atualizar(pa);
+                    JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+                }else{
+                    JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(this, "CPF inválido");
             }

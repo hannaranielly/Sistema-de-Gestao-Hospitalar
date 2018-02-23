@@ -59,7 +59,7 @@ public class SistemaDeGestaoHospitalar {
         session.flush();
         session.close();
         sf.close();*/
-        
+      
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);

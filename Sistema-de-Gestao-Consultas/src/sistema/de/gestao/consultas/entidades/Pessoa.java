@@ -34,7 +34,7 @@ public class Pessoa implements Serializable, ICRUD {
     private Long id;
     @Column
     private String nome;
-    @Column
+    @Column(unique = true)
     private String cpf;
     @Column
     private String rg;
@@ -51,6 +51,10 @@ public class Pessoa implements Serializable, ICRUD {
     @Column
     private String cep;
 
+    public Pessoa(){
+        
+    }
+    
     protected Pessoa(Pessoa pessoa) {
         this(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(), pessoa.getRg(),
                 pessoa.getData_nascimento(), pessoa.getTelefone(), pessoa.getCidade(),
