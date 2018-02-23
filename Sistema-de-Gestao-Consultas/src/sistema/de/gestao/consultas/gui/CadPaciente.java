@@ -8,6 +8,7 @@ package sistema.de.gestao.consultas.gui;
 import javax.swing.JOptionPane;
 import sistema.de.gestao.consultas.bd.repositorio.PacienteCRUD;
 import sistema.de.gestao.consultas.entidades.Paciente;
+import sistema.de.gestao.consultas.entidades.Pessoa;
 
 /**
  *
@@ -302,10 +303,11 @@ public class CadPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Paciente p = new Paciente(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
-                bairroField.getText(), logradouroField.getText(), CEPField.getText(), SUSField.getText());
+        Pessoa p = new Pessoa(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
+                bairroField.getText(), logradouroField.getText(), CEPField.getText());
+        Paciente pa = new Paciente(p, SUSField.getText());
         PacienteCRUD pc = new PacienteCRUD();
-        pc.salvar_atualizar(p);
+        pc.salvar_atualizar(pa);
         JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
     }//GEN-LAST:event_jButton1ActionPerformed
 

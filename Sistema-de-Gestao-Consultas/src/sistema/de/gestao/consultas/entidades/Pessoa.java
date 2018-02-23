@@ -16,6 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -28,6 +30,7 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long id;
     @Column
     private String nome;
@@ -41,11 +44,11 @@ public class Pessoa implements Serializable, ICRUD {
     private String telefone;
     @Column
     private String cidade;
-
+    @Column
     private String bairro;
-
+    @Column
     private String logradouro;
-
+    @Column
     private String cep;
 
     protected Pessoa(Pessoa pessoa) {
