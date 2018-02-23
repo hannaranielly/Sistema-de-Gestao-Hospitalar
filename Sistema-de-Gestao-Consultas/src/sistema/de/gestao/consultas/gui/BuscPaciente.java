@@ -308,17 +308,9 @@ public class BuscPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CEPFieldActionPerformed
 
-    private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeFieldActionPerformed
-
     private void CPFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CPFFieldActionPerformed
-
-    private void RGFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RGFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -338,6 +330,14 @@ public class BuscPaciente extends javax.swing.JFrame {
             SUSField.setText(p.getNum_sus());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void RGFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RGFieldActionPerformed
+
+    private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeFieldActionPerformed
 
     /**
      * @param args the command line arguments
