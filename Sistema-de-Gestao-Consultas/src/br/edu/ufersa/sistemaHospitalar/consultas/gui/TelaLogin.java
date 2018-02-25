@@ -7,6 +7,7 @@ package br.edu.ufersa.sistemaHospitalar.consultas.gui;
 
 import javax.swing.JOptionPane;
 import br.edu.ufersa.sistemaHospitalar.consultas.entidades.Administrador;
+import br.edu.ufersa.sistemaHospitalar.consultas.validacao.Criptografia;
 
 /**
  *
@@ -123,7 +124,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Administrador adm = new Administrador(txtUser.getText(), txtSenha.getText());
+        Administrador adm = new Administrador(txtUser.getText(), Criptografia.criptografar(txtSenha.getText()));
         if(adm.validaLogin()){
             JOptionPane.showMessageDialog(null, "Bem Vindo");
             TelaInicial  te = new TelaInicial();

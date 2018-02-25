@@ -15,6 +15,7 @@ import br.edu.ufersa.sistemaHospitalar.consultas.entidades.Paciente;
 import br.edu.ufersa.sistemaHospitalar.consultas.entidades.Pessoa;
 import br.edu.ufersa.sistemaHospitalar.consultas.gui.CadPaciente;
 import br.edu.ufersa.sistemaHospitalar.consultas.gui.TelaLogin;
+import br.edu.ufersa.sistemaHospitalar.consultas.validacao.Criptografia;
 
 /**
  *
@@ -59,7 +60,7 @@ public class SistemaDeGestaoHospitalar {
         session.flush();
         session.close();
         sf.close();*/
-      
+        System.out.println(Criptografia.criptografar("admin"));
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
