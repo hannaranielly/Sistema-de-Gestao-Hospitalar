@@ -6,7 +6,12 @@
 package br.edu.ufersa.sistemaHospitalar.consultas.entidades;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
@@ -16,14 +21,20 @@ import org.hibernate.annotations.OnDeleteAction;
  *
  * @author cassiano
  */
+@Entity
+@Table(name = "medico")
+@PrimaryKeyJoinColumn(name = "id")
 public class Medico extends Pessoa implements ICRUD {
-    
-    private HorarioAtendimento[] listaHorario;
+    @OneToMany(mappedBy = "medico", targetEntity = HorarioAtendimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<HorarioAtendimento> listaHorario;
+    @Column
     private int cargaHoraria;
-    private Especialidade especialidade;
-    
-    public Medico (Pessoa pessoa, HorarioAtendimento[] listaHorario, 
-            int cargaHoraria, Especialidade especialidade){
+    private int especialidade;
+    public Medico(){
+        
+    }
+    public Medico (Pessoa pessoa, List<HorarioAtendimento>  listaHorario, 
+            int cargaHoraria, int especialidade){
         super(pessoa);
         this.setListaHorario(listaHorario);
         this.setCargaHoraria(cargaHoraria);
@@ -50,11 +61,11 @@ public class Medico extends Pessoa implements ICRUD {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void setListaHorario (HorarioAtendimento[] listaHorario){
+    public void setListaHorario (List<HorarioAtendimento> listaHorario){
         this.listaHorario = listaHorario;
     }
     
-    public HorarioAtendimento[] getListaHorario (){
+    public List<HorarioAtendimento>  getListaHorario (){
         return listaHorario;
     }
     
@@ -68,11 +79,11 @@ public class Medico extends Pessoa implements ICRUD {
         return cargaHoraria;
     }
     
-    public void setEspecialidade (Especialidade especialidade){
+    public void setEspecialidade (int especialidade){
         this.especialidade = especialidade;
     }
     
-    public Especialidade getEspecialidade (){
+    public int getEspecialidade (){
         return especialidade;
     }
     

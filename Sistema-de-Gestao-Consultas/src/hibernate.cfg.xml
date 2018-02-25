@@ -50,5 +50,7 @@ Contributor(s):
     <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Administrador"/>
     <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Paciente"/>
     <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Pessoa"/>
+    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Medico"/>
+    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.HorarioAtendimento"/>
   </session-factory>
 </hibernate-configuration>
