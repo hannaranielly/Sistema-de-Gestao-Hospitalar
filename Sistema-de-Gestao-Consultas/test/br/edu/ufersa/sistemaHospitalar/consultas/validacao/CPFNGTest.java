@@ -45,8 +45,8 @@ public class CPFNGTest {
         System.out.println("isCPF");
         String CPF = "";
         boolean expResult = false;
-        boolean result = CPF.isCPF(CPF);
-        assertEquals(result, expResult);
+        //boolean result = CPF.isCPF(CPF);
+        //assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -59,8 +59,8 @@ public class CPFNGTest {
         System.out.println("imprimeCPF");
         String CPF = "";
         String expResult = "";
-        String result = CPF.imprimeCPF(CPF);
-        assertEquals(result, expResult);
+        //String result = CPF.imprimeCPF(CPF);
+        //assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
