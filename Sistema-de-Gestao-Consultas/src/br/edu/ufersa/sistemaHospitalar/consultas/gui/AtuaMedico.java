@@ -46,10 +46,10 @@ public class AtuaMedico extends javax.swing.JFrame {
         CEPField = new javax.swing.JFormattedTextField();
         logradouroField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        chField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         espField = new javax.swing.JComboBox<>();
+        chField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Médico");
@@ -138,8 +138,6 @@ public class AtuaMedico extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setText("Carga Horária:");
 
-        chField.setEditable(false);
-
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
 
@@ -151,6 +149,18 @@ public class AtuaMedico extends javax.swing.JFrame {
         });
 
         espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
+
+        chField.setEditable(false);
+        try {
+            chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        chField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,8 +192,8 @@ public class AtuaMedico extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)
+                                        .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13)
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -233,9 +243,9 @@ public class AtuaMedico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -331,6 +341,10 @@ public class AtuaMedico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void chFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -370,7 +384,7 @@ public class AtuaMedico extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField CEPField;
     private javax.swing.JFormattedTextField CPFField;
     private javax.swing.JTextField bairroField;
-    private javax.swing.JTextField chField;
+    private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
     private javax.swing.JComboBox<String> espField;
     private javax.swing.JButton jButton1;
