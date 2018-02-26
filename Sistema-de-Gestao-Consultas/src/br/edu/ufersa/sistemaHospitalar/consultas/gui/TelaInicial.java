@@ -132,6 +132,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu2.setText("Gerencia Médico");
 
         jMenuItem4.setText("Cadastrar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem1.setText("Atualizar");
@@ -213,6 +218,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        AtuaMedico am = new AtuaMedico();
+        am.setVisible(true);
+        am.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -264,6 +272,13 @@ public class TelaInicial extends javax.swing.JFrame {
         dm.setVisible(true);
         dm.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        CadMedico cad = new CadMedico();
+        cad.setVisible(true);
+        cad.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
