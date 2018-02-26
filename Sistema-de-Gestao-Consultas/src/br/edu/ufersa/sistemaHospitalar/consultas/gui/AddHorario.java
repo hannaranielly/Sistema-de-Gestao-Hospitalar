@@ -22,6 +22,7 @@ public class AddHorario extends javax.swing.JFrame {
      * Creates new form AddHorario
      */
     private Medico m;
+
     public AddHorario() {
         initComponents();
     }
@@ -221,8 +222,12 @@ public class AddHorario extends javax.swing.JFrame {
         h.setFim(Time.valueOf(hFField.getText()));
         h.setMedico(m);
         HorarioAtendimentoCRUD ha = new HorarioAtendimentoCRUD();
-        ha.salvar_atualizar(h);
-        JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
+        if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
+            JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
+        } else {
+                ha.salvar_atualizar(h);
+                JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

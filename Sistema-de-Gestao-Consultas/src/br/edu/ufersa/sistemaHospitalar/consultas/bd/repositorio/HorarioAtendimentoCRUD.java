@@ -52,19 +52,17 @@ public class HorarioAtendimentoCRUD {
         }
     }
     
-    public List<HorarioAtendimento> consulta_por_id_medico(int id, Time inicio, Time fim){
+    public List<HorarioAtendimento> consulta_repetido_por_id_medico(Long id, int dia, Time inicio, Time fim){
         Session session = sf.openSession();
-        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and (max(?,h.inicio) <= min(?,h.fim))").addEntity(HorarioAtendimento.class);
-        query.setInteger(0, id);
-        query.setDate(1, inicio);
-        query.setDate(2, fim);
+        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and h.diaDaSemana=? and(? between h.inicio and h.fim or h.inicio between ? and ?)").addEntity(HorarioAtendimento.class);
+        query.setLong(0, id);
+        query.setInteger(1, dia);
+        query.setTime(2, inicio);
+        query.setTime(3, inicio);
+        query.setTime(4, fim);
         List<HorarioAtendimento> list =  (List<HorarioAtendimento>) query.list();
         session.close();
-        if(list.isEmpty()){
-            return null;
-        }else{
-            return list;
-        }
+        return list;
         
     }
 }
