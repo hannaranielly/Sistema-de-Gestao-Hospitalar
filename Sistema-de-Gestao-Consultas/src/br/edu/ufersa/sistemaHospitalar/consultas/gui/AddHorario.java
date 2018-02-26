@@ -49,6 +49,7 @@ public class AddHorario extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Adicionar Horário");
 
         hIField.setEditable(false);
         try {
