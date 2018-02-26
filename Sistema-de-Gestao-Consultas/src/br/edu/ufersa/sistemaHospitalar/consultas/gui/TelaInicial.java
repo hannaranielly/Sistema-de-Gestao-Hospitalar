@@ -238,6 +238,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
+        AddHorario ah = new AddHorario();
+        ah.setVisible(true);
+        ah.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
