@@ -143,6 +143,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem7.setText("Apagar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem7);
 
         jMenuItem8.setText("Buscar");
@@ -249,6 +254,13 @@ public class TelaInicial extends javax.swing.JFrame {
         bp.setVisible(true);
         bp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        DelMedico dm = new DelMedico();
+        dm.setVisible(true);
+        dm.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
