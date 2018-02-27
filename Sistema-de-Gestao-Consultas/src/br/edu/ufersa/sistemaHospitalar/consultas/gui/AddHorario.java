@@ -225,8 +225,13 @@ public class AddHorario extends javax.swing.JFrame {
         if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
             JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
         } else {
-            ha.salvar_atualizar(h);
-            JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
+            if(ha.consulta_repetido_por_id_medico(m.getId(), diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()){
+                ha.salvar_atualizar(h);
+                JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
+            }else{
+                JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");
+            }
+            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
