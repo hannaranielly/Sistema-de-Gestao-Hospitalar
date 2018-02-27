@@ -63,6 +63,14 @@ public class HorarioAtendimentoCRUD {
         List<HorarioAtendimento> list =  (List<HorarioAtendimento>) query.list();
         session.close();
         return list;
-        
+    }
+    
+    public List<HorarioAtendimento> consulta_por_id_medico(Long id){
+        Session session = sf.openSession();
+        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ?").addEntity(HorarioAtendimento.class);
+        query.setLong(0, id);
+        List<HorarioAtendimento> list =  (List<HorarioAtendimento>) query.list();
+        session.close();
+        return list;
     }
 }
