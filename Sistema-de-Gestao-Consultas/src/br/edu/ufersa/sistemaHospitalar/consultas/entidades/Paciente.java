@@ -19,7 +19,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "paciente")
 @PrimaryKeyJoinColumn(name = "id")
-public class Paciente extends Pessoa implements ICRUD {
+public class Paciente extends Pessoa {
 
     private String num_sus;
 
@@ -31,29 +31,7 @@ public class Paciente extends Pessoa implements ICRUD {
         
     }
 
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * Getters and Setters * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public String getNum_sus() {
         return num_sus;
     }

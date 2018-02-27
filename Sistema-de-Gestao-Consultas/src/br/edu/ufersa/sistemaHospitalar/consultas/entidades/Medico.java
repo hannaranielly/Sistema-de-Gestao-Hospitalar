@@ -24,7 +24,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "medico")
 @PrimaryKeyJoinColumn(name = "id")
-public class Medico extends Pessoa implements ICRUD {
+public class Medico extends Pessoa {
     @OneToMany(mappedBy = "medico", targetEntity = HorarioAtendimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HorarioAtendimento> listaHorario;
     @Column
@@ -41,25 +41,6 @@ public class Medico extends Pessoa implements ICRUD {
         this.setEspecialidade(especialidade);
     }
     
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public void setListaHorario (List<HorarioAtendimento> listaHorario){
         this.listaHorario = listaHorario;

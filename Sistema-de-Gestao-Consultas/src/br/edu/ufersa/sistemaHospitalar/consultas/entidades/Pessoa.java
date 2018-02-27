@@ -26,7 +26,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable, ICRUD {
+public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,29 +84,7 @@ public class Pessoa implements Serializable, ICRUD {
         this(null, nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
     }
 
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * Getters and Setters * * * * * * * * * * * * * * * *
-    //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     public Long getId() {
         return id;
     }
