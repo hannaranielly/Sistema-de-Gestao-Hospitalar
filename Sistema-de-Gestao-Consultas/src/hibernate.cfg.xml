@@ -47,10 +47,10 @@ Contributor(s):
     <property name="hibernate.connection.username">sql10222360</property>
     <property name="hibernate.connection.password">Nl1qtKgP2J</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Administrador"/>
-    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Paciente"/>
-    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Pessoa"/>
-    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.Medico"/>
-    <mapping class="br.edu.ufersa.sistemaHospitalar.consultas.entidades.HorarioAtendimento"/>
+    <mapping class="br.edu.ufersa.controlConsult.model.Administrador"/>
+    <mapping class="br.edu.ufersa.controlConsult.model.HorarioAtendimento"/>
+    <mapping class="br.edu.ufersa.controlConsult.model.Medico"/>
+    <mapping class="br.edu.ufersa.controlConsult.model.Paciente"/>
+    <mapping class="br.edu.ufersa.controlConsult.model.Pessoa"/>
   </session-factory>
 </hibernate-configuration>
