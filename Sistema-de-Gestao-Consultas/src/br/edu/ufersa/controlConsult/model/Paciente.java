@@ -5,12 +5,16 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -21,16 +25,21 @@ import org.hibernate.annotations.OnDeleteAction;
 @PrimaryKeyJoinColumn(name = "id")
 public class Paciente extends Pessoa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Pessoa pessoa;
+
     private String num_sus;
 
     public Paciente(Pessoa pessoa, String num_sus) {
         super(pessoa);
         this.setNum_sus(num_sus);
     }
-    public Paciente(){
-        
-    }
-
 
     public String getNum_sus() {
         return num_sus;
@@ -38,6 +47,47 @@ public class Paciente extends Pessoa {
 
     public void setNum_sus(String num_sus) {
         this.num_sus = num_sus;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Paciente)) {
+            return false;
+        }
+        Paciente other = (Paciente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ufersa.controlConsult.model.Paciente[ id=" + id + " ]";
     }
 
 }
