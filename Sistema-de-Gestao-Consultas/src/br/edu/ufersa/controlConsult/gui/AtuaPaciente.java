@@ -8,6 +8,8 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import java.util.Date;
 
 /**
  *
@@ -19,10 +21,11 @@ public class AtuaPaciente extends javax.swing.JFrame {
      * Creates new form AtuaPaciente
      */
     public Paciente p;
+
     public AtuaPaciente() {
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -259,9 +262,9 @@ public class AtuaPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         PacienteCRUD pc = new PacienteCRUD();
         p = pc.consulta_por_CPF(CPFField.getText());
-        if(p==null){
+        if (p == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
-        }else{
+        } else {
             CPFField.setEditable(false);
             telefoneField.setText(p.getTelefone());
             telefoneField.setEditable(true);
@@ -296,27 +299,34 @@ public class AtuaPaciente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(p==null){
-             JOptionPane.showMessageDialog(this, "Informe o CPF do paciente que deseja atualizar as informações cadastrais");
-        }else{
+        if (p == null) {
+            JOptionPane.showMessageDialog(this, "Informe o CPF do paciente que deseja atualizar as informações cadastrais");
+        } else {
             PacienteCRUD pc = new PacienteCRUD();
-            Paciente pn = new Paciente();
-            pn.setBairro(bairroField.getText());
-            pn.setCep(CEPField.getText());
-            pn.setCidade(cidadeField.getText());
-            pn.setCpf(p.getCpf());
-            pn.setData_nascimento(p.getData_nascimento());
-            pn.setId(p.getId());
-            pn.setLogradouro(logradouroField.getText());
-            pn.setNome(p.getNome());
-            pn.setNum_sus(SUSField.getText());
-            pn.setRg(p.getRg());
-            pn.setTelefone(telefoneField.getText());
+            Integer id = p.getId();
+            String nome = p.getNome();
+            String cpf = p.getCpf();
+            String rg = p.getRg();
+            String email = ""; //TODO
+            char sexo = 'm'; //TODO
+            Date dataDeNascimento = p.getDataDeNascimento();
+            String telefone = telefoneField.getText();
+            String logradouro = logradouroField.getText();
+            int numCasa = -1; //TODO 
+            String bairro = bairroField.getText();
+            String cidade = cidadeField.getText();
+            String estado = ""; //TODO
+            String cep = CEPField.getText();
+
+            Pessoa pessoa = new Pessoa(id, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
+            String num_sus = SUSField.getText();
+
+            Paciente pn = new Paciente(pessoa, num_sus);
             pc.salvar_atualizar(pn);
             JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
             p = pn;
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

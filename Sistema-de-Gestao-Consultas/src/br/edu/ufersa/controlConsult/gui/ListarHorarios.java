@@ -140,7 +140,7 @@ public class ListarHorarios extends javax.swing.JFrame {
                 DefaultListModel model = new DefaultListModel();
                 int cont = 0;
                 for (HorarioAtendimento ha : list) {
-                    model.add(cont, String.valueOf(diaSemana(ha.getDiaDaSemana()) + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
+                    model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
                     cont++;
                 }
                 listH.setModel(model);
@@ -152,7 +152,7 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (list==null) {
+        if (list == null) {
             JOptionPane.showMessageDialog(null, "Informe primeiro o CPF do médico");
         } else {
             HorarioAtendimentoCRUD hc = new HorarioAtendimentoCRUD();
@@ -167,7 +167,7 @@ public class ListarHorarios extends javax.swing.JFrame {
                 DefaultListModel model = new DefaultListModel();
                 int cont = 0;
                 for (HorarioAtendimento ha : list) {
-                    model.add(cont, String.valueOf(diaSemana(ha.getDiaDaSemana()) + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
+                    model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
                     cont++;
                 }
                 listH.setModel(model);
@@ -177,31 +177,32 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    public String diaSemana(int n){
+    public String diaSemana(int n) {
         String retorno = null;
-        if(n==0){
+        if (n == 0) {
             retorno = "Sábado";
         }
-        if(n==1){
+        if (n == 1) {
             retorno = "Segunda-feira";
         }
-        if(n==2){
+        if (n == 2) {
             retorno = "Terça-feira";
         }
-        if(n==3){
+        if (n == 3) {
             retorno = "Quarta-feira";
         }
-        if(n==4){
+        if (n == 4) {
             retorno = "Quinta-feira";
         }
-        if(n==5){
+        if (n == 5) {
             retorno = "Sexta-feira";
         }
-        if(n==6){
+        if (n == 6) {
             retorno = "Domingo";
         }
         return retorno;
     }
+
     /**
      * @param args the command line arguments
      */

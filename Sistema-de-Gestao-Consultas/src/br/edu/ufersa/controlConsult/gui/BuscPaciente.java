@@ -321,7 +321,7 @@ public class BuscPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
         }else{
             nomeField.setText(p.getNome());
-            nascimentoField.setDate(p.getData_nascimento());
+            nascimentoField.setDate(p.getDataDeNascimento());
             RGField.setText(p.getRg());
             telefoneField.setText(p.getTelefone());
             bairroField.setText(p.getBairro());

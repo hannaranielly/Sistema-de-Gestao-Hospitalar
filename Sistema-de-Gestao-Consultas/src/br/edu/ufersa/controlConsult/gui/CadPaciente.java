@@ -10,6 +10,7 @@ import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
+import java.util.Date;
 
 /**
  *
@@ -304,25 +305,37 @@ public class CadPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate()!=null){
+        if (!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate() != null) {
             if (CPF.isCPF(CPFField.getText().replaceAll("[.-]", ""))) {
-                Pessoa p = new Pessoa(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
-                        bairroField.getText(), logradouroField.getText(), CEPField.getText());
+                String nome = nomeField.getText();
+                String cpf = CPFField.getText();
+                String rg = RGField.getText();
+                String email = ""; //TODO
+                char sexo = 'm'; //TODO
+                Date dataDeNascimento = nascimentoField.getDate();
+                String telefone = telefoneField.getText();
+                String logradouro = logradouroField.getText();
+                int numCasa = -1; //TODO 
+                String bairro = bairroField.getText();
+                String cidade = cidadeField.getText();
+                String estado = ""; //TODO
+                String cep = CEPField.getText();
+                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
                 Paciente pa = new Paciente(p, SUSField.getText());
                 PacienteCRUD pc = new PacienteCRUD();
-                if(pc.consulta_por_CPF(CPFField.getText())==null){
+                if (pc.consulta_por_CPF(CPFField.getText()) == null) {
                     pc.salvar_atualizar(pa);
                     JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "CPF inválido");
             }
-        }else{
-             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n" +
-                "RG e data de nascimento");
+        } else {
+            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
+                    + "RG e data de nascimento");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
