@@ -5,7 +5,10 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.hibernateDAO.HibernateUtil;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +19,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -73,6 +79,50 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
+    public boolean validaLogin() {
+
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        Query query = session.createSQLQuery("select * from administrador where user = ? and senha = ?").addEntity(Usuario.class);
+        query.setString(0, this.username);
+        query.setString(1, this.password);
+        List<Usuario> list = (List<Usuario>) query.list();
+        session.close();
+        if (!list.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void registraEntrada(String medico, Date horario) {
+
+    }
+
+    public void registraSaida(String medico, Date horario) {
+
+    }
+
+    public void agendaConsulta(String paciente, Date horarioAtendimento, Date data) {
+
+    }
+
+    public void iniciaAtendimento(Date horarioAtendimento) {
+
+    }
+
+    public void proximoAtendimento(Date horarioAtendimento) {
+
+    }
+
+    public void finalizaAtendimento(Date horarioAtendimento) {
+
+    }
+
+    public void verificaAtendimento(String medico) {
+
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,5 +147,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.jpaDAO.Usuario[ id=" + id + " ]";
     }
-    
+
 }
