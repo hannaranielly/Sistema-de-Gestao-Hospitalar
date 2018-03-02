@@ -105,4 +105,8 @@ public class Especialidade implements Serializable {
         return "br.edu.ufersa.controlConsult.model.jpaDAO.Especialidade[ id=" + id + " ]";
     }
 
+    public static List<Especialidade> findByName(String name) {
+        new UnsupportedOperationException("Unsupported operation."); //TODO To change body of generated methods, choose Tools | Templates.
+        return null;
+    }
 }

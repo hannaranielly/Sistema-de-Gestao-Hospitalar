@@ -5,9 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
-import br.edu.ufersa.controlConsult.model.jpaDAO.EspecidalideDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -334,7 +334,7 @@ public class AtuaMedico extends javax.swing.JFrame {
             m.setRg(m.getRg());
             m.setTelefone(telefoneField.getText());
             m.setCargaHoraria(Integer.parseInt(chField.getText()));
-            m.setEspecialidade(EspecidalideDAO.findByName((String) jComboBox_espField.getSelectedItem()).get(0)); //TODO: Especialidade é uma entidade, não é mais somente uma String.
+            m.setEspecialidade(Especialidade.findByName((String) jComboBox_espField.getSelectedItem()).get(0)); //TODO: Especialidade é uma entidade, não é mais somente uma String.
             JOptionPane.showMessageDialog(this, "Médico Atualizado com Sucesso");
             mc.salvar_atualizar(m);
         }

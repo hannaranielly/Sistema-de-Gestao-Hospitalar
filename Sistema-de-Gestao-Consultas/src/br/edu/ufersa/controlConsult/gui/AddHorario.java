@@ -10,9 +10,7 @@ import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.HorarioAtendimentoCRUD;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
-import br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemanaDAO;
 import java.sql.Time;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -222,7 +220,7 @@ public class AddHorario extends javax.swing.JFrame {
         Time fim = Time.valueOf(hFField.getText());
         int estado = 0;
         String diaSemanaString = diaSemana(jComboBox_diaSemana.getSelectedIndex());
-        DiaSemana diaSemana = DiaSemanaDAO.findByName(diaSemanaString).get(0);
+        DiaSemana diaSemana = DiaSemana.findByName(diaSemanaString).get(0);
         HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
         m.addListaHorario(h);
         HorarioAtendimentoCRUD ha = new HorarioAtendimentoCRUD();

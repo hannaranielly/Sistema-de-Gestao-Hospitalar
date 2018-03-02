@@ -5,7 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemanaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -103,6 +102,10 @@ public class DiaSemana implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemana[ id=" + id + " ]";
+    }
+
+    public static List<DiaSemana> findByName(String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO To change body of generated methods, choose Tools | Templates.
     }
 
 }
