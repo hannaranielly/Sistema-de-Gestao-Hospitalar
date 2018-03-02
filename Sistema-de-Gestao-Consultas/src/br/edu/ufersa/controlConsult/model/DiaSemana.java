@@ -5,7 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemanaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -46,11 +46,13 @@ public class DiaSemana implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "diaSemana")
     private List<HorarioAtendimento> horarioAtendimentoList;
 
-    public DiaSemana() {
+    public DiaSemana(Integer id, String nome) {
+        this.setId(id);
+        this.setNome(nome);
     }
 
-    public DiaSemana(Integer id) {
-        this.id = id;
+    public DiaSemana(String nome) {
+        this(-1, nome);
     }
 
     public Integer getId() {
@@ -102,5 +104,5 @@ public class DiaSemana implements Serializable {
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemana[ id=" + id + " ]";
     }
-    
+
 }

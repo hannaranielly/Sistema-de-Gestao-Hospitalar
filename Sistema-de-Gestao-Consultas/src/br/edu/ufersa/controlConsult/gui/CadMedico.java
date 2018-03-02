@@ -5,10 +5,12 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,7 +57,7 @@ public class CadMedico extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        espField = new javax.swing.JComboBox<>();
+        jComboBox_espField = new javax.swing.JComboBox<>();
         chField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -158,7 +160,7 @@ public class CadMedico extends javax.swing.JFrame {
             }
         });
 
-        espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
+        jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
 
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
@@ -228,7 +230,7 @@ public class CadMedico extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(66, 66, 66))))
@@ -268,7 +270,7 @@ public class CadMedico extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel11)
                     .addComponent(jButton1)
-                    .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -316,27 +318,41 @@ public class CadMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate()!=null){
+        if (!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate() != null) {
             if (CPF.isCPF(CPFField.getText().replaceAll("[.-]", ""))) {
-                Pessoa p = new Pessoa(nomeField.getText(), CPFField.getText(), RGField.getText(), nascimentoField.getDate(), telefoneField.getText(), cidadeField.getText(),
-                        bairroField.getText(), logradouroField.getText(), CEPField.getText());
-                
-                Medico m = new Medico(p, null,Integer.parseInt(chField.getText()), espField.getSelectedIndex());
+                String nome = nomeField.getText();
+                String cpf = CPFField.getText();
+                String rg = RGField.getText();
+                String email = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                char sexo = 'm'; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                Date dataDeNascimento = nascimentoField.getDate();
+                String telefone = telefoneField.getText();
+                String logradouro = logradouroField.getText();
+                int numCasa = -1; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                String bairro = bairroField.getText();
+                String cidade = cidadeField.getText();
+                String estado = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                String cep = CEPField.getText();
+                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
+                int cargaHoraria = Integer.parseInt(chField.getText());
+
+                String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+                Medico m = new Medico(p, null, cargaHoraria, especialidade);
                 MedicoCRUD mc = new MedicoCRUD();
-                if(mc.consulta_por_CPF(CPFField.getText())==null){
+                if (mc.consulta_por_CPF(CPFField.getText()) == null) {
                     mc.salvar_atualizar(m);
                     JOptionPane.showMessageDialog(this, "Médico armazenado com sucesso");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "O Médico já encontra-se cadastrado");
                 }
 
             } else {
                 JOptionPane.showMessageDialog(this, "CPF inválido");
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n" +
-                "RG e data de nascimento");
+        } else {
+            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
+                    + "RG e data de nascimento");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -386,8 +402,8 @@ public class CadMedico extends javax.swing.JFrame {
     private javax.swing.JTextField bairroField;
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
-    private javax.swing.JComboBox<String> espField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox_espField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

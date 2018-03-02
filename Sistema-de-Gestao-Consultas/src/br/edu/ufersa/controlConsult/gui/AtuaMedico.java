@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.jpaDAO.EspecidalideDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,7 @@ public class AtuaMedico extends javax.swing.JFrame {
         initComponents();
     }
     private Medico m;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +50,7 @@ public class AtuaMedico extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        espField = new javax.swing.JComboBox<>();
+        jComboBox_espField = new javax.swing.JComboBox<>();
         chField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -148,7 +150,7 @@ public class AtuaMedico extends javax.swing.JFrame {
             }
         });
 
-        espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
+        jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
 
         chField.setEditable(false);
         try {
@@ -196,7 +198,7 @@ public class AtuaMedico extends javax.swing.JFrame {
                                         .addGap(13, 13, 13)
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -244,7 +246,7 @@ public class AtuaMedico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel11)
-                    .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -271,12 +273,12 @@ public class AtuaMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         MedicoCRUD mc = new MedicoCRUD();
         m = mc.consulta_por_CPF(CPFField.getText());
-        if(m==null){
+        if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
-        }else{
+        } else {
             CPFField.setEditable(false);
             telefoneField.setText(m.getTelefone());
             telefoneField.setEditable(true);
@@ -290,7 +292,7 @@ public class AtuaMedico extends javax.swing.JFrame {
             logradouroField.setEditable(true);
             chField.setText(String.valueOf(m.getCargaHoraria()));
             chField.setEditable(true);
-            espField.setSelectedIndex(m.getEspecialidade());
+            jComboBox_espField.setSelectedItem(m.getEspecialidade()); //TODO
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -316,27 +318,25 @@ public class AtuaMedico extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        if(m==null){
+
+        if (m == null) {
             JOptionPane.showMessageDialog(this, "Informe o CPF do médico que deseja atualizar as informações cadastrais");
-        }else{
+        } else {
             MedicoCRUD mc = new MedicoCRUD();
-            Medico mn = new Medico();
-            mn.setBairro(bairroField.getText());
-            mn.setCep(CEPField.getText());
-            mn.setCidade(cidadeField.getText());
-            mn.setCpf(m.getCpf());
-            mn.setData_nascimento(m.getData_nascimento());
-            mn.setId(m.getId());
-            mn.setLogradouro(logradouroField.getText());
-            mn.setNome(m.getNome());
-            mn.setRg(m.getRg());
-            mn.setTelefone(telefoneField.getText());
-            mn.setCargaHoraria(Integer.parseInt(chField.getText()));
-            mn.setEspecialidade(espField.getSelectedIndex());
-            mc.salvar_atualizar(mn);
+            m.setBairro(bairroField.getText());
+            m.setCep(CEPField.getText());
+            m.setCidade(cidadeField.getText());
+            m.setCpf(m.getCpf());
+            m.setDataDeNascimento(m.getDataDeNascimento());
+            m.setId(m.getId());
+            m.setLogradouro(logradouroField.getText());
+            m.setNome(m.getNome());
+            m.setRg(m.getRg());
+            m.setTelefone(telefoneField.getText());
+            m.setCargaHoraria(Integer.parseInt(chField.getText()));
+            m.setEspecialidade(EspecidalideDAO.findByName((String) jComboBox_espField.getSelectedItem()).get(0)); //TODO: Especialidade é uma entidade, não é mais somente uma String.
             JOptionPane.showMessageDialog(this, "Médico Atualizado com Sucesso");
-            m = mn;
+            mc.salvar_atualizar(m);
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -386,9 +386,9 @@ public class AtuaMedico extends javax.swing.JFrame {
     private javax.swing.JTextField bairroField;
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
-    private javax.swing.JComboBox<String> espField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox_espField;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

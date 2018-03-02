@@ -58,13 +58,18 @@ public class HorarioAtendimento implements Serializable {
     private Date ultimaRealizacao; // TODO
 
     public HorarioAtendimento(int id, Time inicio, Time fim,
-            int estado, Date ultimaRealizacao, DiaSemana diaSemana) {
+            int estado, DiaSemana diaSemana) {
         this.setId(id);
         this.setInicio(inicio);
         this.setFim(fim);
         this.setEstado(estado);
         this.setUltimaRealizacao(ultimaRealizacao);
         this.setDiaSemana(diaSemana);
+    }
+
+    public HorarioAtendimento(Time inicio, Time fim,
+            int estado, DiaSemana diaSemana) {
+        this(-1, inicio, fim, estado, diaSemana);
     }
 
     public void setInicio(Time inicio) {

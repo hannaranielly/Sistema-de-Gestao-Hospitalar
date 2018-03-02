@@ -5,7 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,8 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -126,6 +124,13 @@ public class Medico extends Pessoa {
     @Override
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.Medico[ id=" + id + " ]";
+    }
+
+    public void addListaHorario(HorarioAtendimento h) {
+        if (this.listaHorario == null) {
+            this.listaHorario = new ArrayList<HorarioAtendimento>();
+        }
+        this.listaHorario.add(h);
     }
 
 }

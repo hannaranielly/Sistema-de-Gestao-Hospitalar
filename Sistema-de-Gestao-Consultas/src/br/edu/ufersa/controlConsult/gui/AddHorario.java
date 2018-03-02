@@ -5,11 +5,14 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.DiaSemana;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.HorarioAtendimentoCRUD;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.jpaDAO.DiaSemanaDAO;
 import java.sql.Time;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,7 +45,7 @@ public class AddHorario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        diaSemana = new javax.swing.JComboBox<>();
+        jComboBox_diaSemana = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         CPFField = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -82,7 +85,7 @@ public class AddHorario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setText("Dia da Semana:");
 
-        diaSemana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sábado", "Segunda Feira", "Terça Feira", "Quarta Feira", "Quinta Feira", "Sexta Ferira", "Domingo" }));
+        jComboBox_diaSemana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sábado", "Segunda Feira", "Terça Feira", "Quarta Feira", "Quinta Feira", "Sexta Ferira", "Domingo" }));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setText("Horário de Fim:");
@@ -143,7 +146,7 @@ public class AddHorario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(diaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox_diaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +174,7 @@ public class AddHorario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(diaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_diaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(hIField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,23 +218,24 @@ public class AddHorario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        HorarioAtendimento h = new HorarioAtendimento();
-        h.setDiaDaSemana(diaSemana.getSelectedIndex());
-        h.setEstado(0);
-        h.setInicio(Time.valueOf(hIField.getText()));
-        h.setFim(Time.valueOf(hFField.getText()));
-        h.setMedico(m);
+        Time inicio = Time.valueOf(hIField.getText());
+        Time fim = Time.valueOf(hFField.getText());
+        int estado = 0;
+        String diaSemanaString = diaSemana(jComboBox_diaSemana.getSelectedIndex());
+        DiaSemana diaSemana = DiaSemanaDAO.findByName(diaSemanaString).get(0);
+        HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
+        m.addListaHorario(h);
         HorarioAtendimentoCRUD ha = new HorarioAtendimentoCRUD();
         if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
             JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
         } else {
-            if(ha.consulta_repetido_por_id_medico(m.getId(), diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()){
+            if (ha.consulta_repetido_por_id_medico(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
                 ha.salvar_atualizar(h);
                 JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");
             }
-            
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -270,13 +274,39 @@ public class AddHorario extends javax.swing.JFrame {
         });
     }
 
+    public String diaSemana(int n) {
+        String retorno = null;
+        if (n == 0) {
+            retorno = "Sábado";
+        }
+        if (n == 1) {
+            retorno = "Segunda-feira";
+        }
+        if (n == 2) {
+            retorno = "Terça-feira";
+        }
+        if (n == 3) {
+            retorno = "Quarta-feira";
+        }
+        if (n == 4) {
+            retorno = "Quinta-feira";
+        }
+        if (n == 5) {
+            retorno = "Sexta-feira";
+        }
+        if (n == 6) {
+            retorno = "Domingo";
+        }
+        return retorno;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CPFField;
-    private javax.swing.JComboBox<String> diaSemana;
     private javax.swing.JFormattedTextField hFField;
     private javax.swing.JFormattedTextField hIField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox_diaSemana;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

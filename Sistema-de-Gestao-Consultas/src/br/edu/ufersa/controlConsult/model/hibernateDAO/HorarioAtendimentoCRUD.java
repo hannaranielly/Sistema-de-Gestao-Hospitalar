@@ -21,12 +21,14 @@ import org.hibernate.Transaction;
  * @author leone
  */
 public class HorarioAtendimentoCRUD {
-         private SessionFactory sf;
-    public HorarioAtendimentoCRUD(){
+
+    private SessionFactory sf;
+
+    public HorarioAtendimentoCRUD() {
         sf = HibernateUtil.getSessionFactory();
     }
-    
-    public void salvar_atualizar(HorarioAtendimento horario){
+
+    public void salvar_atualizar(HorarioAtendimento horario) {
         Session session = sf.openSession();
         try {
             Transaction tx = session.beginTransaction();
@@ -51,8 +53,8 @@ public class HorarioAtendimentoCRUD {
             ex.printStackTrace();
         }
     }
-    
-    public List<HorarioAtendimento> consulta_repetido_por_id_medico(Long id, int dia, Time inicio, Time fim){
+
+    public List<HorarioAtendimento> consulta_repetido_por_id_medico(Integer id, int dia, Time inicio, Time fim) {
         Session session = sf.openSession();
         Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and h.diaDaSemana=? and(? between h.inicio and h.fim or h.inicio between ? and ?)").addEntity(HorarioAtendimento.class);
         query.setLong(0, id);
@@ -60,16 +62,16 @@ public class HorarioAtendimentoCRUD {
         query.setTime(2, inicio);
         query.setTime(3, inicio);
         query.setTime(4, fim);
-        List<HorarioAtendimento> list =  (List<HorarioAtendimento>) query.list();
+        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
         session.close();
         return list;
     }
-    
-    public List<HorarioAtendimento> consulta_por_id_medico(Long id){
+
+    public List<HorarioAtendimento> consulta_por_id_medico(Integer id) {
         Session session = sf.openSession();
         Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ?").addEntity(HorarioAtendimento.class);
-        query.setLong(0, id);
-        List<HorarioAtendimento> list =  (List<HorarioAtendimento>) query.list();
+        query.setInteger(0, id);
+        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
         session.close();
         return list;
     }

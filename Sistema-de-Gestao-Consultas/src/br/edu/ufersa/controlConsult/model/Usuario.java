@@ -55,6 +55,11 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
+    public Usuario(String username, String password) {
+        this.setUsername(username);
+        this.setPassword(password);
+    }
+
     public Integer getId() {
         return id;
     }

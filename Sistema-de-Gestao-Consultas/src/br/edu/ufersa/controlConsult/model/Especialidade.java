@@ -45,11 +45,14 @@ public class Especialidade implements Serializable {
     @OneToMany(mappedBy = "especialidade")
     private List<Medico> medicoList;
 
-    public Especialidade() {
+    public Especialidade(Integer id, String nome, List<Medico> medicoList) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setMedicoList(medicoList);
     }
 
-    public Especialidade(Integer id) {
-        this.id = id;
+    public Especialidade(String nome, List<Medico> medicoList) {
+        this(-1, nome, medicoList);
     }
 
     public Integer getId() {
@@ -101,5 +104,5 @@ public class Especialidade implements Serializable {
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.jpaDAO.Especialidade[ id=" + id + " ]";
     }
-    
+
 }

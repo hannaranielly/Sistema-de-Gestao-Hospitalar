@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import javax.swing.JOptionPane;
@@ -50,7 +51,7 @@ public class BuscMedico extends javax.swing.JFrame {
         CEPField = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        espField = new javax.swing.JComboBox<>();
+        jComboBox_espField = new javax.swing.JComboBox<>();
         chField = new javax.swing.JFormattedTextField();
         CPFField = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -145,8 +146,8 @@ public class BuscMedico extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
 
-        espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
-        espField.setEnabled(false);
+        jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
+        jComboBox_espField.setEnabled(false);
 
         chField.setEditable(false);
         try {
@@ -214,7 +215,7 @@ public class BuscMedico extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(125, 125, 125))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,7 +250,7 @@ public class BuscMedico extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel11)
-                            .addComponent(espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
@@ -344,11 +345,11 @@ public class BuscMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
         MedicoCRUD mc = new MedicoCRUD();
         Medico p = mc.consulta_por_CPF(CPFField.getText());
-        if(p==null){
+        if (p == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
-        }else{
+        } else {
             nomeField.setText(p.getNome());
-            nascimentoField.setDate(p.getData_nascimento());
+            nascimentoField.setDate(p.getDataDeNascimento());
             RGField.setText(p.getRg());
             telefoneField.setText(p.getTelefone());
             bairroField.setText(p.getBairro());
@@ -356,7 +357,8 @@ public class BuscMedico extends javax.swing.JFrame {
             CEPField.setText(p.getCep());
             logradouroField.setText(p.getLogradouro());
             chField.setText(String.valueOf(p.getCargaHoraria()));
-            espField.setSelectedIndex(p.getEspecialidade());
+            String especialidadeNome = p.getEspecialidade().getNome(); //TODO
+            jComboBox_espField.getModel().setSelectedItem(especialidadeNome); //TODO
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -402,8 +404,8 @@ public class BuscMedico extends javax.swing.JFrame {
     private javax.swing.JTextField bairroField;
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
-    private javax.swing.JComboBox<String> espField;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox_espField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
