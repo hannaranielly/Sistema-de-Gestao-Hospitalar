@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -16,9 +17,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class PacienteNGTest {
+public class EspecialidadeNGTest {
     
-    public PacienteNGTest() {
+    public EspecialidadeNGTest() {
     }
 
     @BeforeClass
@@ -38,39 +39,12 @@ public class PacienteNGTest {
     }
 
     /**
-     * Test of getNum_sus method, of class Paciente.
-     */
-    @Test
-    public void testGetNum_sus() {
-        System.out.println("getNum_sus");
-        Paciente instance = null;
-        String expResult = "";
-        String result = instance.getNum_sus();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setNum_sus method, of class Paciente.
-     */
-    @Test
-    public void testSetNum_sus() {
-        System.out.println("setNum_sus");
-        String num_sus = "";
-        Paciente instance = null;
-        instance.setNum_sus(num_sus);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getId method, of class Paciente.
+     * Test of getId method, of class Especialidade.
      */
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Paciente instance = null;
+        Especialidade instance = null;
         Integer expResult = null;
         Integer result = instance.getId();
         assertEquals(result, expResult);
@@ -79,52 +53,79 @@ public class PacienteNGTest {
     }
 
     /**
-     * Test of setId method, of class Paciente.
+     * Test of setId method, of class Especialidade.
      */
     @Test
     public void testSetId() {
         System.out.println("setId");
         Integer id = null;
-        Paciente instance = null;
+        Especialidade instance = null;
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getPessoa method, of class Paciente.
+     * Test of getNome method, of class Especialidade.
      */
     @Test
-    public void testGetPessoa() {
-        System.out.println("getPessoa");
-        Paciente instance = null;
-        Pessoa expResult = null;
-        Pessoa result = instance.getPessoa();
+    public void testGetNome() {
+        System.out.println("getNome");
+        Especialidade instance = null;
+        String expResult = "";
+        String result = instance.getNome();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of setPessoa method, of class Paciente.
+     * Test of setNome method, of class Especialidade.
      */
     @Test
-    public void testSetPessoa() {
-        System.out.println("setPessoa");
-        Pessoa pessoa = null;
-        Paciente instance = null;
-        instance.setPessoa(pessoa);
+    public void testSetNome() {
+        System.out.println("setNome");
+        String nome = "";
+        Especialidade instance = null;
+        instance.setNome(nome);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of hashCode method, of class Paciente.
+     * Test of getMedicoList method, of class Especialidade.
+     */
+    @Test
+    public void testGetMedicoList() {
+        System.out.println("getMedicoList");
+        Especialidade instance = null;
+        List expResult = null;
+        List result = instance.getMedicoList();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setMedicoList method, of class Especialidade.
+     */
+    @Test
+    public void testSetMedicoList() {
+        System.out.println("setMedicoList");
+        List<Medico> medicoList = null;
+        Especialidade instance = null;
+        instance.setMedicoList(medicoList);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hashCode method, of class Especialidade.
      */
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Paciente instance = null;
+        Especialidade instance = null;
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(result, expResult);
@@ -133,13 +134,13 @@ public class PacienteNGTest {
     }
 
     /**
-     * Test of equals method, of class Paciente.
+     * Test of equals method, of class Especialidade.
      */
     @Test
     public void testEquals() {
         System.out.println("equals");
         Object object = null;
-        Paciente instance = null;
+        Especialidade instance = null;
         boolean expResult = false;
         boolean result = instance.equals(object);
         assertEquals(result, expResult);
@@ -148,12 +149,12 @@ public class PacienteNGTest {
     }
 
     /**
-     * Test of toString method, of class Paciente.
+     * Test of toString method, of class Especialidade.
      */
     @Test
     public void testToString() {
         System.out.println("toString");
-        Paciente instance = null;
+        Especialidade instance = null;
         String expResult = "";
         String result = instance.toString();
         assertEquals(result, expResult);

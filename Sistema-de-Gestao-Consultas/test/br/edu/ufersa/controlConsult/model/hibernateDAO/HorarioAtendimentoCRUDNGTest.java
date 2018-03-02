@@ -72,7 +72,7 @@ public class HorarioAtendimentoCRUDNGTest {
     @Test
     public void testConsulta_repetido_por_id_medico() {
         System.out.println("consulta_repetido_por_id_medico");
-        Long id = null;
+        Integer id = null;
         int dia = 0;
         Time inicio = null;
         Time fim = null;
@@ -90,7 +90,7 @@ public class HorarioAtendimentoCRUDNGTest {
     @Test
     public void testConsulta_por_id_medico() {
         System.out.println("consulta_por_id_medico");
-        Long id = null;
+        Integer id = null;
         HorarioAtendimentoCRUD instance = new HorarioAtendimentoCRUD();
         List expResult = null;
         List result = instance.consulta_por_id_medico(id);
