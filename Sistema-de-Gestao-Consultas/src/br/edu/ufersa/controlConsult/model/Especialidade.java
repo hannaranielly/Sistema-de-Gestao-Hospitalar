@@ -45,14 +45,13 @@ public class Especialidade implements Serializable {
     @OneToMany(mappedBy = "especialidade")
     private List<Medico> medicoList;
 
-    public Especialidade(Integer id, String nome, List<Medico> medicoList) {
-        this.setId(id);
+    public Especialidade(String nome, List<Medico> medicoList) {
         this.setNome(nome);
         this.setMedicoList(medicoList);
     }
 
-    public Especialidade(String nome, List<Medico> medicoList) {
-        this(-1, nome, medicoList);
+    public Especialidade(String nome) {
+        this(nome, null);
     }
 
     public Integer getId() {

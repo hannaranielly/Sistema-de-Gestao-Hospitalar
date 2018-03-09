@@ -89,7 +89,7 @@ public class Pessoa implements Serializable {
      */
     public Pessoa(Integer id, String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            int numCasa, String bairro, String cidade, String estado, String cep) {
+            Integer numCasa, String bairro, String cidade, String estado, String cep) {
         this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
@@ -99,6 +99,7 @@ public class Pessoa implements Serializable {
         this.setDataDeNascimento(dataDeNascimento);
         this.setTelefone(telefone);
         this.setLogradouro(logradouro);
+        this.setNumCasa(numCasa);
         this.setBairro(bairro);
         this.setCidade(cidade);
         this.setEstado(estado);
@@ -221,11 +222,11 @@ public class Pessoa implements Serializable {
         this.email = email;
     }
 
-    public Integer getNumCasa() {
+    public int getNumCasa() {
         return numCasa;
     }
 
-    public void setNumCasa(Integer numCasa) {
+    public void setNumCasa(int numCasa) {
         this.numCasa = numCasa;
     }
 

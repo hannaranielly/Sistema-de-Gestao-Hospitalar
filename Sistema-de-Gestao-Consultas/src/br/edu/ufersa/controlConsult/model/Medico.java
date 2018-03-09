@@ -35,15 +35,14 @@ public class Medico extends Pessoa {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Especialidade especialidade;
 
-    public Medico(Pessoa pessoa, List<HorarioAtendimento> listaHorario,
-            Integer cargaHoraria, Especialidade especialidade) {
     @ManyToMany
     @JoinTable(name = "medico_horario", joinColumns = {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
     private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
+
+    public Medico(Pessoa pessoa, Integer cargaHoraria, Especialidade especialidade) {
         super(pessoa);
-        this.setListaHorario(listaHorario);
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
     }
