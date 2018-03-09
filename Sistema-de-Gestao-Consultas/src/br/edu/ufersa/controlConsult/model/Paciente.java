@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
 import javax.persistence.DiscriminatorColumn;
@@ -17,7 +18,7 @@ import javax.persistence.EntityManagerFactory;
  */
 @Entity
 @DiscriminatorColumn(name = "Paciente")
-public class Paciente extends Pessoa {
+public class Paciente extends Pessoa implements ICRUD {
 
     private String num_sus;
 
@@ -32,8 +33,6 @@ public class Paciente extends Pessoa {
 
     public void setNum_sus(String num_sus) {
         this.num_sus = num_sus;
-    }
-
     }
 
     @Override
@@ -102,6 +101,28 @@ public class Paciente extends Pessoa {
 //        } catch (HibernateException ex) {
 //            ex.printStackTrace();
 //        }
+    }
+
+    @Override
+    public void create() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PacienteJpaController instance = new PacienteJpaController(emf);
+        instance.create(this);
+    }
+
+    @Override
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
