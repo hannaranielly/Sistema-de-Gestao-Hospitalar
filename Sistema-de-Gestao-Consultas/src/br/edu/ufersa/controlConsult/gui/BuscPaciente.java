@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
 
 /**
@@ -315,11 +314,10 @@ public class BuscPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PacienteCRUD pc = new PacienteCRUD();
-        Paciente p = pc.consulta_por_CPF(CPFField.getText());
-        if(p==null){
+        Paciente p = Paciente.consulta_por_CPF(CPFField.getText());
+        if (p == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
-        }else{
+        } else {
             nomeField.setText(p.getNome());
             nascimentoField.setDate(p.getDataDeNascimento());
             RGField.setText(p.getRg());

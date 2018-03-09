@@ -7,8 +7,6 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.DiaSemana;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.HorarioAtendimentoCRUD;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import java.sql.Time;
 import javax.swing.JOptionPane;
@@ -193,8 +191,7 @@ public class AddHorario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        MedicoCRUD pc = new MedicoCRUD();
-        m = pc.consulta_por_CPF(CPFField.getText());
+        m = m.consulta_por_CPF(CPFField.getText());
         if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
@@ -223,12 +220,11 @@ public class AddHorario extends javax.swing.JFrame {
         DiaSemana diaSemana = DiaSemana.findByName(diaSemanaString).get(0);
         HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
         m.addListaHorario(h);
-        HorarioAtendimentoCRUD ha = new HorarioAtendimentoCRUD();
         if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
             JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
         } else {
-            if (ha.consulta_repetido_por_id_medico(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
-                ha.salvar_atualizar(h);
+            if (HorarioAtendimento.consulta_repetido_por_id_medico(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
+                h.salvar_atualizar();
                 JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");

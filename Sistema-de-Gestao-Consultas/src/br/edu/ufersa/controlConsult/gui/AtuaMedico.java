@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import javax.swing.JOptionPane;
 
@@ -274,8 +273,7 @@ public class AtuaMedico extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        MedicoCRUD mc = new MedicoCRUD();
-        m = mc.consulta_por_CPF(CPFField.getText());
+        m = m.consulta_por_CPF(CPFField.getText());
         if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
@@ -322,7 +320,6 @@ public class AtuaMedico extends javax.swing.JFrame {
         if (m == null) {
             JOptionPane.showMessageDialog(this, "Informe o CPF do médico que deseja atualizar as informações cadastrais");
         } else {
-            MedicoCRUD mc = new MedicoCRUD();
             m.setBairro(bairroField.getText());
             m.setCep(CEPField.getText());
             m.setCidade(cidadeField.getText());
@@ -336,7 +333,7 @@ public class AtuaMedico extends javax.swing.JFrame {
             m.setCargaHoraria(Integer.parseInt(chField.getText()));
             m.setEspecialidade(Especialidade.findByName((String) jComboBox_espField.getSelectedItem()).get(0)); //TODO: Especialidade é uma entidade, não é mais somente uma String.
             JOptionPane.showMessageDialog(this, "Médico Atualizado com Sucesso");
-            mc.salvar_atualizar(m);
+            m.salvar_atualizar();
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed

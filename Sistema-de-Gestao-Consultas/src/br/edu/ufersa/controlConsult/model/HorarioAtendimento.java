@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -143,7 +142,6 @@ public class HorarioAtendimento implements Serializable {
 //    public void setMedicoList(List<Medico> medicoList) {
 //        this.medicoList = medicoList;
 //    }
-
     public DiaSemana getDiaSemana() {
         return diaSemana;
     }
@@ -170,6 +168,47 @@ public class HorarioAtendimento implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public void apagar() {
+        //TODO: Controller
+    }
+
+    public static List<HorarioAtendimento> consulta_por_id_medico(Integer id) {
+        //        Session session = horarioAtendimentoCRUD.sf.openSession();
+        //        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ?").addEntity(HorarioAtendimento.class);
+        //        query.setInteger(0, id);
+        //        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
+        //        session.close();
+        //        return list;
+        return null;
+    }
+
+    public static List<HorarioAtendimento> consulta_repetido_por_id_medico(Integer id, int dia, Time inicio, Time fim) {
+//        Session session = horarioAtendimentoCRUD.sf.openSession();
+//        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and h.diaDaSemana=? and(? between h.inicio and h.fim or h.inicio between ? and ?)").addEntity(HorarioAtendimento.class);
+//        query.setLong(0, id);
+//        query.setInteger(1, dia);
+//        query.setTime(2, inicio);
+//        query.setTime(3, inicio);
+//        query.setTime(4, fim);
+//        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
+//        session.close();
+//        return list;
+        return null;
+    }
+
+    public void salvar_atualizar() {
+//        Session session = horarioAtendimentoCRUD.sf.openSession();
+//        try {
+//            Transaction tx = session.beginTransaction();
+//            session.saveOrUpdate(this);
+//            tx.commit();
+//            session.flush();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
 }

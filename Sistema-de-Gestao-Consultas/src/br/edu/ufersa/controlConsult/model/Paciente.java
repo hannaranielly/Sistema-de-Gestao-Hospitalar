@@ -61,4 +61,47 @@ public class Paciente extends Pessoa {
         return "br.edu.ufersa.controlConsult.model.Paciente[ id=" + this.getId() + " ]";
     }
 
+    public void apagar() {
+        //TODO
+//        Session session = pacienteCRUD.sf.openSession();
+//        try {
+//            Transaction tx = session.beginTransaction();
+//            session.delete(this);
+//            tx.commit();
+//            session.flush();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
+    }
+
+    public static Paciente consulta_por_CPF(String cpf) {
+        //TODO
+//        Session session = pacienteCRUD.sf.openSession();
+//        Query query = session.createSQLQuery("select * from pessoa AS p INNER JOIN paciente AS pa ON p.id =pa.id where p.cpf = ? ").addEntity(Paciente.class);
+//        query.setString(0, cpf);
+//        List<Paciente> list = (List<Paciente>) query.list();
+//        session.close();
+//        if (list.isEmpty()) {
+//            return null;
+//        } else {
+//            return list.get(0);
+//        }
+        return null;
+    }
+
+    public void salvar_atualizar() {
+        //TODO
+//        Session session = pacienteCRUD.sf.openSession();
+//        try {
+//            Transaction tx = session.beginTransaction();
+//            session.saveOrUpdate(this);
+//            tx.commit();
+//            session.flush();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
+    }
+
 }

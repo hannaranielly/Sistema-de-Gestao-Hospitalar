@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -107,6 +106,48 @@ public class Medico extends Pessoa {
             this.listaHorario = new ArrayList<HorarioAtendimento>();
         }
         this.listaHorario.add(h);
+    }
+
+    public void apagar() {
+        //TODO
+//        try {
+//            Transaction tx = session.beginTransaction();
+//            session.delete(this);
+//            tx.commit();
+//            session.flush();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
+    }
+
+    public static Medico consulta_por_CPF(String cpf) {
+        //TODO
+//        Session session = medicoCRUD.sf.openSession(); 
+//        Query query = session.createSQLQuery("select * from pessoa AS p INNER JOIN medico AS me ON p.id =me.id where p.cpf = ? ").addEntity(Medico.class);
+//        query.setString(0, cpf);
+//        List<Medico> list = (List<Medico>) query.list();
+//        session.close();
+//        if (list.isEmpty()) {
+//            return null;
+//        } else {
+//            return list.get(0);
+//        }
+        return null;
+    }
+
+    public void salvar_atualizar() {
+        //TODO
+//        Session session = medicoCRUD.sf.openSession();
+//        try {
+//            Transaction tx = session.beginTransaction();
+//            session.saveOrUpdate(this);
+//            tx.commit();
+//            session.flush();
+//            session.close();
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
 }

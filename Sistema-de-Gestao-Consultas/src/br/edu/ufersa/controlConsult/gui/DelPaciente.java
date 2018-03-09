@@ -6,9 +6,7 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
-import br.edu.ufersa.controlConsult.model.Pessoa;
 
 /**
  *
@@ -96,15 +94,14 @@ public class DelPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PacienteCRUD pc = new PacienteCRUD();
-        Paciente p = pc.consulta_por_CPF(CPFField.getText());
-        if(p == null){
+        Paciente p = Paciente.consulta_por_CPF(CPFField.getText());
+        if (p == null) {
             JOptionPane.showMessageDialog(this, "Paciente não cadastrado no sistema");
-        }else{
-            pc.apagar(p);
+        } else {
+            p.apagar();
             JOptionPane.showMessageDialog(this, "Paciente apagado com sucesso");
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

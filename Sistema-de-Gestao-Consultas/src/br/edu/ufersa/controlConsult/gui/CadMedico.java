@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
@@ -339,9 +338,8 @@ public class CadMedico extends javax.swing.JFrame {
                 String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
                 Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
                 Medico m = new Medico(p, cargaHoraria, especialidade);
-                MedicoCRUD mc = new MedicoCRUD();
-                if (mc.consulta_por_CPF(CPFField.getText()) == null) {
-                    mc.salvar_atualizar(m);
+                if (Medico.consulta_por_CPF(CPFField.getText()) == null) {
+                    m.salvar_atualizar();
                     JOptionPane.showMessageDialog(this, "Médico armazenado com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(this, "O Médico já encontra-se cadastrado");

@@ -5,13 +5,16 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import br.edu.ufersa.controlConsult.model.hibernateDAO.HibernateUtil;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.UsuarioJpaController;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +23,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 /**
  *
@@ -86,18 +87,14 @@ public class Usuario implements Serializable {
 
     public boolean validaLogin() {
 
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session session = sf.openSession();
-        Query query = session.createSQLQuery("select * from administrador where user = ? and senha = ?").addEntity(Usuario.class);
-        query.setString(0, this.username);
-        query.setString(1, this.password);
-        List<Usuario> list = (List<Usuario>) query.list();
-        session.close();
-        if (!list.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+//        SessionFactory sf = HibernateUtil.getSessionFactory(); 
+//        Session session = sf.openSession();
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        return instance.login(this);
+//        Query query = session.createSQLQuery("select * from administrador where user = ? and senha = ?").addEntity(Usuario.class);
+//        query.setString(0, this.username);
+//        query.setString(1, this.password);
     }
 
     public void registraEntrada(String medico, Date horario) {

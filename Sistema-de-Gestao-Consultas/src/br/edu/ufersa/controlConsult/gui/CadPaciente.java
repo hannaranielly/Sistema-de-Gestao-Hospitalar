@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
@@ -322,9 +321,8 @@ public class CadPaciente extends javax.swing.JFrame {
                 String cep = CEPField.getText();
                 Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
                 Paciente pa = new Paciente(p, SUSField.getText());
-                PacienteCRUD pc = new PacienteCRUD();
-                if (pc.consulta_por_CPF(CPFField.getText()) == null) {
-                    pc.salvar_atualizar(pa);
+                if (Paciente.consulta_por_CPF(CPFField.getText()) == null) {
+                    pa.salvar_atualizar();
                     JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");

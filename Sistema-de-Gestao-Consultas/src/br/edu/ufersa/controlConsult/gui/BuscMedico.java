@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
 import javax.swing.JOptionPane;
 
@@ -343,8 +342,7 @@ public class BuscMedico extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        MedicoCRUD mc = new MedicoCRUD();
-        Medico p = mc.consulta_por_CPF(CPFField.getText());
+        Medico p = Medico.consulta_por_CPF(CPFField.getText());
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {

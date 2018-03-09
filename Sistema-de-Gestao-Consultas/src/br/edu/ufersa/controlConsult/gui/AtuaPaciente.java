@@ -6,7 +6,6 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.PacienteCRUD;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.util.Date;
@@ -260,8 +259,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PacienteCRUD pc = new PacienteCRUD();
-        p = pc.consulta_por_CPF(CPFField.getText());
+        p = p.consulta_por_CPF(CPFField.getText());
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
         } else {
@@ -302,7 +300,6 @@ public class AtuaPaciente extends javax.swing.JFrame {
         if (p == null) {
             JOptionPane.showMessageDialog(this, "Informe o CPF do paciente que deseja atualizar as informações cadastrais");
         } else {
-            PacienteCRUD pc = new PacienteCRUD();
             Integer id = p.getId();
             String nome = p.getNome();
             String cpf = p.getCpf();
@@ -322,7 +319,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
             String num_sus = SUSField.getText();
 
             Paciente pn = new Paciente(pessoa, num_sus);
-            pc.salvar_atualizar(pn);
+            pn.salvar_atualizar();
             JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
             p = pn;
         }
