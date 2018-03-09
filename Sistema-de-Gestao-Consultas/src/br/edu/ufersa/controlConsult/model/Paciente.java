@@ -5,34 +5,19 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
  * @author leone
  */
 @Entity
-@Table(name = "paciente")
-@PrimaryKeyJoinColumn(name = "id")
+@DiscriminatorColumn(name = "Paciente")
 public class Paciente extends Pessoa {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Pessoa pessoa;
 
     private String num_sus;
 
@@ -49,26 +34,12 @@ public class Paciente extends Pessoa {
         this.num_sus = num_sus;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (this.getId() != null ? this.getId().hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +50,7 @@ public class Paciente extends Pessoa {
             return false;
         }
         Paciente other = (Paciente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
             return false;
         }
         return true;
@@ -87,7 +58,7 @@ public class Paciente extends Pessoa {
 
     @Override
     public String toString() {
-        return "br.edu.ufersa.controlConsult.model.Paciente[ id=" + id + " ]";
+        return "br.edu.ufersa.controlConsult.model.Paciente[ id=" + this.getId() + " ]";
     }
 
 }

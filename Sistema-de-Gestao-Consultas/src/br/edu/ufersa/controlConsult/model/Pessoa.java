@@ -8,15 +8,14 @@ package br.edu.ufersa.controlConsult.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +26,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "pessoa")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Pessoa")
 public class Pessoa implements Serializable {
 
     @Id
@@ -64,10 +64,6 @@ public class Pessoa implements Serializable {
     private String estado;
     @Column(name = "cidade")
     private String cidade;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
-    private Paciente paciente;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
-    private Medico medico;
 
     /**
      * Construtor pela entidade Pessoa
@@ -239,22 +235,6 @@ public class Pessoa implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
     }
 
     @Override

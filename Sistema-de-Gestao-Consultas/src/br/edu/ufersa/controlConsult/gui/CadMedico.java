@@ -338,7 +338,7 @@ public class CadMedico extends javax.swing.JFrame {
 
                 String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
                 Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                Medico m = new Medico(p, null, cargaHoraria, especialidade);
+                Medico m = new Medico(p, cargaHoraria, especialidade);
                 MedicoCRUD mc = new MedicoCRUD();
                 if (mc.consulta_por_CPF(CPFField.getText()) == null) {
                     mc.salvar_atualizar(m);

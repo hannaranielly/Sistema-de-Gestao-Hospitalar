@@ -5,45 +5,35 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
  * @author cassiano
  */
 @Entity
-@Table(name = "medico")
-@PrimaryKeyJoinColumn(name = "id")
+@DiscriminatorColumn(name = "Medico")
 public class Medico extends Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Column(name = "carga_horaria")
     private Integer cargaHoraria;
+
     @JoinColumn(name = "especialidade", referencedColumnName = "id")
     @ManyToOne
     private Especialidade especialidade;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Pessoa pessoa;
     @OneToMany(mappedBy = "medico", targetEntity = HorarioAtendimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HorarioAtendimento> listaHorario;
 
@@ -81,30 +71,14 @@ public class Medico extends Pessoa {
         return especialidade;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (this.getId() != null ? this.getId().hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +89,7 @@ public class Medico extends Pessoa {
             return false;
         }
         Medico other = (Medico) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
             return false;
         }
         return true;
@@ -123,7 +97,7 @@ public class Medico extends Pessoa {
 
     @Override
     public String toString() {
-        return "br.edu.ufersa.controlConsult.model.Medico[ id=" + id + " ]";
+        return "br.edu.ufersa.controlConsult.model.Medico[ id=" + this.getId() + " ]";
     }
 
     public void addListaHorario(HorarioAtendimento h) {
