@@ -5,8 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import br.edu.ufersa.controlConsult.model.Medico;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;

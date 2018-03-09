@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -45,10 +44,7 @@ public class HorarioAtendimento implements Serializable {
     @Column(name = "fim")
     @Temporal(TemporalType.TIME)
     private Date fim;
-    @JoinTable(name = "medico_horario", joinColumns = {
-        @JoinColumn(name = "horario", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "medico", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "listaHorario")
     private List<Medico> medicoList;
     @JoinColumn(name = "dia_semana", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -139,14 +135,14 @@ public class HorarioAtendimento implements Serializable {
         this.fim = fim;
     }
 
-    @XmlTransient
-    public List<Medico> getMedicoList() {
-        return medicoList;
-    }
-
-    public void setMedicoList(List<Medico> medicoList) {
-        this.medicoList = medicoList;
-    }
+//    @XmlTransient
+//    public List<Medico> getMedicoList() {
+//        return medicoList;
+//    }
+//
+//    public void setMedicoList(List<Medico> medicoList) {
+//        this.medicoList = medicoList;
+//    }
 
     public DiaSemana getDiaSemana() {
         return diaSemana;
