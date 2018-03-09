@@ -12,9 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.DiaSemana;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,9 +33,6 @@ public class HorarioAtendimentoJpaController implements Serializable {
     }
 
     public void create(HorarioAtendimento horarioAtendimento) {
-        if (horarioAtendimento.getMedicoList() == null) {
-            horarioAtendimento.setMedicoList(new ArrayList<Medico>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -47,20 +42,10 @@ public class HorarioAtendimentoJpaController implements Serializable {
                 diaSemana = em.getReference(diaSemana.getClass(), diaSemana.getId());
                 horarioAtendimento.setDiaSemana(diaSemana);
             }
-            List<Medico> attachedMedicoList = new ArrayList<Medico>();
-            for (Medico medicoListMedicoToAttach : horarioAtendimento.getMedicoList()) {
-                medicoListMedicoToAttach = em.getReference(medicoListMedicoToAttach.getClass(), medicoListMedicoToAttach.getId());
-                attachedMedicoList.add(medicoListMedicoToAttach);
-            }
-            horarioAtendimento.setMedicoList(attachedMedicoList);
             em.persist(horarioAtendimento);
             if (diaSemana != null) {
                 diaSemana.getHorarioAtendimentoList().add(horarioAtendimento);
                 diaSemana = em.merge(diaSemana);
-            }
-            for (Medico medicoListMedico : horarioAtendimento.getMedicoList()) {
-                medicoListMedico.getListaHorario().add(horarioAtendimento);
-                medicoListMedico = em.merge(medicoListMedico);
             }
             em.getTransaction().commit();
         } finally {
@@ -78,19 +63,10 @@ public class HorarioAtendimentoJpaController implements Serializable {
             HorarioAtendimento persistentHorarioAtendimento = em.find(HorarioAtendimento.class, horarioAtendimento.getId());
             DiaSemana diaSemanaOld = persistentHorarioAtendimento.getDiaSemana();
             DiaSemana diaSemanaNew = horarioAtendimento.getDiaSemana();
-            List<Medico> medicoListOld = persistentHorarioAtendimento.getMedicoList();
-            List<Medico> medicoListNew = horarioAtendimento.getMedicoList();
             if (diaSemanaNew != null) {
                 diaSemanaNew = em.getReference(diaSemanaNew.getClass(), diaSemanaNew.getId());
                 horarioAtendimento.setDiaSemana(diaSemanaNew);
             }
-            List<Medico> attachedMedicoListNew = new ArrayList<Medico>();
-            for (Medico medicoListNewMedicoToAttach : medicoListNew) {
-                medicoListNewMedicoToAttach = em.getReference(medicoListNewMedicoToAttach.getClass(), medicoListNewMedicoToAttach.getId());
-                attachedMedicoListNew.add(medicoListNewMedicoToAttach);
-            }
-            medicoListNew = attachedMedicoListNew;
-            horarioAtendimento.setMedicoList(medicoListNew);
             horarioAtendimento = em.merge(horarioAtendimento);
             if (diaSemanaOld != null && !diaSemanaOld.equals(diaSemanaNew)) {
                 diaSemanaOld.getHorarioAtendimentoList().remove(horarioAtendimento);
@@ -99,18 +75,6 @@ public class HorarioAtendimentoJpaController implements Serializable {
             if (diaSemanaNew != null && !diaSemanaNew.equals(diaSemanaOld)) {
                 diaSemanaNew.getHorarioAtendimentoList().add(horarioAtendimento);
                 diaSemanaNew = em.merge(diaSemanaNew);
-            }
-            for (Medico medicoListOldMedico : medicoListOld) {
-                if (!medicoListNew.contains(medicoListOldMedico)) {
-                    medicoListOldMedico.getListaHorario().remove(horarioAtendimento);
-                    medicoListOldMedico = em.merge(medicoListOldMedico);
-                }
-            }
-            for (Medico medicoListNewMedico : medicoListNew) {
-                if (!medicoListOld.contains(medicoListNewMedico)) {
-                    medicoListNewMedico.getListaHorario().add(horarioAtendimento);
-                    medicoListNewMedico = em.merge(medicoListNewMedico);
-                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -145,11 +109,6 @@ public class HorarioAtendimentoJpaController implements Serializable {
             if (diaSemana != null) {
                 diaSemana.getHorarioAtendimentoList().remove(horarioAtendimento);
                 diaSemana = em.merge(diaSemana);
-            }
-            List<Medico> medicoList = horarioAtendimento.getMedicoList();
-            for (Medico medicoListMedico : medicoList) {
-                medicoListMedico.getListaHorario().remove(horarioAtendimento);
-                medicoListMedico = em.merge(medicoListMedico);
             }
             em.remove(horarioAtendimento);
             em.getTransaction().commit();

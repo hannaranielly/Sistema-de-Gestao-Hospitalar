@@ -14,12 +14,13 @@ import javax.persistence.Persistence;
  */
 public class JpaFactory {
 
-    public JpaFactory() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("sistema-postgre_heroku");
-    }
+    private static EntityManagerFactory instance;
+    private static String persistence_unit = "sistema_postgre";
 
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-        new JpaFactory();
+    public static EntityManagerFactory getInstance() {
+        if (instance == null) {
+            instance = Persistence.createEntityManagerFactory(persistence_unit);
+        }
+        return instance;
     }
 }

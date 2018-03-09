@@ -5,20 +5,16 @@
  */
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
+import br.edu.ufersa.controlConsult.model.Paciente;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.Paciente;
-import br.edu.ufersa.controlConsult.model.Medico;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.IllegalOrphanException;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -35,63 +31,12 @@ public class PacienteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Paciente paciente) throws IllegalOrphanException {
-        List<String> illegalOrphanMessages = null;
-        Pessoa pessoaOrphanCheck = paciente.getPessoa();
-        if (pessoaOrphanCheck != null) {
-            Paciente oldPacienteOfPessoa = pessoaOrphanCheck.getPaciente();
-            if (oldPacienteOfPessoa != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("The Pessoa " + pessoaOrphanCheck + " already has an item of type Paciente whose pessoa column cannot be null. Please make another selection for the pessoa field.");
-            }
-        }
-        if (illegalOrphanMessages != null) {
-            throw new IllegalOrphanException(illegalOrphanMessages);
-        }
+    public void create(Paciente paciente) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pessoa pessoa = paciente.getPessoa();
-            if (pessoa != null) {
-                pessoa = em.getReference(pessoa.getClass(), pessoa.getId());
-                paciente.setPessoa(pessoa);
-            }
-            Paciente pacienteRel = paciente.getPaciente();
-            if (pacienteRel != null) {
-                pacienteRel = em.getReference(pacienteRel.getClass(), pacienteRel.getId());
-                paciente.setPaciente(pacienteRel);
-            }
-            Medico medico = paciente.getMedico();
-            if (medico != null) {
-                medico = em.getReference(medico.getClass(), medico.getId());
-                paciente.setMedico(medico);
-            }
             em.persist(paciente);
-            if (pessoa != null) {
-                pessoa.setPaciente(paciente);
-                pessoa = em.merge(pessoa);
-            }
-            if (pacienteRel != null) {
-                br.edu.ufersa.controlConsult.model.Pessoa oldPessoaOfPacienteRel = pacienteRel.getPessoa();
-                if (oldPessoaOfPacienteRel != null) {
-                    oldPessoaOfPacienteRel.setPaciente(null);
-                    oldPessoaOfPacienteRel = em.merge(oldPessoaOfPacienteRel);
-                }
-                pacienteRel.setPessoa(paciente);
-                pacienteRel = em.merge(pacienteRel);
-            }
-            if (medico != null) {
-                br.edu.ufersa.controlConsult.model.Pessoa oldPessoaOfMedico = medico.getPessoa();
-                if (oldPessoaOfMedico != null) {
-                    oldPessoaOfMedico.setMedico(null);
-                    oldPessoaOfMedico = em.merge(oldPessoaOfMedico);
-                }
-                medico.setPessoa(paciente);
-                medico = em.merge(medico);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -100,82 +45,12 @@ public class PacienteJpaController implements Serializable {
         }
     }
 
-    public void edit(Paciente paciente) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Paciente paciente) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Paciente persistentPaciente = em.find(Paciente.class, paciente.getId());
-            Pessoa pessoaOld = persistentPaciente.getPessoa();
-            Pessoa pessoaNew = paciente.getPessoa();
-            Paciente pacienteRelOld = persistentPaciente.getPaciente();
-            Paciente pacienteRelNew = paciente.getPaciente();
-            Medico medicoOld = persistentPaciente.getMedico();
-            Medico medicoNew = paciente.getMedico();
-            List<String> illegalOrphanMessages = null;
-            if (pessoaNew != null && !pessoaNew.equals(pessoaOld)) {
-                Paciente oldPacienteOfPessoa = pessoaNew.getPaciente();
-                if (oldPacienteOfPessoa != null) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("The Pessoa " + pessoaNew + " already has an item of type Paciente whose pessoa column cannot be null. Please make another selection for the pessoa field.");
-                }
-            }
-            if (pacienteRelOld != null && !pacienteRelOld.equals(pacienteRelNew)) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("You must retain Paciente " + pacienteRelOld + " since its pessoa field is not nullable.");
-            }
-            if (medicoOld != null && !medicoOld.equals(medicoNew)) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("You must retain Medico " + medicoOld + " since its pessoa field is not nullable.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            if (pessoaNew != null) {
-                pessoaNew = em.getReference(pessoaNew.getClass(), pessoaNew.getId());
-                paciente.setPessoa(pessoaNew);
-            }
-            if (pacienteRelNew != null) {
-                pacienteRelNew = em.getReference(pacienteRelNew.getClass(), pacienteRelNew.getId());
-                paciente.setPaciente(pacienteRelNew);
-            }
-            if (medicoNew != null) {
-                medicoNew = em.getReference(medicoNew.getClass(), medicoNew.getId());
-                paciente.setMedico(medicoNew);
-            }
             paciente = em.merge(paciente);
-            if (pessoaOld != null && !pessoaOld.equals(pessoaNew)) {
-                pessoaOld.setPaciente(null);
-                pessoaOld = em.merge(pessoaOld);
-            }
-            if (pessoaNew != null && !pessoaNew.equals(pessoaOld)) {
-                pessoaNew.setPaciente(paciente);
-                pessoaNew = em.merge(pessoaNew);
-            }
-            if (pacienteRelNew != null && !pacienteRelNew.equals(pacienteRelOld)) {
-                br.edu.ufersa.controlConsult.model.Pessoa oldPessoaOfPacienteRel = pacienteRelNew.getPessoa();
-                if (oldPessoaOfPacienteRel != null) {
-                    oldPessoaOfPacienteRel.setPaciente(null);
-                    oldPessoaOfPacienteRel = em.merge(oldPessoaOfPacienteRel);
-                }
-                pacienteRelNew.setPessoa(paciente);
-                pacienteRelNew = em.merge(pacienteRelNew);
-            }
-            if (medicoNew != null && !medicoNew.equals(medicoOld)) {
-                br.edu.ufersa.controlConsult.model.Pessoa oldPessoaOfMedico = medicoNew.getPessoa();
-                if (oldPessoaOfMedico != null) {
-                    oldPessoaOfMedico.setMedico(null);
-                    oldPessoaOfMedico = em.merge(oldPessoaOfMedico);
-                }
-                medicoNew.setPessoa(paciente);
-                medicoNew = em.merge(medicoNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -193,7 +68,7 @@ public class PacienteJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -204,29 +79,6 @@ public class PacienteJpaController implements Serializable {
                 paciente.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The paciente with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Paciente pacienteOrphanCheck = paciente.getPaciente();
-            if (pacienteOrphanCheck != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Paciente (" + paciente + ") cannot be destroyed since the Paciente " + pacienteOrphanCheck + " in its paciente field has a non-nullable pessoa field.");
-            }
-            Medico medicoOrphanCheck = paciente.getMedico();
-            if (medicoOrphanCheck != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Paciente (" + paciente + ") cannot be destroyed since the Medico " + medicoOrphanCheck + " in its medico field has a non-nullable pessoa field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Pessoa pessoa = paciente.getPessoa();
-            if (pessoa != null) {
-                pessoa.setPaciente(null);
-                pessoa = em.merge(pessoa);
             }
             em.remove(paciente);
             em.getTransaction().commit();
