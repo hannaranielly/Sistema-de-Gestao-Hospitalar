@@ -1,64 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <!--  <persistence-unit name="sistema-postgre" transaction-type="RESOURCE_LOCAL">
-      <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <class>sistema.de.gestao.consultas.entidades.Administrador</class>
-      <class>sistema.de.gestao.consultas.entidades.Paciente</class>
-      <class>sistema.de.gestao.consultas.entidades.Pessoa</class>
-      <properties>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-        <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-        <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/teste"/>
-        <property name="javax.persistence.jdbc.user" value="postgres"/>
-        <property name="javax.persistence.jdbc.password" value="pgadmin"/>
-        <property name="hibernate.show_sql" value="true"/>
-        <property name="hibernate.format_sql" value="false"/>
-        <property name="hibernate.use_sql_comments" value="false"/>
-        <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
-        <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
-        <property name="hibernate.hbm2ddl.auto" value="update"/>
-      </properties>
-    </persistence-unit>-->
-  <persistence-unit name="sistema-postgre_heroku" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>br.edu.ufersa.controlConsult.model.Administrador</class>
-    <class>br.edu.ufersa.controlConsult.model.HorarioAtendimento</class>
-    <class>br.edu.ufersa.controlConsult.model.Medico</class>
-    <class>br.edu.ufersa.controlConsult.model.Paciente</class>
-    <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://baasu.db.elephantsql.com:5432/ouuuctot"/>
-      <property name="javax.persistence.jdbc.user" value="ouuuctot"/>
-      <property name="javax.persistence.jdbc.password" value="OiPL29kPptjP7HrniJK9YyoHNDYwH_vE"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.format_sql" value="false"/>
-      <property name="hibernate.use_sql_comments" value="false"/>
-      <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
-      <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-    </properties>
-  </persistence-unit>
-  <persistence-unit name="sistema-mysql" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>br.edu.ufersa.controlConsult.model.Administrador</class>
-    <class>br.edu.ufersa.controlConsult.model.HorarioAtendimento</class>
-    <class>br.edu.ufersa.controlConsult.model.Medico</class>
-    <class>br.edu.ufersa.controlConsult.model.Paciente</class>
-    <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10222360?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="sql10222360"/>
-      <property name="javax.persistence.jdbc.password" value="Nl1qtKgP2J"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.format_sql" value="false"/>
-      <property name="hibernate.use_sql_comments" value="false"/>
-      <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
-      <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="sistema_postgre" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.edu.ufersa.controlConsult.model.DiaSemana</class>
+        <class>br.edu.ufersa.controlConsult.model.Especialidade</class>
+        <class>br.edu.ufersa.controlConsult.model.HorarioAtendimento</class>
+        <class>br.edu.ufersa.controlConsult.model.Medico</class>
+        <class>br.edu.ufersa.controlConsult.model.Paciente</class>
+        <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
+        <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+       
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/teste"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="123456"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
+            <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="sistema_postgre_elephant" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.edu.ufersa.controlConsult.model.DiaSemana</class>
+        <class>br.edu.ufersa.controlConsult.model.Especialidade</class>
+        <class>br.edu.ufersa.controlConsult.model.HorarioAtendimento</class>
+        <class>br.edu.ufersa.controlConsult.model.Medico</class>
+        <class>br.edu.ufersa.controlConsult.model.Paciente</class>
+        <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
+        <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://baasu.db.elephantsql.com:5432/ouuuctot"/>
+            <property name="javax.persistence.jdbc.user" value="ouuuctot"/>
+            <property name="javax.persistence.jdbc.password" value="OiPL29kPptjP7HrniJK9YyoHNDYwH_vE"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
+            <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="sistema_mysql" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.edu.ufersa.controlConsult.model.DiaSemana</class>
+        <class>br.edu.ufersa.controlConsult.model.Especialidade</class>
+        <class>br.edu.ufersa.controlConsult.model.HorarioAtendimento</class>
+        <class>br.edu.ufersa.controlConsult.model.Medico</class>
+        <class>br.edu.ufersa.controlConsult.model.Paciente</class>
+        <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
+        <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10222360?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.user" value="sql10222360"/>
+            <property name="javax.persistence.jdbc.password" value="Nl1qtKgP2J"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.jdbc.wrap_result_sets" value="false"/>
+            <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
 </persistence>
