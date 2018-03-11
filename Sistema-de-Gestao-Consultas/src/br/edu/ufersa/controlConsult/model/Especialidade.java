@@ -41,7 +41,7 @@ public class Especialidade implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nome")
+    @Column(name = "nome", unique = true)
     private String nome;
     @OneToMany(mappedBy = "especialidade", fetch = FetchType.EAGER)
     private List<Medico> medicoList;

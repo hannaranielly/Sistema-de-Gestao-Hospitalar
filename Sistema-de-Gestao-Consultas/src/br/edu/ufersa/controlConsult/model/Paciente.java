@@ -8,6 +8,7 @@ package br.edu.ufersa.controlConsult.model;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
@@ -20,6 +21,7 @@ import javax.persistence.EntityManagerFactory;
 @DiscriminatorColumn(name = "Paciente")
 public class Paciente extends Pessoa implements ICRUD {
 
+    @Column(length = 25, unique = true)
     private String num_sus;
 
     public Paciente() {

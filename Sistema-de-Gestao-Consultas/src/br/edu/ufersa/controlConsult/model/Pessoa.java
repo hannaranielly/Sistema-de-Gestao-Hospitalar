@@ -36,33 +36,33 @@ public class Pessoa implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nome")
+    @Column(name = "nome", length = 150)
     private String nome;
     @Column(name = "data_de_nascimento")
     @Temporal(TemporalType.DATE)
     private Date dataDeNascimento;
     @Column(name = "sexo")
     private Character sexo;
-    @Column(name = "email")
+    @Column(name = "email", length = 75)
     private String email;
-    @Column(name = "bairro")
+    @Column(name = "bairro", length = 75)
     private String bairro;
     @Column(name = "num_casa")
     private Integer numCasa;
-    @Column(name = "logradouro")
+    @Column(name = "logradouro", length = 75)
     private String logradouro;
-    @Column(name = "cep")
+    @Column(name = "cep", length = 15)
     private String cep;
-    @Column(name = "telefone")
+    @Column(name = "telefone", length = 15)
     private String telefone;
     @Basic(optional = false)
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true, length = 20)
     private String cpf;
-    @Column(name = "rg")
+    @Column(name = "rg", unique = true, length = 20)
     private String rg;
-    @Column(name = "estado")
+    @Column(name = "estado", length = 50)
     private String estado;
-    @Column(name = "cidade")
+    @Column(name = "cidade", length = 50)
     private String cidade;
 
     protected Pessoa() {

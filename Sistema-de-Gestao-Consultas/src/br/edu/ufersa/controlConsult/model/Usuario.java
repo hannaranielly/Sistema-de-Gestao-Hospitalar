@@ -42,9 +42,9 @@ public class Usuario implements Serializable, ICRUD {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "username")
+    @Column(name = "username", length = 15, unique = true)
     private String username;
-    @Column(name = "password")
+    @Column(name = "password", length = 25)
     private String password;
 
     public Usuario() {

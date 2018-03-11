@@ -41,7 +41,7 @@ public class DiaSemana implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nome")
+    @Column(name = "nome", unique = true)
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "diaSemana", fetch = FetchType.EAGER)
     private List<HorarioAtendimento> horarioAtendimentoList;
