@@ -45,6 +45,9 @@ public class DiaSemana implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "diaSemana")
     private List<HorarioAtendimento> horarioAtendimentoList;
 
+    public DiaSemana() {
+    }
+
     public DiaSemana(Integer id, String nome) {
         this.setId(id);
         this.setNome(nome);

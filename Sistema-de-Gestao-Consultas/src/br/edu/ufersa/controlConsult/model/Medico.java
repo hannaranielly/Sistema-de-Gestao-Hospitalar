@@ -47,6 +47,10 @@ public class Medico extends Pessoa implements ICRUD {
         this.setEspecialidade(especialidade);
     }
 
+    public Medico() {
+        super();
+    }
+
     public void setListaHorario(List<HorarioAtendimento> listaHorario) {
         this.listaHorario = listaHorario;
     }

@@ -52,6 +52,9 @@ public class HorarioAtendimento implements Serializable {
     private int estado; //TODO
     private Date ultimaRealizacao; // TODO
 
+    public HorarioAtendimento() {
+    }
+
     public HorarioAtendimento(int id, Time inicio, Time fim,
             int estado, DiaSemana diaSemana) {
         this.setId(id);

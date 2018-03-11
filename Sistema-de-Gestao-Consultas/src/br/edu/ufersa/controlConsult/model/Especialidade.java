@@ -44,6 +44,8 @@ public class Especialidade implements Serializable {
     private String nome;
     @OneToMany(mappedBy = "especialidade")
     private List<Medico> medicoList;
+    public Especialidade() {
+    }
 
     public Especialidade(String nome, List<Medico> medicoList) {
         this.setNome(nome);

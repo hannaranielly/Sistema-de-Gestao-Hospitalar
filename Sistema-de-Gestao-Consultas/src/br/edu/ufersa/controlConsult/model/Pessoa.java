@@ -65,6 +65,9 @@ public class Pessoa implements Serializable {
     @Column(name = "cidade")
     private String cidade;
 
+    protected Pessoa() {
+    }
+
     /**
      * Construtor pela entidade Pessoa
      */

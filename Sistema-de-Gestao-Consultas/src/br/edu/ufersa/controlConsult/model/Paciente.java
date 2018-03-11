@@ -22,6 +22,10 @@ public class Paciente extends Pessoa implements ICRUD {
 
     private String num_sus;
 
+    public Paciente() {
+        super();
+    }
+
     public Paciente(Pessoa pessoa, String num_sus) {
         super(pessoa);
         this.setNum_sus(num_sus);
