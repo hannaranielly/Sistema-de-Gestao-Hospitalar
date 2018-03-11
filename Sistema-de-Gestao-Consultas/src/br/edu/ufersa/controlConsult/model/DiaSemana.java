@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class DiaSemana implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diaSemana")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diaSemana", fetch = FetchType.EAGER)
     private List<HorarioAtendimento> horarioAtendimentoList;
 
     public DiaSemana() {

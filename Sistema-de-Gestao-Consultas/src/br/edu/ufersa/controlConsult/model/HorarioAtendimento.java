@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class HorarioAtendimento implements Serializable {
     @Column(name = "fim")
     @Temporal(TemporalType.TIME)
     private Date fim;
-    @ManyToMany(mappedBy = "listaHorario")
+    @ManyToMany(mappedBy = "listaHorario", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
     @JoinColumn(name = "dia_semana", referencedColumnName = "id")
     @ManyToOne(optional = false)

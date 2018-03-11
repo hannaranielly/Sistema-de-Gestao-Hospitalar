@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class Especialidade implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(mappedBy = "especialidade")
+    @OneToMany(mappedBy = "especialidade", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
     public Especialidade() {
     }
