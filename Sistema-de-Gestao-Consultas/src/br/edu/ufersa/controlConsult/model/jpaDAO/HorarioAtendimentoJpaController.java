@@ -55,6 +55,23 @@ public class HorarioAtendimentoJpaController implements Serializable {
         }
     }
 
+    public void read(HorarioAtendimento horarioAtendimento) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            if (!em.contains(horarioAtendimento)) {
+                throw new NonexistentEntityException("Entidade HorarioAtendimento não existe.");
+            }
+            em.getTransaction().begin();
+            em.refresh(horarioAtendimento);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(HorarioAtendimento horarioAtendimento) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {

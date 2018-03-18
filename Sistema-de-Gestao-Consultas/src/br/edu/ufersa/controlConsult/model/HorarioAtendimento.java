@@ -6,13 +6,19 @@
 package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
+import br.edu.ufersa.controlConsult.model.jpaDAO.HorarioAtendimentoJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -201,22 +207,43 @@ public class HorarioAtendimento implements Serializable, ICRUD {
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        instance.create(this);
     }
 
     @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HorarioAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(HorarioAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HorarioAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
