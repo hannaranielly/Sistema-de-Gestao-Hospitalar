@@ -7,11 +7,17 @@ package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -19,6 +25,11 @@ import javax.persistence.EntityManagerFactory;
  */
 @Entity
 @DiscriminatorColumn(name = "Paciente")
+@NamedQueries({
+    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p")
+    , @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id")
+    , @NamedQuery(name = "Paciente.findByNome", query = "SELECT p FROM Paciente p WHERE p.nome = :nome")
+    , @NamedQuery(name = "Paciente.findByCPF", query = "SELECT p FROM Paciente p WHERE p.cpf = :cpf")})
 public class Paciente extends Pessoa implements ICRUD {
 
     @Column(length = 25, unique = true)
@@ -67,18 +78,9 @@ public class Paciente extends Pessoa implements ICRUD {
     }
 
     public static Paciente findByCPF(String cpf) {
-        //TODO
-//        Session session = pacienteCRUD.sf.openSession();
-//        Query query = session.createSQLQuery("select * from pessoa AS p INNER JOIN paciente AS pa ON p.id =pa.id where p.cpf = ? ").addEntity(Paciente.class);
-//        query.setString(0, cpf);
-//        List<Paciente> list = (List<Paciente>) query.list();
-//        session.close();
-//        if (list.isEmpty()) {
-//            return null;
-//        } else {
-//            return list.get(0);
-//        }
-        return null;
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PacienteJpaController instance = new PacienteJpaController(emf);
+        return instance.findByCPF(cpf);
     }
 
     @Override
@@ -89,18 +91,37 @@ public class Paciente extends Pessoa implements ICRUD {
     }
 
     @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PacienteJpaController instance = new PacienteJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PacienteJpaController instance = new PacienteJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PacienteJpaController instance = new PacienteJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

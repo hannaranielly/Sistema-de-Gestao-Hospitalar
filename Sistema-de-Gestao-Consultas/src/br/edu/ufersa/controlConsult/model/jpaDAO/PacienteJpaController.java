@@ -45,6 +45,23 @@ public class PacienteJpaController implements Serializable {
         }
     }
 
+    public void read(Paciente paciente) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            if (!em.contains(paciente)) {
+                throw new NonexistentEntityException("Entidade paciente não existe.");
+            }
+            em.getTransaction().begin();
+            em.refresh(paciente);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(Paciente paciente) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -134,5 +151,21 @@ public class PacienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public Paciente findByCPF(String cpf) {
+        Paciente paciente = null;
+        EntityManager em = null;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Paciente.findByCPF");
+            q.setParameter(0, cpf);
+            paciente = (Paciente) q.getSingleResult();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return paciente;
+    }
+
 }
