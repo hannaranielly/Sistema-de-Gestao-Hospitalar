@@ -8,8 +8,11 @@ package br.edu.ufersa.controlConsult.model;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.UsuarioJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -150,22 +153,47 @@ public class Usuario implements Serializable, ICRUD {
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        instance.create(this);
     }
 
     @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        } catch (Exception ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
 }

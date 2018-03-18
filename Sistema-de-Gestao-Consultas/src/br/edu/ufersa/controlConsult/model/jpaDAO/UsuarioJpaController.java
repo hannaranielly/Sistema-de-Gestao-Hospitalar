@@ -45,6 +45,23 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
+    public void read(Usuario usuario) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            if (!em.contains(usuario)) {
+                throw new NonexistentEntityException("Entidade usuário não existe.");
+            }
+            em.getTransaction().begin();
+            em.refresh(usuario);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(Usuario usuario) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
