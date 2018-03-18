@@ -1,5 +1,8 @@
 package br.edu.ufersa.controlConsult.model.interfaces;
 
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
+
 /**
  * Especificação do CRUD (Create, Remove, Update e Delete)
  *
@@ -7,12 +10,12 @@ package br.edu.ufersa.controlConsult.model.interfaces;
  */
 public interface ICRUD {
 
-    void create();
+    void create() throws PreexistingEntityException;
 
-    void read();
+    void read() throws NonexistentEntityException;
 
-    void update();
+    void update() throws NonexistentEntityException;
 
-    void delete();
+    void delete() throws NonexistentEntityException;
 
 }
