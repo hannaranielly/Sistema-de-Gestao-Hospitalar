@@ -8,8 +8,11 @@ package br.edu.ufersa.controlConsult.model;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -20,6 +23,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -27,6 +32,12 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @DiscriminatorColumn(name = "Medico")
+@NamedQueries({
+    @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")
+    , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")
+    , @NamedQuery(name = "Medico.findByNome", query = "SELECT m FROM Medico m WHERE m.nome = :nome")
+    , @NamedQuery(name = "Medico.findByCPF", query = "SELECT m FROM Medico m WHERE m.cpf = :cpf")})
+
 public class Medico extends Pessoa implements ICRUD {
 
     @Column(name = "carga_horaria")
@@ -114,19 +125,16 @@ public class Medico extends Pessoa implements ICRUD {
         this.listaHorario.add(h);
     }
 
+    /**
+     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
+     *
+     * @param cpf Cadastro de Pessoa Física.
+     * @return O médico com portar o cpf.
+     */
     public static Medico findByCPF(String cpf) {
-        //TODO
-//        Session session = medicoCRUD.sf.openSession(); 
-//        Query query = session.createSQLQuery("select * from pessoa AS p INNER JOIN medico AS me ON p.id =me.id where p.cpf = ? ").addEntity(Medico.class);
-//        query.setString(0, cpf);
-//        List<Medico> list = (List<Medico>) query.list();
-//        session.close();
-//        if (list.isEmpty()) {
-//            return null;
-//        } else {
-//            return list.get(0);
-//        }
-        return null;
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        return instance.findByCPF(cpf);
     }
 
     @Override
@@ -137,18 +145,37 @@ public class Medico extends Pessoa implements ICRUD {
     }
 
     @Override
-    public void read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

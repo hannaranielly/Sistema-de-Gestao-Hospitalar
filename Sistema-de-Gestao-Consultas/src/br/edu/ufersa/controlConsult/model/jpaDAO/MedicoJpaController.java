@@ -55,6 +55,23 @@ public class MedicoJpaController implements Serializable {
         }
     }
 
+    public void read(Medico medico) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            if (!em.contains(medico)) {
+                throw new NonexistentEntityException("Entidade médico não existe.");
+            }
+            em.getTransaction().begin();
+            em.refresh(medico);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(Medico medico) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -165,4 +182,19 @@ public class MedicoJpaController implements Serializable {
         }
     }
 
+    public Medico findByCPF(String cpf) {
+        Medico medico = null;
+        EntityManager em = null;
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Medico.findByCPF");
+            q.setParameter(0, cpf);
+            medico = (Medico) q.getSingleResult();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return medico;
+    }
 }
