@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.model.jpaDAO;
+package br.edu.ufersa.controlConsult.model.jpaDAO.exceptions;
 
-import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class DiaSemanaDAONGTest {
+public class PreexistingEntityExceptionNGTest {
     
-    public DiaSemanaDAONGTest() {
+    public PreexistingEntityExceptionNGTest() {
     }
 
     @BeforeClass
@@ -38,16 +37,8 @@ public class DiaSemanaDAONGTest {
     public void tearDownMethod() throws Exception {
     }
 
-    /**
-     * Test of findByName method, of class DiaSemanaDAO.
-     */
     @Test
-    public void testFindByName() {
-        System.out.println("findByName");
-        String nome = "";
-        List expResult = null;
-        List result = DiaSemanaDAO.findByName(nome);
-        assertEquals(result, expResult);
+    public void testSomeMethod() {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

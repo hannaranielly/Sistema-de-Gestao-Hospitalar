@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.model.validacao;
+package br.edu.ufersa.controlConsult.model.jpaDAO.exceptions;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class CriptografiaNGTest {
+public class NonexistentEntityExceptionNGTest {
     
-    public CriptografiaNGTest() {
+    public NonexistentEntityExceptionNGTest() {
     }
 
     @BeforeClass
@@ -37,16 +37,8 @@ public class CriptografiaNGTest {
     public void tearDownMethod() throws Exception {
     }
 
-    /**
-     * Test of criptografar method, of class Criptografia.
-     */
     @Test
-    public void testCriptografar() {
-        System.out.println("criptografar");
-        String pwd = "";
-        String expResult = "";
-        String result = Criptografia.criptografar(pwd);
-        assertEquals(result, expResult);
+    public void testSomeMethod() {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

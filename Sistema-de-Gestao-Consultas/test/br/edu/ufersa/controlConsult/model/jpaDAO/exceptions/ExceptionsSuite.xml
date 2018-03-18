@@ -18,9 +18,9 @@
     </test>
     -->
     
-    <test name="br.edu.ufersa.controlConsult suite">
+    <test name="br.edu.ufersa.controlConsult.model.jpaDAO.exceptions suite">
         <packages>
-            <package name="br.edu.ufersa.controlConsult"/>
+            <package name="br.edu.ufersa.controlConsult.model.jpaDAO.exceptions"/>
         </packages>
     </test>
 

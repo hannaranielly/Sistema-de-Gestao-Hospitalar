@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
+import javax.persistence.EntityManagerFactory;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -38,13 +39,14 @@ public class JpaFactoryNGTest {
     }
 
     /**
-     * Test of main method, of class JpaFactory.
+     * Test of getInstance method, of class JpaFactory.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        JpaFactory.main(args);
+    public void testGetInstance() {
+        System.out.println("getInstance");
+        EntityManagerFactory expResult = null;
+        EntityManagerFactory result = JpaFactory.getInstance();
+        assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

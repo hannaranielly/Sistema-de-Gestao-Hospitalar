@@ -47,7 +47,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetInicio_Time() {
         System.out.println("setInicio");
         Time inicio = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setInicio(inicio);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -60,7 +60,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetFim_Time() {
         System.out.println("setFim");
         Time fim = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setFim(fim);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -73,7 +73,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetEstado() {
         System.out.println("setEstado");
         int estado = 0;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setEstado(estado);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -85,7 +85,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetEstado() {
         System.out.println("getEstado");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         int expResult = 0;
         int result = instance.getEstado();
         assertEquals(result, expResult);
@@ -100,7 +100,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetUltimaRealizacao() {
         System.out.println("setUltimaRealizacao");
         Date ultimaRealizacao = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setUltimaRealizacao(ultimaRealizacao);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -112,7 +112,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetUltimaRealizacao() {
         System.out.println("getUltimaRealizacao");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         Date expResult = null;
         Date result = instance.getUltimaRealizacao();
         assertEquals(result, expResult);
@@ -126,7 +126,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         String expResult = "";
         String result = instance.toString();
         assertEquals(result, expResult);
@@ -140,7 +140,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         Integer expResult = null;
         Integer result = instance.getId();
         assertEquals(result, expResult);
@@ -155,7 +155,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetId() {
         System.out.println("setId");
         Integer id = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -167,7 +167,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetInicio() {
         System.out.println("getInicio");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         Date expResult = null;
         Date result = instance.getInicio();
         assertEquals(result, expResult);
@@ -182,7 +182,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetInicio_Date() {
         System.out.println("setInicio");
         Date inicio = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setInicio(inicio);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -194,7 +194,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetFim() {
         System.out.println("getFim");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         Date expResult = null;
         Date result = instance.getFim();
         assertEquals(result, expResult);
@@ -209,35 +209,8 @@ public class HorarioAtendimentoNGTest {
     public void testSetFim_Date() {
         System.out.println("setFim");
         Date fim = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setFim(fim);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMedicoList method, of class HorarioAtendimento.
-     */
-    @Test
-    public void testGetMedicoList() {
-        System.out.println("getMedicoList");
-        HorarioAtendimento instance = null;
-        List expResult = null;
-        List result = instance.getMedicoList();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setMedicoList method, of class HorarioAtendimento.
-     */
-    @Test
-    public void testSetMedicoList() {
-        System.out.println("setMedicoList");
-        List<Medico> medicoList = null;
-        HorarioAtendimento instance = null;
-        instance.setMedicoList(medicoList);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -248,7 +221,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testGetDiaSemana() {
         System.out.println("getDiaSemana");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         DiaSemana expResult = null;
         DiaSemana result = instance.getDiaSemana();
         assertEquals(result, expResult);
@@ -263,7 +236,7 @@ public class HorarioAtendimentoNGTest {
     public void testSetDiaSemana() {
         System.out.println("setDiaSemana");
         DiaSemana diaSemana = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         instance.setDiaSemana(diaSemana);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -275,7 +248,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(result, expResult);
@@ -290,10 +263,89 @@ public class HorarioAtendimentoNGTest {
     public void testEquals() {
         System.out.println("equals");
         Object object = null;
-        HorarioAtendimento instance = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
         boolean expResult = false;
         boolean result = instance.equals(object);
         assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByMedicoId method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testFindByMedicoId() {
+        System.out.println("findByMedicoId");
+        Integer id = null;
+        List expResult = null;
+        List result = HorarioAtendimento.findByMedicoId(id);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByMedicoId_repetido method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testFindByMedicoId_repetido() {
+        System.out.println("findByMedicoId_repetido");
+        Integer id = null;
+        int dia = 0;
+        Time inicio = null;
+        Time fim = null;
+        List expResult = null;
+        List result = HorarioAtendimento.findByMedicoId_repetido(id, dia, inicio, fim);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of create method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testCreate() {
+        System.out.println("create");
+        HorarioAtendimento instance = new HorarioAtendimento();
+        instance.create();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of read method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testRead() {
+        System.out.println("read");
+        HorarioAtendimento instance = new HorarioAtendimento();
+        instance.read();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of update method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        HorarioAtendimento instance = new HorarioAtendimento();
+        instance.update();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of delete method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        HorarioAtendimento instance = new HorarioAtendimento();
+        instance.delete();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

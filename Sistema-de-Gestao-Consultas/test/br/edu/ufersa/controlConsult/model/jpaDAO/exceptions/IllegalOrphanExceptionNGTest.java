@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.model.hibernateDAO;
+package br.edu.ufersa.controlConsult.model.jpaDAO.exceptions;
 
-import org.hibernate.SessionFactory;
+import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +17,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class HibernateUtilNGTest {
+public class IllegalOrphanExceptionNGTest {
     
-    public HibernateUtilNGTest() {
+    public IllegalOrphanExceptionNGTest() {
     }
 
     @BeforeClass
@@ -39,13 +39,14 @@ public class HibernateUtilNGTest {
     }
 
     /**
-     * Test of getSessionFactory method, of class HibernateUtil.
+     * Test of getMessages method, of class IllegalOrphanException.
      */
     @Test
-    public void testGetSessionFactory() {
-        System.out.println("getSessionFactory");
-        SessionFactory expResult = null;
-        SessionFactory result = HibernateUtil.getSessionFactory();
+    public void testGetMessages() {
+        System.out.println("getMessages");
+        IllegalOrphanException instance = null;
+        List expResult = null;
+        List result = instance.getMessages();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
