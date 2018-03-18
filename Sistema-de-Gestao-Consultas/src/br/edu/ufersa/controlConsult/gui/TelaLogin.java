@@ -125,7 +125,10 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Usuario adm = new Usuario(txtUser.getText(), Criptografia.criptografar(txtSenha.getText()));
+        String username = txtUser.getText();
+        char[] password_raw = txtSenha.getPassword();
+        Usuario adm = new Usuario(username, password_raw);
+
         if (adm.validaLogin()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
             TelaInicial te = new TelaInicial();

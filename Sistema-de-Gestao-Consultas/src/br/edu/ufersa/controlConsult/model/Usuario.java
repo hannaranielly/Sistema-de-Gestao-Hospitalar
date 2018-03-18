@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.UsuarioJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
@@ -48,7 +49,7 @@ public class Usuario implements Serializable, ICRUD {
     @Column(name = "username", length = 15, unique = true)
     private String username;
     @Column(name = "password", length = 25)
-    private String password;
+    private char[] password;
 
     public Usuario() {
     }
@@ -57,7 +58,7 @@ public class Usuario implements Serializable, ICRUD {
         this.id = id;
     }
 
-    public Usuario(String username, String password) {
+    public Usuario(String username, char[] password) {
         this.setUsername(username);
         this.setPassword(password);
     }
@@ -78,12 +79,13 @@ public class Usuario implements Serializable, ICRUD {
         this.username = username;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(char[] password_raw) {
+        char[] password_hash = Criptografia.criptografar(password_raw);
+        this.password = password_hash;
     }
 
     public boolean validaLogin() {
