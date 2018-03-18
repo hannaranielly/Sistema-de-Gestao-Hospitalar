@@ -19,13 +19,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +37,20 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "horario_atendimento")
 public class HorarioAtendimento implements Serializable, ICRUD {
+
+    public enum DiaSemana {
+        SEGUNDA("Segunda-feira"), TERCA("Terça-feira"), QUARTA("Quarta-feira"),
+        QUINTA("Quinta-feira"), SEXTA("Sexta-feira"), SABADO("Sábado"), DOMINGO("Domingo");
+        String nome;
+
+        private DiaSemana(String nome) {
+            this.nome = nome;
+        }
+
+        public String getNome() {
+            return this.nome;
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +67,7 @@ public class HorarioAtendimento implements Serializable, ICRUD {
     private Date fim;
     @ManyToMany(mappedBy = "listaHorario", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
-    @JoinColumn(name = "dia_semana", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @Enumerated(EnumType.STRING)
     private DiaSemana diaSemana;
 
     private int estado; //TODO

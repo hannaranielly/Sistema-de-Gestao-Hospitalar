@@ -5,8 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.DiaSemana;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
 import br.edu.ufersa.controlConsult.model.Medico;
 import java.sql.Time;
 import javax.swing.JOptionPane;
@@ -216,8 +216,7 @@ public class AddHorario extends javax.swing.JFrame {
         Time inicio = Time.valueOf(hIField.getText());
         Time fim = Time.valueOf(hFField.getText());
         int estado = 0;
-        String diaSemanaString = diaSemana(jComboBox_diaSemana.getSelectedIndex());
-        DiaSemana diaSemana = DiaSemana.findByName(diaSemanaString).get(0);
+        DiaSemana diaSemana = diaSemana(jComboBox_diaSemana.getSelectedIndex());
         HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
         m.addListaHorario(h);
         if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
@@ -268,30 +267,25 @@ public class AddHorario extends javax.swing.JFrame {
         });
     }
 
-    public String diaSemana(int n) {
-        String retorno = null;
-        if (n == 0) {
-            retorno = "Sábado";
+    public DiaSemana diaSemana(int n) throws IllegalArgumentException {
+        switch (n) {
+            case 0:
+                return DiaSemana.SABADO;
+            case 1:
+                return DiaSemana.SEGUNDA;
+            case 2:
+                return DiaSemana.TERCA;
+            case 3:
+                return DiaSemana.QUARTA;
+            case 4:
+                return DiaSemana.QUINTA;
+            case 5:
+                return DiaSemana.SEXTA;
+            case 6:
+                return DiaSemana.DOMINGO;
+            default:
+                throw new IllegalArgumentException("Não existe este dia selecionado");
         }
-        if (n == 1) {
-            retorno = "Segunda-feira";
-        }
-        if (n == 2) {
-            retorno = "Terça-feira";
-        }
-        if (n == 3) {
-            retorno = "Quarta-feira";
-        }
-        if (n == 4) {
-            retorno = "Quinta-feira";
-        }
-        if (n == 5) {
-            retorno = "Sexta-feira";
-        }
-        if (n == 6) {
-            retorno = "Domingo";
-        }
-        return retorno;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
