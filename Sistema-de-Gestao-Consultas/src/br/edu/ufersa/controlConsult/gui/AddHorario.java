@@ -191,7 +191,7 @@ public class AddHorario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        m = m.consulta_por_CPF(CPFField.getText());
+        m = m.findByCPF(CPFField.getText());
         if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
@@ -223,8 +223,8 @@ public class AddHorario extends javax.swing.JFrame {
         if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
             JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
         } else {
-            if (HorarioAtendimento.consulta_repetido_por_id_medico(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
-                h.salvar_atualizar();
+            if (HorarioAtendimento.findByMedicoId_repetido(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
+                h.update();
                 JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");

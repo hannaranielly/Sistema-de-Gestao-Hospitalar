@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
@@ -29,7 +30,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "horario_atendimento")
-public class HorarioAtendimento implements Serializable {
+public class HorarioAtendimento implements Serializable, ICRUD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -174,21 +175,17 @@ public class HorarioAtendimento implements Serializable {
         return true;
     }
 
-    public void apagar() {
-        //TODO: Controller
-    }
-
-    public static List<HorarioAtendimento> consulta_por_id_medico(Integer id) {
+    public static List<HorarioAtendimento> findByMedicoId(Integer id) {
         //        Session session = horarioAtendimentoCRUD.sf.openSession();
         //        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ?").addEntity(HorarioAtendimento.class);
         //        query.setInteger(0, id);
         //        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
         //        session.close();
         //        return list;
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static List<HorarioAtendimento> consulta_repetido_por_id_medico(Integer id, int dia, Time inicio, Time fim) {
+    public static List<HorarioAtendimento> findByMedicoId_repetido(Integer id, int dia, Time inicio, Time fim) {
 //        Session session = horarioAtendimentoCRUD.sf.openSession();
 //        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and h.diaDaSemana=? and(? between h.inicio and h.fim or h.inicio between ? and ?)").addEntity(HorarioAtendimento.class);
 //        query.setLong(0, id);
@@ -199,20 +196,27 @@ public class HorarioAtendimento implements Serializable {
 //        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
 //        session.close();
 //        return list;
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void salvar_atualizar() {
-//        Session session = horarioAtendimentoCRUD.sf.openSession();
-//        try {
-//            Transaction tx = session.beginTransaction();
-//            session.saveOrUpdate(this);
-//            tx.commit();
-//            session.flush();
-//            session.close();
-//        } catch (HibernateException ex) {
-//            ex.printStackTrace();
-//        }
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

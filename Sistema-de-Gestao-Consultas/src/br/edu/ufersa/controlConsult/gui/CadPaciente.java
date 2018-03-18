@@ -321,8 +321,8 @@ public class CadPaciente extends javax.swing.JFrame {
                 String cep = CEPField.getText();
                 Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
                 Paciente pa = new Paciente(p, SUSField.getText());
-                if (Paciente.consulta_por_CPF(CPFField.getText()) == null) {
-                    pa.salvar_atualizar();
+                if (Paciente.findByCPF(CPFField.getText()) == null) {
+                    pa.update();
                     JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");

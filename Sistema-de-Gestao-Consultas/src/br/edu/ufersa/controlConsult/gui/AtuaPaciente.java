@@ -259,7 +259,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        p = p.consulta_por_CPF(CPFField.getText());
+        p = p.findByCPF(CPFField.getText());
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
         } else {
@@ -319,7 +319,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
             String num_sus = SUSField.getText();
 
             Paciente pn = new Paciente(pessoa, num_sus);
-            pn.salvar_atualizar();
+            pn.update();
             JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
             p = pn;
         }

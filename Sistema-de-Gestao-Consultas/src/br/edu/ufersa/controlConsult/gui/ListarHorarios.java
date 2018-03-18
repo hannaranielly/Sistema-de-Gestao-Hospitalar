@@ -124,11 +124,11 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        p = p.consulta_por_CPF(CPFField.getText());
+        p = p.findByCPF(CPFField.getText());
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Médico não cadastrado");
         } else {
-            list = HorarioAtendimento.consulta_por_id_medico(p.getId());
+            list = HorarioAtendimento.findByMedicoId(p.getId());
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
             } else {
@@ -151,8 +151,8 @@ public class ListarHorarios extends javax.swing.JFrame {
         if (list == null) {
             JOptionPane.showMessageDialog(null, "Informe primeiro o CPF do médico");
         } else {
-            list.get(listH.getSelectedIndex()).apagar();
-            list = HorarioAtendimento.consulta_por_id_medico(p.getId());
+            list.get(listH.getSelectedIndex()).delete();
+            list = HorarioAtendimento.findByMedicoId(p.getId());
 
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");

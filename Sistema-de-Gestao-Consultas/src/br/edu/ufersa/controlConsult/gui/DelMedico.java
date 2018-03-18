@@ -97,11 +97,11 @@ public class DelMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Medico m = Medico.consulta_por_CPF(CPFField.getText());
+        Medico m = Medico.findByCPF(CPFField.getText());
         if (m == null) {
             JOptionPane.showMessageDialog(this, "Médico não cadastrado no sistema");
         } else {
-            m.apagar();
+            m.delete();
             JOptionPane.showMessageDialog(this, "Médico apagado com sucesso");
         }
 

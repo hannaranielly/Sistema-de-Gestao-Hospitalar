@@ -342,7 +342,7 @@ public class BuscMedico extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Medico p = Medico.consulta_por_CPF(CPFField.getText());
+        Medico p = Medico.findByCPF(CPFField.getText());
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {

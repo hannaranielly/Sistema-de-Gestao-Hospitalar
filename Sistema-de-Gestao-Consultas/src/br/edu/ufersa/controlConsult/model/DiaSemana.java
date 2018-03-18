@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "DiaSemana.findAll", query = "SELECT d FROM DiaSemana d")
     , @NamedQuery(name = "DiaSemana.findById", query = "SELECT d FROM DiaSemana d WHERE d.id = :id")
     , @NamedQuery(name = "DiaSemana.findByNome", query = "SELECT d FROM DiaSemana d WHERE d.nome = :nome")})
-public class DiaSemana implements Serializable {
+public class DiaSemana implements Serializable, ICRUD {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,6 +111,26 @@ public class DiaSemana implements Serializable {
 
     public static List<DiaSemana> findByName(String nome) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
