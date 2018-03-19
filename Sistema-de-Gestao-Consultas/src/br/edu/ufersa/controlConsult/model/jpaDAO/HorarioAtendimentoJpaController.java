@@ -14,6 +14,7 @@ import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -32,7 +33,7 @@ public class HorarioAtendimentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(HorarioAtendimento horarioAtendimento) {
+    public void create(HorarioAtendimento horarioAtendimento) throws EntityExistsException {
         EntityManager em = null;
         try {
             em = getEntityManager();

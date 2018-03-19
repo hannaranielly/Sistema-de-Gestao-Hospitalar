@@ -15,6 +15,7 @@ import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -33,7 +34,7 @@ public class EspecialidadeJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Especialidade especialidade) {
+    public void create(Especialidade especialidade) throws EntityExistsException {
         if (especialidade.getMedicoList() == null) {
             especialidade.setMedicoList(new ArrayList<Medico>());
         }

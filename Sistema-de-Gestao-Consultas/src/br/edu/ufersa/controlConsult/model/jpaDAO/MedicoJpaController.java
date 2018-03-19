@@ -14,6 +14,7 @@ import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -32,7 +33,7 @@ public class MedicoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Medico medico) {
+    public void create(Medico medico) throws EntityExistsException {
         EntityManager em = null;
         try {
             em = getEntityManager();
