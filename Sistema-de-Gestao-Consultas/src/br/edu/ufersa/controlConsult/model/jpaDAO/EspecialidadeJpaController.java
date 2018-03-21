@@ -187,5 +187,21 @@ public class EspecialidadeJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<Especialidade> findByNome(String nome) {
+        List<Especialidade> especialidadeList = new ArrayList<Especialidade>();
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Especialidade.findByNome");
+            q.setParameter("nome", nome);
+            especialidadeList.addAll(q.getResultList());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return especialidadeList;
+    }
+
 }

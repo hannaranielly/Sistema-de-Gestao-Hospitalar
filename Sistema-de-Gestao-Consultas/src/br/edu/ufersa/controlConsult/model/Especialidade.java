@@ -5,12 +5,14 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.jpaDAO.EspecialidadeJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +47,7 @@ public class Especialidade implements Serializable {
     private String nome;
     @OneToMany(mappedBy = "especialidade", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
+
     public Especialidade() {
     }
 
@@ -110,5 +113,11 @@ public class Especialidade implements Serializable {
     public static List<Especialidade> findByName(String name) {
         new UnsupportedOperationException("Unsupported operation."); //TODO To change body of generated methods, choose Tools | Templates.
         return null;
+    }
+
+    public static List<Especialidade> findByNome(String nome) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        return instance.findByNome(nome);
     }
 }
