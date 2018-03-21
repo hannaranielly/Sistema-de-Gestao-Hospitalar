@@ -7,13 +7,12 @@ package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
-import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NamedQueries;
@@ -24,7 +23,7 @@ import javax.persistence.NamedQuery;
  * @author leone
  */
 @Entity
-@DiscriminatorColumn(name = "Paciente")
+@DiscriminatorValue("Paciente")
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p")
     , @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id")

@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -39,12 +40,15 @@ public class MedicoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Especialidade especialidade = medico.getEspecialidade();
-            if (especialidade != null && em.contains(especialidade)) {
+            if (especialidade != null) {
                 especialidade = em.getReference(especialidade.getClass(), especialidade.getId());
                 medico.setEspecialidade(especialidade);
             }
             em.persist(medico);
-            if (especialidade != null && especialidade.getMedicoList() != null) {
+            if (especialidade != null) {
+                if (especialidade.getMedicoList() == null) {
+                    especialidade.setMedicoList(new ArrayList<Medico>());
+                }
                 especialidade.getMedicoList().add(medico);
                 especialidade = em.merge(especialidade);
             }
@@ -56,13 +60,10 @@ public class MedicoJpaController implements Serializable {
         }
     }
 
-    public void read(Medico medico) throws NonexistentEntityException {
+    public void read(Medico medico) throws EntityNotFoundException {
         EntityManager em = null;
         try {
             em = getEntityManager();
-            if (!em.contains(medico)) {
-                throw new NonexistentEntityException("Entidade médico não existe.");
-            }
             em.getTransaction().begin();
             em.refresh(medico);
             em.getTransaction().commit();
@@ -185,11 +186,11 @@ public class MedicoJpaController implements Serializable {
 
     public Medico findByCPF(String cpf) {
         Medico medico = null;
-        EntityManager em = null;
+        EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             Query q = em.createNamedQuery("Medico.findByCPF");
-            q.setParameter(0, cpf);
+            q.setParameter("cpf", cpf);
             medico = (Medico) q.getSingleResult();
         } finally {
             if (em != null) {

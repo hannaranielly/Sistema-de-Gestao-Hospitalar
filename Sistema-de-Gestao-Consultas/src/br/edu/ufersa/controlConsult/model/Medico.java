@@ -15,9 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,7 +32,7 @@ import javax.persistence.NamedQuery;
  * @author cassiano
  */
 @Entity
-@DiscriminatorColumn(name = "Medico")
+@DiscriminatorValue("Medico")
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")
     , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")
@@ -145,12 +146,12 @@ public class Medico extends Pessoa implements ICRUD {
     }
 
     @Override
-    public void read() throws NonexistentEntityException {
+    public void read() throws EntityNotFoundException {
         EntityManagerFactory emf = JpaFactory.getInstance();
         MedicoJpaController instance = new MedicoJpaController(emf);
         try {
             instance.read(this);
-        } catch (NonexistentEntityException ex) {
+        } catch (EntityNotFoundException ex) {
             Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
