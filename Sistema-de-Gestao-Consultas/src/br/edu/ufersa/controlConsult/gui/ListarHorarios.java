@@ -7,7 +7,11 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -24,7 +28,7 @@ public class ListarHorarios extends javax.swing.JFrame {
         initComponents();
     }
     private List<HorarioAtendimento> list;
-    private Medico p;
+    private Medico medico;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,11 +128,21 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        p = p.findByCPF(CPFField.getText());
-        if (p == null) {
+        Pessoa pessoa = null;
+        try {
+            pessoa = Pessoa.findByCPF(CPFField.getText());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ListarHorarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (pessoa != null) {
+            medico = pessoa.getMedico();
+        } else {
+            medico = null;
+        }
+        if (medico == null) {
             JOptionPane.showMessageDialog(null, "Médico não cadastrado");
         } else {
-            list = HorarioAtendimento.findByMedicoId(p.getId());
+            list = HorarioAtendimento.findByMedicoId(medico.getId());
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
             } else {
@@ -152,7 +166,7 @@ public class ListarHorarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe primeiro o CPF do médico");
         } else {
             list.get(listH.getSelectedIndex()).delete();
-            list = HorarioAtendimento.findByMedicoId(p.getId());
+            list = HorarioAtendimento.findByMedicoId(medico.getId());
 
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");

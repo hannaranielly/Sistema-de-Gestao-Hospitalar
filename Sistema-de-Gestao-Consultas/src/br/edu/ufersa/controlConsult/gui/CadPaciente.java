@@ -8,8 +8,11 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -320,12 +323,16 @@ public class CadPaciente extends javax.swing.JFrame {
                 String estado = ""; //TODO
                 String cep = CEPField.getText();
                 Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
-                Paciente pa = new Paciente(p, SUSField.getText());
-                if (Paciente.findByCPF(CPFField.getText()) == null) {
-                    pa.update();
-                    JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
-                } else {
-                    JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
+                p.setPaciente(new Paciente(SUSField.getText()));
+                try {
+                    if (Pessoa.findByCPF(CPFField.getText()) == null) {
+                        p.update();
+                        JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
+                    }
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(CadPaciente.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {

@@ -7,6 +7,10 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -271,22 +275,26 @@ public class AtuaMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_CPFFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-        m = m.findByCPF(CPFField.getText());
+        try {
+            m = Pessoa.findByCPF(CPFField.getText()).getMedico();
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(AtuaMedico.class.getName()).log(Level.SEVERE, null, ex);
+            m = null;
+        }
         if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
+            Pessoa pessoa = m.getPessoa();
             CPFField.setEditable(false);
-            telefoneField.setText(m.getTelefone());
+            telefoneField.setText(pessoa.getTelefone());
             telefoneField.setEditable(true);
-            bairroField.setText(m.getBairro());
+            bairroField.setText(pessoa.getBairro());
             bairroField.setEditable(true);
-            cidadeField.setText(m.getCidade());
+            cidadeField.setText(pessoa.getCidade());
             cidadeField.setEditable(true);
-            CEPField.setText(m.getCep());
+            CEPField.setText(pessoa.getCep());
             CEPField.setEditable(true);
-            logradouroField.setText(m.getLogradouro());
+            logradouroField.setText(pessoa.getLogradouro());
             logradouroField.setEditable(true);
             chField.setText(String.valueOf(m.getCargaHoraria()));
             chField.setEditable(true);
@@ -320,16 +328,17 @@ public class AtuaMedico extends javax.swing.JFrame {
         if (m == null) {
             JOptionPane.showMessageDialog(this, "Informe o CPF do médico que deseja atualizar as informações cadastrais");
         } else {
-            m.setBairro(bairroField.getText());
-            m.setCep(CEPField.getText());
-            m.setCidade(cidadeField.getText());
-            m.setCpf(m.getCpf());
-            m.setDataDeNascimento(m.getDataDeNascimento());
-            m.setId(m.getId());
-            m.setLogradouro(logradouroField.getText());
-            m.setNome(m.getNome());
-            m.setRg(m.getRg());
-            m.setTelefone(telefoneField.getText());
+            Pessoa pessoa = m.getPessoa();
+            pessoa.setBairro(bairroField.getText());
+            pessoa.setCep(CEPField.getText());
+            pessoa.setCidade(cidadeField.getText());
+            pessoa.setCpf(pessoa.getCpf());
+            pessoa.setDataDeNascimento(pessoa.getDataDeNascimento());
+            pessoa.setId(m.getId());
+            pessoa.setLogradouro(logradouroField.getText());
+            pessoa.setNome(pessoa.getNome());
+            pessoa.setRg(pessoa.getRg());
+            pessoa.setTelefone(telefoneField.getText());
             m.setCargaHoraria(Integer.parseInt(chField.getText()));
             m.setEspecialidade(Especialidade.findByName((String) jComboBox_espField.getSelectedItem()).get(0)); //TODO: Especialidade é uma entidade, não é mais somente uma String.
             JOptionPane.showMessageDialog(this, "Médico Atualizado com Sucesso");

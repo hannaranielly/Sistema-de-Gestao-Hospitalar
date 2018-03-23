@@ -6,6 +6,10 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -97,7 +101,18 @@ public class DelMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Medico m = Medico.findByCPF(CPFField.getText());
+        Pessoa p = null;
+        try {
+            p = Pessoa.findByCPF(CPFField.getText());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(DelMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Medico m = null;
+        if (p != null) {
+            m = p.getMedico();
+        } else {
+            m = null;
+        }
         if (m == null) {
             JOptionPane.showMessageDialog(this, "Médico não cadastrado no sistema");
         } else {

@@ -8,8 +8,12 @@ package br.edu.ufersa.controlConsult.gui;
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -337,9 +341,21 @@ public class CadMedico extends javax.swing.JFrame {
 
                 String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
                 Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                Medico m = new Medico(p, cargaHoraria, especialidade);
-                if (Medico.findByCPF(CPFField.getText()) == null) {
-                    m.update();
+                Medico m = new Medico(cargaHoraria, especialidade);
+                p.setMedico(m);
+                Pessoa pessoa = null;
+                try {
+                    pessoa = Pessoa.findByCPF(CPFField.getText()); //TODO: BUGADO!
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(CadMedico.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (pessoa != null && pessoa.getMedico() == null) {
+                    pessoa.setMedico(m);
+                    try {
+                        pessoa.create();
+                    } catch (PreexistingEntityException ex) {
+                        Logger.getLogger(CadMedico.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     JOptionPane.showMessageDialog(this, "Médico armazenado com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(this, "O Médico já encontra-se cadastrado");

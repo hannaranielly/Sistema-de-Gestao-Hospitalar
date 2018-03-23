@@ -8,7 +8,10 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +22,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
     /**
      * Creates new form AtuaPaciente
      */
-    public Paciente p;
+    public Pessoa p;
 
     public AtuaPaciente() {
         initComponents();
@@ -258,9 +261,12 @@ public class AtuaPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_CEPFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        p = p.findByCPF(CPFField.getText());
-        if (p == null) {
+        try {
+            p = Pessoa.findByCPF(CPFField.getText());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(AtuaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (p != null && p.getPaciente() == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
         } else {
             CPFField.setEditable(false);
@@ -274,7 +280,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
             CEPField.setEditable(true);
             logradouroField.setText(p.getLogradouro());
             logradouroField.setEditable(true);
-            SUSField.setText(p.getNum_sus());
+            SUSField.setText(p.getPaciente().getNum_sus());
             SUSField.setEditable(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -318,10 +324,11 @@ public class AtuaPaciente extends javax.swing.JFrame {
             Pessoa pessoa = new Pessoa(id, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
             String num_sus = SUSField.getText();
 
-            Paciente pn = new Paciente(pessoa, num_sus);
-            pn.update();
+            Paciente pn = new Paciente(num_sus);
+            pessoa.setPaciente(pn);
+            pessoa.update();
             JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
-            p = pn;
+            p = pn.getPessoa();
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed

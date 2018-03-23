@@ -5,8 +5,10 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.Especialidade;
-import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -341,8 +343,13 @@ public class BuscMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_CPFFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Medico p = Medico.findByCPF(CPFField.getText());
+        Pessoa p;
+        try {
+            p = Pessoa.findByCPF(CPFField.getText());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(BuscMedico.class.getName()).log(Level.SEVERE, null, ex);
+            p = null;
+        }
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
@@ -354,8 +361,8 @@ public class BuscMedico extends javax.swing.JFrame {
             cidadeField.setText(p.getCidade());
             CEPField.setText(p.getCep());
             logradouroField.setText(p.getLogradouro());
-            chField.setText(String.valueOf(p.getCargaHoraria()));
-            String especialidadeNome = p.getEspecialidade().getNome(); //TODO
+            chField.setText(String.valueOf(p.getMedico().getCargaHoraria()));
+            String especialidadeNome = p.getMedico().getEspecialidade().getNome(); //TODO
             jComboBox_espField.getModel().setSelectedItem(especialidadeNome); //TODO
         }
     }//GEN-LAST:event_jButton2ActionPerformed

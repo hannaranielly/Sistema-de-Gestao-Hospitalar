@@ -5,8 +5,12 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
+import javax.swing.JOptionPane;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -314,19 +318,24 @@ public class BuscPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Paciente p = Paciente.findByCPF(CPFField.getText());
-        if (p == null) {
+        Pessoa pessoa = null;
+        try {
+            pessoa = Pessoa.findByCPF(CPFField.getText());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(BuscPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (pessoa != null && pessoa.getPaciente() == null) {
             JOptionPane.showMessageDialog(null, "Paciente não encontrado");
         } else {
-            nomeField.setText(p.getNome());
-            nascimentoField.setDate(p.getDataDeNascimento());
-            RGField.setText(p.getRg());
-            telefoneField.setText(p.getTelefone());
-            bairroField.setText(p.getBairro());
-            cidadeField.setText(p.getCidade());
-            CEPField.setText(p.getCep());
-            logradouroField.setText(p.getLogradouro());
-            SUSField.setText(p.getNum_sus());
+            nomeField.setText(pessoa.getNome());
+            nascimentoField.setDate(pessoa.getDataDeNascimento());
+            RGField.setText(pessoa.getRg());
+            telefoneField.setText(pessoa.getTelefone());
+            bairroField.setText(pessoa.getBairro());
+            cidadeField.setText(pessoa.getCidade());
+            CEPField.setText(pessoa.getCep());
+            logradouroField.setText(pessoa.getLogradouro());
+            SUSField.setText(pessoa.getPaciente().getNum_sus());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

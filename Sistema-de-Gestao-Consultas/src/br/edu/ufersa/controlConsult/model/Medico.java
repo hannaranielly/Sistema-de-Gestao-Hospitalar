@@ -9,43 +9,51 @@ import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author cassiano
  */
 @Entity
-@DiscriminatorValue("Medico")
 @NamedQueries({
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")
-    , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")
-    , @NamedQuery(name = "Medico.findByNome", query = "SELECT m FROM Medico m WHERE m.nome = :nome")
-    , @NamedQuery(name = "Medico.findByCPF", query = "SELECT m FROM Medico m WHERE m.cpf = :cpf")})
+    , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
+public class Medico implements ICRUD, Serializable {
 
-public class Medico extends Pessoa implements ICRUD {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "medico")
+    private Pessoa pessoa;
 
     @Column(name = "carga_horaria")
     private Integer cargaHoraria;
 
     @JoinColumn(name = "especialidade", referencedColumnName = "id")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Especialidade especialidade;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -54,14 +62,12 @@ public class Medico extends Pessoa implements ICRUD {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
     private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
 
-    public Medico(Pessoa pessoa, Integer cargaHoraria, Especialidade especialidade) {
-        super(pessoa);
+    public Medico(Integer cargaHoraria, Especialidade especialidade) {
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
     }
 
     public Medico() {
-        super();
     }
 
     public void setListaHorario(List<HorarioAtendimento> listaHorario) {
@@ -126,18 +132,6 @@ public class Medico extends Pessoa implements ICRUD {
         this.listaHorario.add(h);
     }
 
-    /**
-     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
-     *
-     * @param cpf Cadastro de Pessoa Física.
-     * @return O médico com portar o cpf.
-     */
-    public static Medico findByCPF(String cpf) {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        MedicoJpaController instance = new MedicoJpaController(emf);
-        return instance.findByCPF(cpf);
-    }
-
     @Override
     public void create() {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -174,9 +168,25 @@ public class Medico extends Pessoa implements ICRUD {
         MedicoJpaController instance = new MedicoJpaController(emf);
         try {
             instance.destroy(this.getId());
-        } catch (NonexistentEntityException ex) {
+        } catch (NonexistentEntityException | IllegalArgumentException ex) {
             Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
 }

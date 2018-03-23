@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,20 @@ public class MedicoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Medico medico) throws EntityExistsException {
+    public void create(Medico medico) throws EntityExistsException, IllegalArgumentException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Pessoa pessoa = medico.getPessoa();
+
+            if (pessoa != null) {
+                pessoa.setMedico(medico);
+                pessoa = em.merge(pessoa);
+                medico.setPessoa(pessoa);
+            } else {
+                throw new IllegalArgumentException("Classe <Medico> sem Entidade <Pessoa>");
+            }
             Especialidade especialidade = medico.getEspecialidade();
             if (especialidade != null) {
                 especialidade = em.getReference(especialidade.getClass(), especialidade.getId());
@@ -52,7 +62,15 @@ public class MedicoJpaController implements Serializable {
                 especialidade.getMedicoList().add(medico);
                 especialidade = em.merge(especialidade);
             }
+            if (pessoa != null) {
+                if (pessoa.getMedico() != null) {
+                    pessoa.setMedico(medico);
+                    pessoa = em.merge(pessoa);
+                }
+            }
             em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (em != null) {
                 em.close();
@@ -120,7 +138,6 @@ public class MedicoJpaController implements Serializable {
             Medico medico;
             try {
                 medico = em.getReference(Medico.class, id);
-                medico.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The medico with id " + id + " no longer exists.", enfe);
             }
@@ -184,19 +201,4 @@ public class MedicoJpaController implements Serializable {
         }
     }
 
-    public Medico findByCPF(String cpf) {
-        Medico medico = null;
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createNamedQuery("Medico.findByCPF");
-            q.setParameter("cpf", cpf);
-            medico = (Medico) q.getSingleResult();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        return medico;
-    }
 }

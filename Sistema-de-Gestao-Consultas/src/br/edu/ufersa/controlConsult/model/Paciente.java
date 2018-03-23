@@ -9,37 +9,45 @@ import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author leone
  */
 @Entity
-@DiscriminatorValue("Paciente")
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p")
-    , @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id")
-    , @NamedQuery(name = "Paciente.findByNome", query = "SELECT p FROM Paciente p WHERE p.nome = :nome")
-    , @NamedQuery(name = "Paciente.findByCPF", query = "SELECT p FROM Paciente p WHERE p.cpf = :cpf")})
-public class Paciente extends Pessoa implements ICRUD {
+    , @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id")})
+public class Paciente implements ICRUD, Serializable {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "paciente")
+    private Pessoa pessoa;
 
     @Column(length = 25, unique = true)
     private String num_sus;
 
     public Paciente() {
-        super();
     }
 
-    public Paciente(Pessoa pessoa, String num_sus) {
-        super(pessoa);
+    public Paciente(String num_sus) {
         this.setNum_sus(num_sus);
     }
 
@@ -76,12 +84,6 @@ public class Paciente extends Pessoa implements ICRUD {
         return "br.edu.ufersa.controlConsult.model.Paciente[ id=" + this.getId() + " ]";
     }
 
-    public static Paciente findByCPF(String cpf) {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PacienteJpaController instance = new PacienteJpaController(emf);
-        return instance.findByCPF(cpf);
-    }
-
     @Override
     public void create() {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -95,8 +97,10 @@ public class Paciente extends Pessoa implements ICRUD {
         PacienteJpaController instance = new PacienteJpaController(emf);
         try {
             instance.read(this);
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Paciente.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
     }
@@ -107,8 +111,10 @@ public class Paciente extends Pessoa implements ICRUD {
         PacienteJpaController instance = new PacienteJpaController(emf);
         try {
             instance.edit(this);
+
         } catch (Exception ex) {
-            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Paciente.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -118,9 +124,27 @@ public class Paciente extends Pessoa implements ICRUD {
         PacienteJpaController instance = new PacienteJpaController(emf);
         try {
             instance.destroy(this.getId());
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Paciente.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
 }

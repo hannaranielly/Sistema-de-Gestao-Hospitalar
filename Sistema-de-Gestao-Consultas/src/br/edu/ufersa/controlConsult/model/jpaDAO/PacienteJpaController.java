@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -67,6 +68,13 @@ public class PacienteJpaController implements Serializable {
         EntityManager em = null;
         try {
             em = getEntityManager();
+            Query q = em.createQuery("SELECT p FROM Paciente p WHERE p.id = :id", Paciente.class)
+                    .setParameter("id", paciente.getId());
+            try {
+                Paciente p = (Paciente) q.getSingleResult();
+            } catch (NoResultException ex) {
+
+            }
             em.getTransaction().begin();
             paciente = em.merge(paciente);
             em.getTransaction().commit();
@@ -152,21 +160,4 @@ public class PacienteJpaController implements Serializable {
             em.close();
         }
     }
-
-    public Paciente findByCPF(String cpf) {
-        Paciente paciente = null;
-        EntityManager em = null;
-        try {
-            em.getTransaction().begin();
-            Query q = em.createNamedQuery("Paciente.findByCPF");
-            q.setParameter(0, cpf);
-            paciente = (Paciente) q.getSingleResult();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        return paciente;
-    }
-
 }

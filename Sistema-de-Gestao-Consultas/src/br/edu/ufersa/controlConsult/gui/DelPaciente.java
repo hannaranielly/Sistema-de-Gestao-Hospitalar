@@ -7,6 +7,10 @@ package br.edu.ufersa.controlConsult.gui;
 
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -94,11 +98,18 @@ public class DelPaciente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Paciente p = Paciente.findByCPF(CPFField.getText());
-        if (p == null) {
+        Pessoa p = null;
+        Paciente pa = null;
+        try {
+            p = Pessoa.findByCPF(CPFField.getText());
+            pa = p.getPaciente();
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(DelPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (pa == null) {
             JOptionPane.showMessageDialog(this, "Paciente não cadastrado no sistema");
         } else {
-            p.delete();
+            pa.delete();
             JOptionPane.showMessageDialog(this, "Paciente apagado com sucesso");
         }
 

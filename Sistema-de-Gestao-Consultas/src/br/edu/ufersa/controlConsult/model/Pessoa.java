@@ -5,17 +5,29 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,9 +38,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "pessoa")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Pessoa")
-public class Pessoa implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
+    , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
+    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE m.nome = :nome")
+    , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")})
+public class Pessoa implements Serializable, ICRUD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,26 +80,14 @@ public class Pessoa implements Serializable {
     @Column(name = "cidade", length = 50)
     private String cidade;
 
-    protected Pessoa() {
-    }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "medico")
+    private Medico medico;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
 
-    /**
-     * Construtor pela entidade Pessoa
-     */
-    protected Pessoa(Pessoa pessoa) {
-        this(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(),
-                pessoa.getRg(),
-                pessoa.getEmail(),
-                pessoa.getSexo(),
-                pessoa.getDataDeNascimento(),
-                pessoa.getTelefone(),
-                pessoa.getLogradouro(),
-                pessoa.getNumCasa(),
-                pessoa.getBairro(),
-                pessoa.getCidade(),
-                pessoa.getEstado(),
-                pessoa.getCep()
-        );
+    protected Pessoa() {
     }
 
     /**
@@ -264,6 +267,75 @@ public class Pessoa implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.Pessoa[ id=" + id + " ]";
+    }
+
+    /**
+     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
+     *
+     * @param cpf Cadastro de Pessoa Física.
+     * @return O médico com portar o cpf.
+     */
+    public static Pessoa findByCPF(String cpf) throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByCPF(cpf);
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Medico getMedico() {
+        return this.medico;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Paciente getPaciente() {
+        return this.paciente;
+    }
+
+    @Override
+    public void create() throws PreexistingEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        instance.create(this);
+    }
+
+    @Override
+    public void read() throws EntityNotFoundException {
+//        EntityManagerFactory emf = JpaFactory.getInstance();
+//        PessoaJpaController instance = new PessoaJpaController(emf);
+//        try {
+//            instance.read(this);
+//        } catch (EntityNotFoundException ex) {
+//            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+//            throw ex;
+//        }
+    }
+
+    @Override
+    public void update() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void delete() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

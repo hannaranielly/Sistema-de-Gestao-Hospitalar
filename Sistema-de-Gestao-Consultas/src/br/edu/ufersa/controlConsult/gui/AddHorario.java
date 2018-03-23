@@ -8,7 +8,11 @@ package br.edu.ufersa.controlConsult.gui;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.sql.Time;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -189,13 +193,16 @@ public class AddHorario extends javax.swing.JFrame {
     }//GEN-LAST:event_hIFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-        m = m.findByCPF(CPFField.getText());
+        try {
+            m = Pessoa.findByCPF(CPFField.getText()).getMedico();
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(AddHorario.class.getName()).log(Level.SEVERE, null, ex);
+            m = null;
+        }
         if (m == null) {
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         } else {
-            nomeLabel.setText(m.getNome());
+            nomeLabel.setText(m.getPessoa().getNome());
             CPFField.setEditable(false);
             hIField.setEditable(true);
             hFField.setEditable(true);
