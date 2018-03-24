@@ -8,11 +8,11 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -331,7 +331,7 @@ public class CadPaciente extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
                     }
-                } catch (NonexistentEntityException ex) {
+                } catch (NoResultException ex) {
                     Logger.getLogger(CadPaciente.class.getName()).log(Level.SEVERE, null, ex);
                 }
 

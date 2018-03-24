@@ -9,10 +9,10 @@ import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,7 +195,7 @@ public class AddHorario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             m = Pessoa.findByCPF(CPFField.getText()).getMedico();
-        } catch (NonexistentEntityException ex) {
+        } catch (NoResultException ex) {
             Logger.getLogger(AddHorario.class.getName()).log(Level.SEVERE, null, ex);
             m = null;
         }

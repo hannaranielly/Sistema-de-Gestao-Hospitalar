@@ -17,6 +17,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityExc
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -154,7 +155,7 @@ public class PessoaJpaController implements Serializable {
         }
     }
 
-    public Pessoa findByCPF(String cpf) {
+    public Pessoa findByCPF(String cpf) throws NoResultException {
         Pessoa pessoa = null;
         EntityManager em = getEntityManager();
         try {

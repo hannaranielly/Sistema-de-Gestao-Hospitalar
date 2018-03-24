@@ -8,9 +8,9 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -103,7 +103,7 @@ public class DelPaciente extends javax.swing.JFrame {
         try {
             p = Pessoa.findByCPF(CPFField.getText());
             pa = p.getPaciente();
-        } catch (NonexistentEntityException ex) {
+        } catch (NoResultException ex) {
             Logger.getLogger(DelPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (pa == null) {

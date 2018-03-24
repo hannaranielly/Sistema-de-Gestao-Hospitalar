@@ -8,10 +8,10 @@ package br.edu.ufersa.controlConsult.gui;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -263,7 +263,7 @@ public class AtuaPaciente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             p = Pessoa.findByCPF(CPFField.getText());
-        } catch (NonexistentEntityException ex) {
+        } catch (NoResultException ex) {
             Logger.getLogger(AtuaPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (p != null && p.getPaciente() == null) {

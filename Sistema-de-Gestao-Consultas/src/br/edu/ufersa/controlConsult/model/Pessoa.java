@@ -27,6 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -275,7 +276,7 @@ public class Pessoa implements Serializable, ICRUD {
      * @param cpf Cadastro de Pessoa Física.
      * @return O médico com portar o cpf.
      */
-    public static Pessoa findByCPF(String cpf) throws NonexistentEntityException {
+    public static Pessoa findByCPF(String cpf) throws NoResultException {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         return instance.findByCPF(cpf);
