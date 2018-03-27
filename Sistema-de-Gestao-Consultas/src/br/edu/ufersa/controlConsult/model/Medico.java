@@ -53,7 +53,7 @@ public class Medico implements ICRUD, Serializable {
     private Integer cargaHoraria;
 
     @JoinColumn(name = "especialidade", referencedColumnName = "id")
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Especialidade especialidade;
 
     @ManyToMany(fetch = FetchType.EAGER)

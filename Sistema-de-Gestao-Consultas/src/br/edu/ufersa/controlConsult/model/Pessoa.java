@@ -10,6 +10,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
+import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
@@ -93,10 +94,12 @@ public class Pessoa implements Serializable, ICRUD {
 
     /**
      * Construtor completo
+     *
+     * @throws IllegalArgumentException se algum atributo for inválido.
      */
     public Pessoa(Integer id, String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            Integer numCasa, String bairro, String cidade, String estado, String cep) {
+            Integer numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
         this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
@@ -118,7 +121,7 @@ public class Pessoa implements Serializable, ICRUD {
      */
     public Pessoa(String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            int numCasa, String bairro, String cidade, String estado, String cep) {
+            int numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
         this(null, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro,
                 numCasa, bairro, cidade, estado, cep);
     }
@@ -143,7 +146,10 @@ public class Pessoa implements Serializable, ICRUD {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(String cpf) throws IllegalArgumentException {
+        if (!CPF.isCPF(cpf.replaceAll("[.-]", ""))) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
         this.cpf = cpf;
     }
 
