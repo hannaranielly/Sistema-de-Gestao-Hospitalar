@@ -16,6 +16,7 @@ import javax.persistence.NoResultException;
 /**
  *
  * @author leone
+ * @deprecated 
  */
 public class AtuaPaciente extends javax.swing.JFrame {
 

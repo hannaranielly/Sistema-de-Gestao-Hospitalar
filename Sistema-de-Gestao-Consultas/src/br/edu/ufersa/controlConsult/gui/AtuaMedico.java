@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author asus
+ * @deprecated
  */
 public class AtuaMedico extends javax.swing.JFrame {
 
