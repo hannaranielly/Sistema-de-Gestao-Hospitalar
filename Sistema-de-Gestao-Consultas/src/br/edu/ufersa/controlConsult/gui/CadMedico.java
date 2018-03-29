@@ -8,12 +8,9 @@ package br.edu.ufersa.controlConsult.gui;
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
-import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
 /**
@@ -321,54 +318,72 @@ public class CadMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty() && !RGField.getText().isEmpty() && nascimentoField.getDate() != null) {
-            if (CPF.isCPF(CPFField.getText().replaceAll("[.-]", ""))) {
-                String nome = nomeField.getText();
-                String cpf = CPFField.getText();
-                String rg = RGField.getText();
-                String email = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                char sexo = 'm'; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                Date dataDeNascimento = nascimentoField.getDate();
-                String telefone = telefoneField.getText();
-                String logradouro = logradouroField.getText();
-                int numCasa = -1; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                String bairro = bairroField.getText();
-                String cidade = cidadeField.getText();
-                String estado = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                String cep = CEPField.getText();
-                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
-                int cargaHoraria = Integer.parseInt(chField.getText());
+        cadastrar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * Retira os dados do formulário e persiste no banco de dados.
+     */
+    private void cadastrar() {
 
-                String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
-                Medico m = new Medico(cargaHoraria, especialidade);
+        if (!CPFField.getText().isEmpty() && !nomeField.getText().isEmpty()
+                && !RGField.getText().isEmpty() && nascimentoField.getDate() != null) {
+
+            //Extraindo dados do formulário
+            String nome = nomeField.getText();
+            String cpf = CPFField.getText();
+            String rg = RGField.getText();
+            String email = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            char sexo = 'm'; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            Date dataDeNascimento = nascimentoField.getDate();
+            String telefone = telefoneField.getText();
+            String logradouro = logradouroField.getText();
+            int numCasa = -1; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            String bairro = bairroField.getText();
+            String cidade = cidadeField.getText();
+            String estado = ""; //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            String cep = CEPField.getText();
+
+            String nomeEspecialidade = (String) jComboBox_espField.getModel().getSelectedItem(); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            Especialidade especialidade = new Especialidade(nomeEspecialidade, null); //TODO: Ajeitar essa seleção de acordo com a nova estrutura do banco de dados.
+            int cargaHoraria = Integer.parseInt(chField.getText());
+            Medico m = new Medico(cargaHoraria, especialidade);
+            Pessoa p = null;
+            try {
+                p = new Pessoa(nome, cpf, rg, email, sexo,
+                        dataDeNascimento, telefone, logradouro, numCasa,
+                        bairro, cidade, estado, cep);
                 p.setMedico(m);
-                Pessoa pessoa = null;
+            } catch (IllegalArgumentException e) {
+                System.err.println("Exceção - Motivo:" + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Informações inválidas." + "\n" + "Razão: " + e.getMessage());
+                return;
+            }
+            //Verifica se existe alguém com o cpf já cadastrado.
+            Pessoa duplicatedPerson = null;
+            try {
                 try {
-                    pessoa = Pessoa.findByCPF(CPFField.getText()); //TODO: BUGADO!
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(CadMedico.class.getName()).log(Level.SEVERE, null, ex);
+                    duplicatedPerson = Pessoa.findByCPF(CPFField.getText());
+                } catch (NoResultException ex) {
+
                 }
-                if (pessoa != null && pessoa.getMedico() == null) {
-                    pessoa.setMedico(m);
-                    try {
-                        pessoa.create();
-                    } catch (PreexistingEntityException ex) {
-                        Logger.getLogger(CadMedico.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                if (duplicatedPerson != null) {
+                    throw new PreexistingEntityException("Essa pessoa já existe.");
+                }
+                p.create();
+            } catch (PreexistingEntityException e) {
+                if (duplicatedPerson.getMedico() == null) {
+                    p.setMedico(m);
+                    p.update();
                     JOptionPane.showMessageDialog(this, "Médico armazenado com sucesso");
                 } else {
-                    JOptionPane.showMessageDialog(this, "O Médico já encontra-se cadastrado");
+                    JOptionPane.showMessageDialog(this, "A pessoa já se encontra cadastrada como Médico no sistema.");
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(this, "CPF inválido");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
                     + "RG e data de nascimento");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     private void chFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chFieldActionPerformed
         // TODO add your handling code here:
@@ -435,4 +450,8 @@ public class CadMedico extends javax.swing.JFrame {
     private javax.swing.JTextField nomeField;
     private javax.swing.JFormattedTextField telefoneField;
     // End of variables declaration//GEN-END:variables
+
+    void setContext(FormPessoa.TipoContextoEnum typeOfContextEnum) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
