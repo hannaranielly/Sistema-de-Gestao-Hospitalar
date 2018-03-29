@@ -284,8 +284,10 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        CadMedico cad = new CadMedico();
+        // Cadastrar Médico        
+        FormPessoa cad = new FormPessoa();
+        cad.setTipoPessoa(FormPessoa.TipoPessoaEnum.MEDICO);
+        cad.setTipoContexto(FormPessoa.TipoContextoEnum.CADASTRAR);
         cad.setVisible(true);
         cad.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
