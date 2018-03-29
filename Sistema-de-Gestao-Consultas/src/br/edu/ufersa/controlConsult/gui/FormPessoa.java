@@ -8,27 +8,11 @@ package br.edu.ufersa.controlConsult.gui;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 /**
  *
@@ -36,8 +20,16 @@ import javax.swing.JTextField;
  */
 public class FormPessoa extends javax.swing.JFrame {
 
-    public static enum PersonTypeEnum {
-        PACIENTE, MEDICO;
+    void setTipoContexto(TipoContextoEnum tipoDeContexto) {
+        this.tipoDeContexto = tipoDeContexto;
+    }
+
+    void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
+        this.tipoDePessoa = tipoPessoa;
+    }
+
+    public static enum TipoPessoaEnum {
+        AMBOS, PACIENTE, MEDICO;
     }
 
     public static enum UF_Enum {
@@ -58,19 +50,19 @@ public class FormPessoa extends javax.swing.JFrame {
         }
     }
 
-    public static enum TypeOfContextEnum {
+    public static enum TipoContextoEnum {
         /**
          * Inserir pessoa no sistema
          */
-        INSERT,
+        CADASTRAR,
         /**
          * Atualizar pessoa no sistema.
          */
-        UPDATE;
+        ATUALIZAR;
     }
 
-    private PersonTypeEnum personType;
-    private TypeOfContextEnum typeOfAction;
+    private TipoPessoaEnum tipoDePessoa;
+    private TipoContextoEnum tipoDeContexto;
     private Pessoa person;
 
     /**
