@@ -5,8 +5,11 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
+import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
 import java.util.logging.Level;
@@ -63,7 +66,8 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private TipoPessoaEnum tipoDePessoa;
     private TipoContextoEnum tipoDeContexto;
-    private Pessoa person;
+
+    private Pessoa pessoa; // Pessoa para alteração. Valida somente se o contexto for para alteração.
 
     /**
      * Creates new form FormPessoa
@@ -528,7 +532,34 @@ public class FormPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_cep_formattedFieldActionPerformed
 
     private void submit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_jButtonActionPerformed
-        // TODO add your handling code here:
+        switch (tipoDeContexto) {
+            case CADASTRAR:
+                switch (tipoDePessoa) {
+                    case MEDICO:
+                        cadastrarMedico();
+                        break;
+                    case PACIENTE:
+                        cadastrarPaciente();
+                        break;
+                }
+                break;
+            case ATUALIZAR:
+                switch (tipoDePessoa) {
+                    case MEDICO:
+                        atualizarMedico();
+                        break;
+                    case PACIENTE:
+                        atualizarPaciente();
+                        break;
+                }
+                break;
+            default:
+        }
+
+
+    }//GEN-LAST:event_submit_jButtonActionPerformed
+
+    private void cadastrarMedico() {
         if (!cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null) {
             if (CPF.isCPF(cpf_textField.getText().replaceAll("[.-]", ""))) {
                 String nome = nome_textField.getText();
@@ -554,7 +585,7 @@ public class FormPessoa extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
                     }
                 } catch (NoResultException ex) {
-                    Logger.getLogger(CadPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {
@@ -564,8 +595,104 @@ public class FormPessoa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
                     + "RG e data de nascimento");
         }
-    }//GEN-LAST:event_submit_jButtonActionPerformed
+    }
 
+    private void cadastrarPaciente() {
+        if (!cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null) {
+            if (CPF.isCPF(cpf_textField.getText().replaceAll("[.-]", ""))) {
+                String nome = nome_textField.getText();
+                String cpf = cpf_textField.getText();
+                String rg = rg_textField.getText();
+                String email = ""; //TODO
+                char sexo = 'm'; //TODO
+                Date dataDeNascimento = nascimento_DateField.getDate();
+                String telefone = telefone_formattedField.getText();
+                String logradouro = logradouro_jLabel.getText();
+                int numCasa = -1; //TODO 
+                String bairro = bairroField.getText();
+                String cidade = cidadeField.getText();
+                String estado = ""; //TODO
+                String cep = cep_formattedField.getText();
+                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
+                p.setPaciente(new Paciente(sus_formattedtField.getText()));
+                try {
+                    if (Pessoa.findByCPF(cpf_textField.getText()) == null) {
+                        p.update();
+                        JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
+                    }
+                } catch (NoResultException ex) {
+                    Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "CPF inválido");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
+                    + "RG e data de nascimento");
+        }
+    }
+
+    private void atualizarMedico() {
+        try {
+            Pessoa duplicated_pessoa = Pessoa.findByCPF(cpf_textField.getText());
+        } catch (NoResultException ex) {
+            Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Pessoa duplicated_pessoa = null;
+        }
+        if (pessoa.getMedico() == null) {
+            JOptionPane.showMessageDialog(null, "Médico não encontrado");
+        } else {
+            updateVarPessoa();
+            updateVarPessoaMedico();
+
+        }
+    }
+
+    private void atualizarPaciente() {
+        if (pessoa == null) {
+            JOptionPane.showMessageDialog(this, "Informe o CPF do paciente que deseja atualizar as informações cadastrais");
+        } else {
+            updateVarPessoa();
+            updateVarPessoaPaciente();
+        }
+    }
+
+    private void updateVarPessoa() {
+        String nome = pessoa.getNome();
+        String cpf = pessoa.getCpf();
+        String rg = pessoa.getRg();
+        String email = ""; //TODO
+        char sexo = 'm'; //TODO
+        Date dataDeNascimento = pessoa.getDataDeNascimento();
+        String telefone = telefone_formattedField.getText();
+        String logradouro = logradouro_textField.getText();
+        int numCasa = -1; //TODO 
+        String bairro = bairroField.getText();
+        String cidade = cidadeField.getText();
+        String estado = ""; //TODO
+        String cep = cep_formattedField.getText();
+        // TODO: atualizar Pessoa
+
+    }
+
+    private void updateVarPessoaMedico() {
+        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+        chField.setEditable(true);
+        jComboBox_espField.setSelectedItem(pessoa.getMedico().getEspecialidade()); //TODO
+    }
+
+    private void updateVarPessoaPaciente() {
+        String num_sus = sus_formattedtField.getText();
+
+        Paciente pn = new Paciente(num_sus);
+        pessoa.setPaciente(pn);
+        pessoa.update();
+        JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
+        pessoa = pn.getPessoa();
+    }
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sus_formattedtFieldActionPerformed
