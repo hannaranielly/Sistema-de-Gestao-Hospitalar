@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.EspecialidadeJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,12 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Especialidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static List<Especialidade> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        return instance.findEspecialidadeEntities();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
