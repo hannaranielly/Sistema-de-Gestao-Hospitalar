@@ -5,11 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.Especialidade;
-import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,12 +20,16 @@ import javax.swing.JOptionPane;
  */
 public class FormPessoa extends javax.swing.JFrame {
 
-    void setTipoContexto(TipoContextoEnum tipoDeContexto) {
+    private void setTipoContexto(TipoContextoEnum tipoDeContexto) {
         this.tipoDeContexto = tipoDeContexto;
     }
 
-    void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
+    private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
         this.tipoDePessoa = tipoPessoa;
+    }
+
+    private void ajustarContextoPessoa() {
+        // Ajustes na interface de acordo com cada contexto.
     }
 
     public static enum TipoPessoaEnum {
@@ -72,8 +73,11 @@ public class FormPessoa extends javax.swing.JFrame {
     /**
      * Creates new form FormPessoa
      */
-    public FormPessoa() {
+    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa) {
+        this.setTipoContexto(tipoContexto);
+        this.setTipoPessoa(tipoPessoa);
         initComponents();
+        ajustarContextoPessoa();
     }
 
     /**
@@ -747,7 +751,10 @@ public class FormPessoa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPessoa().setVisible(true);
+                new FormPessoa(
+                        TipoContextoEnum.CADASTRAR,
+                        TipoPessoaEnum.MEDICO
+                ).setVisible(true);
             }
         });
     }

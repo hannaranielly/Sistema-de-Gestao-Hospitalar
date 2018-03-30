@@ -232,27 +232,21 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // Atualizar Médico
-        FormPessoa am = new FormPessoa();
-        am.setTipoPessoa(TipoPessoaEnum.MEDICO);
-        am.setTipoContexto(TipoContextoEnum.ATUALIZAR);
+        FormPessoa am = new FormPessoa(TipoContextoEnum.ATUALIZAR, TipoPessoaEnum.MEDICO);
         am.setVisible(true);
         am.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         //Cadastrar paciente.
-        FormPessoa cp = new FormPessoa();
-        cp.setTipoPessoa(TipoPessoaEnum.PACIENTE);
-        cp.setTipoContexto(FormPessoa.TipoContextoEnum.CADASTRAR);
+        FormPessoa cp = new FormPessoa(FormPessoa.TipoContextoEnum.CADASTRAR, TipoPessoaEnum.PACIENTE);
         cp.setVisible(true);
         cp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // Atualizar paciente.
-        FormPessoa ap = new FormPessoa();
-        ap.setTipoPessoa(TipoPessoaEnum.PACIENTE);
-        ap.setTipoContexto(TipoContextoEnum.ATUALIZAR);
+        FormPessoa ap = new FormPessoa(TipoContextoEnum.ATUALIZAR, TipoPessoaEnum.PACIENTE);
         ap.setVisible(true);
         ap.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -295,9 +289,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // Cadastrar Médico        
-        FormPessoa cad = new FormPessoa();
-        cad.setTipoPessoa(TipoPessoaEnum.MEDICO);
-        cad.setTipoContexto(TipoContextoEnum.CADASTRAR);
+        FormPessoa cad = new FormPessoa(TipoContextoEnum.CADASTRAR, TipoPessoaEnum.MEDICO);
         cad.setVisible(true);
         cad.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
