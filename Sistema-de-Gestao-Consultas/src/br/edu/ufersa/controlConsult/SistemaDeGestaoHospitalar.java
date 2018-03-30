@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult;
 
 import br.edu.ufersa.controlConsult.gui.TelaLogin;
 
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 
 /**
  *
@@ -18,12 +19,15 @@ public class SistemaDeGestaoHospitalar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        load();
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-        
-        
-     
+
     }
-    
+
+    private static void load() {
+        JpaFactory.getInstance(); // Inicia Conexão com o banco de dados.
+    }
+
 }
