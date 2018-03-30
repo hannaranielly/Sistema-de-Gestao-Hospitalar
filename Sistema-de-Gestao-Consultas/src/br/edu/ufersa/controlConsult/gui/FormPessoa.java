@@ -34,11 +34,11 @@ public class FormPessoa extends javax.swing.JFrame {
 
     public static enum UF_Enum {
         AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES(
-                "Esp�rito Santo"), GO("Goi�s"), MA("Maranh�o"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
-                "Minas Gerais"), PA("Par�"), PB("Para�ba"), PR("Paran�"), PE("Pernambuco"), PI("Piau�"), RJ(
+                "Espírito Santo"), GO("Goiás"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
+                "Minas Gerais"), PA("Pará"), PB("Paraíba"), PR("Paraná"), PE("Pernambuco"), PI("Piauí"), RJ(
                 "Rio de Janeiro"), RN("Rio Grande do Norte"), RS("Rio Grande do Sul"), RO(
-                "Rond�nia"), RR("Roraima"), SC(
-                "Santa Catarina"), SP("S�o Paulo"), SE("Sergipe"), TO("Tocantins");
+                "Rondônia"), RR("Roraima"), SC(
+                "Santa Catarina"), SP("São Paulo"), SE("Sergipe"), TO("Tocantins");
         private String name;
 
         private UF_Enum(String name) {
