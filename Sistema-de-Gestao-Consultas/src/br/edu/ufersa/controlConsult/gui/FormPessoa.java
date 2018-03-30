@@ -30,6 +30,46 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void ajustarContextoPessoa() {
         // Ajustes na interface de acordo com cada contexto.
+
+        switch (tipoDeContexto) {
+
+            case CADASTRAR:
+                busca_jPanel.setVisible(false);
+                submit_jButton.setText("Cadastrar");
+                break;
+            case ATUALIZAR:
+                submit_jButton.setText("Atualizar");
+                busca_jPanel.setVisible(true);
+                if (pessoa != null) {
+                    pessoa_jPanel.setVisible(true);
+                    switch (tipoDePessoa) {
+                        case MEDICO:
+                            medico_jPanel.setVisible(true);
+                            break;
+                        case PACIENTE:
+                            paciente_jPanel.setVisible(true);
+                            break;
+                    }
+                } else {
+                    pessoa_jPanel.setVisible(false);
+                    medico_jPanel.setVisible(false);
+                    paciente_jPanel.setVisible(false);
+                }
+                break;
+            default:
+        }
+        switch (tipoDePessoa) {
+            case MEDICO:
+                paciente_jPanel.setVisible(false);
+                break;
+            case PACIENTE:
+                medico_jPanel.setVisible(false);
+                break;
+        }
+    }
+
+    private void preencherFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static enum TipoPessoaEnum {
@@ -92,6 +132,9 @@ public class FormPessoa extends javax.swing.JFrame {
 
         sexo_buttonGroup = new javax.swing.ButtonGroup();
         formulario_jPanel = new javax.swing.JPanel();
+        busca_jPanel = new javax.swing.JPanel();
+        BuscaCpf_textField = new javax.swing.JFormattedTextField();
+        search_jButton = new javax.swing.JButton();
         pessoa_jPanel = new javax.swing.JPanel();
         nome_jLabel = new javax.swing.JLabel();
         nome_textField = new javax.swing.JTextField();
@@ -118,25 +161,58 @@ public class FormPessoa extends javax.swing.JFrame {
         email_textField = new javax.swing.JTextField();
         estado_jLabel = new javax.swing.JLabel();
         estado_textField = new javax.swing.JTextField();
-        medico_jPanel6 = new javax.swing.JPanel();
+        medico_jPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         chField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox_espField = new javax.swing.JComboBox<>();
-        paciente_jPanel7 = new javax.swing.JPanel();
+        paciente_jPanel = new javax.swing.JPanel();
         sus_jLabel = new javax.swing.JLabel();
         sus_formattedtField = new javax.swing.JFormattedTextField();
         botoes_jPanel = new javax.swing.JPanel();
-        search_jButton = new javax.swing.JButton();
         submit_jButton = new javax.swing.JButton();
         cancel_jButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        formulario_jPanel.setLayout(new java.awt.GridLayout(3, 0));
+        formulario_jPanel.setLayout(new javax.swing.BoxLayout(formulario_jPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        busca_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
+        busca_jPanel.setLayout(new java.awt.GridBagLayout());
+
+        try {
+            BuscaCpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        BuscaCpf_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscaCpf_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 57;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        busca_jPanel.add(BuscaCpf_textField, gridBagConstraints);
+
+        search_jButton.setText("Buscar");
+        search_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_jButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        busca_jPanel.add(search_jButton, gridBagConstraints);
+
+        formulario_jPanel.add(busca_jPanel);
 
         pessoa_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa"));
         java.awt.GridBagLayout pessoa_jPanelLayout = new java.awt.GridBagLayout();
@@ -407,12 +483,12 @@ public class FormPessoa extends javax.swing.JFrame {
 
         formulario_jPanel.add(pessoa_jPanel);
 
-        medico_jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Médico"));
-        medico_jPanel6.setLayout(new java.awt.GridBagLayout());
+        medico_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Médico"));
+        medico_jPanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Carga Horária:");
-        medico_jPanel6.add(jLabel4, new java.awt.GridBagConstraints());
+        medico_jPanel.add(jLabel4, new java.awt.GridBagConstraints());
 
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
@@ -428,23 +504,23 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 75;
-        medico_jPanel6.add(chField, gridBagConstraints);
+        medico_jPanel.add(chField, gridBagConstraints);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
-        medico_jPanel6.add(jLabel11, new java.awt.GridBagConstraints());
+        medico_jPanel.add(jLabel11, new java.awt.GridBagConstraints());
 
         jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
-        medico_jPanel6.add(jComboBox_espField, new java.awt.GridBagConstraints());
+        medico_jPanel.add(jComboBox_espField, new java.awt.GridBagConstraints());
 
-        formulario_jPanel.add(medico_jPanel6);
+        formulario_jPanel.add(medico_jPanel);
 
-        paciente_jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
-        paciente_jPanel7.setLayout(new java.awt.GridBagLayout());
+        paciente_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
+        paciente_jPanel.setLayout(new java.awt.GridBagLayout());
 
         sus_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         sus_jLabel.setText("Número de Registro SUS:");
-        paciente_jPanel7.add(sus_jLabel, new java.awt.GridBagConstraints());
+        paciente_jPanel.add(sus_jLabel, new java.awt.GridBagConstraints());
 
         try {
             sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
@@ -460,19 +536,11 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        paciente_jPanel7.add(sus_formattedtField, gridBagConstraints);
+        paciente_jPanel.add(sus_formattedtField, gridBagConstraints);
 
-        formulario_jPanel.add(paciente_jPanel7);
+        formulario_jPanel.add(paciente_jPanel);
 
         getContentPane().add(formulario_jPanel, java.awt.BorderLayout.CENTER);
-
-        search_jButton.setText("Buscar");
-        search_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                search_jButtonActionPerformed(evt);
-            }
-        });
-        botoes_jPanel.add(search_jButton);
 
         submit_jButton.setText("Cadastrar ou Alterar");
         submit_jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -703,6 +771,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void cancel_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_jButtonActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_cancel_jButtonActionPerformed
 
     private void chFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chFieldActionPerformed
@@ -710,7 +779,14 @@ public class FormPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_chFieldActionPerformed
 
     private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
+            preencherFormulario();
+        } catch (NoResultException ex) {
+            JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
+        } finally {
+            ajustarContextoPessoa();
+        }
     }//GEN-LAST:event_search_jButtonActionPerformed
 
     private void masculino_radioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masculino_radioButtonActionPerformed
@@ -720,6 +796,10 @@ public class FormPessoa extends javax.swing.JFrame {
     private void email_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_email_textFieldActionPerformed
+
+    private void BuscaCpf_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscaCpf_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuscaCpf_textFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -752,7 +832,7 @@ public class FormPessoa extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormPessoa(
-                        TipoContextoEnum.CADASTRAR,
+                        TipoContextoEnum.ATUALIZAR,
                         TipoPessoaEnum.MEDICO
                 ).setVisible(true);
             }
@@ -778,9 +858,11 @@ public class FormPessoa extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField BuscaCpf_textField;
     private javax.swing.JTextField bairroField;
     private javax.swing.JLabel bairro_jLabel;
     private javax.swing.JPanel botoes_jPanel;
+    private javax.swing.JPanel busca_jPanel;
     private javax.swing.JButton cancel_jButton;
     private javax.swing.JFormattedTextField cep_formattedField;
     private javax.swing.JLabel cep_jLabel;
@@ -805,12 +887,12 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel logradouro_jLabel;
     private javax.swing.JTextField logradouro_textField;
     private javax.swing.JRadioButton masculino_radioButton;
-    private javax.swing.JPanel medico_jPanel6;
+    private javax.swing.JPanel medico_jPanel;
     private com.toedter.calendar.JDateChooser nascimento_DateField;
     private javax.swing.JLabel nascimento_jLabel;
     private javax.swing.JLabel nome_jLabel;
     private javax.swing.JTextField nome_textField;
-    private javax.swing.JPanel paciente_jPanel7;
+    private javax.swing.JPanel paciente_jPanel;
     private javax.swing.JPanel pessoa_jPanel;
     private javax.swing.JLabel rg_jLabel;
     private javax.swing.JTextField rg_textField;
