@@ -5,67 +5,188 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import java.util.Date;
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author cassiano
  */
 @Entity
-@Table(name = "medico")
-@PrimaryKeyJoinColumn(name = "id")
-public class Medico extends Pessoa {
-    @OneToMany(mappedBy = "medico", targetEntity = HorarioAtendimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<HorarioAtendimento> listaHorario;
-    @Column
-    private int cargaHoraria;
-    private int especialidade;
-    public Medico(){
-        
-    }
-    public Medico (Pessoa pessoa, List<HorarioAtendimento>  listaHorario, 
-            int cargaHoraria, int especialidade){
-        super(pessoa);
-        this.setListaHorario(listaHorario);
+@NamedQueries({
+    @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")
+    , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
+public class Medico implements ICRUD, Serializable {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "medico")
+    private Pessoa pessoa;
+
+    @Column(name = "carga_horaria")
+    private Integer cargaHoraria;
+
+    @JoinColumn(name = "especialidade", referencedColumnName = "id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Especialidade especialidade;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "medico_horario", joinColumns = {
+        @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "horario", referencedColumnName = "id")})
+    private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
+
+    public Medico(Integer cargaHoraria, Especialidade especialidade) {
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
     }
-    
-    
-    public void setListaHorario (List<HorarioAtendimento> listaHorario){
+
+    public Medico() {
+    }
+
+    public void setListaHorario(List<HorarioAtendimento> listaHorario) {
         this.listaHorario = listaHorario;
     }
-    
-    public List<HorarioAtendimento>  getListaHorario (){
+
+    public List<HorarioAtendimento> getListaHorario() {
         return listaHorario;
     }
-    
-    public void setCargaHoraria (int cargaHoraria){
-        if(cargaHoraria <= 60 && cargaHoraria > 0){
+
+    public void setCargaHoraria(int cargaHoraria) {
+        if (cargaHoraria <= 60 && cargaHoraria > 0) {
             this.cargaHoraria = cargaHoraria;
         }
     }
-    
-    public int getCargaHoraria (){
+
+    public int getCargaHoraria() {
         return cargaHoraria;
     }
-    
-    public void setEspecialidade (int especialidade){
+
+    public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
-    
-    public int getEspecialidade (){
+
+    public Especialidade getEspecialidade() {
         return especialidade;
     }
-    
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (this.getId() != null ? this.getId().hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Medico)) {
+            return false;
+        }
+        Medico other = (Medico) object;
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ufersa.controlConsult.model.Medico[ id=" + this.getId() + " ]";
+    }
+
+    public void addListaHorario(HorarioAtendimento h) {
+        if (this.listaHorario == null) {
+            this.listaHorario = new ArrayList<HorarioAtendimento>();
+        }
+        this.listaHorario.add(h);
+    }
+
+    @Override
+    public void create() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        instance.create(this);
+    }
+
+    @Override
+    public void read() throws EntityNotFoundException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (EntityNotFoundException ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public void update() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void delete() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException | IllegalArgumentException ex) {
+            Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
 }

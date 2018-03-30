@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.model.jpaDAO;
 
+import javax.persistence.EntityManagerFactory;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -16,9 +17,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class AddHorarioNGTest {
+public class JpaFactoryNGTest {
     
-    public AddHorarioNGTest() {
+    public JpaFactoryNGTest() {
     }
 
     @BeforeClass
@@ -38,27 +39,13 @@ public class AddHorarioNGTest {
     }
 
     /**
-     * Test of main method, of class AddHorario.
+     * Test of getInstance method, of class JpaFactory.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        AddHorario.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of diaSemana method, of class AddHorario.
-     */
-    @Test
-    public void testDiaSemana() {
-        System.out.println("diaSemana");
-        int n = 0;
-        AddHorario instance = new AddHorario();
-        String expResult = "";
-        String result = instance.diaSemana(n);
+    public void testGetInstance() {
+        System.out.println("getInstance");
+        EntityManagerFactory expResult = null;
+        EntityManagerFactory result = JpaFactory.getInstance();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

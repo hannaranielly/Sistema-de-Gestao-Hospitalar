@@ -5,19 +5,34 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
+import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.NoResultException;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,71 +40,97 @@ import org.hibernate.annotations.OnDeleteAction;
  */
 @Entity
 @Table(name = "pessoa")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
+    , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
+    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE m.nome = :nome")
+    , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")})
+public class Pessoa implements Serializable, ICRUD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Long id;
-    @Column
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "nome", length = 150)
     private String nome;
-    @Column(unique = true)
-    private String cpf;
-    @Column
-    private String rg;
-    @Column
-    private Date data_nascimento;
-    @Column
-    private String telefone;
-    @Column
-    private String cidade;
-    @Column
+    @Column(name = "data_de_nascimento")
+    @Temporal(TemporalType.DATE)
+    private Date dataDeNascimento;
+    @Column(name = "sexo")
+    private Character sexo;
+    @Column(name = "email", length = 75)
+    private String email;
+    @Column(name = "bairro", length = 75)
     private String bairro;
-    @Column
+    @Column(name = "num_casa")
+    private Integer numCasa;
+    @Column(name = "logradouro", length = 75)
     private String logradouro;
-    @Column
+    @Column(name = "cep", length = 15)
     private String cep;
+    @Column(name = "telefone", length = 15)
+    private String telefone;
+    @Basic(optional = false)
+    @Column(name = "cpf", unique = true, length = 20)
+    private String cpf;
+    @Column(name = "rg", unique = true, length = 20)
+    private String rg;
+    @Column(name = "estado", length = 50)
+    private String estado;
+    @Column(name = "cidade", length = 50)
+    private String cidade;
 
-    public Pessoa(){
-        
-    }
-    
-    protected Pessoa(Pessoa pessoa) {
-        this(pessoa.getId(), pessoa.getNome(), pessoa.getCpf(), pessoa.getRg(),
-                pessoa.getData_nascimento(), pessoa.getTelefone(), pessoa.getCidade(),
-                pessoa.getBairro(), pessoa.getLogradouro(),
-                pessoa.getCep());
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "medico")
+    private Medico medico;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
+
+    protected Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String cpf, String rg,
-            Date data_nascimento, String telefone, String cidade, String bairro,
-            String logradouro, String cep) {
+    /**
+     * Construtor completo
+     *
+     * @throws IllegalArgumentException se algum atributo for inválido.
+     */
+    public Pessoa(Integer id, String nome, String cpf, String rg, String email,
+            char sexo, Date dataDeNascimento, String telefone, String logradouro,
+            Integer numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
         this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
         this.setRg(rg);
-        this.setData_nascimento(data_nascimento);
+        this.setEmail(email);
+        this.setSexo(sexo);
+        this.setDataDeNascimento(dataDeNascimento);
         this.setTelefone(telefone);
-        this.setCidade(cidade);
-        this.setBairro(bairro);
         this.setLogradouro(logradouro);
+        this.setNumCasa(numCasa);
+        this.setBairro(bairro);
+        this.setCidade(cidade);
+        this.setEstado(estado);
         this.setCep(cep);
     }
 
-    public Pessoa(String nome, String cpf, String rg,
-            Date data_nascimento, String telefone,
-            String cidade, String bairro,
-            String logradouro, String cep) {
-        this(null, nome, cpf, rg, data_nascimento, telefone, cidade, bairro, logradouro, cep);
+    /**
+     * Construtor sem id na assinatura.
+     */
+    public Pessoa(String nome, String cpf, String rg, String email,
+            char sexo, Date dataDeNascimento, String telefone, String logradouro,
+            int numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
+        this(null, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro,
+                numCasa, bairro, cidade, estado, cep);
     }
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -105,7 +146,10 @@ public class Pessoa implements Serializable {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(String cpf) throws IllegalArgumentException {
+        if (!CPF.isCPF(cpf.replaceAll("[.-]", ""))) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
         this.cpf = cpf;
     }
 
@@ -115,14 +159,6 @@ public class Pessoa implements Serializable {
 
     public void setRg(String rg) {
         this.rg = rg;
-    }
-
-    public Date getData_nascimento() {
-        return data_nascimento;
-    }
-
-    public void setData_nascimento(Date data_nascimento) {
-        this.data_nascimento = data_nascimento;
     }
 
     public String getTelefone() {
@@ -163,6 +199,150 @@ public class Pessoa implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Pessoa(Integer id) {
+        this.id = id;
+    }
+
+    public Pessoa(Integer id, String nome, String cpf) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Character getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Character sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getNumCasa() {
+        return numCasa;
+    }
+
+    public void setNumCasa(int numCasa) {
+        this.numCasa = numCasa;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Pessoa)) {
+            return false;
+        }
+        Pessoa other = (Pessoa) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ufersa.controlConsult.model.Pessoa[ id=" + id + " ]";
+    }
+
+    /**
+     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
+     *
+     * @param cpf Cadastro de Pessoa Física.
+     * @return O médico com portar o cpf.
+     */
+    public static Pessoa findByCPF(String cpf) throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByCPF(cpf);
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Medico getMedico() {
+        return this.medico;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Paciente getPaciente() {
+        return this.paciente;
+    }
+
+    @Override
+    public void create() throws PreexistingEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        instance.create(this);
+    }
+
+    @Override
+    public void read() throws EntityNotFoundException {
+//        EntityManagerFactory emf = JpaFactory.getInstance();
+//        PessoaJpaController instance = new PessoaJpaController(emf);
+//        try {
+//            instance.read(this);
+//        } catch (EntityNotFoundException ex) {
+//            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+//            throw ex;
+//        }
+    }
+
+    @Override
+    public void update() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void delete() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

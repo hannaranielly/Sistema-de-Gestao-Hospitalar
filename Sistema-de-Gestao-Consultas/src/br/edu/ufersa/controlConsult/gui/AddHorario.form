@@ -45,7 +45,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="diaSemana" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox_diaSemana" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -82,7 +82,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="diaSemana" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBox_diaSemana" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="hIField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -148,7 +148,7 @@
         <Property name="text" type="java.lang.String" value="Dia da Semana:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="diaSemana">
+    <Component class="javax.swing.JComboBox" name="jComboBox_diaSemana">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="7">

@@ -5,11 +5,13 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.hibernateDAO.HorarioAtendimentoCRUD;
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -26,7 +28,7 @@ public class ListarHorarios extends javax.swing.JFrame {
         initComponents();
     }
     private List<HorarioAtendimento> list;
-    private Medico p;
+    private Medico medico;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,13 +128,21 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        MedicoCRUD mc = new MedicoCRUD();
-        p = mc.consulta_por_CPF(CPFField.getText());
-        if (p == null) {
+        Pessoa pessoa = null;
+        try {
+            pessoa = Pessoa.findByCPF(CPFField.getText());
+        } catch (NoResultException ex) {
+            Logger.getLogger(ListarHorarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (pessoa != null) {
+            medico = pessoa.getMedico();
+        } else {
+            medico = null;
+        }
+        if (medico == null) {
             JOptionPane.showMessageDialog(null, "Médico não cadastrado");
         } else {
-            HorarioAtendimentoCRUD hac = new HorarioAtendimentoCRUD();
-            list = hac.consulta_por_id_medico(p.getId());
+            list = HorarioAtendimento.findByMedicoId(medico.getId());
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
             } else {
@@ -140,7 +150,7 @@ public class ListarHorarios extends javax.swing.JFrame {
                 DefaultListModel model = new DefaultListModel();
                 int cont = 0;
                 for (HorarioAtendimento ha : list) {
-                    model.add(cont, String.valueOf(diaSemana(ha.getDiaDaSemana()) + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
+                    model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
                     cont++;
                 }
                 listH.setModel(model);
@@ -152,12 +162,11 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (list==null) {
+        if (list == null) {
             JOptionPane.showMessageDialog(null, "Informe primeiro o CPF do médico");
         } else {
-            HorarioAtendimentoCRUD hc = new HorarioAtendimentoCRUD();
-            hc.apagar(list.get(listH.getSelectedIndex()));
-            list = hc.consulta_por_id_medico(p.getId());
+            list.get(listH.getSelectedIndex()).delete();
+            list = HorarioAtendimento.findByMedicoId(medico.getId());
 
             if (list.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
@@ -167,7 +176,7 @@ public class ListarHorarios extends javax.swing.JFrame {
                 DefaultListModel model = new DefaultListModel();
                 int cont = 0;
                 for (HorarioAtendimento ha : list) {
-                    model.add(cont, String.valueOf(diaSemana(ha.getDiaDaSemana()) + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
+                    model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
                     cont++;
                 }
                 listH.setModel(model);
@@ -177,31 +186,32 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    public String diaSemana(int n){
+    public String diaSemana(int n) {
         String retorno = null;
-        if(n==0){
+        if (n == 0) {
             retorno = "Sábado";
         }
-        if(n==1){
+        if (n == 1) {
             retorno = "Segunda-feira";
         }
-        if(n==2){
+        if (n == 2) {
             retorno = "Terça-feira";
         }
-        if(n==3){
+        if (n == 3) {
             retorno = "Quarta-feira";
         }
-        if(n==4){
+        if (n == 4) {
             retorno = "Quinta-feira";
         }
-        if(n==5){
+        if (n == 5) {
             retorno = "Sexta-feira";
         }
-        if(n==6){
+        if (n == 6) {
             retorno = "Domingo";
         }
         return retorno;
     }
+
     /**
      * @param args the command line arguments
      */

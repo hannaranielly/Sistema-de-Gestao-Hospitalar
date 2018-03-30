@@ -5,8 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Usuario;
 import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.Administrador;
 import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
 
 /**
@@ -125,19 +125,21 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Administrador adm = new Administrador(txtUser.getText(), Criptografia.criptografar(txtSenha.getText()));
-        if(adm.validaLogin()){
+        String username = txtUser.getText();
+        char[] password_raw = txtSenha.getPassword();
+        Usuario adm = new Usuario(username, password_raw);
+
+        if (adm.validaLogin()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
-            TelaInicial  te = new TelaInicial();
+            TelaInicial te = new TelaInicial();
             te.setVisible(true);
             te.setLocationRelativeTo(null);
             this.dispose();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, " Login e/ou senha foram inválidos");
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
-  
+
     /**
      * @param args the command line arguments
      */

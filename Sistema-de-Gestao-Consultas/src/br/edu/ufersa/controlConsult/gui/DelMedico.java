@@ -5,8 +5,11 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.hibernateDAO.MedicoCRUD;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
 /**
@@ -98,12 +101,22 @@ public class DelMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        MedicoCRUD mc = new MedicoCRUD();
-        Medico m = mc.consulta_por_CPF(CPFField.getText());
-        if(m == null){
+        Pessoa p = null;
+        try {
+            p = Pessoa.findByCPF(CPFField.getText());
+        } catch (NoResultException ex) {
+            Logger.getLogger(DelMedico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Medico m = null;
+        if (p != null) {
+            m = p.getMedico();
+        } else {
+            m = null;
+        }
+        if (m == null) {
             JOptionPane.showMessageDialog(this, "Médico não cadastrado no sistema");
-        }else{
-            mc.apagar(m);
+        } else {
+            m.delete();
             JOptionPane.showMessageDialog(this, "Médico apagado com sucesso");
         }
 
