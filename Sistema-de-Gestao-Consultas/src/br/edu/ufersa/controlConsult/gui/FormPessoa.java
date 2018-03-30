@@ -72,6 +72,10 @@ public class FormPessoa extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void limpaFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public static enum TipoPessoaEnum {
         AMBOS, PACIENTE, MEDICO;
     }
@@ -627,7 +631,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 break;
             default:
         }
-
+        limpaFormulario();
 
     }//GEN-LAST:event_submit_jButtonActionPerformed
 
@@ -780,6 +784,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
         try {
+            limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
             preencherFormulario();
         } catch (NoResultException ex) {
