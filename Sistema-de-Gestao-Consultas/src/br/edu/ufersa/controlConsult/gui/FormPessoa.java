@@ -5,34 +5,40 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
+import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.validacao.CPF;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author juan
+ * @author Juan Carlos
  */
 public class FormPessoa extends javax.swing.JFrame {
-
+    
     private void setTipoContexto(TipoContextoEnum tipoDeContexto) {
         this.tipoDeContexto = tipoDeContexto;
     }
-
+    
     private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
         this.tipoDePessoa = tipoPessoa;
     }
-
-    private void ajustarContextoPessoa() {
+    
+    private void atualizarContextoJanela() {
         // Ajustes na interface de acordo com cada contexto.
-
         switch (tipoDeContexto) {
-
             case CADASTRAR:
                 busca_jPanel.setVisible(false);
                 submit_jButton.setText("Cadastrar");
@@ -61,25 +67,90 @@ public class FormPessoa extends javax.swing.JFrame {
         switch (tipoDePessoa) {
             case MEDICO:
                 paciente_jPanel.setVisible(false);
+                loadEspecialidades();
                 break;
             case PACIENTE:
                 medico_jPanel.setVisible(false);
                 break;
         }
     }
-
-    private void preencherFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    private void preencherFormularioPessoa() {
+        nome_textField.setText(pessoa.getNome());
+        cpf_textField.setText(pessoa.getCpf());
+        rg_textField.setText(pessoa.getRg());
+        email_textField.setText(pessoa.getEmail());
+        if (pessoa.getSexo() == 'm') {
+            masculino_radioButton.setSelected(true);
+        } else {
+            feminino_radioButton.setSelected(true);
+        }
+        nascimento_DateField.setDate(pessoa.getDataDeNascimento());
+        telefone_formattedField.setText(pessoa.getTelefone());
+        logradouro_textField.setText(pessoa.getLogradouro());
+        int numCasa = 0; //TODO
+        bairroField.setText(pessoa.getBairro());
+        cidadeField.setText(pessoa.getCidade());
+        estado_textField.setText(pessoa.getEstado());
+        cep_formattedField.setText(pessoa.getCep());
+        preencheFormularioMedico();
+        preencheFormularioPaciente();
     }
-
+    
+    private Map<String, Especialidade> especialidesMap = new HashMap<>();
+    
+    private void preencheFormularioMedico() {
+        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+        loadEspecialidades();
+        espField_jComboBox.getModel().setSelectedItem(pessoa.getMedico().getEspecialidade().getNome());
+    }
+    
+    private void preencheFormularioPaciente() {
+        sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
+    }
+    
     private void limpaFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nome_textField.setText("");
+        cpf_textField.setText("");
+        rg_textField.setText("");
+        email_textField.setText("");
+        masculino_radioButton.setSelected(false);
+        feminino_radioButton.setSelected(false);
+        nascimento_DateField.setDate(new Date());
+        telefone_formattedField.setText("");
+        logradouro_textField.setText("");
+        int numCasa = 0; //TODO
+        bairroField.setText("");
+        cidadeField.setText("");
+        estado_textField.setText("");
+        cep_formattedField.setText("");
     }
-
+    
+    private Especialidade extrairEspecialidade() { //TODO
+        Especialidade especialidade = especialidesMap.get(espField_jComboBox.getModel().getSelectedItem());
+        return especialidade;
+    }
+    
+    private void loadEspecialidades() {
+        List<Especialidade> bd_especialidades = Especialidade.findAll();
+        if (bd_especialidades.isEmpty()) { // Default Especialidades
+            bd_especialidades = Arrays.asList(
+                    new Especialidade("Clínico Geral"),
+                    new Especialidade("Pediatra")
+            );
+        }
+        bd_especialidades.forEach(especialidade -> especialidesMap.put(especialidade.getNome(), especialidade));
+        Set<String> keys = especialidesMap.keySet();
+        String[] keys_string = keys.toArray(new String[keys.size()]);
+        Arrays.sort(keys_string);
+        ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
+        espField_jComboBox.setModel(model);
+    }
+    
     public static enum TipoPessoaEnum {
         AMBOS, PACIENTE, MEDICO;
     }
-
+    
     public static enum UF_Enum {
         AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES(
                 "Espírito Santo"), GO("Goiás"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
@@ -88,16 +159,16 @@ public class FormPessoa extends javax.swing.JFrame {
                 "Rondônia"), RR("Roraima"), SC(
                 "Santa Catarina"), SP("São Paulo"), SE("Sergipe"), TO("Tocantins");
         private String name;
-
+        
         private UF_Enum(String name) {
             this.name = name;
         }
-
+        
         public String getName() {
             return this.name;
         }
     }
-
+    
     public static enum TipoContextoEnum {
         /**
          * Inserir pessoa no sistema
@@ -108,10 +179,10 @@ public class FormPessoa extends javax.swing.JFrame {
          */
         ATUALIZAR;
     }
-
+    
     private TipoPessoaEnum tipoDePessoa;
     private TipoContextoEnum tipoDeContexto;
-
+    
     private Pessoa pessoa; // Pessoa para alteração. Valida somente se o contexto for para alteração.
 
     /**
@@ -121,7 +192,8 @@ public class FormPessoa extends javax.swing.JFrame {
         this.setTipoContexto(tipoContexto);
         this.setTipoPessoa(tipoPessoa);
         initComponents();
-        ajustarContextoPessoa();
+        atualizarContextoJanela();
+        
     }
 
     /**
@@ -169,7 +241,7 @@ public class FormPessoa extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         chField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox_espField = new javax.swing.JComboBox<>();
+        espField_jComboBox = new javax.swing.JComboBox<>();
         paciente_jPanel = new javax.swing.JPanel();
         sus_jLabel = new javax.swing.JLabel();
         sus_formattedtField = new javax.swing.JFormattedTextField();
@@ -492,7 +564,9 @@ public class FormPessoa extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Carga Horária:");
-        medico_jPanel.add(jLabel4, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(jLabel4, gridBagConstraints);
 
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
@@ -512,10 +586,10 @@ public class FormPessoa extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
-        medico_jPanel.add(jLabel11, new java.awt.GridBagConstraints());
-
-        jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
-        medico_jPanel.add(jComboBox_espField, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(jLabel11, gridBagConstraints);
+        medico_jPanel.add(espField_jComboBox, new java.awt.GridBagConstraints());
 
         formulario_jPanel.add(medico_jPanel);
 
@@ -524,7 +598,9 @@ public class FormPessoa extends javax.swing.JFrame {
 
         sus_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         sus_jLabel.setText("Número de Registro SUS:");
-        paciente_jPanel.add(sus_jLabel, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        paciente_jPanel.add(sus_jLabel, gridBagConstraints);
 
         try {
             sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
@@ -610,164 +686,139 @@ public class FormPessoa extends javax.swing.JFrame {
     private void submit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_jButtonActionPerformed
         switch (tipoDeContexto) {
             case CADASTRAR:
-                switch (tipoDePessoa) {
-                    case MEDICO:
-                        cadastrarMedico();
-                        break;
-                    case PACIENTE:
-                        cadastrarPaciente();
-                        break;
-                }
+                cadastrar();
                 break;
             case ATUALIZAR:
-                switch (tipoDePessoa) {
-                    case MEDICO:
-                        atualizarMedico();
-                        break;
-                    case PACIENTE:
-                        atualizarPaciente();
-                        break;
-                }
+                atualizar();
                 break;
             default:
         }
-        limpaFormulario();
 
     }//GEN-LAST:event_submit_jButtonActionPerformed
-
-    private void cadastrarMedico() {
-        if (!cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null) {
-            if (CPF.isCPF(cpf_textField.getText().replaceAll("[.-]", ""))) {
-                String nome = nome_textField.getText();
-                String cpf = cpf_textField.getText();
-                String rg = rg_textField.getText();
-                String email = ""; //TODO
-                char sexo = 'm'; //TODO
-                Date data_nascimento = nascimento_DateField.getDate();
-                String telefone = telefone_formattedField.getText();
-                String logradouro = logradouro_textField.getText();
-                int numCasa = -1; //TODO
-                String bairro = bairroField.getText();
-                String cidade = cidadeField.getText();
-                String estado = ""; //TODO
-                String cep = cep_formattedField.getText();
-                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, data_nascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
-                p.setPaciente(new Paciente(sus_formattedtField.getText()));
-                try {
-                    if (Pessoa.findByCPF(cpf_textField.getText()) == null) {
-                        p.update();
-                        JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
-                    }
-                } catch (NoResultException ex) {
-                    Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(this, "CPF inválido");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
-                    + "RG e data de nascimento");
-        }
-    }
-
-    private void cadastrarPaciente() {
-        if (!cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null) {
-            if (CPF.isCPF(cpf_textField.getText().replaceAll("[.-]", ""))) {
-                String nome = nome_textField.getText();
-                String cpf = cpf_textField.getText();
-                String rg = rg_textField.getText();
-                String email = ""; //TODO
-                char sexo = 'm'; //TODO
-                Date dataDeNascimento = nascimento_DateField.getDate();
-                String telefone = telefone_formattedField.getText();
-                String logradouro = logradouro_jLabel.getText();
-                int numCasa = -1; //TODO 
-                String bairro = bairroField.getText();
-                String cidade = cidadeField.getText();
-                String estado = ""; //TODO
-                String cep = cep_formattedField.getText();
-                Pessoa p = new Pessoa(nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
-                p.setPaciente(new Paciente(sus_formattedtField.getText()));
-                try {
-                    if (Pessoa.findByCPF(cpf_textField.getText()) == null) {
-                        p.update();
-                        JOptionPane.showMessageDialog(this, "Paciente armazenado com sucesso");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "O paciente já encontra-se cadastrado");
-                    }
-                } catch (NoResultException ex) {
-                    Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(this, "CPF inválido");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
-                    + "RG e data de nascimento");
-        }
-    }
-
-    private void atualizarMedico() {
-        try {
-            Pessoa duplicated_pessoa = Pessoa.findByCPF(cpf_textField.getText());
-        } catch (NoResultException ex) {
-            Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            Pessoa duplicated_pessoa = null;
-        }
-        if (pessoa.getMedico() == null) {
-            JOptionPane.showMessageDialog(null, "Médico não encontrado");
-        } else {
-            updateVarPessoa();
-            updateVarPessoaMedico();
-
-        }
-    }
-
-    private void atualizarPaciente() {
-        if (pessoa == null) {
-            JOptionPane.showMessageDialog(this, "Informe o CPF do paciente que deseja atualizar as informações cadastrais");
-        } else {
-            updateVarPessoa();
-            updateVarPessoaPaciente();
-        }
-    }
-
-    private void updateVarPessoa() {
-        String nome = pessoa.getNome();
-        String cpf = pessoa.getCpf();
-        String rg = pessoa.getRg();
-        String email = ""; //TODO
-        char sexo = 'm'; //TODO
-        Date dataDeNascimento = pessoa.getDataDeNascimento();
+    private Pessoa preenchePessoaFormulario() throws IllegalArgumentException {
+        String nome = nome_textField.getText();
+        String cpf = cpf_textField.getText();
+        String rg = rg_textField.getText();
+        String email = email_textField.getText();
+        char sexo = masculino_radioButton.isSelected() ? 'm' : 'f';
+        Date data_nascimento = nascimento_DateField.getDate();
         String telefone = telefone_formattedField.getText();
         String logradouro = logradouro_textField.getText();
-        int numCasa = -1; //TODO 
+        int numCasa = 0; //TODO
         String bairro = bairroField.getText();
         String cidade = cidadeField.getText();
-        String estado = ""; //TODO
+        String estado = estado_textField.getText();
         String cep = cep_formattedField.getText();
+        Pessoa pessoa = new Pessoa(nome, cpf, rg, email, sexo, data_nascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
+        return pessoa;
+    }
+    
+    private void setMedicoFormulario(Pessoa pessoa) {
+        int cargaHoraria = Integer.parseInt(chField.getText());
+        Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
+        Medico m = new Medico(cargaHoraria, especialidade);
+        pessoa.setMedico(m);
+    }
+    
+    private void setPacienteFormulario(Pessoa pessoa) {
+        Paciente p = new Paciente(sus_formattedtField.getText());
+        pessoa.setPaciente(p);
+    }
+    
+    private boolean checarCampoObrigatorio() {
+        return !cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null;
+    }
+    
+    private void cadastrar() {
+        if (checarCampoObrigatorio()) {
+            Pessoa p = preenchePessoaFormulario();
+            
+            if (tipoDePessoa == TipoPessoaEnum.MEDICO) {
+                setMedicoFormulario(p);
+            } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
+                setPacienteFormulario(p);
+            }
+            try {
+                p.create();
+                limpaFormulario();
+                JOptionPane.showMessageDialog(this, tipoDePessoa + " armazenado com sucesso.");
+            } catch (PreexistingEntityException ex) {
+                JOptionPane.showMessageDialog(this, "O " + tipoDePessoa + " já encontra-se cadastrado.");
+                Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
+                    + "RG e data de nascimento");
+        }
+    }
+    
+    private void atualizar() {
+        if (pessoa == null) {
+            throw new NullPointerException();
+        }
+        updatePessoaTemp();
+        try {
+            pessoa.update();
+            limpaFormulario();
+            JOptionPane.showMessageDialog(this, tipoDePessoa + " atualizado com sucesso.");
+        } catch (Exception ex) {
+            Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void updatePessoaTemp() {
         // TODO: atualizar Pessoa
-
+        String nome = nome_textField.getText();
+        pessoa.setNome(nome);
+        String cpf = cpf_textField.getText();
+        pessoa.setCpf(cpf);
+        String rg = rg_textField.getText();
+        pessoa.setRg(rg);
+        String email = email_textField.getText();
+        pessoa.setEmail(email);
+        char sexo = masculino_radioButton.isSelected() ? 'm' : 'f';
+        pessoa.setSexo(sexo);
+        Date data_nascimento = nascimento_DateField.getDate();
+        pessoa.setDataDeNascimento(data_nascimento);
+        String telefone = telefone_formattedField.getText();
+        pessoa.setTelefone(telefone);
+        String logradouro = logradouro_textField.getText();
+        pessoa.setLogradouro(logradouro);
+        int numCasa = 0; //TODO
+        pessoa.setNumCasa(numCasa);
+        String bairro = bairroField.getText();
+        pessoa.setBairro(bairro);
+        String cidade = cidadeField.getText();
+        pessoa.setCidade(cidade);
+        String estado = estado_textField.getText();
+        pessoa.setEstado(estado);
+        String cep = cep_formattedField.getText();
+        pessoa.setCep(cep);
+        if (tipoDePessoa == tipoDePessoa.MEDICO) {
+            updatePessoaTemp_Medico();
+        } else if (tipoDePessoa == tipoDePessoa.PACIENTE) {
+            updatePessoaTemp_Paciente();
+        }
+        
     }
-
-    private void updateVarPessoaMedico() {
-        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
-        chField.setEditable(true);
-        jComboBox_espField.setSelectedItem(pessoa.getMedico().getEspecialidade()); //TODO
+    
+    private void updatePessoaTemp_Medico() throws NullPointerException {
+        if (pessoa.getMedico() == null) {
+            throw new NullPointerException();
+        }
+        int cargaHoraria = Integer.parseInt(chField.getText());
+        pessoa.getMedico().setCargaHoraria(cargaHoraria);
+        Especialidade especialidade = extrairEspecialidade();
+        pessoa.getMedico().setEspecialidade(especialidade);
     }
-
-    private void updateVarPessoaPaciente() {
+    
+    private void updatePessoaTemp_Paciente() throws NullPointerException {
+        if (pessoa.getPaciente() == null) {
+            throw new NullPointerException();
+        }
         String num_sus = sus_formattedtField.getText();
-
-        Paciente pn = new Paciente(num_sus);
-        pessoa.setPaciente(pn);
-        pessoa.update();
+        pessoa.getPaciente().setNum_sus(num_sus);
         JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
-        pessoa = pn.getPessoa();
     }
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
@@ -786,11 +837,11 @@ public class FormPessoa extends javax.swing.JFrame {
         try {
             limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
-            preencherFormulario();
+            preencherFormularioPessoa();
         } catch (NoResultException ex) {
             JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
         } finally {
-            ajustarContextoPessoa();
+            atualizarContextoJanela();
         }
     }//GEN-LAST:event_search_jButtonActionPerformed
 
@@ -837,18 +888,18 @@ public class FormPessoa extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormPessoa(
-                        TipoContextoEnum.ATUALIZAR,
+                        TipoContextoEnum.CADASTRAR,
                         TipoPessoaEnum.MEDICO
                 ).setVisible(true);
             }
         });
     }
-
+    
     private void updateFrameAction() {
         // TODO Auto-generated method stub
 //        SearchPerson.getInstance(this);
     }
-
+    
     private FormPessoa.UF_Enum getUF(String uf) {
         // TODO Auto-generated method stub
 
@@ -878,11 +929,11 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField cpf_textField;
     private javax.swing.JLabel email_jLabel;
     private javax.swing.JTextField email_textField;
+    private javax.swing.JComboBox<String> espField_jComboBox;
     private javax.swing.JLabel estado_jLabel;
     private javax.swing.JTextField estado_textField;
     private javax.swing.JRadioButton feminino_radioButton;
     private javax.swing.JPanel formulario_jPanel;
-    private javax.swing.JComboBox<String> jComboBox_espField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
