@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
     , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
     , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
-    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
+    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
+    , @NamedQuery(name = "Usuario.login", query = "SELECT u FROM Usuario u WHERE u.username = :username and u.password = :password")})
 public class Usuario implements Serializable, ICRUD {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +49,7 @@ public class Usuario implements Serializable, ICRUD {
     private Integer id;
     @Column(name = "username", length = 15, unique = true)
     private String username;
-    @Column(name = "password", length = 25)
+    @Column(name = "password", length = 32)
     private char[] password;
 
     public Usuario() {
@@ -83,8 +84,11 @@ public class Usuario implements Serializable, ICRUD {
         return password;
     }
 
-    public void setPassword(char[] password_raw) {
+    public void setPassword(char[] password_raw) throws IllegalArgumentException {
         char[] password_hash = Criptografia.criptografar(password_raw);
+        if (password_hash.length > 32) {
+            throw new IllegalArgumentException("Senha maior que 32 caracteres.");
+        }
         this.password = password_hash;
     }
 

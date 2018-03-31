@@ -153,8 +153,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public boolean login(Usuario aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean login(Usuario usuario) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Usuario.login");
+            q.setParameter("username", usuario.getUsername());
+            q.setParameter("password", usuario.getPassword());
+            if (!q.getResultList().isEmpty()) {
+                return true;
+            }
+        } finally {
+            em.close();
+        }
+        return false;
     }
-    
+
 }
