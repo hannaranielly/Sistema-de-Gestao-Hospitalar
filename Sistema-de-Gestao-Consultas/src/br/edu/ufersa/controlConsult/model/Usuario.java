@@ -77,7 +77,7 @@ public class Usuario implements Serializable, ICRUD {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toLowerCase();
     }
 
     public char[] getPassword() {
