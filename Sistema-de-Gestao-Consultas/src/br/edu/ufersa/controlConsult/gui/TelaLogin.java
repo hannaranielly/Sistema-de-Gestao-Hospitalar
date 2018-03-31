@@ -129,7 +129,7 @@ public class TelaLogin extends javax.swing.JFrame {
         char[] password_raw = txtSenha.getPassword();
         Usuario adm = new Usuario(username, password_raw);
 
-        if (adm.validaLogin()) {
+        if (adm.login()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
             TelaInicial te = new TelaInicial();
             te.setVisible(true);

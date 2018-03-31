@@ -88,10 +88,7 @@ public class Usuario implements Serializable, ICRUD {
         this.password = password_hash;
     }
 
-    public boolean validaLogin() {
-
-//        SessionFactory sf = HibernateUtil.getSessionFactory(); 
-//        Session session = sf.openSession();
+    public boolean login() {
         EntityManagerFactory emf = JpaFactory.getInstance();
         UsuarioJpaController instance = new UsuarioJpaController(emf);
         return instance.login(this);
