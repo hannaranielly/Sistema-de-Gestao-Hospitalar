@@ -92,7 +92,7 @@ public class FormPessoa extends javax.swing.JFrame {
      * Preenche todos os formulários baseado nas informações extraídas da pessoa
      * armazenada em {@link #pessoa}.
      */
-    private void preencherFormularioPessoa() {
+    private void preencherFormularioPessoa(Pessoa pessoa) {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
         rg_textField.setText(pessoa.getRg());
@@ -110,19 +110,19 @@ public class FormPessoa extends javax.swing.JFrame {
         cidadeField.setText(pessoa.getCidade());
         estado_textField.setText(pessoa.getEstado());
         cep_formattedField.setText(pessoa.getCep());
-        preencheFormularioMedico();
-        preencheFormularioPaciente();
+        preencheFormularioMedico(pessoa);
+        preencheFormularioPaciente(pessoa);
     }
 
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
 
-    private void preencheFormularioMedico() {
+    private void preencheFormularioMedico(Pessoa pessoa) {
         chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
         loadEspecialidades();
         espField_jComboBox.getModel().setSelectedItem(pessoa.getMedico().getEspecialidade().getNome());
     }
 
-    private void preencheFormularioPaciente() {
+    private void preencheFormularioPaciente(Pessoa pessoa) {
         sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
     }
 
@@ -912,7 +912,7 @@ public class FormPessoa extends javax.swing.JFrame {
         try {
             limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
-            preencherFormularioPessoa();
+            preencherFormularioPessoa(pessoa);
         } catch (NoResultException ex) {
             JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
         } finally {
