@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityExistsException;
@@ -38,7 +38,7 @@ public class HorarioAtendimentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            DiaSemana diaSemana = horarioAtendimento.getDiaSemana();
+            DiaSemanaEnum diaSemana = horarioAtendimento.getDiaSemana();
             em.persist(horarioAtendimento);
             em.getTransaction().commit();
         } finally {
@@ -71,8 +71,8 @@ public class HorarioAtendimentoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             HorarioAtendimento persistentHorarioAtendimento = em.find(HorarioAtendimento.class, horarioAtendimento.getId());
-            DiaSemana diaSemanaOld = persistentHorarioAtendimento.getDiaSemana();
-            DiaSemana diaSemanaNew = horarioAtendimento.getDiaSemana();
+            DiaSemanaEnum diaSemanaOld = persistentHorarioAtendimento.getDiaSemana();
+            DiaSemanaEnum diaSemanaNew = horarioAtendimento.getDiaSemana();
             if (diaSemanaNew != null) {
                 horarioAtendimento.setDiaSemana(diaSemanaNew);
             }
@@ -106,7 +106,7 @@ public class HorarioAtendimentoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The horarioAtendimento with id " + id + " no longer exists.", enfe);
             }
-            DiaSemana diaSemana = horarioAtendimento.getDiaSemana();
+            DiaSemanaEnum diaSemana = horarioAtendimento.getDiaSemana();
             em.remove(horarioAtendimento);
             em.getTransaction().commit();
         } finally {

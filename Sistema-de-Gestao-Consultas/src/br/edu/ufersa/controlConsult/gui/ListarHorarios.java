@@ -136,28 +136,25 @@ public class ListarHorarios extends javax.swing.JFrame {
         }
         if (pessoa != null) {
             medico = pessoa.getMedico();
-        } else {
-            medico = null;
-        }
-        if (medico == null) {
-            JOptionPane.showMessageDialog(null, "Médico não cadastrado");
-        } else {
-            list = HorarioAtendimento.findByMedicoId(medico.getId());
-            if (list.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
-            } else {
-                CPFField.setEnabled(false);
-                DefaultListModel model = new DefaultListModel();
-                int cont = 0;
-                for (HorarioAtendimento ha : list) {
-                    model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
-                    cont++;
+            if (medico != null) {
+                list = HorarioAtendimento.findByMedicoId(medico.getId());
+                if (list.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
+                } else {
+                    CPFField.setEnabled(false);
+                    DefaultListModel model = new DefaultListModel();
+                    int cont = 0;
+                    for (HorarioAtendimento ha : list) {
+                        model.add(cont, String.valueOf(ha.getDiaSemana().getNome() + " " + String.valueOf(ha.getInicio()) + "h até às " + String.valueOf(ha.getFim())) + "h");
+                        cont++;
+                    }
+                    listH.setModel(model);
+                    listH.setEnabled(true);
                 }
-                listH.setModel(model);
-                listH.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Médico não cadastrado");
             }
         }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

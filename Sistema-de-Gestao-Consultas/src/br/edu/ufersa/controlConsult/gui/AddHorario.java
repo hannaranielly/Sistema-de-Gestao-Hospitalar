@@ -6,7 +6,7 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemana;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.sql.Time;
@@ -199,14 +199,13 @@ public class AddHorario extends javax.swing.JFrame {
             Logger.getLogger(AddHorario.class.getName()).log(Level.SEVERE, null, ex);
             m = null;
         }
-        if (m == null) {
-            JOptionPane.showMessageDialog(null, "Médico não encontrado");
-        } else {
+        if (m != null) {
             nomeLabel.setText(m.getPessoa().getNome());
             CPFField.setEditable(false);
             hIField.setEditable(true);
             hFField.setEditable(true);
-
+        } else {
+            JOptionPane.showMessageDialog(null, "Médico não encontrado");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -223,14 +222,14 @@ public class AddHorario extends javax.swing.JFrame {
         Time inicio = Time.valueOf(hIField.getText());
         Time fim = Time.valueOf(hFField.getText());
         int estado = 0;
-        DiaSemana diaSemana = diaSemana(jComboBox_diaSemana.getSelectedIndex());
-        HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
-        m.addListaHorario(h);
-        if (Time.valueOf(hIField.getText()).after(Time.valueOf(hFField.getText()))) {
+        if (inicio.after(fim)) {
             JOptionPane.showMessageDialog(this, "O tempo de início é maior que o tempo de finalização, por favor ajuste o intervalo de maneira adequada");
         } else {
-            if (HorarioAtendimento.findByMedicoId_repetido(m.getId(), jComboBox_diaSemana.getSelectedIndex(), Time.valueOf(hIField.getText()), Time.valueOf(hFField.getText())).isEmpty()) {
-                h.update();
+            DiaSemanaEnum diaSemana = diaSemana(jComboBox_diaSemana.getSelectedIndex());
+            HorarioAtendimento h = new HorarioAtendimento(inicio, fim, estado, diaSemana);
+            if (!m.isConflitoHorarios(h)) {
+                m.addListaHorario(h);
+                m.update();
                 JOptionPane.showMessageDialog(this, "Horário Adicionado Com Sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");
@@ -274,22 +273,22 @@ public class AddHorario extends javax.swing.JFrame {
         });
     }
 
-    public DiaSemana diaSemana(int n) throws IllegalArgumentException {
+    public DiaSemanaEnum diaSemana(int n) throws IllegalArgumentException {
         switch (n) {
             case 0:
-                return DiaSemana.SABADO;
+                return DiaSemanaEnum.SABADO;
             case 1:
-                return DiaSemana.SEGUNDA;
+                return DiaSemanaEnum.SEGUNDA;
             case 2:
-                return DiaSemana.TERCA;
+                return DiaSemanaEnum.TERCA;
             case 3:
-                return DiaSemana.QUARTA;
+                return DiaSemanaEnum.QUARTA;
             case 4:
-                return DiaSemana.QUINTA;
+                return DiaSemanaEnum.QUINTA;
             case 5:
-                return DiaSemana.SEXTA;
+                return DiaSemanaEnum.SEXTA;
             case 6:
-                return DiaSemana.DOMINGO;
+                return DiaSemanaEnum.DOMINGO;
             default:
                 throw new IllegalArgumentException("Não existe este dia selecionado");
         }

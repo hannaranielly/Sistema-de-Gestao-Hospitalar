@@ -38,12 +38,25 @@ import javax.persistence.TemporalType;
 @Table(name = "horario_atendimento")
 public class HorarioAtendimento implements Serializable, ICRUD {
 
-    public enum DiaSemana {
+    /**
+     * Verifica se há algum conflito de horários.
+     */
+    public boolean isConflito(HorarioAtendimento h) {
+        if (this.getDiaSemana().equals(h.getDiaSemana())) {
+            if (h.getFim().after(this.getInicio())
+                    && this.getFim().after(h.getInicio())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public enum DiaSemanaEnum {
         SEGUNDA("Segunda-feira"), TERCA("Terça-feira"), QUARTA("Quarta-feira"),
         QUINTA("Quinta-feira"), SEXTA("Sexta-feira"), SABADO("Sábado"), DOMINGO("Domingo");
         String nome;
 
-        private DiaSemana(String nome) {
+        private DiaSemanaEnum(String nome) {
             this.nome = nome;
         }
 
@@ -68,7 +81,7 @@ public class HorarioAtendimento implements Serializable, ICRUD {
     @ManyToMany(mappedBy = "listaHorario", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
     @Enumerated(EnumType.STRING)
-    private DiaSemana diaSemana;
+    private DiaSemanaEnum diaSemana;
 
     private int estado; //TODO
     private Date ultimaRealizacao; // TODO
@@ -76,8 +89,8 @@ public class HorarioAtendimento implements Serializable, ICRUD {
     public HorarioAtendimento() {
     }
 
-    public HorarioAtendimento(int id, Time inicio, Time fim,
-            int estado, DiaSemana diaSemana) {
+    public HorarioAtendimento(Time inicio, Time fim,
+            int estado, DiaSemanaEnum diaSemana) {
         this.setId(id);
         this.setInicio(inicio);
         this.setFim(fim);
@@ -86,16 +99,11 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         this.setDiaSemana(diaSemana);
     }
 
-    public HorarioAtendimento(Time inicio, Time fim,
-            int estado, DiaSemana diaSemana) {
-        this(-1, inicio, fim, estado, diaSemana);
-    }
-
-    public void setInicio(Time inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
-    public void setFim(Time fim) {
+    public void setFim(Date fim) {
         this.fim = fim;
     }
 
@@ -130,8 +138,8 @@ public class HorarioAtendimento implements Serializable, ICRUD {
 
     public HorarioAtendimento(Integer id, Date inicio, Date fim) {
         this.id = id;
-        this.inicio = inicio;
-        this.fim = fim;
+        this.setInicio(inicio);
+        this.setFim(fim);
     }
 
     public Integer getId() {
@@ -146,31 +154,15 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         return inicio;
     }
 
-    public void setInicio(Date inicio) {
-        this.inicio = inicio;
-    }
-
     public Date getFim() {
         return fim;
     }
 
-    public void setFim(Date fim) {
-        this.fim = fim;
-    }
-
-//    @XmlTransient
-//    public List<Medico> getMedicoList() {
-//        return medicoList;
-//    }
-//
-//    public void setMedicoList(List<Medico> medicoList) {
-//        this.medicoList = medicoList;
-//    }
-    public DiaSemana getDiaSemana() {
+    public DiaSemanaEnum getDiaSemana() {
         return diaSemana;
     }
 
-    public void setDiaSemana(DiaSemana diaSemana) {
+    public void setDiaSemana(DiaSemanaEnum diaSemana) {
         this.diaSemana = diaSemana;
     }
 
@@ -201,20 +193,6 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         //        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
         //        session.close();
         //        return list;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static List<HorarioAtendimento> findByMedicoId_repetido(Integer id, int dia, Time inicio, Time fim) {
-//        Session session = horarioAtendimentoCRUD.sf.openSession();
-//        Query query = session.createSQLQuery("select * from horario_atendimento AS h where h.medico_id = ? and h.diaDaSemana=? and(? between h.inicio and h.fim or h.inicio between ? and ?)").addEntity(HorarioAtendimento.class);
-//        query.setLong(0, id);
-//        query.setInteger(1, dia);
-//        query.setTime(2, inicio);
-//        query.setTime(3, inicio);
-//        query.setTime(4, fim);
-//        List<HorarioAtendimento> list = (List<HorarioAtendimento>) query.list();
-//        session.close();
-//        return list;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

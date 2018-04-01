@@ -56,7 +56,7 @@ public class Medico implements ICRUD, Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Especialidade especialidade;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "medico_horario", joinColumns = {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
@@ -187,6 +187,22 @@ public class Medico implements ICRUD, Serializable {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    /**
+     * Verifica se existe algum horário existente com conflito com tal horário
+     * analisado.
+     *
+     * @param h Horário a ser analisado.
+     */
+    public boolean isConflitoHorarios(HorarioAtendimento h) {
+        boolean res = false;
+        for (HorarioAtendimento horario : listaHorario) {
+            if (horario.isConflito(h)) {
+                res = true;
+            }
+        }
+        return res;
     }
 
 }
