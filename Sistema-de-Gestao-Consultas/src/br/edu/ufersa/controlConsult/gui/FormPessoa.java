@@ -27,15 +27,28 @@ import javax.swing.JOptionPane;
  * @author Juan Carlos
  */
 public class FormPessoa extends javax.swing.JFrame {
-    
+
+    /**
+     * Este método determina qual contexto a janela irá apresentar ao usuário.
+     *
+     * @param tipoDeContexto O tipo de contexto que o sistema irá definir.
+     *
+     * @see TipoContextoEnum
+     */
     private void setTipoContexto(TipoContextoEnum tipoDeContexto) {
         this.tipoDeContexto = tipoDeContexto;
     }
-    
+
     private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
         this.tipoDePessoa = tipoPessoa;
     }
-    
+
+    /**
+     * De acordo com o contexto setado em
+     * {@link #setTipoContexto(TipoContextoEnum)}, ele irá alterar o layout da
+     * janela para o contexto salvo em {@link #tipoDeContexto}.
+     *
+     */
     private void atualizarContextoJanela() {
         // Ajustes na interface de acordo com cada contexto.
         switch (tipoDeContexto) {
@@ -74,7 +87,11 @@ public class FormPessoa extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
+    /**
+     * Preenche todos os formulários baseado nas informações extraídas da pessoa
+     * armazenada em {@link #pessoa}.
+     */
     private void preencherFormularioPessoa() {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
@@ -96,19 +113,24 @@ public class FormPessoa extends javax.swing.JFrame {
         preencheFormularioMedico();
         preencheFormularioPaciente();
     }
-    
+
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
-    
+
     private void preencheFormularioMedico() {
         chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
         loadEspecialidades();
         espField_jComboBox.getModel().setSelectedItem(pessoa.getMedico().getEspecialidade().getNome());
     }
-    
+
     private void preencheFormularioPaciente() {
         sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
     }
-    
+
+    /**
+     * Limpa todos os formulários da janela.
+     *
+     * @since v0.2
+     */
     private void limpaFormulario() {
         nome_textField.setText("");
         cpf_textField.setText("");
@@ -125,12 +147,12 @@ public class FormPessoa extends javax.swing.JFrame {
         estado_textField.setText("");
         cep_formattedField.setText("");
     }
-    
+
     private Especialidade extrairEspecialidade() { //TODO
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getModel().getSelectedItem());
         return especialidade;
     }
-    
+
     private void loadEspecialidades() {
         List<Especialidade> bd_especialidades = Especialidade.findAll();
         if (bd_especialidades.isEmpty()) { // Default Especialidades
@@ -146,11 +168,11 @@ public class FormPessoa extends javax.swing.JFrame {
         ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
         espField_jComboBox.setModel(model);
     }
-    
+
     public static enum TipoPessoaEnum {
         AMBOS, PACIENTE, MEDICO;
     }
-    
+
     public static enum UF_Enum {
         AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES(
                 "Espírito Santo"), GO("Goiás"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
@@ -159,16 +181,16 @@ public class FormPessoa extends javax.swing.JFrame {
                 "Rondônia"), RR("Roraima"), SC(
                 "Santa Catarina"), SP("São Paulo"), SE("Sergipe"), TO("Tocantins");
         private String name;
-        
+
         private UF_Enum(String name) {
             this.name = name;
         }
-        
+
         public String getName() {
             return this.name;
         }
     }
-    
+
     public static enum TipoContextoEnum {
         /**
          * Inserir pessoa no sistema
@@ -179,10 +201,18 @@ public class FormPessoa extends javax.swing.JFrame {
          */
         ATUALIZAR;
     }
-    
+
+    /**
+     * O tipo de pessoa que o formulário da janela irá processar.
+     */
     private TipoPessoaEnum tipoDePessoa;
+    /**
+     * O tipo de contexto que a janela irá apresentar.
+     *
+     * @see #setTipoContexto(FormPessoa.TipoContextoEnum)
+     */
     private TipoContextoEnum tipoDeContexto;
-    
+
     private Pessoa pessoa; // Pessoa para alteração. Valida somente se o contexto for para alteração.
 
     /**
@@ -193,7 +223,7 @@ public class FormPessoa extends javax.swing.JFrame {
         this.setTipoPessoa(tipoPessoa);
         initComponents();
         atualizarContextoJanela();
-        
+
     }
 
     /**
@@ -689,12 +719,17 @@ public class FormPessoa extends javax.swing.JFrame {
                 cadastrar();
                 break;
             case ATUALIZAR:
-                atualizar();
+                atualizar(pessoa);
                 break;
             default:
         }
 
     }//GEN-LAST:event_submit_jButtonActionPerformed
+    /**
+     * Extrai informações do formulário para criar uma instância de pessoa.
+     *
+     * @see Pessoa
+     */
     private Pessoa preenchePessoaFormulario() throws IllegalArgumentException {
         String nome = nome_textField.getText();
         String cpf = cpf_textField.getText();
@@ -712,27 +747,53 @@ public class FormPessoa extends javax.swing.JFrame {
         Pessoa pessoa = new Pessoa(nome, cpf, rg, email, sexo, data_nascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
         return pessoa;
     }
-    
+
+    /**
+     * Extrai informações do formulário para atribuir uma instância de médico à
+     * pessoa.
+     *
+     * @param pessoa A pessoa que irá receber a atribuição.
+     *
+     * @see Medico
+     */
     private void setMedicoFormulario(Pessoa pessoa) {
         int cargaHoraria = Integer.parseInt(chField.getText());
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
         Medico m = new Medico(cargaHoraria, especialidade);
         pessoa.setMedico(m);
     }
-    
+
+    /**
+     * Extrai informações do formulário para atribuir uma instância de paciente
+     * à pessoa.
+     *
+     * @param pessoa A pessoa que irá receber a atribuição.
+     *
+     * @see Paciente
+     */
     private void setPacienteFormulario(Pessoa pessoa) {
         Paciente p = new Paciente(sus_formattedtField.getText());
         pessoa.setPaciente(p);
     }
-    
+
+    /**
+     * Checa se os campos referidos à pessoa tem as informações obrigatórias.
+     *
+     * @see Pessoa
+     */
     private boolean checarCampoObrigatorio() {
         return !cpf_textField.getText().isEmpty() && !nome_textField.getText().isEmpty() && !rg_textField.getText().isEmpty() && nascimento_DateField.getDate() != null;
     }
-    
+
+    /**
+     * Fluxo de instruções para execução do processo de cadastro de uma pessoa.
+     * Dependendo do contexto, será a ela atribuida uma entidade Médico ou
+     * Paciente.
+     */
     private void cadastrar() {
         if (checarCampoObrigatorio()) {
             Pessoa p = preenchePessoaFormulario();
-            
+
             if (tipoDePessoa == TipoPessoaEnum.MEDICO) {
                 setMedicoFormulario(p);
             } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
@@ -751,12 +812,17 @@ public class FormPessoa extends javax.swing.JFrame {
                     + "RG e data de nascimento");
         }
     }
-    
-    private void atualizar() {
+
+    /**
+     * Fluxo de instruções para execução do processo de atualização das
+     * informações de uma pessoa. Dependendo do contexto, a atualização será
+     * feita à Médico ou Pessoa.
+     */
+    private void atualizar(Pessoa pessoa) {
         if (pessoa == null) {
             throw new NullPointerException();
         }
-        updatePessoaTemp();
+        updatePessoaTemp(pessoa);
         try {
             pessoa.update();
             limpaFormulario();
@@ -765,8 +831,12 @@ public class FormPessoa extends javax.swing.JFrame {
             Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void updatePessoaTemp() {
+
+    /**
+     * Extrai todas as informações do formulário para atribuir a pessoa que está
+     * sujeito à atualização.
+     */
+    private void updatePessoaTemp(Pessoa pessoa) {
         // TODO: atualizar Pessoa
         String nome = nome_textField.getText();
         pessoa.setNome(nome);
@@ -799,9 +869,9 @@ public class FormPessoa extends javax.swing.JFrame {
         } else if (tipoDePessoa == tipoDePessoa.PACIENTE) {
             updatePessoaTemp_Paciente();
         }
-        
+
     }
-    
+
     private void updatePessoaTemp_Medico() throws NullPointerException {
         if (pessoa.getMedico() == null) {
             throw new NullPointerException();
@@ -811,7 +881,7 @@ public class FormPessoa extends javax.swing.JFrame {
         Especialidade especialidade = extrairEspecialidade();
         pessoa.getMedico().setEspecialidade(especialidade);
     }
-    
+
     private void updatePessoaTemp_Paciente() throws NullPointerException {
         if (pessoa.getPaciente() == null) {
             throw new NullPointerException();
@@ -894,12 +964,12 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void updateFrameAction() {
         // TODO Auto-generated method stub
 //        SearchPerson.getInstance(this);
     }
-    
+
     private FormPessoa.UF_Enum getUF(String uf) {
         // TODO Auto-generated method stub
 
