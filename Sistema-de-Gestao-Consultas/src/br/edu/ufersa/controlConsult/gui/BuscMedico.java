@@ -5,9 +5,10 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
  * @author leone
  */
 public class BuscMedico extends javax.swing.JFrame {
+    
+    Pessoa pessoa;
 
     /**
      * Creates new form BuscMedico
@@ -32,340 +35,533 @@ public class BuscMedico extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
-        nomeField = new javax.swing.JTextField();
-        RGField = new javax.swing.JTextField();
-        nascimentoField = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        telefoneField = new javax.swing.JFormattedTextField();
-        jLabel7 = new javax.swing.JLabel();
-        cidadeField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        busca_jPanel = new javax.swing.JPanel();
+        BuscaCpf_textField = new javax.swing.JFormattedTextField();
+        search_jButton = new javax.swing.JButton();
+        pessoa_jPanel = new javax.swing.JPanel();
+        nome_jLabel = new javax.swing.JLabel();
+        nome_textField = new javax.swing.JTextField();
+        rg_textField = new javax.swing.JTextField();
+        logradouro_jLabel = new javax.swing.JLabel();
+        logradouro_textField = new javax.swing.JTextField();
+        cep_jLabel = new javax.swing.JLabel();
+        cep_formattedField = new javax.swing.JFormattedTextField();
+        nascimento_jLabel = new javax.swing.JLabel();
+        nascimento_DateField = new com.toedter.calendar.JDateChooser();
+        rg_jLabel = new javax.swing.JLabel();
+        cpf_jLabel = new javax.swing.JLabel();
+        cpf_textField = new javax.swing.JFormattedTextField();
+        telefone_formattedField = new javax.swing.JFormattedTextField();
+        bairro_jLabel = new javax.swing.JLabel();
         bairroField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        logradouroField = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        CEPField = new javax.swing.JFormattedTextField();
+        cidade_jLabel = new javax.swing.JLabel();
+        cidadeField = new javax.swing.JTextField();
+        telefone_jLabel = new javax.swing.JLabel();
+        masculino_radioButton = new javax.swing.JRadioButton();
+        feminino_radioButton = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        email_jLabel = new javax.swing.JLabel();
+        email_textField = new javax.swing.JTextField();
+        estado_jLabel = new javax.swing.JLabel();
+        estado_textField = new javax.swing.JTextField();
+        medico_jPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox_espField = new javax.swing.JComboBox<>();
         chField = new javax.swing.JFormattedTextField();
-        CPFField = new javax.swing.JFormattedTextField();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        esp_Label = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        jLabel2.setText("Especialidade: ");
+        jPanel1.add(jLabel2);
+
+        jLabel3.setText("<nome>");
+        jPanel1.add(jLabel3);
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(82, 82, 82))
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(238, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Médico");
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
-        nomeField.setEditable(false);
-        nomeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeFieldActionPerformed(evt);
-            }
-        });
+        busca_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
+        busca_jPanel.setLayout(new java.awt.GridBagLayout());
 
-        RGField.setEditable(false);
-
-        nascimentoField.setEnabled(false);
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel1.setText("Nome:");
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel3.setText("RG:");
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel5.setText("Nascimento");
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("Telefone:");
-
-        telefoneField.setEditable(false);
         try {
-            telefoneField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            BuscaCpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        telefoneField.addActionListener(new java.awt.event.ActionListener() {
+        BuscaCpf_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefoneFieldActionPerformed(evt);
+                BuscaCpf_textFieldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 57;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        busca_jPanel.add(BuscaCpf_textField, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel7.setText("Cidade:");
-
-        cidadeField.setEditable(false);
-        cidadeField.addActionListener(new java.awt.event.ActionListener() {
+        search_jButton.setText("Buscar");
+        search_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cidadeFieldActionPerformed(evt);
+                search_jButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        busca_jPanel.add(search_jButton, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel8.setText("Bairro: ");
+        getContentPane().add(busca_jPanel);
 
-        bairroField.setEditable(false);
+        pessoa_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa"));
+        pessoa_jPanel.setLayout(new java.awt.GridBagLayout());
+
+        nome_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nome_jLabel.setText("Nome:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(nome_jLabel, gridBagConstraints);
+
+        nome_textField.setEnabled(false);
+        nome_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nome_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(nome_textField, gridBagConstraints);
+
+        rg_textField.setEnabled(false);
+        rg_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rg_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 112;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(rg_textField, gridBagConstraints);
+
+        logradouro_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        logradouro_jLabel.setText("Logradouro: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(logradouro_jLabel, gridBagConstraints);
+
+        logradouro_textField.setEnabled(false);
+        logradouro_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logradouro_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(logradouro_textField, gridBagConstraints);
+
+        cep_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cep_jLabel.setText("CEP:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(cep_jLabel, gridBagConstraints);
+
+        try {
+            cep_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cep_formattedField.setEnabled(false);
+        cep_formattedField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cep_formattedFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 90;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        pessoa_jPanel.add(cep_formattedField, gridBagConstraints);
+
+        nascimento_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nascimento_jLabel.setText("Nascimento:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
+
+        nascimento_DateField.setDateFormatString("dd/MM/yyyy");
+        nascimento_DateField.setEnabled(false);
+        nascimento_DateField.setMinimumSize(new java.awt.Dimension(120, 20));
+        nascimento_DateField.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(nascimento_DateField, gridBagConstraints);
+
+        rg_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        rg_jLabel.setText("RG:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(rg_jLabel, gridBagConstraints);
+
+        cpf_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cpf_jLabel.setText("CPF:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(cpf_jLabel, gridBagConstraints);
+
+        try {
+            cpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cpf_textField.setEnabled(false);
+        cpf_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpf_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        pessoa_jPanel.add(cpf_textField, gridBagConstraints);
+
+        try {
+            telefone_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        telefone_formattedField.setEnabled(false);
+        telefone_formattedField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telefone_formattedFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(telefone_formattedField, gridBagConstraints);
+
+        bairro_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bairro_jLabel.setText("Bairro:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(bairro_jLabel, gridBagConstraints);
+
+        bairroField.setEnabled(false);
         bairroField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bairroFieldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(bairroField, gridBagConstraints);
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel9.setText("Logradouro:");
+        cidade_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cidade_jLabel.setText("Cidade:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(cidade_jLabel, gridBagConstraints);
 
-        logradouroField.setEditable(false);
-        logradouroField.addActionListener(new java.awt.event.ActionListener() {
+        cidadeField.setEnabled(false);
+        cidadeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logradouroFieldActionPerformed(evt);
+                cidadeFieldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(cidadeField, gridBagConstraints);
 
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel10.setText("CEP:");
+        telefone_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        telefone_jLabel.setText("Telefone:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(telefone_jLabel, gridBagConstraints);
 
-        CEPField.setEditable(false);
-        try {
-            CEPField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        CEPField.addActionListener(new java.awt.event.ActionListener() {
+        masculino_radioButton.setText("Masculino");
+        masculino_radioButton.setEnabled(false);
+        masculino_radioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CEPFieldActionPerformed(evt);
+                masculino_radioButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 0;
+        pessoa_jPanel.add(masculino_radioButton, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        feminino_radioButton.setText("Feminino");
+        feminino_radioButton.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 0;
+        pessoa_jPanel.add(feminino_radioButton, gridBagConstraints);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Sexo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(jLabel1, gridBagConstraints);
+
+        email_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        email_jLabel.setText("E-mail:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(email_jLabel, gridBagConstraints);
+
+        email_textField.setEnabled(false);
+        email_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email_textFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(email_textField, gridBagConstraints);
+
+        estado_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        estado_jLabel.setText("Estado:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        pessoa_jPanel.add(estado_jLabel, gridBagConstraints);
+
+        estado_textField.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        pessoa_jPanel.add(estado_textField, gridBagConstraints);
+
+        getContentPane().add(pessoa_jPanel);
+
+        medico_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Médico"));
+        medico_jPanel.setLayout(new java.awt.GridBagLayout());
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Carga Horária:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(jLabel4, gridBagConstraints);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel11.setText("Especialidade:");
-
-        jComboBox_espField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Oftalmologia", "Psiquiatria" }));
-        jComboBox_espField.setEnabled(false);
-
-        chField.setEditable(false);
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        chField.setEnabled(false);
         chField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chFieldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 75;
+        medico_jPanel.add(chField, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cidadeField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bairroField, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(RGField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nascimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(62, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logradouroField, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CEPField)
-                                .addGap(14, 14, 14))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(125, 125, 125))))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(RGField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel5))
-                            .addComponent(nascimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(cidadeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(bairroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(logradouroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(CEPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel11)
-                            .addComponent(jComboBox_espField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("Especialidade:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(jLabel11, gridBagConstraints);
 
-        try {
-            CPFField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        CPFField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CPFFieldActionPerformed(evt);
-            }
-        });
+        esp_Label.setText("<Nome da Especialidade>");
+        medico_jPanel.add(esp_Label, new java.awt.GridBagConstraints());
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setText("CPF:");
+        getContentPane().add(medico_jPanel);
 
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.setText("Horários");
+        jButton2.setEnabled(false);
+        jPanel2.add(jButton2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CPFField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(CPFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
-        );
+        jButton1.setText("Histórico de Consultas");
+        jButton1.setEnabled(false);
+        jPanel2.add(jButton1);
+
+        jButton3.setText("Histórico de Entrada-Saída");
+        jButton3.setEnabled(false);
+        jPanel2.add(jButton3);
+
+        getContentPane().add(jPanel2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeFieldActionPerformed
-
-    private void telefoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneFieldActionPerformed
-
-    private void cidadeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidadeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cidadeFieldActionPerformed
-
-    private void bairroFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairroFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bairroFieldActionPerformed
-
-    private void logradouroFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logradouroFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_logradouroFieldActionPerformed
-
-    private void CEPFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CEPFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CEPFieldActionPerformed
 
     private void chFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chFieldActionPerformed
 
-    private void CPFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFFieldActionPerformed
+    private void nome_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_textFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CPFFieldActionPerformed
+    }//GEN-LAST:event_nome_textFieldActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Pessoa p;
+    private void rg_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rg_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rg_textFieldActionPerformed
+
+    private void logradouro_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logradouro_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logradouro_textFieldActionPerformed
+
+    private void cep_formattedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_formattedFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cep_formattedFieldActionPerformed
+
+    private void cpf_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpf_textFieldActionPerformed
+
+    private void telefone_formattedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefone_formattedFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telefone_formattedFieldActionPerformed
+
+    private void bairroFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairroFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bairroFieldActionPerformed
+
+    private void cidadeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidadeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cidadeFieldActionPerformed
+
+    private void masculino_radioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masculino_radioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_masculino_radioButtonActionPerformed
+
+    private void email_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email_textFieldActionPerformed
+
+    private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
         try {
-            p = Pessoa.findByCPF(CPFField.getText());
+            pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
+            preencherFormularioPessoa(pessoa);
         } catch (NoResultException ex) {
-            Logger.getLogger(BuscMedico.class.getName()).log(Level.SEVERE, null, ex);
-            p = null;
+            JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
         }
-        if (p == null) {
-            JOptionPane.showMessageDialog(null, "Médico não encontrado");
+    }//GEN-LAST:event_search_jButtonActionPerformed
+
+    private void BuscaCpf_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscaCpf_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuscaCpf_textFieldActionPerformed
+    
+    private void preencherFormularioPessoa(Pessoa pessoa) {
+        nome_textField.setText(pessoa.getNome());
+        cpf_textField.setText(pessoa.getCpf());
+        rg_textField.setText(pessoa.getRg());
+        email_textField.setText(pessoa.getEmail());
+        if (pessoa.getSexo() == 'm') {
+            masculino_radioButton.setSelected(true);
         } else {
-            nomeField.setText(p.getNome());
-            nascimentoField.setDate(p.getDataDeNascimento());
-            RGField.setText(p.getRg());
-            telefoneField.setText(p.getTelefone());
-            bairroField.setText(p.getBairro());
-            cidadeField.setText(p.getCidade());
-            CEPField.setText(p.getCep());
-            logradouroField.setText(p.getLogradouro());
-            chField.setText(String.valueOf(p.getMedico().getCargaHoraria()));
-            String especialidadeNome = p.getMedico().getEspecialidade().getNome(); //TODO
-            jComboBox_espField.getModel().setSelectedItem(especialidadeNome); //TODO
+            feminino_radioButton.setSelected(true);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        nascimento_DateField.setDate(pessoa.getDataDeNascimento());
+        telefone_formattedField.setText(pessoa.getTelefone());
+        logradouro_textField.setText(pessoa.getLogradouro());
+        int numCasa = 0; //TODO
+        bairroField.setText(pessoa.getBairro());
+        cidadeField.setText(pessoa.getCidade());
+        estado_textField.setText(pessoa.getEstado());
+        cep_formattedField.setText(pessoa.getCep());
+        preencheFormularioMedico(pessoa);
+    }
+    
+    private Map<String, Especialidade> especialidesMap = new HashMap<>();
+    
+    private void preencheFormularioMedico(Pessoa pessoa) {
+        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+        esp_Label.setText(pessoa.getMedico().getEspecialidade().getNome());
+    }
 
     /**
      * @param args the command line arguments
@@ -403,29 +599,47 @@ public class BuscMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField CEPField;
-    private javax.swing.JFormattedTextField CPFField;
-    private javax.swing.JTextField RGField;
+    private javax.swing.JFormattedTextField BuscaCpf_textField;
     private javax.swing.JTextField bairroField;
+    private javax.swing.JLabel bairro_jLabel;
+    private javax.swing.JPanel busca_jPanel;
+    private javax.swing.JFormattedTextField cep_formattedField;
+    private javax.swing.JLabel cep_jLabel;
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
+    private javax.swing.JLabel cidade_jLabel;
+    private javax.swing.JLabel cpf_jLabel;
+    private javax.swing.JFormattedTextField cpf_textField;
+    private javax.swing.JLabel email_jLabel;
+    private javax.swing.JTextField email_textField;
+    private javax.swing.JLabel esp_Label;
+    private javax.swing.JLabel estado_jLabel;
+    private javax.swing.JTextField estado_textField;
+    private javax.swing.JRadioButton feminino_radioButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox_espField;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField logradouroField;
-    private com.toedter.calendar.JDateChooser nascimentoField;
-    private javax.swing.JTextField nomeField;
-    private javax.swing.JFormattedTextField telefoneField;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel logradouro_jLabel;
+    private javax.swing.JTextField logradouro_textField;
+    private javax.swing.JRadioButton masculino_radioButton;
+    private javax.swing.JPanel medico_jPanel;
+    private com.toedter.calendar.JDateChooser nascimento_DateField;
+    private javax.swing.JLabel nascimento_jLabel;
+    private javax.swing.JLabel nome_jLabel;
+    private javax.swing.JTextField nome_textField;
+    private javax.swing.JPanel pessoa_jPanel;
+    private javax.swing.JLabel rg_jLabel;
+    private javax.swing.JTextField rg_textField;
+    private javax.swing.JButton search_jButton;
+    private javax.swing.JFormattedTextField telefone_formattedField;
+    private javax.swing.JLabel telefone_jLabel;
     // End of variables declaration//GEN-END:variables
 }
