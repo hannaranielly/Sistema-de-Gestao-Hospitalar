@@ -7,24 +7,38 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
+import javax.swing.text.DateFormatter;
 
 /**
  *
  * @author leone
  */
-public class BuscMedico extends javax.swing.JFrame {
+public class BuscPessoa extends javax.swing.JFrame {
     
-    Pessoa pessoa;
+    private Pessoa pessoa;
+    private FormPessoa.TipoPessoaEnum tipoPessoa;
 
     /**
      * Creates new form BuscMedico
      */
-    public BuscMedico() {
+    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
         initComponents();
+        setTipoPessoa(tipoPessoa);
+    }
+    
+    private void setTipoPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+        if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
+            paciente_jPanel.setVisible(false);
+        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.PACIENTE) {
+            medico_jPanel.setVisible(false);
+        }
     }
 
     /**
@@ -53,7 +67,6 @@ public class BuscMedico extends javax.swing.JFrame {
         cep_jLabel = new javax.swing.JLabel();
         cep_formattedField = new javax.swing.JFormattedTextField();
         nascimento_jLabel = new javax.swing.JLabel();
-        nascimento_DateField = new com.toedter.calendar.JDateChooser();
         rg_jLabel = new javax.swing.JLabel();
         cpf_jLabel = new javax.swing.JLabel();
         cpf_textField = new javax.swing.JFormattedTextField();
@@ -63,18 +76,21 @@ public class BuscMedico extends javax.swing.JFrame {
         cidade_jLabel = new javax.swing.JLabel();
         cidadeField = new javax.swing.JTextField();
         telefone_jLabel = new javax.swing.JLabel();
-        masculino_radioButton = new javax.swing.JRadioButton();
-        feminino_radioButton = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         email_jLabel = new javax.swing.JLabel();
         email_textField = new javax.swing.JTextField();
         estado_jLabel = new javax.swing.JLabel();
         estado_textField = new javax.swing.JTextField();
+        sexo_jTextField = new javax.swing.JTextField();
+        nascimento_jTextField = new javax.swing.JTextField();
         medico_jPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         chField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         esp_Label = new javax.swing.JLabel();
+        paciente_jPanel = new javax.swing.JPanel();
+        sus_jLabel = new javax.swing.JLabel();
+        sus_formattedtField = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -150,9 +166,10 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(nome_jLabel, gridBagConstraints);
 
-        nome_textField.setEnabled(false);
+        nome_textField.setEditable(false);
         nome_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nome_textFieldActionPerformed(evt);
@@ -162,11 +179,11 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(nome_textField, gridBagConstraints);
 
-        rg_textField.setEnabled(false);
+        rg_textField.setEditable(false);
         rg_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rg_textFieldActionPerformed(evt);
@@ -176,7 +193,7 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 112;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(rg_textField, gridBagConstraints);
@@ -187,9 +204,10 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(logradouro_jLabel, gridBagConstraints);
 
-        logradouro_textField.setEnabled(false);
+        logradouro_textField.setEditable(false);
         logradouro_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logradouro_textFieldActionPerformed(evt);
@@ -199,7 +217,7 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(logradouro_textField, gridBagConstraints);
 
@@ -209,14 +227,15 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cep_jLabel, gridBagConstraints);
 
+        cep_formattedField.setEditable(false);
         try {
             cep_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        cep_formattedField.setEnabled(false);
         cep_formattedField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cep_formattedFieldActionPerformed(evt);
@@ -225,7 +244,7 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 90;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pessoa_jPanel.add(cep_formattedField, gridBagConstraints);
@@ -233,21 +252,11 @@ public class BuscMedico extends javax.swing.JFrame {
         nascimento_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         nascimento_jLabel.setText("Nascimento:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
-
-        nascimento_DateField.setDateFormatString("dd/MM/yyyy");
-        nascimento_DateField.setEnabled(false);
-        nascimento_DateField.setMinimumSize(new java.awt.Dimension(120, 20));
-        nascimento_DateField.setPreferredSize(new java.awt.Dimension(120, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 18;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        pessoa_jPanel.add(nascimento_DateField, gridBagConstraints);
+        pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
 
         rg_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         rg_jLabel.setText("RG:");
@@ -255,6 +264,7 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(rg_jLabel, gridBagConstraints);
 
         cpf_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -263,14 +273,15 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cpf_jLabel, gridBagConstraints);
 
+        cpf_textField.setEditable(false);
         try {
             cpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        cpf_textField.setEnabled(false);
         cpf_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpf_textFieldActionPerformed(evt);
@@ -279,26 +290,25 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pessoa_jPanel.add(cpf_textField, gridBagConstraints);
 
+        telefone_formattedField.setEditable(false);
         try {
             telefone_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        telefone_formattedField.setEnabled(false);
         telefone_formattedField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefone_formattedFieldActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(telefone_formattedField, gridBagConstraints);
 
@@ -308,19 +318,19 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(bairro_jLabel, gridBagConstraints);
 
-        bairroField.setEnabled(false);
+        bairroField.setEditable(false);
         bairroField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bairroFieldActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(bairroField, gridBagConstraints);
@@ -331,9 +341,10 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cidade_jLabel, gridBagConstraints);
 
-        cidadeField.setEnabled(false);
+        cidadeField.setEditable(false);
         cidadeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cidadeFieldActionPerformed(evt);
@@ -343,36 +354,18 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cidadeField, gridBagConstraints);
 
         telefone_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         telefone_jLabel.setText("Telefone:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(telefone_jLabel, gridBagConstraints);
-
-        masculino_radioButton.setText("Masculino");
-        masculino_radioButton.setEnabled(false);
-        masculino_radioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                masculino_radioButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
-        gridBagConstraints.gridy = 0;
-        pessoa_jPanel.add(masculino_radioButton, gridBagConstraints);
-
-        feminino_radioButton.setText("Feminino");
-        feminino_radioButton.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 18;
-        gridBagConstraints.gridy = 0;
-        pessoa_jPanel.add(feminino_radioButton, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Sexo:");
@@ -380,6 +373,7 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(jLabel1, gridBagConstraints);
 
         email_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -388,9 +382,10 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(email_jLabel, gridBagConstraints);
 
-        email_textField.setEnabled(false);
+        email_textField.setEditable(false);
         email_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 email_textFieldActionPerformed(evt);
@@ -399,8 +394,8 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(email_textField, gridBagConstraints);
 
@@ -410,17 +405,33 @@ public class BuscMedico extends javax.swing.JFrame {
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(estado_jLabel, gridBagConstraints);
 
-        estado_textField.setEnabled(false);
+        estado_textField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 60;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(estado_textField, gridBagConstraints);
+
+        sexo_jTextField.setEditable(false);
+        sexo_jTextField.setMinimumSize(new java.awt.Dimension(120, 20));
+        sexo_jTextField.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        pessoa_jPanel.add(sexo_jTextField, gridBagConstraints);
+
+        nascimento_jTextField.setEditable(false);
+        nascimento_jTextField.setMinimumSize(new java.awt.Dimension(120, 20));
+        nascimento_jTextField.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        pessoa_jPanel.add(nascimento_jTextField, gridBagConstraints);
 
         getContentPane().add(pessoa_jPanel);
 
@@ -460,6 +471,34 @@ public class BuscMedico extends javax.swing.JFrame {
         medico_jPanel.add(esp_Label, new java.awt.GridBagConstraints());
 
         getContentPane().add(medico_jPanel);
+
+        paciente_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
+        paciente_jPanel.setLayout(new java.awt.GridBagLayout());
+
+        sus_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        sus_jLabel.setText("Número de Registro SUS:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        paciente_jPanel.add(sus_jLabel, gridBagConstraints);
+
+        try {
+            sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        sus_formattedtField.setEnabled(false);
+        sus_formattedtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sus_formattedtFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        paciente_jPanel.add(sus_formattedtField, gridBagConstraints);
+
+        getContentPane().add(paciente_jPanel);
 
         jButton2.setText("Horários");
         jButton2.setEnabled(false);
@@ -514,10 +553,6 @@ public class BuscMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cidadeFieldActionPerformed
 
-    private void masculino_radioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masculino_radioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_masculino_radioButtonActionPerformed
-
     private void email_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_email_textFieldActionPerformed
@@ -525,15 +560,31 @@ public class BuscMedico extends javax.swing.JFrame {
     private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
         try {
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
+            switch (tipoPessoa) {
+                case MEDICO:
+                    if (pessoa.getMedico() == null) {
+                        throw new NoResultException();
+                    }
+                    break;
+                case PACIENTE:
+                    if (pessoa.getPaciente() == null) {
+                        throw new NoResultException();
+                    }
+                    break;
+            }
             preencherFormularioPessoa(pessoa);
         } catch (NoResultException ex) {
-            JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
+            JOptionPane.showMessageDialog(null, "Não há registro encontrado.");
         }
     }//GEN-LAST:event_search_jButtonActionPerformed
 
     private void BuscaCpf_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscaCpf_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscaCpf_textFieldActionPerformed
+
+    private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sus_formattedtFieldActionPerformed
     
     private void preencherFormularioPessoa(Pessoa pessoa) {
         nome_textField.setText(pessoa.getNome());
@@ -541,11 +592,11 @@ public class BuscMedico extends javax.swing.JFrame {
         rg_textField.setText(pessoa.getRg());
         email_textField.setText(pessoa.getEmail());
         if (pessoa.getSexo() == 'm') {
-            masculino_radioButton.setSelected(true);
+            sexo_jTextField.setText("Masculino");
         } else {
-            feminino_radioButton.setSelected(true);
+            sexo_jTextField.setText("Feminino");
         }
-        nascimento_DateField.setDate(pessoa.getDataDeNascimento());
+        nascimento_jTextField.setText(new SimpleDateFormat("dd/MM/yyyy").format(pessoa.getDataDeNascimento()));
         telefone_formattedField.setText(pessoa.getTelefone());
         logradouro_textField.setText(pessoa.getLogradouro());
         int numCasa = 0; //TODO
@@ -553,7 +604,18 @@ public class BuscMedico extends javax.swing.JFrame {
         cidadeField.setText(pessoa.getCidade());
         estado_textField.setText(pessoa.getEstado());
         cep_formattedField.setText(pessoa.getCep());
-        preencheFormularioMedico(pessoa);
+        if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
+            preencheFormularioMedico(pessoa);
+        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.PACIENTE) {
+            preencheFormularioPaciente(pessoa);
+        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.AMBOS) {
+            preencheFormularioMedico(pessoa);
+            preencheFormularioPaciente(pessoa);
+        }
+    }
+    
+    private void preencheFormularioPaciente(Pessoa pessoa) {
+        sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
     }
     
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
@@ -577,23 +639,32 @@ public class BuscMedico extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscPessoa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscPessoa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscPessoa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuscPessoa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscMedico().setVisible(true);
+                new BuscPessoa(FormPessoa.TipoPessoaEnum.MEDICO).setVisible(true);
             }
         });
     }
@@ -615,7 +686,6 @@ public class BuscMedico extends javax.swing.JFrame {
     private javax.swing.JLabel esp_Label;
     private javax.swing.JLabel estado_jLabel;
     private javax.swing.JTextField estado_textField;
-    private javax.swing.JRadioButton feminino_radioButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -629,16 +699,19 @@ public class BuscMedico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel logradouro_jLabel;
     private javax.swing.JTextField logradouro_textField;
-    private javax.swing.JRadioButton masculino_radioButton;
     private javax.swing.JPanel medico_jPanel;
-    private com.toedter.calendar.JDateChooser nascimento_DateField;
     private javax.swing.JLabel nascimento_jLabel;
+    private javax.swing.JTextField nascimento_jTextField;
     private javax.swing.JLabel nome_jLabel;
     private javax.swing.JTextField nome_textField;
+    private javax.swing.JPanel paciente_jPanel;
     private javax.swing.JPanel pessoa_jPanel;
     private javax.swing.JLabel rg_jLabel;
     private javax.swing.JTextField rg_textField;
     private javax.swing.JButton search_jButton;
+    private javax.swing.JTextField sexo_jTextField;
+    private javax.swing.JFormattedTextField sus_formattedtField;
+    private javax.swing.JLabel sus_jLabel;
     private javax.swing.JFormattedTextField telefone_formattedField;
     private javax.swing.JLabel telefone_jLabel;
     // End of variables declaration//GEN-END:variables

@@ -274,8 +274,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-        BuscPaciente bp = new BuscPaciente();
+        // Buscar Paciente.
+        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.PACIENTE);
         bp.setVisible(true);
         bp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
@@ -296,7 +296,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        BuscMedico bm = new BuscMedico();
+        BuscPessoa bm = new BuscPessoa(FormPessoa.TipoPessoaEnum.MEDICO);
         bm.setVisible(true);
         bm.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
