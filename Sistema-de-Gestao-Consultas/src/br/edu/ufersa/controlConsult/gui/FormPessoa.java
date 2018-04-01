@@ -415,9 +415,14 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
+
+        nascimento_DateField.setDateFormatString("dd/MM/yyyy");
+        nascimento_DateField.setMinimumSize(new java.awt.Dimension(120, 20));
+        nascimento_DateField.setPreferredSize(new java.awt.Dimension(120, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 18;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(nascimento_DateField, gridBagConstraints);
 
