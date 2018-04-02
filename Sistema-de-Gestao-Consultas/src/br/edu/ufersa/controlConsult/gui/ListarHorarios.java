@@ -166,7 +166,6 @@ public class ListarHorarios extends javax.swing.JFrame {
             list = HorarioAtendimento.findByMedicoId(medico.getId());
 
             if (list.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
                 DefaultListModel model = new DefaultListModel();
                 listH.setModel(model);
             } else {
