@@ -9,7 +9,7 @@ import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,27 +31,28 @@ import javax.persistence.TemporalType;
 public class Consulta implements Serializable, ICRUD {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(name = "agendada")
-    boolean agendada;
+    private boolean agendada;
 
     @Column(name = "data_inicio")
     @Temporal(TemporalType.TIMESTAMP)
-    Date data_inicio;
+    private Date data_inicio;
 
     @Column(name = "data_fim")
     @Temporal(TemporalType.TIMESTAMP)
-    Date data_fim;
+    private Date data_fim;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medico")
-    Medico medico;
+    private Medico medico;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
-    Paciente paciente;
+    private Paciente paciente;
 
     public Consulta() {
     }

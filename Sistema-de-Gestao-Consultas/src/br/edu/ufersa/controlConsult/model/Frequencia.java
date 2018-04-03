@@ -9,7 +9,7 @@ import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,32 +27,33 @@ import javax.persistence.TemporalType;
  * @author juan
  */
 @Entity
-@Table(name = "consulta")
+@Table(name = "frequencia")
 public class Frequencia implements Serializable, ICRUD {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(name = "data_entrada")
     @Temporal(TemporalType.TIMESTAMP)
-    Date data_entrada;
+    private Date data_entrada;
 
     @Column(name = "data_saida")
     @Temporal(TemporalType.TIMESTAMP)
-    Date data_saida;
+    private Date data_saida;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario")
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medico")
-    Usuario usuario;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "medico")
-    Medico medico;
+    private Medico medico;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
-    Paciente paciente;
+    private Paciente paciente;
 
     public Frequencia() {
     }
@@ -103,6 +104,22 @@ public class Frequencia implements Serializable, ICRUD {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Date getData_entrada() {
+        return data_entrada;
+    }
+
+    public void setData_entrada(Date data_entrada) {
+        this.data_entrada = data_entrada;
+    }
+
+    public Date getData_saida() {
+        return data_saida;
+    }
+
+    public void setData_saida(Date data_saida) {
+        this.data_saida = data_saida;
     }
 
     @Override
