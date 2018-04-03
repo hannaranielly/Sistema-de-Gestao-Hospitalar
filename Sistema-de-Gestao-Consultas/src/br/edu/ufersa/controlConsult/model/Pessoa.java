@@ -10,7 +10,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
-import br.edu.ufersa.controlConsult.model.validacao.CPF;
+import br.edu.ufersa.controlConsult.model.validacao.Cpf_Util;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -154,7 +154,7 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public void setCpf(String cpf) throws IllegalArgumentException {
-        if (!CPF.isCPF(cpf.replaceAll("[.-]", ""))) {
+        if (!Cpf_Util.isCPF(cpf.replaceAll("[.-]", ""))) {
             throw new IllegalArgumentException("CPF inválido.");
         }
         this.cpf = cpf;

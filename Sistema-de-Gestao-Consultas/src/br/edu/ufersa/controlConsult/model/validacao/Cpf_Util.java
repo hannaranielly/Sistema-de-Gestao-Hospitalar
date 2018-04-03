@@ -11,7 +11,7 @@ package br.edu.ufersa.controlConsult.model.validacao;
  */
 import java.util.InputMismatchException;
 
-public class CPF {
+public class Cpf_Util {
  
   public static boolean isCPF(String CPF) {
     if (CPF.equals("00000000000") || CPF.equals("11111111111") ||
