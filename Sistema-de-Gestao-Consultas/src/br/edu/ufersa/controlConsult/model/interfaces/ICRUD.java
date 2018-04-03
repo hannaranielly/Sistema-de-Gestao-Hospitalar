@@ -10,12 +10,12 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityExc
  */
 public interface ICRUD {
 
-    void create() throws PreexistingEntityException;
+    void create() throws PreexistingEntityException, Exception;
 
-    void read() throws NonexistentEntityException;
+    void read() throws NonexistentEntityException, Exception;
 
-    void update() throws NonexistentEntityException;
+    void update() throws NonexistentEntityException, Exception;
 
-    void delete() throws NonexistentEntityException;
+    void delete() throws NonexistentEntityException, Exception;
 
 }
