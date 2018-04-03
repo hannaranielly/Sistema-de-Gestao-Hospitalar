@@ -6,6 +6,7 @@
 package br.edu.ufersa.controlConsult.model;
 
 import java.util.Date;
+import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -455,6 +456,135 @@ public class PessoaNGTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findAll method, of class Pessoa.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
+        List expResult = null;
+        List result = Pessoa.findAll();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByCPF method, of class Pessoa.
+     */
+    @Test
+    public void testFindByCPF() {
+        System.out.println("findByCPF");
+        String cpf = "";
+        Pessoa expResult = null;
+        Pessoa result = Pessoa.findByCPF(cpf);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setMedico method, of class Pessoa.
+     */
+    @Test
+    public void testSetMedico() {
+        System.out.println("setMedico");
+        Medico medico = null;
+        Pessoa instance = new Pessoa();
+        instance.setMedico(medico);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMedico method, of class Pessoa.
+     */
+    @Test
+    public void testGetMedico() {
+        System.out.println("getMedico");
+        Pessoa instance = new Pessoa();
+        Medico expResult = null;
+        Medico result = instance.getMedico();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setPaciente method, of class Pessoa.
+     */
+    @Test
+    public void testSetPaciente() {
+        System.out.println("setPaciente");
+        Paciente paciente = null;
+        Pessoa instance = new Pessoa();
+        instance.setPaciente(paciente);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPaciente method, of class Pessoa.
+     */
+    @Test
+    public void testGetPaciente() {
+        System.out.println("getPaciente");
+        Pessoa instance = new Pessoa();
+        Paciente expResult = null;
+        Paciente result = instance.getPaciente();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of create method, of class Pessoa.
+     */
+    @Test
+    public void testCreate() throws Exception {
+        System.out.println("create");
+        Pessoa instance = new Pessoa();
+        instance.create();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of read method, of class Pessoa.
+     */
+    @Test
+    public void testRead() {
+        System.out.println("read");
+        Pessoa instance = new Pessoa();
+        instance.read();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of update method, of class Pessoa.
+     */
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        Pessoa instance = new Pessoa();
+        instance.update();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of delete method, of class Pessoa.
+     */
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        Pessoa instance = new Pessoa();
+        instance.delete();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

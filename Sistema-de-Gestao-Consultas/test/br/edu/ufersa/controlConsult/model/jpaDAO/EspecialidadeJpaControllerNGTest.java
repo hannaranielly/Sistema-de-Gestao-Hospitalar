@@ -151,5 +151,20 @@ public class EspecialidadeJpaControllerNGTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of findByNome method, of class EspecialidadeJpaController.
+     */
+    @Test
+    public void testFindByNome() {
+        System.out.println("findByNome");
+        String nome = "";
+        EspecialidadeJpaController instance = null;
+        List expResult = null;
+        List result = instance.findByNome(nome);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

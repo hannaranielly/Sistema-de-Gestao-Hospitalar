@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.model.validacao;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class BuscMedicoNGTest {
+public class Cpf_UtilNGTest {
     
-    public BuscMedicoNGTest() {
+    public Cpf_UtilNGTest() {
     }
 
     @BeforeClass
@@ -38,13 +38,29 @@ public class BuscMedicoNGTest {
     }
 
     /**
-     * Test of main method, of class BuscMedico.
+     * Test of isCPF method, of class Cpf_Util.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        BuscMedico.main(args);
+    public void testIsCPF() {
+        System.out.println("isCPF");
+        String CPF = "";
+        boolean expResult = false;
+        boolean result = Cpf_Util.isCPF(CPF);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of imprimeCPF method, of class Cpf_Util.
+     */
+    @Test
+    public void testImprimeCPF() {
+        System.out.println("imprimeCPF");
+        String CPF = "";
+        String expResult = "";
+        String result = Cpf_Util.imprimeCPF(CPF);
+        assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

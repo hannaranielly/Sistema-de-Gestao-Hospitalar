@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.util.debug;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class CadPacienteNGTest {
+public class DEBUG_PESSOANGTest {
     
-    public CadPacienteNGTest() {
+    public DEBUG_PESSOANGTest() {
     }
 
     @BeforeClass
@@ -38,13 +38,13 @@ public class CadPacienteNGTest {
     }
 
     /**
-     * Test of main method, of class CadPaciente.
+     * Test of main method, of class DEBUG_PESSOA.
      */
     @Test
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        CadPaciente.main(args);
+        DEBUG_PESSOA.main(args);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

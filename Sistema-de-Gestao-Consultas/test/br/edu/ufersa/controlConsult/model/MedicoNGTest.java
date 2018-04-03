@@ -189,20 +189,6 @@ public class MedicoNGTest {
     }
 
     /**
-     * Test of findByCPF method, of class Medico.
-     */
-    @Test
-    public void testFindByCPF() {
-        System.out.println("findByCPF");
-        String cpf = "";
-        Medico expResult = null;
-        Medico result = Medico.findByCPF(cpf);
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of create method, of class Medico.
      */
     @Test
@@ -246,6 +232,102 @@ public class MedicoNGTest {
         System.out.println("delete");
         Medico instance = new Medico();
         instance.delete();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getId method, of class Medico.
+     */
+    @Test
+    public void testGetId() {
+        System.out.println("getId");
+        Medico instance = new Medico();
+        Integer expResult = null;
+        Integer result = instance.getId();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setId method, of class Medico.
+     */
+    @Test
+    public void testSetId() {
+        System.out.println("setId");
+        Integer id = null;
+        Medico instance = new Medico();
+        instance.setId(id);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPessoa method, of class Medico.
+     */
+    @Test
+    public void testGetPessoa() {
+        System.out.println("getPessoa");
+        Medico instance = new Medico();
+        Pessoa expResult = null;
+        Pessoa result = instance.getPessoa();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setPessoa method, of class Medico.
+     */
+    @Test
+    public void testSetPessoa() {
+        System.out.println("setPessoa");
+        Pessoa pessoa = null;
+        Medico instance = new Medico();
+        instance.setPessoa(pessoa);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCrm method, of class Medico.
+     */
+    @Test
+    public void testGetCrm() {
+        System.out.println("getCrm");
+        Medico instance = new Medico();
+        String expResult = "";
+        String result = instance.getCrm();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setCrm method, of class Medico.
+     */
+    @Test
+    public void testSetCrm() {
+        System.out.println("setCrm");
+        String crm = "";
+        Medico instance = new Medico();
+        instance.setCrm(crm);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isConflitoHorarios method, of class Medico.
+     */
+    @Test
+    public void testIsConflitoHorarios() {
+        System.out.println("isConflitoHorarios");
+        HorarioAtendimento h = null;
+        Medico instance = new Medico();
+        boolean expResult = false;
+        boolean result = instance.isConflitoHorarios(h);
+        assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

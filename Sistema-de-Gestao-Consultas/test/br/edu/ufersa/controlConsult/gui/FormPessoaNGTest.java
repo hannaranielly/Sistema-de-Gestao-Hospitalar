@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class AtuaMedicoNGTest {
+public class FormPessoaNGTest {
     
-    public AtuaMedicoNGTest() {
+    public FormPessoaNGTest() {
     }
 
     @BeforeClass
@@ -38,13 +38,13 @@ public class AtuaMedicoNGTest {
     }
 
     /**
-     * Test of main method, of class AtuaMedico.
+     * Test of main method, of class FormPessoa.
      */
     @Test
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        AtuaMedico.main(args);
+        FormPessoa.main(args);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

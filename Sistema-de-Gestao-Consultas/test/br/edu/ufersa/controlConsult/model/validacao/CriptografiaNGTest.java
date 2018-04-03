@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.model.validacao;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
@@ -16,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class AtuaPacienteNGTest {
+public class CriptografiaNGTest {
     
-    public AtuaPacienteNGTest() {
+    public CriptografiaNGTest() {
     }
 
     @BeforeClass
@@ -38,13 +38,15 @@ public class AtuaPacienteNGTest {
     }
 
     /**
-     * Test of main method, of class AtuaPaciente.
+     * Test of criptografar method, of class Criptografia.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        AtuaPaciente.main(args);
+    public void testCriptografar() {
+        System.out.println("criptografar");
+        char[] password_raw = null;
+        char[] expResult = null;
+        char[] result = Criptografia.criptografar(password_raw);
+        assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

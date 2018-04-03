@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -57,8 +58,8 @@ public class AddHorarioNGTest {
         System.out.println("diaSemana");
         int n = 0;
         AddHorario instance = new AddHorario();
-        String expResult = "";
-        String result = instance.diaSemana(n);
+        HorarioAtendimento.DiaSemanaEnum expResult = null;
+        HorarioAtendimento.DiaSemanaEnum result = instance.diaSemana(n);
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

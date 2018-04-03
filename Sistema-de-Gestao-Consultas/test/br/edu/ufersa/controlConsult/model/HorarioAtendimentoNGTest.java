@@ -5,7 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import static org.testng.Assert.*;
@@ -41,12 +40,27 @@ public class HorarioAtendimentoNGTest {
     }
 
     /**
+     * Test of isConflito method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testIsConflito() {
+        System.out.println("isConflito");
+        HorarioAtendimento h = null;
+        HorarioAtendimento instance = new HorarioAtendimento();
+        boolean expResult = false;
+        boolean result = instance.isConflito(h);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of setInicio method, of class HorarioAtendimento.
      */
     @Test
-    public void testSetInicio_Time() {
+    public void testSetInicio() {
         System.out.println("setInicio");
-        Time inicio = null;
+        Date inicio = null;
         HorarioAtendimento instance = new HorarioAtendimento();
         instance.setInicio(inicio);
         // TODO review the generated test code and remove the default call to fail.
@@ -57,9 +71,9 @@ public class HorarioAtendimentoNGTest {
      * Test of setFim method, of class HorarioAtendimento.
      */
     @Test
-    public void testSetFim_Time() {
+    public void testSetFim() {
         System.out.println("setFim");
-        Time fim = null;
+        Date fim = null;
         HorarioAtendimento instance = new HorarioAtendimento();
         instance.setFim(fim);
         // TODO review the generated test code and remove the default call to fail.
@@ -176,19 +190,6 @@ public class HorarioAtendimentoNGTest {
     }
 
     /**
-     * Test of setInicio method, of class HorarioAtendimento.
-     */
-    @Test
-    public void testSetInicio_Date() {
-        System.out.println("setInicio");
-        Date inicio = null;
-        HorarioAtendimento instance = new HorarioAtendimento();
-        instance.setInicio(inicio);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getFim method, of class HorarioAtendimento.
      */
     @Test
@@ -203,27 +204,14 @@ public class HorarioAtendimentoNGTest {
     }
 
     /**
-     * Test of setFim method, of class HorarioAtendimento.
-     */
-    @Test
-    public void testSetFim_Date() {
-        System.out.println("setFim");
-        Date fim = null;
-        HorarioAtendimento instance = new HorarioAtendimento();
-        instance.setFim(fim);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getDiaSemana method, of class HorarioAtendimento.
      */
     @Test
     public void testGetDiaSemana() {
         System.out.println("getDiaSemana");
         HorarioAtendimento instance = new HorarioAtendimento();
-        DiaSemana expResult = null;
-        DiaSemana result = instance.getDiaSemana();
+        HorarioAtendimento.DiaSemanaEnum expResult = null;
+        HorarioAtendimento.DiaSemanaEnum result = instance.getDiaSemana();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -235,7 +223,7 @@ public class HorarioAtendimentoNGTest {
     @Test
     public void testSetDiaSemana() {
         System.out.println("setDiaSemana");
-        DiaSemana diaSemana = null;
+        HorarioAtendimento.DiaSemanaEnum diaSemana = null;
         HorarioAtendimento instance = new HorarioAtendimento();
         instance.setDiaSemana(diaSemana);
         // TODO review the generated test code and remove the default call to fail.
@@ -286,23 +274,6 @@ public class HorarioAtendimentoNGTest {
     }
 
     /**
-     * Test of findByMedicoId_repetido method, of class HorarioAtendimento.
-     */
-    @Test
-    public void testFindByMedicoId_repetido() {
-        System.out.println("findByMedicoId_repetido");
-        Integer id = null;
-        int dia = 0;
-        Time inicio = null;
-        Time fim = null;
-        List expResult = null;
-        List result = HorarioAtendimento.findByMedicoId_repetido(id, dia, inicio, fim);
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of create method, of class HorarioAtendimento.
      */
     @Test
@@ -318,7 +289,7 @@ public class HorarioAtendimentoNGTest {
      * Test of read method, of class HorarioAtendimento.
      */
     @Test
-    public void testRead() {
+    public void testRead() throws Exception {
         System.out.println("read");
         HorarioAtendimento instance = new HorarioAtendimento();
         instance.read();

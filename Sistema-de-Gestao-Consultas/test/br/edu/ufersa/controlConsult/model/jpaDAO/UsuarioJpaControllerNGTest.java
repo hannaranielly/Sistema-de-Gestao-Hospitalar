@@ -166,5 +166,18 @@ public class UsuarioJpaControllerNGTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of read method, of class UsuarioJpaController.
+     */
+    @Test
+    public void testRead() throws Exception {
+        System.out.println("read");
+        Usuario usuario = null;
+        UsuarioJpaController instance = null;
+        instance.read(usuario);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

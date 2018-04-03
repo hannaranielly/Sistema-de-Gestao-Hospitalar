@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Pessoa;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -16,9 +17,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class CadMedicoNGTest {
+public class BuscPessoaNGTest {
     
-    public CadMedicoNGTest() {
+    public BuscPessoaNGTest() {
     }
 
     @BeforeClass
@@ -38,13 +39,26 @@ public class CadMedicoNGTest {
     }
 
     /**
-     * Test of main method, of class CadMedico.
+     * Test of preencherFormularioPessoa method, of class BuscPessoa.
+     */
+    @Test
+    public void testPreencherFormularioPessoa() {
+        System.out.println("preencherFormularioPessoa");
+        Pessoa pessoa = null;
+        BuscPessoa instance = null;
+        instance.preencherFormularioPessoa(pessoa);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of main method, of class BuscPessoa.
      */
     @Test
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        CadMedico.main(args);
+        BuscPessoa.main(args);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

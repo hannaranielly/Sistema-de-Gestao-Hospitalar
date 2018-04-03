@@ -151,5 +151,18 @@ public class PacienteJpaControllerNGTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of read method, of class PacienteJpaController.
+     */
+    @Test
+    public void testRead() throws Exception {
+        System.out.println("read");
+        Paciente paciente = null;
+        PacienteJpaController instance = null;
+        instance.read(paciente);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
