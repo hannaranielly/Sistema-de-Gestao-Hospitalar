@@ -38,7 +38,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private void setTipoContexto(TipoContextoEnum tipoDeContexto) {
         this.tipoDeContexto = tipoDeContexto;
     }
-
+    
     private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
         this.tipoDePessoa = tipoPessoa;
     }
@@ -113,15 +113,16 @@ public class FormPessoa extends javax.swing.JFrame {
         preencheFormularioMedico(pessoa);
         preencheFormularioPaciente(pessoa);
     }
-
+    
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
-
+    
     private void preencheFormularioMedico(Pessoa pessoa) {
+        crm_jTextField.setText(pessoa.getMedico().getCrm());
         chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
         loadEspecialidades();
         espField_jComboBox.getModel().setSelectedItem(pessoa.getMedico().getEspecialidade().getNome());
     }
-
+    
     private void preencheFormularioPaciente(Pessoa pessoa) {
         sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
     }
@@ -147,12 +148,12 @@ public class FormPessoa extends javax.swing.JFrame {
         estado_textField.setText("");
         cep_formattedField.setText("");
     }
-
+    
     private Especialidade extrairEspecialidade() { //TODO
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getModel().getSelectedItem());
         return especialidade;
     }
-
+    
     private void loadEspecialidades() {
         List<Especialidade> bd_especialidades = Especialidade.findAll();
         if (bd_especialidades.isEmpty()) { // Default Especialidades
@@ -168,11 +169,11 @@ public class FormPessoa extends javax.swing.JFrame {
         ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
         espField_jComboBox.setModel(model);
     }
-
+    
     public static enum TipoPessoaEnum {
         AMBOS, PACIENTE, MEDICO;
     }
-
+    
     public static enum UF_Enum {
         AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES(
                 "Espírito Santo"), GO("Goiás"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
@@ -181,16 +182,16 @@ public class FormPessoa extends javax.swing.JFrame {
                 "Rondônia"), RR("Roraima"), SC(
                 "Santa Catarina"), SP("São Paulo"), SE("Sergipe"), TO("Tocantins");
         private String name;
-
+        
         private UF_Enum(String name) {
             this.name = name;
         }
-
+        
         public String getName() {
             return this.name;
         }
     }
-
+    
     public static enum TipoContextoEnum {
         /**
          * Inserir pessoa no sistema
@@ -212,7 +213,7 @@ public class FormPessoa extends javax.swing.JFrame {
      * @see #setTipoContexto(FormPessoa.TipoContextoEnum)
      */
     private TipoContextoEnum tipoDeContexto;
-
+    
     private Pessoa pessoa; // Pessoa para alteração. Valida somente se o contexto for para alteração.
 
     /**
@@ -223,7 +224,7 @@ public class FormPessoa extends javax.swing.JFrame {
         this.setTipoPessoa(tipoPessoa);
         initComponents();
         atualizarContextoJanela();
-
+        
     }
 
     /**
@@ -272,6 +273,9 @@ public class FormPessoa extends javax.swing.JFrame {
         chField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         espField_jComboBox = new javax.swing.JComboBox<>();
+        crm_jLabel = new javax.swing.JLabel();
+        crm_jTextField = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         paciente_jPanel = new javax.swing.JPanel();
         sus_jLabel = new javax.swing.JLabel();
         sus_formattedtField = new javax.swing.JFormattedTextField();
@@ -600,6 +604,8 @@ public class FormPessoa extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Carga Horária:");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         medico_jPanel.add(jLabel4, gridBagConstraints);
 
@@ -614,6 +620,8 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 75;
@@ -622,11 +630,31 @@ public class FormPessoa extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         medico_jPanel.add(jLabel11, gridBagConstraints);
-        medico_jPanel.add(espField_jComboBox, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        medico_jPanel.add(espField_jComboBox, gridBagConstraints);
+
+        crm_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        crm_jLabel.setText("CRM:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(crm_jLabel, gridBagConstraints);
+
+        crm_jTextField.setMinimumSize(new java.awt.Dimension(90, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        medico_jPanel.add(crm_jTextField, gridBagConstraints);
 
         formulario_jPanel.add(medico_jPanel);
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+        formulario_jPanel.add(jFormattedTextField1);
 
         paciente_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
         paciente_jPanel.setLayout(new java.awt.GridBagLayout());
@@ -762,9 +790,10 @@ public class FormPessoa extends javax.swing.JFrame {
      * @see Medico
      */
     private void setMedicoFormulario(Pessoa pessoa) {
+        String crm = crm_jTextField.getText();
         int cargaHoraria = Integer.parseInt(chField.getText());
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
-        Medico m = new Medico(cargaHoraria, especialidade);
+        Medico m = new Medico(crm, cargaHoraria, especialidade);
         pessoa.setMedico(m);
     }
 
@@ -798,7 +827,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private void cadastrar() {
         if (checarCampoObrigatorio()) {
             Pessoa p = preenchePessoaFormulario();
-
+            
             if (tipoDePessoa == TipoPessoaEnum.MEDICO) {
                 setMedicoFormulario(p);
             } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
@@ -816,7 +845,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 ex.printStackTrace();
                 Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
                     + "RG e data de nascimento");
@@ -879,9 +908,9 @@ public class FormPessoa extends javax.swing.JFrame {
         } else if (tipoDePessoa == tipoDePessoa.PACIENTE) {
             updatePessoaTemp_Paciente();
         }
-
+        
     }
-
+    
     private void updatePessoaTemp_Medico() throws NullPointerException {
         if (pessoa.getMedico() == null) {
             throw new NullPointerException();
@@ -891,7 +920,7 @@ public class FormPessoa extends javax.swing.JFrame {
         Especialidade especialidade = extrairEspecialidade();
         pessoa.getMedico().setEspecialidade(especialidade);
     }
-
+    
     private void updatePessoaTemp_Paciente() throws NullPointerException {
         if (pessoa.getPaciente() == null) {
             throw new NullPointerException();
@@ -974,12 +1003,12 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void updateFrameAction() {
         // TODO Auto-generated method stub
 //        SearchPerson.getInstance(this);
     }
-
+    
     private FormPessoa.UF_Enum getUF(String uf) {
         // TODO Auto-generated method stub
 
@@ -1007,6 +1036,8 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel cidade_jLabel;
     private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JFormattedTextField cpf_textField;
+    private javax.swing.JLabel crm_jLabel;
+    private javax.swing.JTextField crm_jTextField;
     private javax.swing.JLabel email_jLabel;
     private javax.swing.JTextField email_textField;
     private javax.swing.JComboBox<String> espField_jComboBox;
@@ -1014,6 +1045,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JTextField estado_textField;
     private javax.swing.JRadioButton feminino_radioButton;
     private javax.swing.JPanel formulario_jPanel;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;

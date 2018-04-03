@@ -20,7 +20,7 @@ import javax.swing.text.DateFormatter;
  * @author leone
  */
 public class BuscPessoa extends javax.swing.JFrame {
-
+    
     private Pessoa pessoa;
     private FormPessoa.TipoPessoaEnum tipoPessoa;
 
@@ -31,7 +31,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         initComponents();
         setTipoPessoa(tipoPessoa);
     }
-
+    
     private void setTipoPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
         if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
@@ -84,10 +84,12 @@ public class BuscPessoa extends javax.swing.JFrame {
         sexo_jTextField = new javax.swing.JTextField();
         nascimento_jTextField = new javax.swing.JTextField();
         medico_jPanel = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         chField = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         esp_Label = new javax.swing.JLabel();
+        crm_jLabel = new javax.swing.JLabel();
+        crm_jTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         paciente_jPanel = new javax.swing.JPanel();
         sus_jLabel = new javax.swing.JLabel();
         sus_formattedtField = new javax.swing.JFormattedTextField();
@@ -438,12 +440,6 @@ public class BuscPessoa extends javax.swing.JFrame {
         medico_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Médico"));
         medico_jPanel.setLayout(new java.awt.GridBagLayout());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Carga Horária:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        medico_jPanel.add(jLabel4, gridBagConstraints);
-
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
@@ -456,6 +452,8 @@ public class BuscPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 75;
@@ -464,11 +462,40 @@ public class BuscPessoa extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         medico_jPanel.add(jLabel11, gridBagConstraints);
 
         esp_Label.setText("<Nome da Especialidade>");
-        medico_jPanel.add(esp_Label, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        medico_jPanel.add(esp_Label, gridBagConstraints);
+
+        crm_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        crm_jLabel.setText("CRM:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(crm_jLabel, gridBagConstraints);
+
+        crm_jTextField.setEditable(false);
+        crm_jTextField.setMinimumSize(new java.awt.Dimension(90, 20));
+        crm_jTextField.setPreferredSize(new java.awt.Dimension(90, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        medico_jPanel.add(crm_jTextField, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Carga Horária:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        medico_jPanel.add(jLabel4, gridBagConstraints);
 
         getContentPane().add(medico_jPanel);
 
@@ -585,7 +612,7 @@ public class BuscPessoa extends javax.swing.JFrame {
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sus_formattedtFieldActionPerformed
-
+    
     public void preencherFormularioPessoa(Pessoa pessoa) {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
@@ -613,17 +640,18 @@ public class BuscPessoa extends javax.swing.JFrame {
             preencheFormularioPaciente(pessoa);
         }
     }
-
+    
     private void preencheFormularioPaciente(Pessoa pessoa) {
         if (pessoa.getPaciente() != null) {
             sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
         }
     }
-
+    
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
-
+    
     private void preencheFormularioMedico(Pessoa pessoa) {
         if (pessoa.getMedico() != null) {
+            crm_jTextField.setText(pessoa.getMedico().getCrm());
             chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
             esp_Label.setText(pessoa.getMedico().getEspecialidade().getNome());
         }
@@ -643,21 +671,21 @@ public class BuscPessoa extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -685,6 +713,8 @@ public class BuscPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel cidade_jLabel;
     private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JFormattedTextField cpf_textField;
+    private javax.swing.JLabel crm_jLabel;
+    private javax.swing.JTextField crm_jTextField;
     private javax.swing.JLabel email_jLabel;
     private javax.swing.JTextField email_textField;
     private javax.swing.JLabel esp_Label;
