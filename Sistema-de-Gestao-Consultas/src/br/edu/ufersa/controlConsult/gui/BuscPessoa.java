@@ -20,7 +20,7 @@ import javax.swing.text.DateFormatter;
  * @author leone
  */
 public class BuscPessoa extends javax.swing.JFrame {
-    
+
     private Pessoa pessoa;
     private FormPessoa.TipoPessoaEnum tipoPessoa;
 
@@ -31,7 +31,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         initComponents();
         setTipoPessoa(tipoPessoa);
     }
-    
+
     private void setTipoPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
         if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
@@ -585,8 +585,8 @@ public class BuscPessoa extends javax.swing.JFrame {
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sus_formattedtFieldActionPerformed
-    
-    private void preencherFormularioPessoa(Pessoa pessoa) {
+
+    public void preencherFormularioPessoa(Pessoa pessoa) {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
         rg_textField.setText(pessoa.getRg());
@@ -613,16 +613,20 @@ public class BuscPessoa extends javax.swing.JFrame {
             preencheFormularioPaciente(pessoa);
         }
     }
-    
+
     private void preencheFormularioPaciente(Pessoa pessoa) {
-        sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
+        if (pessoa.getPaciente() != null) {
+            sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
+        }
     }
-    
+
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
-    
+
     private void preencheFormularioMedico(Pessoa pessoa) {
-        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
-        esp_Label.setText(pessoa.getMedico().getEspecialidade().getNome());
+        if (pessoa.getMedico() != null) {
+            chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+            esp_Label.setText(pessoa.getMedico().getEspecialidade().getNome());
+        }
     }
 
     /**
@@ -639,21 +643,21 @@ public class BuscPessoa extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
