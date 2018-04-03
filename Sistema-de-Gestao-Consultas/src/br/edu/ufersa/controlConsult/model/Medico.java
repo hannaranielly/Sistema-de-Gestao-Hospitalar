@@ -40,77 +40,77 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m")
     , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
 public class Medico implements ICRUD, Serializable {
-    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "medico")
     private Pessoa pessoa;
-    
+
     @Column(name = "crm", length = 15)
     private String crm;
-    
+
     @Column(name = "carga_horaria")
     private Integer cargaHoraria;
-    
+
     @JoinColumn(name = "especialidade", referencedColumnName = "id")
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Especialidade especialidade;
-    
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "medico_horario", joinColumns = {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
     private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
-    
+
     public Medico(String crm, Integer cargaHoraria, Especialidade especialidade) {
         this.setCrm(crm);
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
     }
-    
+
     public Medico() {
     }
-    
+
     public void setListaHorario(List<HorarioAtendimento> listaHorario) {
         this.listaHorario = listaHorario;
     }
-    
+
     public List<HorarioAtendimento> getListaHorario() {
         return listaHorario;
     }
-    
+
     public void setCargaHoraria(int cargaHoraria) {
         if (cargaHoraria <= 60 && cargaHoraria > 0) {
             this.cargaHoraria = cargaHoraria;
         }
     }
-    
+
     public int getCargaHoraria() {
         return cargaHoraria;
     }
-    
+
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
-    
+
     public Especialidade getEspecialidade() {
         return especialidade;
     }
-    
+
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (this.getId() != null ? this.getId().hashCode() : 0);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -123,26 +123,26 @@ public class Medico implements ICRUD, Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "br.edu.ufersa.controlConsult.model.Medico[ id=" + this.getId() + " ]";
     }
-    
+
     public void addListaHorario(HorarioAtendimento h) {
         if (this.listaHorario == null) {
             this.listaHorario = new ArrayList<HorarioAtendimento>();
         }
         this.listaHorario.add(h);
     }
-    
+
     @Override
     public void create() {
         EntityManagerFactory emf = JpaFactory.getInstance();
         MedicoJpaController instance = new MedicoJpaController(emf);
         instance.create(this);
     }
-    
+
     @Override
     public void read() throws EntityNotFoundException {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -154,7 +154,7 @@ public class Medico implements ICRUD, Serializable {
             throw ex;
         }
     }
-    
+
     @Override
     public void update() {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -165,7 +165,7 @@ public class Medico implements ICRUD, Serializable {
             Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void delete() {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -176,27 +176,27 @@ public class Medico implements ICRUD, Serializable {
             Logger.getLogger(Medico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Integer getId() {
         return id;
     }
-    
+
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public Pessoa getPessoa() {
         return pessoa;
     }
-    
+
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    
+
     public String getCrm() {
         return crm;
     }
-    
+
     public void setCrm(String crm) {
         this.crm = crm;
     }
@@ -216,5 +216,5 @@ public class Medico implements ICRUD, Serializable {
         }
         return res;
     }
-    
+
 }

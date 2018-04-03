@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManagerFactory;
@@ -52,7 +53,7 @@ public class Especialidade implements Serializable {
     private Integer id;
     @Column(name = "nome", unique = true)
     private String nome;
-    @OneToMany(mappedBy = "especialidade", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "especialidade", fetch = FetchType.EAGER)
     private List<Medico> medicoList;
 
     public Especialidade() {
