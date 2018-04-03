@@ -811,7 +811,12 @@ public class FormPessoa extends javax.swing.JFrame {
             } catch (PreexistingEntityException ex) {
                 JOptionPane.showMessageDialog(this, "O " + tipoDePessoa + " já encontra-se cadastrado.");
                 Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
+                ex.printStackTrace();
+                Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else {
             JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
                     + "RG e data de nascimento");

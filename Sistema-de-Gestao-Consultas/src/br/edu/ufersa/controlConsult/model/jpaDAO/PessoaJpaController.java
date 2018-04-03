@@ -34,7 +34,7 @@ public class PessoaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Pessoa pessoa) {
+    public void create(Pessoa pessoa) throws Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -43,6 +43,7 @@ public class PessoaJpaController implements Serializable {
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         } finally {
             if (em != null) {
                 em.close();

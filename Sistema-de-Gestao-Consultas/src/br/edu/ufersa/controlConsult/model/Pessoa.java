@@ -305,10 +305,21 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void create() throws PreexistingEntityException {
+    public void create() throws PreexistingEntityException, Exception {
+        try {
+            if (Pessoa.findByCPF(this.getCpf()) != null) {
+                throw new PreexistingEntityException("CPF já registrado.");
+            }
+        } catch (NoResultException e) {
+        }
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
-        instance.create(this);
+        try {
+            instance.create(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
