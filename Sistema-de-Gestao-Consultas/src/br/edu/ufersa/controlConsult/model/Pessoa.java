@@ -13,6 +13,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityExc
 import br.edu.ufersa.controlConsult.model.validacao.CPF;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -46,6 +47,12 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE m.nome = :nome")
     , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")})
 public class Pessoa implements Serializable, ICRUD {
+
+    public static List<Pessoa> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findPessoaEntities();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -273,7 +280,8 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Override
     public String toString() {
-        return "br.edu.ufersa.controlConsult.model.Pessoa[ id=" + id + " ]";
+        return "[id=" + id + "]"
+                + " Nome: " + this.nome + " CPF: " + this.cpf;
     }
 
     /**
