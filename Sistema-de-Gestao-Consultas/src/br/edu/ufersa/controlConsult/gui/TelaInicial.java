@@ -49,8 +49,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
@@ -190,14 +188,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem11.setText("Agendar");
         jMenu3.add(jMenuItem11);
 
-        jMenuItem12.setText("Iníciar Atendimento");
+        jMenuItem12.setText("Iniciar Atendimento");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem12);
-
-        jMenuItem13.setText("Próximo Paciente");
-        jMenu3.add(jMenuItem13);
-
-        jMenuItem14.setText("Finalizar Atendimento");
-        jMenu3.add(jMenuItem14);
 
         jMenuItem15.setText("Verificar Desempenho");
         jMenu3.add(jMenuItem15);
@@ -308,6 +305,10 @@ public class TelaInicial extends javax.swing.JFrame {
         lh.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,8 +359,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
