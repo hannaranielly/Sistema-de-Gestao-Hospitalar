@@ -27,17 +27,95 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nome_medico = new javax.swing.JLabel();
+        nome_paciente_atual = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cpf_paciente_atual = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        numero_paciente_atual = new javax.swing.JLabel();
+        j = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        nome_medico.setText("___________");
+
+        nome_paciente_atual.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        nome_paciente_atual.setText("Fulano de Tal");
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel3.setText("Médico Responsável: ");
+
+        cpf_paciente_atual.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        cpf_paciente_atual.setText("____________");
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel5.setText("Paciente nº: ");
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel6.setText("CPF:");
+
+        jButton1.setText("Próximo Atendimento");
+
+        numero_paciente_atual.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        numero_paciente_atual.setText("_____");
+
+        j.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        j.setText("Nome:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(nome_medico))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(cpf_paciente_atual))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(numero_paciente_atual)
+                        .addGap(18, 18, 18)
+                        .addComponent(j)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nome_paciente_atual)))
+                .addContainerGap(158, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(235, 235, 235))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 336, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(nome_medico))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nome_paciente_atual)
+                    .addComponent(jLabel5)
+                    .addComponent(numero_paciente_atual)
+                    .addComponent(j))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cpf_paciente_atual)
+                    .addComponent(jLabel6))
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,5 +157,14 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cpf_paciente_atual;
+    private javax.swing.JLabel j;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel nome_medico;
+    private javax.swing.JLabel nome_paciente_atual;
+    private javax.swing.JLabel numero_paciente_atual;
     // End of variables declaration//GEN-END:variables
 }
