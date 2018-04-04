@@ -307,6 +307,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         // TODO add your handling code here:
+        ListarAtendimentos la = new ListarAtendimentos();
+        la.setVisible(true);
+        la.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
