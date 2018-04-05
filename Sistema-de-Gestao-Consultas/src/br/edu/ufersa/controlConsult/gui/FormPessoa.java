@@ -420,7 +420,6 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
 
-        nascimento_DateField.setDateFormatString("dd/MM/yyyy");
         nascimento_DateField.setMinimumSize(new java.awt.Dimension(120, 20));
         nascimento_DateField.setPreferredSize(new java.awt.Dimension(120, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -665,6 +664,7 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         paciente_jPanel.add(sus_jLabel, gridBagConstraints);
 
+        sus_formattedtField.setColumns(12);
         try {
             sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
         } catch (java.text.ParseException ex) {
