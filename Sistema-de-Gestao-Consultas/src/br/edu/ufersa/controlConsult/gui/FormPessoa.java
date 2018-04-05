@@ -287,7 +287,6 @@ public class FormPessoa extends javax.swing.JFrame {
         espField_jComboBox = new javax.swing.JComboBox<>();
         crm_jLabel = new javax.swing.JLabel();
         crm_jTextField = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         paciente_jPanel = new javax.swing.JPanel();
         sus_jLabel = new javax.swing.JLabel();
         sus_formattedtField = new javax.swing.JFormattedTextField();
@@ -663,9 +662,6 @@ public class FormPessoa extends javax.swing.JFrame {
         medico_jPanel.add(crm_jTextField, gridBagConstraints);
 
         formulario_jPanel.add(medico_jPanel);
-
-        jFormattedTextField1.setText("jFormattedTextField1");
-        formulario_jPanel.add(jFormattedTextField1);
 
         paciente_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Paciente"));
         paciente_jPanel.setLayout(new java.awt.GridBagLayout());
@@ -1057,7 +1053,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JTextField estado_textField;
     private javax.swing.JRadioButton feminino_radioButton;
     private javax.swing.JPanel formulario_jPanel;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
