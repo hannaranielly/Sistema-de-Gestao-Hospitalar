@@ -110,8 +110,20 @@ public class FormPessoa extends javax.swing.JFrame {
         cidadeField.setText(pessoa.getCidade());
         estado_textField.setText(pessoa.getEstado());
         cep_formattedField.setText(pessoa.getCep());
-        preencheFormularioMedico(pessoa);
-        preencheFormularioPaciente(pessoa);
+        switch(tipoDePessoa){
+            case MEDICO:
+                preencheFormularioMedico(pessoa);
+            break;
+            case PACIENTE:
+                preencheFormularioPaciente(pessoa);
+            break;
+        }
+            
+
+            
+
+        
+        
     }
     
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
