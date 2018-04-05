@@ -293,9 +293,6 @@ public class FormPessoa extends javax.swing.JFrame {
         botoes_jPanel = new javax.swing.JPanel();
         submit_jButton = new javax.swing.JButton();
         cancel_jButton = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -655,6 +652,7 @@ public class FormPessoa extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         medico_jPanel.add(crm_jLabel, gridBagConstraints);
 
+        crm_jTextField.setColumns(6);
         crm_jTextField.setMinimumSize(new java.awt.Dimension(90, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -710,14 +708,6 @@ public class FormPessoa extends javax.swing.JFrame {
         botoes_jPanel.add(cancel_jButton);
 
         getContentPane().add(botoes_jPanel, java.awt.BorderLayout.SOUTH);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1056,9 +1046,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel logradouro_jLabel;
     private javax.swing.JTextField logradouro_textField;
     private javax.swing.JRadioButton masculino_radioButton;
