@@ -106,24 +106,7 @@ public class VerificarDesempenho extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Pessoa p = null;
-        try {
-            p = Pessoa.findByCPF(CPFField.getText());
-        } catch (NoResultException ex) {
-            Logger.getLogger(DelMedico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Medico m = null;
-        if (p != null) {
-            m = p.getMedico();
-        } else {
-            m = null;
-        }
-        if (m == null) {
-            JOptionPane.showMessageDialog(this, "Médico não cadastrado no sistema");
-        } else {
-            m.delete();
-            JOptionPane.showMessageDialog(this, "Médico apagado com sucesso");
-        }
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
