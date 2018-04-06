@@ -135,4 +135,18 @@ public class ConsultaJpaController implements Serializable {
         }
     }
 
+    public void read(Consulta consulta) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.refresh(consulta);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }
