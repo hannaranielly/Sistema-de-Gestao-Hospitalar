@@ -508,6 +508,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         paciente_jPanel.add(sus_jLabel, gridBagConstraints);
 
+        sus_formattedtField.setColumns(12);
         try {
             sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
         } catch (java.text.ParseException ex) {
