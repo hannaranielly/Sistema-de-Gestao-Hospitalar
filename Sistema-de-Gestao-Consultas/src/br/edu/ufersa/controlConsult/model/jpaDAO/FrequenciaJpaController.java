@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
+import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.Frequencia;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
@@ -37,6 +38,20 @@ public class FrequenciaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(frequencia);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public void read(Frequencia frequencia) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.refresh(frequencia);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -134,5 +149,7 @@ public class FrequenciaJpaController implements Serializable {
             em.close();
         }
     }
+
+   
 
 }

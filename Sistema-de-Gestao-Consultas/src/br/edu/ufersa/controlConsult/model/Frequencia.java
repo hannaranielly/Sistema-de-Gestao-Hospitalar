@@ -6,12 +6,16 @@
 package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
+import br.edu.ufersa.controlConsult.model.jpaDAO.FrequenciaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,7 +54,6 @@ public class Frequencia implements Serializable, ICRUD {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medico")
     private Medico medico;
-
 
     public Frequencia() {
     }
@@ -112,23 +115,48 @@ public class Frequencia implements Serializable, ICRUD {
     }
 
     @Override
-    public void create() throws PreexistingEntityException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        FrequenciaJpaController instance = new FrequenciaJpaController(emf);
+        instance.create(this);
     }
 
     @Override
-    public void read() throws NonexistentEntityException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        FrequenciaJpaController instance = new FrequenciaJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Frequencia.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
     @Override
-    public void update() throws NonexistentEntityException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        FrequenciaJpaController instance = new FrequenciaJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Frequencia.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        } catch (Exception ex) {
+            Logger.getLogger(Frequencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void delete() throws NonexistentEntityException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        FrequenciaJpaController instance = new FrequenciaJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Frequencia.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 
 }
