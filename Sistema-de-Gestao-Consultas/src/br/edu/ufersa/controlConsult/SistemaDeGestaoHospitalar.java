@@ -24,8 +24,6 @@ public class SistemaDeGestaoHospitalar {
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-        List<HorarioAtendimento> h = HorarioAtendimento.findByWeek();
-        System.out.println(h.get(0).getInicio());
     }
 
     private static void load() {
