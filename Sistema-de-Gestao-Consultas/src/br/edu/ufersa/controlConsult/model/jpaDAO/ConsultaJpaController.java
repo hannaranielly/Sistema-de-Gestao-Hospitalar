@@ -45,6 +45,20 @@ public class ConsultaJpaController implements Serializable {
         }
     }
 
+    public void read(Consulta consulta) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.refresh(consulta);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(Consulta consulta) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -132,20 +146,6 @@ public class ConsultaJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
-        }
-    }
-
-    public void read(Consulta consulta) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            em.refresh(consulta);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
         }
     }
 
