@@ -38,6 +38,10 @@ public class Consulta implements Serializable, ICRUD {
     @Column(name = "agendada")
     private boolean agendada;
 
+    @Column(name = "data_agendada")
+    @Temporal(TemporalType.DATE)
+    private Date data_agendada;
+
     @Column(name = "data_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_inicio;
@@ -103,6 +107,14 @@ public class Consulta implements Serializable, ICRUD {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Date getData_agendada() {
+        return data_agendada;
+    }
+
+    public void setData_agendada(Date data_agendada) {
+        this.data_agendada = data_agendada;
     }
 
     @Override
