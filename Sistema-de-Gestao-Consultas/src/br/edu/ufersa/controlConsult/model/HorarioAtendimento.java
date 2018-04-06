@@ -26,6 +26,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,6 +38,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "horario_atendimento")
+@NamedQueries({
+    @NamedQuery(name = "HorarioAtendimento.findByWeek", query = "SELECT m FROM HorarioAtendimento m WHERE m.diaSemana = :diaSemana")})
 public class HorarioAtendimento implements Serializable, ICRUD {
 
     /**
@@ -194,6 +198,12 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         //        session.close();
         //        return list;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static List<HorarioAtendimento> findByWeek(){
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        return instance.findHorarioAtendimentoHoje();
     }
 
     @Override

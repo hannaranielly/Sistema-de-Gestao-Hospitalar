@@ -6,8 +6,9 @@
 package br.edu.ufersa.controlConsult;
 
 import br.edu.ufersa.controlConsult.gui.TelaLogin;
-
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import java.util.List;
 
 /**
  *
@@ -23,7 +24,8 @@ public class SistemaDeGestaoHospitalar {
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-
+        List<HorarioAtendimento> h = HorarioAtendimento.findByWeek();
+        System.out.println(h.get(0).getInicio());
     }
 
     private static void load() {

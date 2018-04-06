@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -157,6 +158,44 @@ public class HorarioAtendimentoJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<HorarioAtendimento> findHorarioAtendimentoHoje() {
+        String diaSemana = null;
+        Calendar c = Calendar.getInstance();
+        switch (c.get(Calendar.DAY_OF_WEEK)) {
+            case Calendar.SUNDAY:
+                diaSemana = "Domingo";
+                break;
+            case Calendar.MONDAY:
+                diaSemana = "Segunda-feira";
+                break;
+            case Calendar.TUESDAY:
+                diaSemana = "Terça-feira";
+                break;
+            case Calendar.WEDNESDAY:
+                diaSemana = "Quarta-feira";
+                break;
+            case Calendar.THURSDAY:
+                diaSemana = "Quinta-feira";
+                break;
+            case Calendar.FRIDAY:
+                diaSemana = "Sexta-feira";
+                break;
+            case Calendar.SATURDAY:
+                diaSemana = "Sábado";
+                
+        }
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(HorarioAtendimento.class));
+            Query q = em.createNamedQuery("HorarioAtendimento.findByWeek");
+            q.setParameter("diaSemana", diaSemana);
+            return q.getResultList();
         } finally {
             em.close();
         }
