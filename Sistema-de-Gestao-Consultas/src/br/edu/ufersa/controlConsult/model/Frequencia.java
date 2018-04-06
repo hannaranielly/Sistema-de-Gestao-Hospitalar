@@ -51,9 +51,6 @@ public class Frequencia implements Serializable, ICRUD {
     @JoinColumn(name = "medico")
     private Medico medico;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "paciente")
-    private Paciente paciente;
 
     public Frequencia() {
     }
@@ -72,14 +69,6 @@ public class Frequencia implements Serializable, ICRUD {
 
     public void setMedico(Medico medico) {
         this.medico = medico;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
     }
 
     public Date getEntrada() {
