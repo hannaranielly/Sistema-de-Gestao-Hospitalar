@@ -11,6 +11,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.ConsultaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
@@ -34,6 +35,13 @@ import javax.persistence.TemporalType;
 @Table(name = "consulta")
 public class Consulta implements Serializable, ICRUD {
 
+    public static List<Consulta> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        ConsultaJpaController instance = new ConsultaJpaController(emf);
+        List<Consulta> res_consultas = instance.findConsultaEntities();
+        return res_consultas;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +53,7 @@ public class Consulta implements Serializable, ICRUD {
     @Column(name = "data_agendada")
     @Temporal(TemporalType.DATE)
     private Date data_agendada;
-    
+
     @Column(name = "data_marcado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_marcado;
@@ -65,12 +73,10 @@ public class Consulta implements Serializable, ICRUD {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
     private Paciente paciente;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "horario_atendimento")
     private HorarioAtendimento horario_atendimento;
-    
-    
 
     public Consulta() {
     }

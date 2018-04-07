@@ -12,6 +12,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityExc
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +75,8 @@ public class Medico implements ICRUD, Serializable {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
     private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "medico")
+    private Set<Consulta> listaConsultas;
 
     public List<Questionario> getQuestionarios() {
         return questionarios;
@@ -82,14 +85,13 @@ public class Medico implements ICRUD, Serializable {
     public void setQuestionarios(List<Questionario> questionarios) {
         this.questionarios = questionarios;
     }
-    
+
     @OneToMany(mappedBy = "medico", targetEntity = Questionario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Questionario> questionarios;
 
     @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @OrderBy("data_entrada DESC")
     private SortedSet<Frequencia> listFrequencia;
-
 
     public Medico(String crm, Integer cargaHoraria, Especialidade especialidade) {
         this.setCrm(crm);
@@ -136,6 +138,14 @@ public class Medico implements ICRUD, Serializable {
 
     public void setListFrequencia(SortedSet<Frequencia> listFrequencia) {
         this.listFrequencia = listFrequencia;
+    }
+
+    public Set<Consulta> getListaConsultas() {
+        return listaConsultas;
+    }
+
+    public void setListaConsultas(Set<Consulta> listaConsultas) {
+        this.listaConsultas = listaConsultas;
     }
 
     @Override
