@@ -113,10 +113,10 @@ public class DelMedico extends javax.swing.JFrame {
         } else {
             m = null;
         }
-        if (m == null) {
+        if (m == null || p == null) {
             JOptionPane.showMessageDialog(this, "Médico não cadastrado no sistema");
         } else {
-            m.delete();
+            p.delete();
             JOptionPane.showMessageDialog(this, "Médico apagado com sucesso");
         }
 

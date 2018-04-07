@@ -106,10 +106,10 @@ public class DelPaciente extends javax.swing.JFrame {
         } catch (NoResultException ex) {
             Logger.getLogger(DelPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (pa == null) {
+        if (pa == null || p == null) {
             JOptionPane.showMessageDialog(this, "Paciente não cadastrado no sistema");
         } else {
-            pa.delete();
+            p.delete();
             JOptionPane.showMessageDialog(this, "Paciente apagado com sucesso");
         }
 
