@@ -23,6 +23,8 @@ public class MostraDesempenho extends javax.swing.JFrame {
     public MostraDesempenho(Pessoa p){
         this.pessoa = p;
         initComponents();
+        nome_medico.setText(pessoa.getNome());
+        especialidade.setText(pessoa.getMedico().getEspecialidade().getNome());
     }
 
     /**
@@ -40,12 +42,16 @@ public class MostraDesempenho extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         nome_jLabel2 = new javax.swing.JLabel();
         nome_jLabel3 = new javax.swing.JLabel();
-        numero_paciente_atual1 = new javax.swing.JLabel();
-        numero_paciente_atual2 = new javax.swing.JLabel();
+        mt = new javax.swing.JLabel();
+        hs = new javax.swing.JLabel();
         nome_medico = new javax.swing.JLabel();
-        nome_medico1 = new javax.swing.JLabel();
+        especialidade = new javax.swing.JLabel();
         nome_jLabel5 = new javax.swing.JLabel();
-        numero_paciente_atual4 = new javax.swing.JLabel();
+        mqp1 = new javax.swing.JLabel();
+        nome_jLabel6 = new javax.swing.JLabel();
+        mqp2 = new javax.swing.JLabel();
+        nome_jLabel7 = new javax.swing.JLabel();
+        mqp3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ver Desempenho");
@@ -53,35 +59,47 @@ public class MostraDesempenho extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setText("Desempenho Médico");
 
-        nome_jLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nome_jLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nome_jLabel.setText("Nome:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Especialidade:");
 
-        nome_jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nome_jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nome_jLabel2.setText("Média de Tempo em Consulta:");
 
-        nome_jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nome_jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nome_jLabel3.setText("Quantidade de Horas Trabalhada na Ultima Semana:");
 
-        numero_paciente_atual1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        numero_paciente_atual1.setText("_____");
+        mt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mt.setText("_____");
 
-        numero_paciente_atual2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        numero_paciente_atual2.setText("_____");
+        hs.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        hs.setText("_____");
 
-        nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nome_medico.setText("___________");
 
-        nome_medico1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        nome_medico1.setText("___________");
+        especialidade.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        especialidade.setText("___________");
 
-        nome_jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nome_jLabel5.setText("Média Questionário Paciente:");
+        nome_jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nome_jLabel5.setText("Média Questionário Paciente na questão 1:");
 
-        numero_paciente_atual4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        numero_paciente_atual4.setText("_____");
+        mqp1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mqp1.setText("_____");
+
+        nome_jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nome_jLabel6.setText("Média Questionário Paciente na questão 2:");
+
+        mqp2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mqp2.setText("_____");
+
+        nome_jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nome_jLabel7.setText("Média Questionário Paciente na questão 3:");
+
+        mqp3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mqp3.setText("_____");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,11 +113,11 @@ public class MostraDesempenho extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numero_paciente_atual4))
+                                .addComponent(mqp1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nome_medico1))
+                                .addComponent(especialidade))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -107,15 +125,25 @@ public class MostraDesempenho extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numero_paciente_atual2))
+                                .addComponent(hs))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numero_paciente_atual1))))
+                                .addComponent(mt))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addComponent(jLabel1)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(nome_jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mqp2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(nome_jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mqp3)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,20 +157,28 @@ public class MostraDesempenho extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11)
-                    .addComponent(nome_medico1))
+                    .addComponent(especialidade))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome_jLabel3)
-                    .addComponent(numero_paciente_atual2))
+                    .addComponent(hs))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numero_paciente_atual1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mt, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome_jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome_jLabel5)
-                    .addComponent(numero_paciente_atual4))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(mqp1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nome_jLabel6)
+                    .addComponent(mqp2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nome_jLabel7)
+                    .addComponent(mqp3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,7 +189,9 @@ public class MostraDesempenho extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,17 +233,21 @@ public class MostraDesempenho extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel especialidade;
+    private javax.swing.JLabel hs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel mqp1;
+    private javax.swing.JLabel mqp2;
+    private javax.swing.JLabel mqp3;
+    private javax.swing.JLabel mt;
     private javax.swing.JLabel nome_jLabel;
     private javax.swing.JLabel nome_jLabel2;
     private javax.swing.JLabel nome_jLabel3;
     private javax.swing.JLabel nome_jLabel5;
+    private javax.swing.JLabel nome_jLabel6;
+    private javax.swing.JLabel nome_jLabel7;
     private javax.swing.JLabel nome_medico;
-    private javax.swing.JLabel nome_medico1;
-    private javax.swing.JLabel numero_paciente_atual1;
-    private javax.swing.JLabel numero_paciente_atual2;
-    private javax.swing.JLabel numero_paciente_atual4;
     // End of variables declaration//GEN-END:variables
 }
