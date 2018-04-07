@@ -925,7 +925,6 @@ public class FormPessoa extends javax.swing.JFrame {
         }
         String num_sus = sus_formattedtField.getText();
         pessoa.getPaciente().setNum_sus(num_sus);
-        JOptionPane.showMessageDialog(this, "Paciente Atualizado com Sucesso");
     }
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
