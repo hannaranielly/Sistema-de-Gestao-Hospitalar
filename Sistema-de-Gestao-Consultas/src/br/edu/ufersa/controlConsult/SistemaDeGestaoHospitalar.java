@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult;
 
 import br.edu.ufersa.controlConsult.gui.TelaLogin;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.Usuario;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
  * @author leone
  */
 public class SistemaDeGestaoHospitalar {
+
+    public static Usuario usuarioAutenticado;
 
     /**
      * @param args the command line arguments

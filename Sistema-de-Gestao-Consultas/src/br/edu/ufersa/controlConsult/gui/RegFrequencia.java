@@ -6,13 +6,11 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Frequencia;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import br.edu.ufersa.controlConsult.model.Usuario;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
@@ -28,9 +26,15 @@ public class RegFrequencia extends javax.swing.JFrame {
      * Creates new form AddHorario
      */
     private Medico med;
+    private Usuario usuarioAutenticado;
 
-    public RegFrequencia() {
+    private void setUsuarioAutenticado(Usuario usuarioAutenticado) {
+        this.usuarioAutenticado = usuarioAutenticado;
+    }
+
+    public RegFrequencia(Usuario usuarioAutenticado) {
         initComponents();
+        this.setUsuarioAutenticado(usuarioAutenticado);
     }
 
     /**
@@ -55,7 +59,7 @@ public class RegFrequencia extends javax.swing.JFrame {
         saida_jButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar Horário");
+        setTitle("Gerenciar Frequência");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -165,29 +169,24 @@ public class RegFrequencia extends javax.swing.JFrame {
     private void buscarPessoa() {
         try {
             med = Pessoa.findByCPF(CPFField.getText()).getMedico();
+            nomeLabel.setText(med.getPessoa().getNome());
+            CPFField.setEditable(false);
         } catch (NoResultException ex) {
             Logger.getLogger(RegFrequencia.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
         }
-        if (med != null) {
-            nomeLabel.setText(med.getPessoa().getNome());
-            CPFField.setEditable(false);
-        }
     }
 
     private void registrarEntrada() {
-        Date entrada = new Date(System.currentTimeMillis());
-        Frequencia dados = new Frequencia();
+        Frequencia frequencia = new Frequencia(med, usuarioAutenticado);
         if (med == null) {
             JOptionPane.showMessageDialog(null, "Informe o CPF do médico!");
             return;
         } else {
-            entrada = new Date(System.currentTimeMillis());
-            dados.setData_entrada(entrada);
-            dados.setMedico(med);
+            frequencia.checkin();
         }
         try {
-            dados.create();
+            frequencia.create();
             JOptionPane.showMessageDialog(null, "Entrada Registrada");
             limpaFormulario();
         } catch (NoResultException ex) {
@@ -254,9 +253,19 @@ public class RegFrequencia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegFrequencia().setVisible(true);
+                List<Usuario> usuarios_teste = Usuario.findAll();
+                if (usuarios_teste.isEmpty()) {
+                    Usuario u = new Usuario("admin", "admin".toCharArray());
+                    System.err.println("Usuario admin foi inserido no banco de dados");
+                    u.create();
+                    usuarios_teste.add(u);
+                }
+                Usuario uAutenticado = usuarios_teste.get(0);
+                System.out.println("[DEBUG] Usuario autenticado: " + uAutenticado.getUsername());
+                new RegFrequencia(uAutenticado).setVisible(true);
             }
-        });
+        }
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

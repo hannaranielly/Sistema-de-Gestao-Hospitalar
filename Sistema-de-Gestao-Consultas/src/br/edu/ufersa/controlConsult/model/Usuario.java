@@ -7,11 +7,13 @@ package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.UsuarioJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -40,6 +42,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
     , @NamedQuery(name = "Usuario.login", query = "SELECT u FROM Usuario u WHERE u.username = :username and u.password = :password")})
 public class Usuario implements Serializable, ICRUD {
+
+    public static List<Usuario> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        return instance.findUsuarioEntities();
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
