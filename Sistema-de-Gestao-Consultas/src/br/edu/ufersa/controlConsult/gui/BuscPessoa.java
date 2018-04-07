@@ -20,18 +20,27 @@ import javax.swing.text.DateFormatter;
  * @author leone
  */
 public class BuscPessoa extends javax.swing.JFrame {
-    
+
     private Pessoa pessoa;
     private FormPessoa.TipoPessoaEnum tipoPessoa;
 
     /**
      * Creates new form BuscMedico
      */
-    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
+    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa, Pessoa pessoa) {
         initComponents();
         setTipoPessoa(tipoPessoa);
+        setPessoa(pessoa);
     }
-    
+
+    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
+        this(tipoPessoa, null);
+    }
+
+    private void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
     private void setTipoPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
         if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
@@ -167,6 +176,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(nome_jLabel, gridBagConstraints);
@@ -205,6 +215,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(logradouro_jLabel, gridBagConstraints);
@@ -228,6 +239,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cep_jLabel, gridBagConstraints);
@@ -256,6 +268,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(nascimento_jLabel, gridBagConstraints);
@@ -265,6 +278,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(rg_jLabel, gridBagConstraints);
@@ -274,6 +288,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cpf_jLabel, gridBagConstraints);
@@ -319,6 +334,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(bairro_jLabel, gridBagConstraints);
@@ -342,6 +358,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(cidade_jLabel, gridBagConstraints);
@@ -365,6 +382,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(telefone_jLabel, gridBagConstraints);
@@ -374,6 +392,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(jLabel1, gridBagConstraints);
@@ -383,6 +402,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(email_jLabel, gridBagConstraints);
@@ -406,6 +426,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         pessoa_jPanel.add(estado_jLabel, gridBagConstraints);
@@ -440,12 +461,12 @@ public class BuscPessoa extends javax.swing.JFrame {
         medico_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Médico"));
         medico_jPanel.setLayout(new java.awt.GridBagLayout());
 
+        chField.setEditable(false);
         try {
             chField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        chField.setEnabled(false);
         chField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chFieldActionPerformed(evt);
@@ -455,7 +476,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 75;
         medico_jPanel.add(chField, gridBagConstraints);
 
@@ -487,6 +508,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         medico_jPanel.add(crm_jTextField, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -537,7 +559,11 @@ public class BuscPessoa extends javax.swing.JFrame {
         jPanel2.add(jButton1);
 
         jButton3.setText("Histórico de Entrada-Saída");
-        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3);
 
         getContentPane().add(jPanel2);
@@ -600,7 +626,7 @@ public class BuscPessoa extends javax.swing.JFrame {
                     }
                     break;
             }
-            preencherFormularioPessoa(pessoa);
+            preencherFormularioPessoa();
         } catch (NoResultException ex) {
             JOptionPane.showMessageDialog(null, "Não há registro encontrado.");
         }
@@ -613,8 +639,13 @@ public class BuscPessoa extends javax.swing.JFrame {
     private void sus_formattedtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sus_formattedtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sus_formattedtFieldActionPerformed
-    
-    public void preencherFormularioPessoa(Pessoa pessoa) {
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ListarFrequencia lf_frame = new ListarFrequencia(pessoa.getMedico());
+        lf_frame.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void preencherFormularioPessoa() {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
         rg_textField.setText(pessoa.getRg());
@@ -641,15 +672,15 @@ public class BuscPessoa extends javax.swing.JFrame {
             preencheFormularioPaciente(pessoa);
         }
     }
-    
+
     private void preencheFormularioPaciente(Pessoa pessoa) {
         if (pessoa.getPaciente() != null) {
             sus_formattedtField.setText(pessoa.getPaciente().getNum_sus());
         }
     }
-    
+
     private Map<String, Especialidade> especialidesMap = new HashMap<>();
-    
+
     private void preencheFormularioMedico(Pessoa pessoa) {
         if (pessoa.getMedico() != null) {
             crm_jTextField.setText(pessoa.getMedico().getCrm());
@@ -672,21 +703,21 @@ public class BuscPessoa extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BuscPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

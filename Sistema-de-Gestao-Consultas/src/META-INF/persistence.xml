@@ -10,7 +10,8 @@
         <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
         <class>br.edu.ufersa.controlConsult.model.Usuario</class>
         <class>br.edu.ufersa.controlConsult.model.Questionario</class>
-       
+        <class>br.edu.ufersa.controlConsult.model.Consulta</class>
+        <class>br.edu.ufersa.controlConsult.model.Frequencia</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -34,6 +35,8 @@
         <class>br.edu.ufersa.controlConsult.model.Paciente</class>
         <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
         <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+        <class>br.edu.ufersa.controlConsult.model.Consulta</class>
+        <class>br.edu.ufersa.controlConsult.model.Frequencia</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -57,6 +60,8 @@
         <class>br.edu.ufersa.controlConsult.model.Paciente</class>
         <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
         <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+        <class>br.edu.ufersa.controlConsult.model.Consulta</class>
+        <class>br.edu.ufersa.controlConsult.model.Frequencia</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

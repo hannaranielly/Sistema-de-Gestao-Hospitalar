@@ -46,6 +46,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(710, 350));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setEnabled(false);
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -79,8 +80,9 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.AMBOS);
-        bp.preencherFormularioPessoa(pessoas.get(jList1.getSelectedIndex()));
+        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.AMBOS, pessoa);
+        bp.preencherFormularioPessoa();
         bp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
