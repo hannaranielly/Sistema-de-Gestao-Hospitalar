@@ -48,7 +48,10 @@ public class QuestionarioJpaController implements Serializable{
             em.getTransaction().begin();
             Query q = em.createQuery("SELECT AVG(m.q"+ num +") FROM Questionario m WHERE m.medico = :medico");
             q.setParameter("medico", medico);
-            media = (double) q.getSingleResult();
+            if(q.getSingleResult()!=null){
+                media = (double) q.getSingleResult();
+            }
+            
         } finally {
             if (em != null) {
                 em.close();
