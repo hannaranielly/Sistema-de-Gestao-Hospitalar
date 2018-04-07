@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "frequencia")
-public class Frequencia implements Serializable, ICRUD {
+public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
 
     @Id
     @Column(name = "id")
@@ -172,6 +172,11 @@ public class Frequencia implements Serializable, ICRUD {
             Logger.getLogger(Frequencia.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
+    }
+
+    @Override
+    public int compareTo(Frequencia f) {
+        return Long.compare(this.getId(), f.getId());
     }
 
 }

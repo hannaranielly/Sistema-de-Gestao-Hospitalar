@@ -203,6 +203,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3.add(jMenuItem12);
 
         jMenuItem15.setText("Verificar Desempenho");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem15);
 
         jMenuItem13.setText("Avaliar Médico");
@@ -332,10 +337,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // TODO add your handling code here:
-        SelecionaMedico sm = new SelecionaMedico();
+        SelecionaMedico sm = new SelecionaMedico(0);
         sm.setVisible(true);
         sm.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        // TODO add your handling code here:
+        SelecionaMedico sm = new SelecionaMedico(1);
+        sm.setVisible(true);
+        sm.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     /**
      * @param args the command line arguments
