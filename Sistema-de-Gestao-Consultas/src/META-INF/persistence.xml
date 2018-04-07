@@ -9,6 +9,7 @@
         <class>br.edu.ufersa.controlConsult.model.Paciente</class>
         <class>br.edu.ufersa.controlConsult.model.Pessoa</class>
         <class>br.edu.ufersa.controlConsult.model.Usuario</class>
+        <class>br.edu.ufersa.controlConsult.model.Questionario</class>
        
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

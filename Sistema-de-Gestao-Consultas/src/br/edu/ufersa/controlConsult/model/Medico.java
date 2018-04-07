@@ -29,6 +29,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -64,6 +65,17 @@ public class Medico implements ICRUD, Serializable {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
     private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
+
+    public List<Questionario> getQuestionarios() {
+        return questionarios;
+    }
+
+    public void setQuestionarios(List<Questionario> questionarios) {
+        this.questionarios = questionarios;
+    }
+    
+    @OneToMany(mappedBy = "medico", targetEntity = Questionario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Questionario> questionarios;
 
     public Medico(String crm, Integer cargaHoraria, Especialidade especialidade) {
         this.setCrm(crm);
