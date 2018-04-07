@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.gui.avaliacao.SelecionaMedico;
 import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoContextoEnum;
 import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoPessoaEnum;
 

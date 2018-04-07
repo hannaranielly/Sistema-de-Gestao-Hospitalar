@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.gui.avaliacao;
 
 /**
  *
@@ -55,7 +55,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
         nome_jLabel2.setText("Média de Tempo em Consulta:");
 
         nome_jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nome_jLabel3.setText("Média de Horários de Chegada e Saída:");
+        nome_jLabel3.setText("Quantidade de Horas Trabalhada na Ultima Semana:");
 
         numero_paciente_atual1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         numero_paciente_atual1.setText("_____");
@@ -85,17 +85,9 @@ public class MostraDesempenho extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nome_jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numero_paciente_atual2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(numero_paciente_atual4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nome_jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numero_paciente_atual1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -103,11 +95,19 @@ public class MostraDesempenho extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nome_medico))))
+                                .addComponent(nome_medico))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nome_jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numero_paciente_atual2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nome_jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numero_paciente_atual1))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel1)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,17 +124,17 @@ public class MostraDesempenho extends javax.swing.JFrame {
                     .addComponent(nome_medico1))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nome_jLabel2)
+                    .addComponent(nome_jLabel3)
                     .addComponent(numero_paciente_atual2))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nome_jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(numero_paciente_atual1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numero_paciente_atual1)
+                    .addComponent(nome_jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome_jLabel5)
                     .addComponent(numero_paciente_atual4))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
