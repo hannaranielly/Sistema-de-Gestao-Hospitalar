@@ -45,6 +45,10 @@ public class Consulta implements Serializable, ICRUD {
     @Column(name = "data_agendada")
     @Temporal(TemporalType.DATE)
     private Date data_agendada;
+    
+    @Column(name = "data_agendada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date data_marcado;
 
     @Column(name = "data_inicio")
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,6 +65,12 @@ public class Consulta implements Serializable, ICRUD {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
     private Paciente paciente;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "horario_atendimento")
+    private HorarioAtendimento horario_atendimento;
+    
+    
 
     public Consulta() {
     }
