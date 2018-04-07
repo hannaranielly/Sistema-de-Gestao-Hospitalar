@@ -817,6 +817,7 @@ public class FormPessoa extends javax.swing.JFrame {
         }
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
         Medico m = new Medico(crm, cargaHoraria, especialidade);
+        m.setPessoa(pessoa);
         pessoa.setMedico(m);
     }
 
