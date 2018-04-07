@@ -39,7 +39,7 @@ public class Frequencia implements Serializable, ICRUD {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "data_entrada")
+    @Column(name = "data_entrada", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_entrada;
 
@@ -47,15 +47,30 @@ public class Frequencia implements Serializable, ICRUD {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_saida;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuario")
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "medico")
     private Medico medico;
 
     public Frequencia() {
+    }
+
+    public Frequencia(Medico medico, Usuario usuario) {
+        this.setMedico(medico);
+        this.setUsuario(usuario);
+    }
+
+    public void checkin() {
+        Date entrada = new Date(System.currentTimeMillis());
+        this.setData_entrada(entrada);
+    }
+
+    public void checkout() {
+        Date saida = new Date(System.currentTimeMillis());
+        this.setData_saida(saida);
     }
 
     public Integer getId() {
