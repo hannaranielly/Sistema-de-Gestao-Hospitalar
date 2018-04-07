@@ -44,9 +44,9 @@ public class RegFrequencia extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        cpf_jLabel = new javax.swing.JLabel();
         CPFField = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        buscar_jButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
@@ -60,11 +60,11 @@ public class RegFrequencia extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel3.setText("CPF:");
+        cpf_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        cpf_jLabel.setText("CPF:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel2.add(jLabel3, gridBagConstraints);
+        jPanel2.add(cpf_jLabel, gridBagConstraints);
 
         CPFField.setColumns(10);
         try {
@@ -79,15 +79,15 @@ public class RegFrequencia extends javax.swing.JFrame {
         });
         jPanel2.add(CPFField, new java.awt.GridBagConstraints());
 
-        jButton1.setText("Selecionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buscar_jButton.setText("Selecionar");
+        buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buscar_jButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel2.add(jButton1, gridBagConstraints);
+        jPanel2.add(buscar_jButton, gridBagConstraints);
 
         getContentPane().add(jPanel2);
 
@@ -146,18 +146,10 @@ public class RegFrequencia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            med = Pessoa.findByCPF(CPFField.getText()).getMedico();
-        } catch (NoResultException ex) {
-            Logger.getLogger(RegFrequencia.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Médico não encontrado");
-        }
-        if (med != null) {
-            nomeLabel.setText(med.getPessoa().getNome());
-            CPFField.setEditable(false);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void buscar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_jButtonActionPerformed
+        buscarPessoa();
+    }//GEN-LAST:event_buscar_jButtonActionPerformed
+
 
     private void CPFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFFieldActionPerformed
         // TODO add your handling code here:
@@ -169,6 +161,20 @@ public class RegFrequencia extends javax.swing.JFrame {
     private void entrada_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_jToggleButtonActionPerformed
         registrarEntrada();
     }//GEN-LAST:event_entrada_jToggleButtonActionPerformed
+
+    private void buscarPessoa() {
+        try {
+            med = Pessoa.findByCPF(CPFField.getText()).getMedico();
+        } catch (NoResultException ex) {
+            Logger.getLogger(RegFrequencia.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Médico não encontrado");
+        }
+        if (med != null) {
+            nomeLabel.setText(med.getPessoa().getNome());
+            CPFField.setEditable(false);
+        }
+    }
+
     private void registrarEntrada() {
         Date entrada = new Date(System.currentTimeMillis());
         Frequencia dados = new Frequencia();
@@ -255,10 +261,10 @@ public class RegFrequencia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CPFField;
+    private javax.swing.JButton buscar_jButton;
+    private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JToggleButton entrada_jToggleButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
