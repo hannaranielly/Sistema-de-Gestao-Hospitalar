@@ -55,6 +55,7 @@ public class RegFrequencia extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        mostrarFrequencia_jButton = new javax.swing.JButton();
         entrada_jToggleButton = new javax.swing.JToggleButton();
         saida_jButton = new javax.swing.JButton();
 
@@ -129,6 +130,14 @@ public class RegFrequencia extends javax.swing.JFrame {
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+        mostrarFrequencia_jButton.setText("Mostrar Frequência");
+        mostrarFrequencia_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarFrequencia_jButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mostrarFrequencia_jButton);
+
         entrada_jToggleButton.setText("Registrar Entrada");
         entrada_jToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +174,11 @@ public class RegFrequencia extends javax.swing.JFrame {
     private void entrada_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_jToggleButtonActionPerformed
         registrarEntrada();
     }//GEN-LAST:event_entrada_jToggleButtonActionPerformed
+
+    private void mostrarFrequencia_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarFrequencia_jButtonActionPerformed
+        ListarFrequencia lf = new ListarFrequencia(med);
+        lf.setVisible(true);
+    }//GEN-LAST:event_mostrarFrequencia_jButtonActionPerformed
 
     private void buscarPessoa() {
         try {
@@ -277,6 +291,7 @@ public class RegFrequencia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton mostrarFrequencia_jButton;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JButton saida_jButton;
     // End of variables declaration//GEN-END:variables
