@@ -789,7 +789,12 @@ public class FormPessoa extends javax.swing.JFrame {
      */
     private void setMedicoFormulario(Pessoa pessoa) {
         String crm = crm_jTextField.getText();
-        int cargaHoraria = Integer.parseInt(chField.getText());
+        int cargaHoraria;
+        if(chField.getText() == null || chField.getText().equals("  ")){
+            cargaHoraria=0;
+        }else{
+            cargaHoraria = Integer.parseInt(chField.getText());
+        }
         Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
         Medico m = new Medico(crm, cargaHoraria, especialidade);
         pessoa.setMedico(m);
@@ -913,7 +918,12 @@ public class FormPessoa extends javax.swing.JFrame {
         if (pessoa.getMedico() == null) {
             throw new NullPointerException();
         }
-        int cargaHoraria = Integer.parseInt(chField.getText());
+        int cargaHoraria;
+        if(chField.getText() == null || chField.getText().equals("  ")){
+            cargaHoraria=0;
+        }else{
+            cargaHoraria = Integer.parseInt(chField.getText());
+        }
         pessoa.getMedico().setCargaHoraria(cargaHoraria);
         Especialidade especialidade = extrairEspecialidade();
         pessoa.getMedico().setEspecialidade(especialidade);
