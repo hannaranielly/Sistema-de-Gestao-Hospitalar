@@ -543,6 +543,7 @@ public class FormPessoa extends javax.swing.JFrame {
         pessoa_jPanel.add(telefone_jLabel, gridBagConstraints);
 
         sexo_buttonGroup.add(masculino_radioButton);
+        masculino_radioButton.setSelected(true);
         masculino_radioButton.setText("Masculino");
         masculino_radioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
