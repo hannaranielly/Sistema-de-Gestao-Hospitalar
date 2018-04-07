@@ -40,6 +40,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        edit_jButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(250, 150));
@@ -62,7 +63,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         jButton1.setText("Ver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +72,14 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
+
+        edit_jButton.setText("Editar");
+        edit_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edit_jButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(edit_jButton);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.EAST);
 
@@ -88,6 +97,15 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         load();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void edit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_jButtonActionPerformed
+        FormPessoa fp = new FormPessoa(FormPessoa.TipoContextoEnum.ATUALIZAR, FormPessoa.TipoPessoaEnum.AMBOS);
+        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+        fp.setPessoa(pessoa);
+        fp.atualizarContextoJanela();
+        fp.preencherFormularioPessoa();
+        fp.setVisible(true);
+    }//GEN-LAST:event_edit_jButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +153,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
         jList1.setModel(model);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton edit_jButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;

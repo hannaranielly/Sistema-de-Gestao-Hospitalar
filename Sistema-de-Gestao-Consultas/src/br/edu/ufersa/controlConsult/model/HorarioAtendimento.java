@@ -11,6 +11,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +42,27 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "HorarioAtendimento.findByWeek", query = "SELECT m FROM HorarioAtendimento m WHERE m.diaSemana = :diaSemana")})
 public class HorarioAtendimento implements Serializable, ICRUD {
+
+    public static List<HorarioAtendimento> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
+        List<HorarioAtendimento> res_horarios = instance.findHorarioAtendimentoEntities();
+        return res_horarios;
+    }
+
+    /**
+     * Pesquisa pelo dia da semana.
+     */
+    public static List<HorarioAtendimento> findByDay(DiaSemanaEnum dia) {
+        List<HorarioAtendimento> horarios = findAll();
+        List<HorarioAtendimento> horarios_res = new ArrayList<>();
+        for (HorarioAtendimento h : horarios) {
+            if (h.getDiaSemana().equals(dia)) {
+                horarios_res.add(h);
+            }
+        }
+        return horarios_res;
+    }
 
     /**
      * Verifica se há algum conflito de horários.
