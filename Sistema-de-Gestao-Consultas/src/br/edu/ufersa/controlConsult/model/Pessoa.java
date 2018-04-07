@@ -45,7 +45,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
     , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
     , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE m.nome = :nome")
-    , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")})
+    , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")
+    , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")})
 public class Pessoa implements Serializable, ICRUD {
 
     public static List<Pessoa> findAll() {

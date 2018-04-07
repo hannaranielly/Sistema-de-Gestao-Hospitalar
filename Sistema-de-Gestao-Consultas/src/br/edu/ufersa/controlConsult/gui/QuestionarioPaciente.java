@@ -41,7 +41,7 @@ public class QuestionarioPaciente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel1.setText("Questionário Paciente");
+        jLabel1.setText("Questionário de Avaliação");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel2.setText("1- O médico forneceu informações detalhada sobre seus sintomas e formas de tratamentos?");
