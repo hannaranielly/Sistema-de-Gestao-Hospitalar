@@ -129,6 +129,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
+        <Component class="javax.swing.JButton" name="mostrarFrequencia_jButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar Frequ&#xea;ncia"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarFrequencia_jButtonActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JToggleButton" name="entrada_jToggleButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar Entrada"/>
