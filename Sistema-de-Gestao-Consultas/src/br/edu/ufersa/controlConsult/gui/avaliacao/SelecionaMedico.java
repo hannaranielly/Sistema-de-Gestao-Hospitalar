@@ -23,8 +23,10 @@ public class SelecionaMedico extends javax.swing.JFrame {
     /**
      * Creates new form SelecionaMedico
      */
-    List<Pessoa> list;
+    private List<Pessoa> list;
+    private int tipo;
     public SelecionaMedico(int tipo) {
+        this.tipo = tipo;
         initComponents();
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController pjc = new PessoaJpaController(emf);
@@ -135,9 +137,16 @@ public class SelecionaMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        QuestionarioPaciente qp = new QuestionarioPaciente(list.get(listM.getSelectedIndex()));
-        qp.setVisible(true);
-        qp.setLocationRelativeTo(null);
+        if(tipo==0){
+            QuestionarioPaciente qp = new QuestionarioPaciente(list.get(listM.getSelectedIndex()));
+            qp.setVisible(true);
+            qp.setLocationRelativeTo(null);
+        }else{
+            MostraDesempenho md = new MostraDesempenho(list.get(listM.getSelectedIndex()));
+            md.setVisible(true);
+            md.setLocationRelativeTo(null);
+        }
+        
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

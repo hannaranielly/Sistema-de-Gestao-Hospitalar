@@ -5,6 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
+import br.edu.ufersa.controlConsult.model.Pessoa;
+
 /**
  *
  * @author asus
@@ -15,6 +17,11 @@ public class MostraDesempenho extends javax.swing.JFrame {
      * Creates new form MostraDesempenho
      */
     public MostraDesempenho() {
+        initComponents();
+    }
+    private Pessoa pessoa;
+    public MostraDesempenho(Pessoa p){
+        this.pessoa = p;
         initComponents();
     }
 
@@ -40,7 +47,8 @@ public class MostraDesempenho extends javax.swing.JFrame {
         nome_jLabel5 = new javax.swing.JLabel();
         numero_paciente_atual4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ver Desempenho");
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setText("Desempenho Médico");
@@ -127,8 +135,8 @@ public class MostraDesempenho extends javax.swing.JFrame {
                     .addComponent(nome_jLabel3)
                     .addComponent(numero_paciente_atual2))
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numero_paciente_atual1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(numero_paciente_atual1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome_jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
