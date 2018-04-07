@@ -971,10 +971,12 @@ public class FormPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_chFieldActionPerformed
 
     private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
+
         try {
             limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
             preencherFormularioPessoa();
+            
         } catch (NoResultException ex) {
             JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
         } finally {
@@ -996,10 +998,13 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void delete_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_jToggleButtonActionPerformed
         if (pessoa != null) {
-            pessoa.delete();
-            limpaFormulario();
-            pessoa = null;
-            atualizarContextoJanela();
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente apagar a pessoa " + pessoa.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if(reply == JOptionPane.YES_OPTION){
+                pessoa.delete();
+                limpaFormulario();
+                pessoa = null;
+                atualizarContextoJanela();
+            }            
         }
     }//GEN-LAST:event_delete_jToggleButtonActionPerformed
 
