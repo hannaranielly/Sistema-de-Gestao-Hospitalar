@@ -49,7 +49,7 @@ public class Medico implements ICRUD, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "medico")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "medico", optional = false)
     private Pessoa pessoa;
 
     @Column(name = "crm", length = 15)
