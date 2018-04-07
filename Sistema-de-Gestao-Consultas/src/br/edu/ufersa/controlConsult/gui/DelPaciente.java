@@ -109,8 +109,11 @@ public class DelPaciente extends javax.swing.JFrame {
         if (pa == null || p == null) {
             JOptionPane.showMessageDialog(this, "Paciente não cadastrado no sistema");
         } else {
-            p.delete();
-            JOptionPane.showMessageDialog(this, "Paciente apagado com sucesso");
+           int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente apagar o paciente " + p.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if(reply == JOptionPane.YES_OPTION){
+                p.delete();
+                JOptionPane.showMessageDialog(this, "Paciente apagado com sucesso");
+            }    
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
