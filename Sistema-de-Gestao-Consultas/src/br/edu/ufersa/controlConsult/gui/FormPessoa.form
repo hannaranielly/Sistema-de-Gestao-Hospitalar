@@ -2635,6 +2635,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submit_jButtonActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JToggleButton" name="delete_jToggleButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Remover"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="delete_jToggleButtonActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="cancel_jButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
