@@ -197,7 +197,12 @@ public class RegFrequencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe o CPF do médico!");
             return;
         } else {
-            frequencia.checkin();
+            if (JOptionPane.showConfirmDialog(this,
+                    "Você tem certeza que deseja registrar o horário de entrada?",
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION) == 1) {
+                frequencia.checkin();
+            }
         }
         try {
             frequencia.create();
