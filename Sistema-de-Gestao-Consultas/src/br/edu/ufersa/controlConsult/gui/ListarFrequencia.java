@@ -52,11 +52,13 @@ public class ListarFrequencia extends javax.swing.JFrame {
 
         model.addColumn("Entrada");
         model.addColumn("Saída");
-        model.addColumn("Usuário");
+        model.addColumn("Usuário Responsável pelos registros");
         if (frequencias != null) {
             for (Frequencia f : frequencias) {
+                String entrada = (f.getEntrada() != null) ? f.getEntrada().toString() : "-";
+                String saida = (f.getSaida() != null) ? f.getSaida().toString() : "-";
                 model.addRow(new String[]{
-                    f.getEntrada().toString(), f.getSaida().toString(), f.getUsuario().getUsername()
+                    entrada, saida, f.getUsuario().getUsername()
                 });
             }
         } else {
