@@ -159,6 +159,9 @@ public class FormPessoa extends javax.swing.JFrame {
         cidadeField.setText("");
         estado_textField.setText("");
         cep_formattedField.setText("");
+        sus_formattedtField.setText("");
+        chField.setText("");
+        crm_jTextField.setText("");
     }
     
     private Especialidade extrairEspecialidade() { //TODO
