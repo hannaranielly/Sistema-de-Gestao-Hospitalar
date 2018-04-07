@@ -44,6 +44,12 @@ import javax.persistence.OrderBy;
     , @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id")})
 public class Medico implements ICRUD, Serializable {
 
+    public static List<Medico> findAll() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        MedicoJpaController instance = new MedicoJpaController(emf);
+        return instance.findMedicoEntities();
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
