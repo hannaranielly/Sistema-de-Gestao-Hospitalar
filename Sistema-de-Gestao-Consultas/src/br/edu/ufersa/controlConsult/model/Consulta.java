@@ -46,7 +46,7 @@ public class Consulta implements Serializable, ICRUD {
     @Temporal(TemporalType.DATE)
     private Date data_agendada;
     
-    @Column(name = "data_agendada")
+    @Column(name = "data_marcado")
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_marcado;
 
