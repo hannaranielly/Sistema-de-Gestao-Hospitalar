@@ -6,6 +6,7 @@
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.Questionario;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.QuestionarioJpaController;
 import javax.persistence.EntityManagerFactory;
@@ -28,11 +29,9 @@ public class MostraDesempenho extends javax.swing.JFrame {
         initComponents();
         nome_medico.setText(pessoa.getNome());
         especialidade.setText(pessoa.getMedico().getEspecialidade().getNome());
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        QuestionarioJpaController instance = new QuestionarioJpaController(emf);
-        mqp1.setText(String.valueOf(instance.mediaQ(pessoa.getMedico(), "1")));
-        mqp2.setText(String.valueOf(instance.mediaQ(pessoa.getMedico(), "2")));
-        mqp3.setText(String.valueOf(instance.mediaQ(pessoa.getMedico(), "3")));
+        mqp1.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "1")));
+        mqp2.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "2")));
+        mqp3.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "3")));
     }
 
     /**

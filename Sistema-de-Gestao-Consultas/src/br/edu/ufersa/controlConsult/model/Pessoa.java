@@ -302,6 +302,12 @@ public class Pessoa implements Serializable, ICRUD {
         PessoaJpaController instance = new PessoaJpaController(emf);
         return instance.findByNome(nome);
     }
+    
+    public static List<Pessoa> findMedicos() throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findMedicos();
+    }
 
     public void setMedico(Medico medico) {
         this.medico = medico;

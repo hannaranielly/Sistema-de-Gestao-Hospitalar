@@ -90,6 +90,12 @@ public class Questionario implements Serializable, ICRUD{
         this.q3 = q3;
     }
     
+    public static double mediaQ(Medico m, String num){
+         EntityManagerFactory emf = JpaFactory.getInstance();
+         QuestionarioJpaController qjc = new QuestionarioJpaController(emf);
+         return qjc.mediaQ(m, num);
+    }
+    
     
     
     @Override
