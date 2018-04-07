@@ -46,7 +46,6 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(710, 350));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setEnabled(false);
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
