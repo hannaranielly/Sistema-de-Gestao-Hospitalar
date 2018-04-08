@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -21,29 +22,32 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
      * Creates new form ConfirmarDataDaConsulta
      */
     
-    private Medico medico;
+    private Pessoa medico;
+    private Pessoa paciente;
     
     public ConfirmarDataDaConsulta(){
         initComponents();
     }
     
-    public ConfirmarDataDaConsulta(Medico medico) {
+    public ConfirmarDataDaConsulta(Pessoa paciente, Pessoa medico){
+        this.paciente = paciente;
         this.medico = medico;
         initComponents();
-        int tamanho = medico.getListaHorario().size();
+        int tamanho = medico.getMedico().getListaHorario().size();
         DefaultListModel model = new DefaultListModel();
         for(int cont = 0; cont < tamanho; cont++){
-            String elemento = "Dia da semana: " + medico.getListaHorario().get(cont).getDiaSemana() + 
-                    "; Horario de início: " + medico.getListaHorario().get(cont).getInicio().getHours() +
+            String elemento = "Dia da semana: " + medico.getMedico().getListaHorario().get(cont).getDiaSemana() + 
+                    "; Horario de início: " + medico.getMedico().getListaHorario().get(cont).getInicio().getHours() +
                     ".";
             model.add(cont, elemento);
         }
         listaDeHorarios.setModel(model);
         nomeDoMedico.setEditable(false);
         especialidadeDoMedico.setEditable(false);
-        nomeDoMedico.setText(medico.getPessoa().getNome());
-        especialidadeDoMedico.setText(medico.getEspecialidade().getNome());
+        nomeDoMedico.setText(medico.getNome());
+        especialidadeDoMedico.setText(medico.getMedico().getEspecialidade().getNome());
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,7 +65,6 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         especialidadeDoMedico = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaDeHorarios = new javax.swing.JList<>();
-        retornar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         marcar = new javax.swing.JButton();
         Data = new com.toedter.calendar.JDateChooser();
@@ -70,6 +73,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        nomeDoMedico.setEditable(false);
         nomeDoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeDoMedicoActionPerformed(evt);
@@ -80,6 +84,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
         jLabel2.setText("Especialidade:");
 
+        especialidadeDoMedico.setEditable(false);
         especialidadeDoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 especialidadeDoMedicoActionPerformed(evt);
@@ -87,13 +92,6 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         });
 
         jScrollPane1.setViewportView(listaDeHorarios);
-
-        retornar.setText("Retornar");
-        retornar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retornarActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Data:");
 
@@ -113,24 +111,22 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(retornar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(marcar))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(especialidadeDoMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                                .addComponent(nomeDoMedico)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(marcar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(especialidadeDoMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(nomeDoMedico))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,9 +147,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(marcar)
                     .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(retornar)
-                .addContainerGap())
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,26 +157,18 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
         int posicao = listaDeHorarios.getSelectedIndex();
         Date agendada = Data.getDate();
-        String diaSemanaListado = medico.getListaHorario().get(posicao).getDiaSemana().toString();
+        String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().toString();
         Calendar cal = Calendar.getInstance();
         cal.setTime(agendada);
         String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
         if(diaDaSemana.equals(diaSemanaListado)){
-            confimar(medico.getListaHorario().get(posicao), agendada);
+            confimar(medico.getMedico().getListaHorario().get(posicao), agendada);
         }
         else{
             
         }
         
     }//GEN-LAST:event_marcarActionPerformed
-
-    private void retornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarActionPerformed
-        // TODO add your handling code here:
-        MarcarConsulta tela = new MarcarConsulta(medico.getPessoa().getNome());
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_retornarActionPerformed
 
     private void nomeDoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeDoMedicoActionPerformed
         // TODO add your handling code here:
@@ -238,7 +224,6 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     private javax.swing.JList<String> listaDeHorarios;
     private javax.swing.JButton marcar;
     private javax.swing.JTextField nomeDoMedico;
-    private javax.swing.JButton retornar;
     // End of variables declaration//GEN-END:variables
 
     
