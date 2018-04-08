@@ -8,6 +8,7 @@ package br.edu.ufersa.controlConsult.model;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController.tipoPesquisaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.Cpf_Util;
@@ -60,13 +61,13 @@ public class Pessoa implements Serializable, ICRUD {
     public static List<Pessoa> findMedicosByNome(String nome) {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByMedicoNome(nome);
+        return instance.findByNome(tipoPesquisaEnum.MEDICO, nome);
     }
 
     public static List<Pessoa> findPacientesByNome(String nome) {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByPacienteNome(nome);
+        return instance.findByNome(tipoPesquisaEnum.PACIENTE, nome);
     }
 
     /**
@@ -84,7 +85,7 @@ public class Pessoa implements Serializable, ICRUD {
     public static List<Pessoa> findByNome(String nome) throws NoResultException {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByNome(nome);
+        return instance.findByNome(tipoPesquisaEnum.ALL, nome);
     }
 
     public static List<Pessoa> findMedicos() throws NoResultException {

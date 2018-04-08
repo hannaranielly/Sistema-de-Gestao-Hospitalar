@@ -167,44 +167,24 @@ public class PessoaJpaController implements Serializable {
         return pessoa;
     }
 
-    public List<Pessoa> findByNome(String nome) throws NoResultException {
+    public enum tipoPesquisaEnum {
+        ALL, MEDICO, PACIENTE;
+    }
+
+    public List<Pessoa> findByNome(tipoPesquisaEnum tipoPesquisa, String nome) throws NoResultException {
         List<Pessoa> pessoas = null;
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             Query q = em.createNamedQuery("Pessoa.findByNome");
-            q.setParameter("nome", "%" + nome + "%");
-            pessoas = q.getResultList();
-        } finally {
-            if (em != null) {
-                em.close();
+            switch (tipoPesquisa) {
+                case MEDICO:
+                    q = em.createNamedQuery("Pessoa.findMedicosByNome");
+                    break;
+                case PACIENTE:
+                    q = em.createNamedQuery("Pessoa.findPacientesByNome");
+                    break;
             }
-        }
-        return pessoas;
-    }
-
-    public List<Pessoa> findByMedicoNome(String nome) throws NoResultException {
-        List<Pessoa> pessoas = null;
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createNamedQuery("Pessoa.findMedicosByNome");
-            q.setParameter("nome", "%" + nome + "%");
-            pessoas = q.getResultList();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        return pessoas;
-    }
-
-    public List<Pessoa> findByPacienteNome(String nome) throws NoResultException {
-        List<Pessoa> pessoas = null;
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createNamedQuery("Pessoa.findPacientesByNome");
             q.setParameter("nome", "%" + nome + "%");
             pessoas = q.getResultList();
         } finally {
