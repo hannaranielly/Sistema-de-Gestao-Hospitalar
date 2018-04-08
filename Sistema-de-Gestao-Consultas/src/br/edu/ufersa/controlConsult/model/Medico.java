@@ -66,14 +66,15 @@ public class Medico implements ICRUD, Serializable {
     private Integer cargaHoraria;
 
     @JoinColumn(name = "especialidade", referencedColumnName = "id")
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    //Aviso de precaução: Cascade Merge deste relacionamento está com problemas.
     private Especialidade especialidade;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "medico_horario", joinColumns = {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
-    private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
+    private List<HorarioAtendimento> listaHorario;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "medico")
     private Set<Consulta> listaConsultas;

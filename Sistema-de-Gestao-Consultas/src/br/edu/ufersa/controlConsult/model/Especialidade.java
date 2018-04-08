@@ -5,11 +5,18 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.EspecialidadeJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.FrequenciaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Especialidade.findAll", query = "SELECT e FROM Especialidade e")
     , @NamedQuery(name = "Especialidade.findById", query = "SELECT e FROM Especialidade e WHERE e.id = :id")
     , @NamedQuery(name = "Especialidade.findByNome", query = "SELECT e FROM Especialidade e WHERE e.nome = :nome")})
-public class Especialidade implements Serializable {
+public class Especialidade implements ICRUD, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +52,16 @@ public class Especialidade implements Serializable {
         EntityManagerFactory emf = JpaFactory.getInstance();
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         return instance.findEspecialidadeEntities();
+    }
+
+    public static List<Especialidade> setupEspecialidades() {
+        List<Especialidade> bd_especialidades = Arrays.asList(
+                new Especialidade("Clínico Geral"),
+                new Especialidade("Pediatra"),
+                new Especialidade("Cardiologista")
+        );
+        bd_especialidades.forEach(e -> e.create());
+        return bd_especialidades;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,5 +144,50 @@ public class Especialidade implements Serializable {
         EntityManagerFactory emf = JpaFactory.getInstance();
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         return instance.findByNome(nome);
+    }
+
+    @Override
+    public void create() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        instance.create(this);
+    }
+
+    @Override
+    public void read() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        try {
+            instance.read(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public void update() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        try {
+            instance.edit(this);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        } catch (Exception ex) {
+            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void delete() throws NonexistentEntityException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
+        try {
+            instance.destroy(this.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
     }
 }

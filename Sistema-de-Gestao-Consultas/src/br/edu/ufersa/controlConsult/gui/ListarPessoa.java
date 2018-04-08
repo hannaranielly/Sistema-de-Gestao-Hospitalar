@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.util.debug;
+package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.gui.BuscPessoa;
-import br.edu.ufersa.controlConsult.gui.FormPessoa;
+import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoContextoEnum;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -15,14 +15,21 @@ import javax.swing.DefaultListModel;
  *
  * @author juan
  */
-public class DEBUG_PESSOA extends javax.swing.JFrame {
+public class ListarPessoa extends javax.swing.JFrame {
+
+    private TipoPessoaEnum tipoPessoa;
 
     /**
      * Creates new form DEBUG_USUARIO
      */
-    public DEBUG_PESSOA() {
+    public ListarPessoa(TipoPessoaEnum tipoPessoa) {
         initComponents();
-        load();
+        this.setTipoPessoa(tipoPessoa);
+        load(tipoPessoa);
+    }
+
+    private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
 
     /**
@@ -42,9 +49,8 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         edit_jButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(250, 150));
-        setPreferredSize(new java.awt.Dimension(710, 350));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jList1);
@@ -87,24 +93,26 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
-        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.AMBOS, pessoa);
-        bp.preencherFormularioPessoa();
-        bp.setVisible(true);
+        try {
+            Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+            BuscPessoa bp = new BuscPessoa(tipoPessoa, pessoa);
+            bp.preencherFormularioPessoa();
+            bp.setVisible(true);
+        } catch (IndexOutOfBoundsException e) {
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        load();
+        load(tipoPessoa);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void edit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_jButtonActionPerformed
-        FormPessoa fp = new FormPessoa(FormPessoa.TipoContextoEnum.ATUALIZAR, FormPessoa.TipoPessoaEnum.AMBOS);
-        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
-        fp.setPessoa(pessoa);
-        fp.atualizarContextoJanela();
-        fp.preencherFormularioPessoa();
-        fp.setVisible(true);
+        try {
+            Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+            FormPessoa fp = new FormPessoa(TipoContextoEnum.ATUALIZAR, tipoPessoa, pessoa);
+            fp.setVisible(true);
+        } catch (IndexOutOfBoundsException e) {
+        }
     }//GEN-LAST:event_edit_jButtonActionPerformed
 
     /**
@@ -124,29 +132,41 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DEBUG_PESSOA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DEBUG_PESSOA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DEBUG_PESSOA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DEBUG_PESSOA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListarPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DEBUG_PESSOA().setVisible(true);
+                new ListarPessoa(TipoPessoaEnum.AMBOS).setVisible(true);
             }
         });
     }
     private List<Pessoa> pessoas;
 
-    private void load() {
+    private void load(TipoPessoaEnum tipoPessoa) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        pessoas = Pessoa.findAll();
+        switch (tipoPessoa) {
+            case AMBOS:
+                pessoas = Pessoa.findAll();
+                break;
+            case MEDICO:
+                pessoas = Pessoa.findMedicos();
+                break;
+            case PACIENTE:
+                pessoas = Pessoa.findPacientes();
+                break;
+        }
         for (Pessoa p : pessoas) {
             model.addElement(p.toString());
         }
@@ -161,4 +181,5 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+
 }

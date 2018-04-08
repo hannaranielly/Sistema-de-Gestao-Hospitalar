@@ -5,9 +5,11 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.gui.FormPessoa;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController.tipoPesquisaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.Cpf_Util;
@@ -44,15 +46,68 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
     , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
-    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome)")
+    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT p FROM Pessoa p WHERE lower(p.nome) LIKE lower(:nome)")
+    , @NamedQuery(name = "Pessoa.findMedicosByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome) AND m.medico!=null")
+    , @NamedQuery(name = "Pessoa.findPacientesByNome", query = "SELECT p FROM Pessoa p WHERE lower(p.nome) LIKE lower(:nome) AND p.paciente!=null")
     , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")
-    , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")})
+    , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")
+    , @NamedQuery(name = "Pessoa.paciente", query = "SELECT p FROM Pessoa p WHERE p.paciente!=null")})
 public class Pessoa implements Serializable, ICRUD {
 
     public static List<Pessoa> findAll() {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         return instance.findPessoaEntities();
+    }
+
+    public static List<Pessoa> findMedicosByNome(String nome) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByNome(tipoPesquisaEnum.MEDICO, nome);
+    }
+
+    public static List<Pessoa> findPacientesByNome(String nome) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByNome(tipoPesquisaEnum.PACIENTE, nome);
+    }
+
+    /**
+     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
+     *
+     * @param cpf Cadastro de Pessoa Física.
+     * @return O médico com portar o cpf.
+     */
+    public static Pessoa findByCPF(String cpf) throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByCPF(cpf);
+    }
+
+    public static List<Pessoa> findByNome(String nome) throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByNome(tipoPesquisaEnum.ALL, nome);
+    }
+
+    public static List<Pessoa> findMedicos() throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findMedicos();
+    }
+
+    public static List<Pessoa> findPacientes() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findPacientes();
+    }
+
+    public static List<Pessoa> findAllMedicos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static enum TipoPessoaEnum {
+        AMBOS, PACIENTE, MEDICO;
     }
 
     @Id
@@ -96,6 +151,10 @@ public class Pessoa implements Serializable, ICRUD {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
     private Paciente paciente;
+
+    /**
+     * O tipo de pessoa que o formulário da janela irá processar.
+     */
 
     protected Pessoa() {
     }
@@ -285,30 +344,6 @@ public class Pessoa implements Serializable, ICRUD {
                 + " Nome: " + this.nome + " CPF: " + this.cpf;
     }
 
-    /**
-     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
-     *
-     * @param cpf Cadastro de Pessoa Física.
-     * @return O médico com portar o cpf.
-     */
-    public static Pessoa findByCPF(String cpf) throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByCPF(cpf);
-    }
-    
-    public static List<Pessoa> findByNome(String nome) throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByNome(nome);
-    }
-    
-    public static List<Pessoa> findMedicos() throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findMedicos();
-    }
-
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
@@ -356,13 +391,15 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void update() {
+    public void update() throws Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         try {
             instance.edit(this);
         } catch (Exception ex) {
             Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            throw ex;
         }
     }
 

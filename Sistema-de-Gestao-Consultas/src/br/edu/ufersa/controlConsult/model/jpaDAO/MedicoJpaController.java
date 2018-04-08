@@ -98,22 +98,7 @@ public class MedicoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Medico persistentMedico = em.find(Medico.class, medico.getId());
-            Especialidade especialidadeOld = persistentMedico.getEspecialidade();
-            Especialidade especialidadeNew = medico.getEspecialidade();
-            if (especialidadeNew != null) {
-                especialidadeNew = em.getReference(especialidadeNew.getClass(), especialidadeNew.getId());
-                medico.setEspecialidade(especialidadeNew);
-            }
             medico = em.merge(medico);
-            if (especialidadeOld != null && !especialidadeOld.equals(especialidadeNew)) {
-                especialidadeOld.getMedicoList().remove(medico);
-                especialidadeOld = em.merge(especialidadeOld);
-            }
-            if (especialidadeNew != null && !especialidadeNew.equals(especialidadeOld)) {
-                especialidadeNew.getMedicoList().add(medico);
-                especialidadeNew = em.merge(especialidadeNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
