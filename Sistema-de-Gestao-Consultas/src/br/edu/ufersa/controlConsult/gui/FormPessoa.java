@@ -170,6 +170,8 @@ public class FormPessoa extends javax.swing.JFrame {
         sus_formattedtField.setText("");
         chField.setText("");
         crm_jTextField.setText("");
+        BuscaCpf_textField.setText("");
+        pessoa = null;
     }
 
     private Especialidade extrairEspecialidade() { //TODO
@@ -887,8 +889,10 @@ public class FormPessoa extends javax.swing.JFrame {
         try {
             pessoa.update();
             limpaFormulario();
+            atualizarContextoJanela();
             JOptionPane.showMessageDialog(this, tipoDePessoa + " atualizado com sucesso.");
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
             Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -971,7 +975,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private void search_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_jButtonActionPerformed
 
         try {
-            limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
             preencherFormularioPessoa();
             botoes_jPanel.setVisible(true);
