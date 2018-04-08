@@ -259,6 +259,7 @@ public class FormPessoa extends javax.swing.JFrame {
         sexo_buttonGroup = new javax.swing.ButtonGroup();
         formulario_jPanel = new javax.swing.JPanel();
         busca_jPanel = new javax.swing.JPanel();
+        cpfBusca_jLabel = new javax.swing.JLabel();
         BuscaCpf_textField = new javax.swing.JFormattedTextField();
         search_jButton = new javax.swing.JButton();
         pessoa_jPanel = new javax.swing.JPanel();
@@ -309,6 +310,10 @@ public class FormPessoa extends javax.swing.JFrame {
         busca_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
         busca_jPanel.setLayout(new java.awt.GridBagLayout());
 
+        cpfBusca_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cpfBusca_jLabel.setText("Busca por CPF:");
+        busca_jPanel.add(cpfBusca_jLabel, new java.awt.GridBagConstraints());
+
         try {
             BuscaCpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
@@ -320,7 +325,6 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 57;
@@ -334,7 +338,6 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         busca_jPanel.add(search_jButton, gridBagConstraints);
 
@@ -1074,6 +1077,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
     private javax.swing.JLabel cidade_jLabel;
+    private javax.swing.JLabel cpfBusca_jLabel;
     private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JFormattedTextField cpf_textField;
     private javax.swing.JLabel crm_jLabel;
