@@ -73,7 +73,7 @@ public class Medico implements ICRUD, Serializable {
     @JoinTable(name = "medico_horario", joinColumns = {
         @JoinColumn(name = "medico", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "horario", referencedColumnName = "id")})
-    private List<HorarioAtendimento> listaHorario = new ArrayList<HorarioAtendimento>();
+    private List<HorarioAtendimento> listaHorario;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "medico")
     private Set<Consulta> listaConsultas;
