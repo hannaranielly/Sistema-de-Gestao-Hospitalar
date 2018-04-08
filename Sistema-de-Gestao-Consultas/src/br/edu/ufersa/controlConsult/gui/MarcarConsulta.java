@@ -5,13 +5,19 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Pessoa;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 
 public class MarcarConsulta extends javax.swing.JFrame {
 
     /**
      * Creates new form MarcarConsulta
      */
-    
+    private Pessoa pessoa;
+    List<Pessoa> medicos;
     public MarcarConsulta() {
         initComponents();
         
@@ -19,7 +25,6 @@ public class MarcarConsulta extends javax.swing.JFrame {
     
     public MarcarConsulta(String nomeDoMedico){
         initComponents();
-        buscarPorNome(nomeDoMedico);
     }
     
     
@@ -42,7 +47,6 @@ public class MarcarConsulta extends javax.swing.JFrame {
         opcao1 = new javax.swing.JCheckBox();
         opcao2 = new javax.swing.JCheckBox();
         especialidadeDoMedico = new javax.swing.JComboBox<>();
-        retornar = new javax.swing.JButton();
         pesquisar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         CPFField = new javax.swing.JFormattedTextField();
@@ -52,7 +56,8 @@ public class MarcarConsulta extends javax.swing.JFrame {
 
         jCheckBox1.setText("jCheckBox1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Marcar Consulta");
 
         nomeDoMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,13 +90,6 @@ public class MarcarConsulta extends javax.swing.JFrame {
             }
         });
 
-        retornar.setText("Retornar");
-        retornar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retornarActionPerformed(evt);
-            }
-        });
-
         pesquisar.setText("Pesquisar");
         pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,53 +111,56 @@ public class MarcarConsulta extends javax.swing.JFrame {
             }
         });
 
-        nome_paciente.setText("Nome:");
+        nome_paciente.setText(" ");
 
-        jLabel5.setText("Nome:");
+        jLabel5.setText("Paciente Selecionado: ");
 
         jButton1.setText("Selecionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nomeDoMedico)
-                                    .addComponent(especialidadeDoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(opcao2)
-                                    .addComponent(opcao1)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addComponent(pesquisar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(retornar)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(CPFField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nome_paciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(nomeDoMedico)
+                                        .addComponent(especialidadeDoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(opcao2)
+                                        .addComponent(opcao1)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(140, 140, 140)
+                                    .addComponent(pesquisar))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(CPFField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton1))))
                 .addGap(0, 18, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(nome_paciente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +189,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
                 .addComponent(pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(retornar)
-                .addContainerGap())
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -206,14 +205,6 @@ public class MarcarConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_especialidadeDoMedicoActionPerformed
 
-    private void retornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarActionPerformed
-        // TODO add your handling code here:
-        TelaInicial tela = new TelaInicial();
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_retornarActionPerformed
-
     private void opcao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcao1ActionPerformed
         // TODO add your handling code here:
         opcao2.setSelected(false);
@@ -223,7 +214,19 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
         // TODO add your handling code here:
         if(opcao1.isSelected()){
-            buscarPorNome(nomeDoMedico.getText());
+            medicos = Pessoa.findMedicosByNome(nomeDoMedico.getText());
+            if (medicos.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com este nome");
+                } else {
+                    DefaultListModel model = new DefaultListModel();
+                    int cont = 0;
+                    for (Pessoa pa : medicos) {
+                        model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
+                        cont++;
+                    }
+                    listaDeMedicos.setModel(model);
+                    listaDeMedicos.setEnabled(true);
+                }
         }
         if(opcao2.isSelected()){
             buscarPorEspecialidade(especialidadeDoMedico.getSelectedItem());
@@ -237,6 +240,21 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void CPFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CPFFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Pessoa p = Pessoa.findByCPF(CPFField.getText());
+        if(p==null){
+            JOptionPane.showMessageDialog(this, "Pessoa não encontrado");
+        }else{
+            if(p.getPaciente()==null){
+                JOptionPane.showMessageDialog(this, "A Pessoa selecionada não é um paciente");
+            }else{
+                pessoa = p;
+                nome_paciente.setText(p.getNome());
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,12 +307,9 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JCheckBox opcao1;
     private javax.swing.JCheckBox opcao2;
     private javax.swing.JButton pesquisar;
-    private javax.swing.JButton retornar;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarPorNome(String nomeDoMedico) {
-        
-    }
+
 
     private void buscarPorEspecialidade(Object selectedItem) {
         

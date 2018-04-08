@@ -44,7 +44,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
     , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
-    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome)")
+    , @NamedQuery(name = "Pessoa.findMedicosByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome) AND m.medico!=null")
     , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")
     , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")})
 public class Pessoa implements Serializable, ICRUD {
@@ -297,10 +297,10 @@ public class Pessoa implements Serializable, ICRUD {
         return instance.findByCPF(cpf);
     }
     
-    public static List<Pessoa> findByNome(String nome) throws NoResultException {
+    public static List<Pessoa> findMedicosByNome(String nome) throws NoResultException {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByNome(nome);
+        return instance.findMedicosByNome(nome);
     }
     
     public static List<Pessoa> findMedicos() throws NoResultException {

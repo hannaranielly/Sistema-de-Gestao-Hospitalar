@@ -172,12 +172,12 @@ public class PessoaJpaController implements Serializable {
         return pessoa;
     }
     
-    public List<Pessoa> findByNome(String nome) throws NoResultException {
+    public List<Pessoa> findMedicosByNome(String nome) throws NoResultException {
         List<Pessoa> pessoas = null;
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            Query q = em.createNamedQuery("Pessoa.findByNome");
+            Query q = em.createNamedQuery("Pessoa.findMedicosByNome");
             q.setParameter("nome", "%" + nome + "%");
             pessoas = q.getResultList();
         } finally {
