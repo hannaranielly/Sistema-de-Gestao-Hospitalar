@@ -56,11 +56,6 @@ public class PessoaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pessoa persistentPessoa = em.find(Pessoa.class, pessoa.getId());
-            Medico medicoOld = persistentPessoa.getMedico();
-            Medico medicoNew = pessoa.getMedico();
-            Paciente pacienteOld = persistentPessoa.getPaciente();
-            Paciente pacienteNew = pessoa.getPaciente();
             pessoa = em.merge(pessoa);
             em.getTransaction().commit();
         } catch (Exception ex) {

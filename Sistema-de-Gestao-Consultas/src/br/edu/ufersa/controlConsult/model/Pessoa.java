@@ -356,13 +356,15 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void update() {
+    public void update() throws Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         try {
             instance.edit(this);
         } catch (Exception ex) {
             Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            throw ex;
         }
     }
 
