@@ -53,6 +53,16 @@ public class Especialidade implements ICRUD, Serializable {
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         return instance.findEspecialidadeEntities();
     }
+
+    public static List<Especialidade> setupEspecialidades() {
+        List<Especialidade> bd_especialidades = Arrays.asList(
+                new Especialidade("Clínico Geral"),
+                new Especialidade("Pediatra"),
+                new Especialidade("Cardiologista")
+        );
+        bd_especialidades.forEach(e -> e.create());
+        return bd_especialidades;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
