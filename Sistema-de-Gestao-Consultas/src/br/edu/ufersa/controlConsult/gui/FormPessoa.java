@@ -180,10 +180,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private void loadEspecialidades() {
         List<Especialidade> bd_especialidades = Especialidade.findAll();
         if (bd_especialidades.isEmpty()) { // Default Especialidades
-            bd_especialidades = Arrays.asList(
-                    new Especialidade("Clínico Geral"),
-                    new Especialidade("Pediatra")
-            );
+            bd_especialidades.addAll(Especialidade.setupEspecialidades());
         }
         bd_especialidades.forEach(especialidade -> especialidesMap.put(especialidade.getNome(), especialidade));
         Set<String> keys = especialidesMap.keySet();
