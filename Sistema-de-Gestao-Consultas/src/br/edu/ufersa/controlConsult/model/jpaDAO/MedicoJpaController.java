@@ -82,6 +82,7 @@ public class MedicoJpaController implements Serializable {
         EntityManager em = null;
         try {
             em = getEntityManager();
+            medico = em.getReference(medico.getClass(), medico.getId());
             em.getTransaction().begin();
             em.refresh(medico);
             em.getTransaction().commit();

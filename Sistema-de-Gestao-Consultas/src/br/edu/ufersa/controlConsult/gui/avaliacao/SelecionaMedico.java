@@ -28,9 +28,7 @@ public class SelecionaMedico extends javax.swing.JFrame {
     public SelecionaMedico(int tipo) {
         this.tipo = tipo;
         initComponents();
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController pjc = new PessoaJpaController(emf);
-        list = pjc.findMedicos();
+        list = Pessoa.findMedicos();
         preenche(list);
         if(tipo==0){
             jLabel1.setText("Selecione o Médico que Deseja Avaliar");

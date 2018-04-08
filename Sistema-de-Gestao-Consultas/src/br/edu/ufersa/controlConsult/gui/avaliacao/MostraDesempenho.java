@@ -6,6 +6,10 @@
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.Questionario;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
+import br.edu.ufersa.controlConsult.model.jpaDAO.QuestionarioJpaController;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -25,6 +29,9 @@ public class MostraDesempenho extends javax.swing.JFrame {
         initComponents();
         nome_medico.setText(pessoa.getNome());
         especialidade.setText(pessoa.getMedico().getEspecialidade().getNome());
+        mqp1.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "1")));
+        mqp2.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "2")));
+        mqp3.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "3")));
     }
 
     /**
@@ -69,7 +76,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
         nome_jLabel2.setText("Média de Tempo em Consulta:");
 
         nome_jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nome_jLabel3.setText("Quantidade de Horas Trabalhada na Ultima Semana:");
+        nome_jLabel3.setText("Quantidade de Horas Trabalhada na Última Semana:");
 
         mt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         mt.setText("_____");

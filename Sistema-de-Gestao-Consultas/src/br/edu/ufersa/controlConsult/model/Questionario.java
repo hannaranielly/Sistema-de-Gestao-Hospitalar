@@ -20,6 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "questionario")
+
 public class Questionario implements Serializable, ICRUD{
     @Id
     @Column(name = "id")
@@ -85,6 +88,12 @@ public class Questionario implements Serializable, ICRUD{
 
     public void setQ3(int q3) {
         this.q3 = q3;
+    }
+    
+    public static double mediaQ(Medico m, String num){
+         EntityManagerFactory emf = JpaFactory.getInstance();
+         QuestionarioJpaController qjc = new QuestionarioJpaController(emf);
+         return qjc.mediaQ(m, num);
     }
     
     

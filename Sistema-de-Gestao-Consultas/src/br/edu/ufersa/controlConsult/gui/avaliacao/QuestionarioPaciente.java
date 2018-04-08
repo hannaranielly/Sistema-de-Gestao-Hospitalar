@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Questionario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -178,6 +179,7 @@ public class QuestionarioPaciente extends javax.swing.JFrame {
         q.setMedico(pessoa.getMedico());
         try {
             q.create();
+            JOptionPane.showMessageDialog(this, "Avaliação realizada com sucesso", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(QuestionarioPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
