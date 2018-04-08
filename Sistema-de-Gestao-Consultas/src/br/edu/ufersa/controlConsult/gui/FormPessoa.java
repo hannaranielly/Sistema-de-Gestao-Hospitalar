@@ -85,6 +85,7 @@ public class FormPessoa extends javax.swing.JFrame {
                     pessoa_jPanel.setVisible(false);
                     medico_jPanel.setVisible(false);
                     paciente_jPanel.setVisible(false);
+                    botoes_jPanel.setVisible(false);
                 }
                 break;
             default:
@@ -976,7 +977,7 @@ public class FormPessoa extends javax.swing.JFrame {
             limpaFormulario();
             pessoa = Pessoa.findByCPF(BuscaCpf_textField.getText());
             preencherFormularioPessoa();
-            
+            botoes_jPanel.setVisible(true);
         } catch (NoResultException ex) {
             JOptionPane.showMessageDialog(null, "Ninguém encontrado.");
         } finally {
