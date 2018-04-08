@@ -23,7 +23,6 @@ public class ListarPessoa extends javax.swing.JFrame {
      * Creates new form DEBUG_USUARIO
      */
     public ListarPessoa(TipoPessoaEnum tipoPessoa) {
-
         initComponents();
         this.setTipoPessoa(tipoPessoa);
         load(tipoPessoa);
@@ -94,11 +93,13 @@ public class ListarPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
-        BuscPessoa bp = new BuscPessoa(TipoPessoaEnum.AMBOS, pessoa);
-        bp.preencherFormularioPessoa();
-        bp.setVisible(true);
+        try {
+            Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+            BuscPessoa bp = new BuscPessoa(tipoPessoa, pessoa);
+            bp.preencherFormularioPessoa();
+            bp.setVisible(true);
+        } catch (IndexOutOfBoundsException e) {
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -106,12 +107,12 @@ public class ListarPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void edit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_jButtonActionPerformed
-        FormPessoa fp = new FormPessoa(TipoContextoEnum.ATUALIZAR, TipoPessoaEnum.AMBOS);
-        Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
-        fp.setPessoa(pessoa);
-        fp.atualizarContextoJanela();
-        fp.preencherFormularioPessoa();
-        fp.setVisible(true);
+        try {
+            Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
+            FormPessoa fp = new FormPessoa(TipoContextoEnum.ATUALIZAR, tipoPessoa, pessoa);
+            fp.setVisible(true);
+        } catch (IndexOutOfBoundsException e) {
+        }
     }//GEN-LAST:event_edit_jButtonActionPerformed
 
     /**
