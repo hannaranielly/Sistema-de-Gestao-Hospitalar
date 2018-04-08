@@ -44,7 +44,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT m FROM Pessoa m")
     , @NamedQuery(name = "Pessoa.findById", query = "SELECT m FROM Pessoa m WHERE m.id = :id")
+    , @NamedQuery(name = "Pessoa.findByNome", query = "SELECT p FROM Pessoa p WHERE lower(p.nome) LIKE lower(:nome)")
     , @NamedQuery(name = "Pessoa.findMedicosByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome) AND m.medico!=null")
+    , @NamedQuery(name = "Pessoa.findPacientesByNome", query = "SELECT p FROM Pessoa p WHERE lower(p.nome) LIKE lower(:nome) AND p.paciente!=null")
     , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")
     , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")})
 public class Pessoa implements Serializable, ICRUD {
@@ -53,6 +55,42 @@ public class Pessoa implements Serializable, ICRUD {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         return instance.findPessoaEntities();
+    }
+
+    public static List<Pessoa> findMedicosByNome(String nome) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByMedicoNome(nome);
+    }
+
+    public static List<Pessoa> findPacientesByNome(String nome) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByPacienteNome(nome);
+    }
+
+    /**
+     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
+     *
+     * @param cpf Cadastro de Pessoa Física.
+     * @return O médico com portar o cpf.
+     */
+    public static Pessoa findByCPF(String cpf) throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByCPF(cpf);
+    }
+
+    public static List<Pessoa> findByNome(String nome) throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findByNome(nome);
+    }
+
+    public static List<Pessoa> findMedicos() throws NoResultException {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findMedicos();
     }
 
     @Id
@@ -285,30 +323,6 @@ public class Pessoa implements Serializable, ICRUD {
                 + " Nome: " + this.nome + " CPF: " + this.cpf;
     }
 
-    /**
-     * Pesquisa no banco de dados a primeira entidade Médico com o CPF.
-     *
-     * @param cpf Cadastro de Pessoa Física.
-     * @return O médico com portar o cpf.
-     */
-    public static Pessoa findByCPF(String cpf) throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findByCPF(cpf);
-    }
-    
-    public static List<Pessoa> findMedicosByNome(String nome) throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findMedicosByNome(nome);
-    }
-    
-    public static List<Pessoa> findMedicos() throws NoResultException {
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        PessoaJpaController instance = new PessoaJpaController(emf);
-        return instance.findMedicos();
-    }
-
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
@@ -356,13 +370,15 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void update() {
+    public void update() throws Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
         try {
             instance.edit(this);
         } catch (Exception ex) {
             Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            throw ex;
         }
     }
 
