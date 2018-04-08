@@ -166,8 +166,24 @@ public class PessoaJpaController implements Serializable {
         }
         return pessoa;
     }
-    
-    public List<Pessoa> findMedicosByNome(String nome) throws NoResultException {
+
+    public List<Pessoa> findByNome(String nome) throws NoResultException {
+        List<Pessoa> pessoas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Pessoa.findByNome");
+            q.setParameter("nome", "%" + nome + "%");
+            pessoas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return pessoas;
+    }
+
+    public List<Pessoa> findByMedicoNome(String nome) throws NoResultException {
         List<Pessoa> pessoas = null;
         EntityManager em = getEntityManager();
         try {
@@ -182,7 +198,23 @@ public class PessoaJpaController implements Serializable {
         }
         return pessoas;
     }
-    
+
+    public List<Pessoa> findByPacienteNome(String nome) throws NoResultException {
+        List<Pessoa> pessoas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Pessoa.findPacientesByNome");
+            q.setParameter("nome", "%" + nome + "%");
+            pessoas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return pessoas;
+    }
+
     public List<Pessoa> findMedicos() throws NoResultException {
         List<Pessoa> pessoas = null;
         EntityManager em = getEntityManager();
@@ -197,6 +229,5 @@ public class PessoaJpaController implements Serializable {
         }
         return pessoas;
     }
-    
-    
+
 }
