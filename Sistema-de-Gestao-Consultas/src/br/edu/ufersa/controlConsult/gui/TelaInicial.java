@@ -7,7 +7,7 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.gui.avaliacao.SelecionaMedico;
 import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoContextoEnum;
-import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoPessoaEnum;
+import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 
 /**
  *
@@ -38,12 +38,10 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -115,14 +113,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem5.setText("Apagar");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem5);
-
         jMenuItem6.setText("Buscar");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,14 +140,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem1);
-
-        jMenuItem7.setText("Apagar");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem7);
 
         jMenuItem8.setText("Buscar");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +238,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         //Cadastrar paciente.
-        FormPessoa cp = new FormPessoa(FormPessoa.TipoContextoEnum.CADASTRAR, TipoPessoaEnum.PACIENTE);
+        FormPessoa cp = new FormPessoa(TipoContextoEnum.CADASTRAR, TipoPessoaEnum.PACIENTE);
         cp.setVisible(true);
         cp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -267,13 +249,6 @@ public class TelaInicial extends javax.swing.JFrame {
         ap.setVisible(true);
         ap.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-        DelPaciente d = new DelPaciente();
-        d.setVisible(true);
-        d.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
@@ -292,17 +267,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // Buscar Paciente.
-        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.PACIENTE);
+        BuscPessoa bp = new BuscPessoa(TipoPessoaEnum.PACIENTE);
         bp.setVisible(true);
         bp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-        DelMedico dm = new DelMedico();
-        dm.setVisible(true);
-        dm.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // Cadastrar Médico        
@@ -313,7 +281,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        BuscPessoa bm = new BuscPessoa(FormPessoa.TipoPessoaEnum.MEDICO);
+        BuscPessoa bm = new BuscPessoa(TipoPessoaEnum.MEDICO);
         bm.setVisible(true);
         bm.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
@@ -410,9 +378,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;

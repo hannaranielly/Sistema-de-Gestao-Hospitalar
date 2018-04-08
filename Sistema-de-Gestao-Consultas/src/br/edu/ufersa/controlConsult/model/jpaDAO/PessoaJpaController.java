@@ -210,4 +210,19 @@ public class PessoaJpaController implements Serializable {
         return pessoas;
     }
 
+    public List<Pessoa> findPacientes() throws NoResultException {
+        List<Pessoa> pessoas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Pessoa.paciente");
+            pessoas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return pessoas;
+    }
+
 }

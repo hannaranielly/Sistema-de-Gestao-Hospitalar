@@ -7,13 +7,12 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import java.text.DateFormat;
+import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
-import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -22,18 +21,18 @@ import javax.swing.text.DateFormatter;
 public class BuscPessoa extends javax.swing.JFrame {
 
     private Pessoa pessoa;
-    private FormPessoa.TipoPessoaEnum tipoPessoa;
+    private TipoPessoaEnum tipoPessoa;
 
     /**
      * Creates new form BuscMedico
      */
-    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa, Pessoa pessoa) {
+    public BuscPessoa(TipoPessoaEnum tipoPessoa, Pessoa pessoa) {
         initComponents();
         setTipoPessoa(tipoPessoa);
         setPessoa(pessoa);
     }
 
-    public BuscPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
+    public BuscPessoa(TipoPessoaEnum tipoPessoa) {
         this(tipoPessoa, null);
     }
 
@@ -41,11 +40,11 @@ public class BuscPessoa extends javax.swing.JFrame {
         this.pessoa = pessoa;
     }
 
-    private void setTipoPessoa(FormPessoa.TipoPessoaEnum tipoPessoa) {
+    private void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
-        if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
+        if (tipoPessoa == TipoPessoaEnum.MEDICO) {
             paciente_jPanel.setVisible(false);
-        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.PACIENTE) {
+        } else if (tipoPessoa == TipoPessoaEnum.PACIENTE) {
             medico_jPanel.setVisible(false);
         }
     }
@@ -663,11 +662,11 @@ public class BuscPessoa extends javax.swing.JFrame {
         cidadeField.setText(pessoa.getCidade());
         estado_textField.setText(pessoa.getEstado());
         cep_formattedField.setText(pessoa.getCep());
-        if (tipoPessoa == FormPessoa.TipoPessoaEnum.MEDICO) {
+        if (tipoPessoa == TipoPessoaEnum.MEDICO) {
             preencheFormularioMedico(pessoa);
-        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.PACIENTE) {
+        } else if (tipoPessoa == TipoPessoaEnum.PACIENTE) {
             preencheFormularioPaciente(pessoa);
-        } else if (tipoPessoa == FormPessoa.TipoPessoaEnum.AMBOS) {
+        } else if (tipoPessoa == TipoPessoaEnum.AMBOS) {
             preencheFormularioMedico(pessoa);
             preencheFormularioPaciente(pessoa);
         }
@@ -728,7 +727,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscPessoa(FormPessoa.TipoPessoaEnum.MEDICO).setVisible(true);
+                new BuscPessoa(TipoPessoaEnum.MEDICO).setVisible(true);
             }
         });
     }

@@ -8,6 +8,7 @@ package br.edu.ufersa.controlConsult.util.debug;
 import br.edu.ufersa.controlConsult.gui.BuscPessoa;
 import br.edu.ufersa.controlConsult.gui.FormPessoa;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -89,7 +90,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
-        BuscPessoa bp = new BuscPessoa(FormPessoa.TipoPessoaEnum.AMBOS, pessoa);
+        BuscPessoa bp = new BuscPessoa(TipoPessoaEnum.AMBOS, pessoa);
         bp.preencherFormularioPessoa();
         bp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -99,7 +100,7 @@ public class DEBUG_PESSOA extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void edit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_jButtonActionPerformed
-        FormPessoa fp = new FormPessoa(FormPessoa.TipoContextoEnum.ATUALIZAR, FormPessoa.TipoPessoaEnum.AMBOS);
+        FormPessoa fp = new FormPessoa(FormPessoa.TipoContextoEnum.ATUALIZAR, TipoPessoaEnum.AMBOS);
         Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
         fp.setPessoa(pessoa);
         fp.atualizarContextoJanela();

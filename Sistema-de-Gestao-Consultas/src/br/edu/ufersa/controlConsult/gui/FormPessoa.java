@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.util.Arrays;
 import java.util.Date;
@@ -190,10 +191,6 @@ public class FormPessoa extends javax.swing.JFrame {
         Arrays.sort(keys_string);
         ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
         espField_jComboBox.setModel(model);
-    }
-
-    public static enum TipoPessoaEnum {
-        AMBOS, PACIENTE, MEDICO;
     }
 
     public static enum UF_Enum {
@@ -931,7 +928,7 @@ public class FormPessoa extends javax.swing.JFrame {
         pessoa.setCep(cep);
         if (tipoDePessoa == tipoDePessoa.MEDICO) {
             updatePessoaTemp_Medico();
-        } else if (tipoDePessoa == tipoDePessoa.PACIENTE) {
+        } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
             updatePessoaTemp_Paciente();
         }
 
