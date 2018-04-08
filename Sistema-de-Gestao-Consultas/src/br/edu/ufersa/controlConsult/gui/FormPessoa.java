@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.util.Arrays;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class FormPessoa extends javax.swing.JFrame {
         this.tipoDePessoa = tipoPessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    private void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
 
@@ -53,7 +54,7 @@ public class FormPessoa extends javax.swing.JFrame {
      * janela para o contexto salvo em {@link #tipoDeContexto}.
      *
      */
-    public void atualizarContextoJanela() {
+    private void atualizarContextoJanela() {
         // Ajustes na interface de acordo com cada contexto.
         switch (tipoDeContexto) {
             case CADASTRAR:
@@ -105,7 +106,7 @@ public class FormPessoa extends javax.swing.JFrame {
      * Preenche todos os formulários baseado nas informações extraídas da pessoa
      * armazenada em {@link #pessoa}.
      */
-    public void preencherFormularioPessoa() {
+    private void preencherFormularioPessoa() {
         nome_textField.setText(pessoa.getNome());
         cpf_textField.setText(pessoa.getCpf());
         rg_textField.setText(pessoa.getRg());
@@ -192,10 +193,6 @@ public class FormPessoa extends javax.swing.JFrame {
         espField_jComboBox.setModel(model);
     }
 
-    public static enum TipoPessoaEnum {
-        AMBOS, PACIENTE, MEDICO;
-    }
-
     public static enum UF_Enum {
         AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES(
                 "Espírito Santo"), GO("Goiás"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), MG(
@@ -238,12 +235,20 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private Pessoa pessoa; // Pessoa para alteração. Valida somente se o contexto for para alteração.
 
+    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa) {
+        this(tipoContexto, tipoPessoa, null);
+    }
+
     /**
      * Creates new form FormPessoa
      */
-    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa) {
+    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa, Pessoa pessoa) {
         this.setTipoContexto(tipoContexto);
         this.setTipoPessoa(tipoPessoa);
+        if (pessoa != null) {
+            this.setPessoa(pessoa);
+            this.preencherFormularioPessoa();
+        }
         initComponents();
         atualizarContextoJanela();
 
@@ -262,6 +267,7 @@ public class FormPessoa extends javax.swing.JFrame {
         sexo_buttonGroup = new javax.swing.ButtonGroup();
         formulario_jPanel = new javax.swing.JPanel();
         busca_jPanel = new javax.swing.JPanel();
+        cpfBusca_jLabel = new javax.swing.JLabel();
         BuscaCpf_textField = new javax.swing.JFormattedTextField();
         search_jButton = new javax.swing.JButton();
         pessoa_jPanel = new javax.swing.JPanel();
@@ -312,6 +318,10 @@ public class FormPessoa extends javax.swing.JFrame {
         busca_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
         busca_jPanel.setLayout(new java.awt.GridBagLayout());
 
+        cpfBusca_jLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cpfBusca_jLabel.setText("Busca por CPF:");
+        busca_jPanel.add(cpfBusca_jLabel, new java.awt.GridBagConstraints());
+
         try {
             BuscaCpf_textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
@@ -323,7 +333,6 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 57;
@@ -337,7 +346,6 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         busca_jPanel.add(search_jButton, gridBagConstraints);
 
@@ -931,7 +939,7 @@ public class FormPessoa extends javax.swing.JFrame {
         pessoa.setCep(cep);
         if (tipoDePessoa == tipoDePessoa.MEDICO) {
             updatePessoaTemp_Medico();
-        } else if (tipoDePessoa == tipoDePessoa.PACIENTE) {
+        } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
             updatePessoaTemp_Paciente();
         }
 
@@ -1000,12 +1008,12 @@ public class FormPessoa extends javax.swing.JFrame {
     private void delete_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_jToggleButtonActionPerformed
         if (pessoa != null) {
             int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente apagar a pessoa " + pessoa.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-            if(reply == JOptionPane.YES_OPTION){
+            if (reply == JOptionPane.YES_OPTION) {
                 pessoa.delete();
                 limpaFormulario();
                 pessoa = null;
                 atualizarContextoJanela();
-            }            
+            }
         }
     }//GEN-LAST:event_delete_jToggleButtonActionPerformed
 
@@ -1040,7 +1048,7 @@ public class FormPessoa extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormPessoa(
-                        TipoContextoEnum.CADASTRAR,
+                        TipoContextoEnum.ATUALIZAR,
                         TipoPessoaEnum.MEDICO
                 ).setVisible(true);
             }
@@ -1077,6 +1085,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField chField;
     private javax.swing.JTextField cidadeField;
     private javax.swing.JLabel cidade_jLabel;
+    private javax.swing.JLabel cpfBusca_jLabel;
     private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JFormattedTextField cpf_textField;
     private javax.swing.JLabel crm_jLabel;

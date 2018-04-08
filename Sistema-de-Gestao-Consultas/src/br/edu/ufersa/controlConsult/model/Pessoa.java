@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.gui.FormPessoa;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
@@ -49,7 +50,8 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "Pessoa.findMedicosByNome", query = "SELECT m FROM Pessoa m WHERE lower(m.nome) LIKE lower(:nome) AND m.medico!=null")
     , @NamedQuery(name = "Pessoa.findPacientesByNome", query = "SELECT p FROM Pessoa p WHERE lower(p.nome) LIKE lower(:nome) AND p.paciente!=null")
     , @NamedQuery(name = "Pessoa.findByCPF", query = "SELECT m FROM Pessoa m WHERE m.cpf = :cpf")
-    , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")})
+    , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")
+    , @NamedQuery(name = "Pessoa.paciente", query = "SELECT p FROM Pessoa p WHERE p.paciente!=null")})
 public class Pessoa implements Serializable, ICRUD {
 
     public static List<Pessoa> findAll() {
@@ -94,6 +96,20 @@ public class Pessoa implements Serializable, ICRUD {
         return instance.findMedicos();
     }
 
+    public static List<Pessoa> findPacientes() {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        PessoaJpaController instance = new PessoaJpaController(emf);
+        return instance.findPacientes();
+    }
+
+    public static List<Pessoa> findAllMedicos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static enum TipoPessoaEnum {
+        AMBOS, PACIENTE, MEDICO;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -135,6 +151,10 @@ public class Pessoa implements Serializable, ICRUD {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "paciente")
     private Paciente paciente;
+
+    /**
+     * O tipo de pessoa que o formulário da janela irá processar.
+     */
 
     protected Pessoa() {
     }
