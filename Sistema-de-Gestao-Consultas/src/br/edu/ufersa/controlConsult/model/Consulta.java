@@ -23,6 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +35,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "consulta")
+@NamedQueries({
+    @NamedQuery(name = "Consulta.numconsultaMarcado", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")
+    , @NamedQuery(name = "Consulta.numconsultapaciente", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.paciente = :paciente")})
 public class Consulta implements Serializable, ICRUD {
 
     public static List<Consulta> findAll() {
@@ -40,6 +45,34 @@ public class Consulta implements Serializable, ICRUD {
         ConsultaJpaController instance = new ConsultaJpaController(emf);
         List<Consulta> res_consultas = instance.findConsultaEntities();
         return res_consultas;
+    }
+
+    public Date getData_marcado() {
+        return data_marcado;
+    }
+
+    public void setData_marcado(Date data_marcado) {
+        this.data_marcado = data_marcado;
+    }
+
+    public HorarioAtendimento getHorario_atendimento() {
+        return horario_atendimento;
+    }
+
+    public void setHorario_atendimento(HorarioAtendimento horario_atendimento) {
+        this.horario_atendimento = horario_atendimento;
+    }
+    
+    public static long numconsultaMarcado(HorarioAtendimento ha, Date data){
+         EntityManagerFactory emf = JpaFactory.getInstance();
+         ConsultaJpaController instance = new ConsultaJpaController(emf);
+         return instance.numconsultaMarcado(ha, data);
+    }
+    
+    public static long numconsultapaciente(HorarioAtendimento ha, Date data, Paciente paciente){
+         EntityManagerFactory emf = JpaFactory.getInstance();
+         ConsultaJpaController instance = new ConsultaJpaController(emf);
+         return instance.numconsultapaciente(ha, data, paciente);
     }
 
     @Id

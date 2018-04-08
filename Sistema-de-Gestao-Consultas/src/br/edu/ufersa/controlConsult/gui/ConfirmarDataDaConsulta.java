@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
@@ -174,7 +175,26 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
                cal.setTime(agendada);
                String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
                if(diaDaSemana.equals(diaSemanaListado)){
-                   System.out.println("certo");
+                   long marcados = Consulta.numconsultaMarcado(medico.getMedico().getListaHorario().get(posicao),agendada);
+                   if(marcados<20l){
+                       if(Consulta.numconsultapaciente(medico.getMedico().getListaHorario().get(posicao), agendada, paciente.getPaciente())==0){
+                            JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso, seu número de atendimento é: " + (marcados+1));
+                            Consulta con = new Consulta();
+                            con.setAgendada(true);
+                            con.setData_agendada(agendada);
+                            con.setMedico(medico.getMedico());
+                            con.setPaciente(paciente.getPaciente());
+                            con.setHorario_atendimento(medico.getMedico().getListaHorario().get(posicao));
+                            Date data_atual = new Date();
+                            con.setData_marcado(data_atual);
+                            con.create();
+                       }else{
+                           JOptionPane.showMessageDialog(this, "O paciente já agendou esta consulta");
+                       }
+                       
+                   }else{
+                       JOptionPane.showMessageDialog(this, "O Atendimento para este dia encontra-se lotado.");
+                   }
                    
                }
                else{
