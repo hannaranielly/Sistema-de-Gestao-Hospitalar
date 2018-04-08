@@ -310,6 +310,10 @@ public class MarcarConsulta extends javax.swing.JFrame {
         }else{
             if(listaDeMedicos.isSelectionEmpty()){
                 JOptionPane.showMessageDialog(this, "Selecione algum médico");
+            }else{
+                ConfirmarDataDaConsulta cdc = new ConfirmarDataDaConsulta(pessoa, medicos.get(listaDeMedicos.getSelectedIndex()));
+                cdc.setVisible(true);
+                cdc.setLocationRelativeTo(null);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed

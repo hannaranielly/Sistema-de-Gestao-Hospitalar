@@ -11,6 +11,7 @@ import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,11 +34,14 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         this.paciente = paciente;
         this.medico = medico;
         initComponents();
+        if(medico.getMedico().getListaHorario().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O médico não possui horários de atendimento cadastrado");
+        }
         int tamanho = medico.getMedico().getListaHorario().size();
         DefaultListModel model = new DefaultListModel();
         for(int cont = 0; cont < tamanho; cont++){
             String elemento = "Dia da semana: " + medico.getMedico().getListaHorario().get(cont).getDiaSemana() + 
-                    "; Horario de início: " + medico.getMedico().getListaHorario().get(cont).getInicio().getHours() +
+                    "; Horario de início: " + String.valueOf(medico.getMedico().getListaHorario().get(cont).getInicio())+
                     ".";
             model.add(cont, elemento);
         }
@@ -71,7 +75,8 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Confirmação de Data da Consulta");
 
         nomeDoMedico.setEditable(false);
         nomeDoMedico.addActionListener(new java.awt.event.ActionListener() {
@@ -155,18 +160,29 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
     private void marcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcarActionPerformed
         // TODO add your handling code here:
-        int posicao = listaDeHorarios.getSelectedIndex();
-        Date agendada = Data.getDate();
-        String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().toString();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(agendada);
-        String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
-        if(diaDaSemana.equals(diaSemanaListado)){
-            confimar(medico.getMedico().getListaHorario().get(posicao), agendada);
+        if(Data.getDate()==null){
+            JOptionPane.showMessageDialog(this, "Informe um data válida para marcar a consulta");
+        }else{
+            if(listaDeHorarios.isSelectionEmpty()){
+                JOptionPane.showMessageDialog(this, "Selecione algum dos horários");
+            }else{
+                
+               int posicao = listaDeHorarios.getSelectedIndex();
+               Date agendada = Data.getDate();
+               String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().getNome();
+               Calendar cal = Calendar.getInstance();
+               cal.setTime(agendada);
+               String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
+               if(diaDaSemana.equals(diaSemanaListado)){
+                   System.out.println("certo");
+                   
+               }
+               else{
+                  JOptionPane.showMessageDialog(this, "A data informada não corresponde a um dia da semana do horário selecionado");
+               }
+            }
         }
-        else{
-            
-        }
+        
         
     }//GEN-LAST:event_marcarActionPerformed
 
@@ -229,25 +245,25 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     
     public String diaSemana(int n) {
         String retorno = null;
-        if (n == 0) {
+        if (n == Calendar.SATURDAY) {
             retorno = "Sábado";
         }
-        if (n == 1) {
+        if (n == Calendar.MONDAY) {
             retorno = "Segunda-feira";
         }
-        if (n == 2) {
+        if (n == Calendar.TUESDAY) {
             retorno = "Terça-feira";
         }
-        if (n == 3) {
+        if (n == Calendar.WEDNESDAY) {
             retorno = "Quarta-feira";
         }
-        if (n == 4) {
+        if (n == Calendar.THURSDAY) {
             retorno = "Quinta-feira";
         }
-        if (n == 5) {
+        if (n == Calendar.FRIDAY) {
             retorno = "Sexta-feira";
         }
-        if (n == 6) {
+        if (n == Calendar.SUNDAY) {
             retorno = "Domingo";
         }
         return retorno;
