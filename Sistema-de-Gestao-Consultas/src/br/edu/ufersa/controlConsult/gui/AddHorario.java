@@ -234,6 +234,7 @@ public class AddHorario extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Detectado conflito de horários, o horário não foi adicionado");
             }
+            this.dispose();
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
