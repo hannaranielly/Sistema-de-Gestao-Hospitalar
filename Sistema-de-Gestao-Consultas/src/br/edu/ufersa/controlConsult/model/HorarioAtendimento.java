@@ -63,6 +63,7 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         }
         return horarios_res;
     }
+    
 
     /**
      * Verifica se há algum conflito de horários.
@@ -222,11 +223,7 @@ public class HorarioAtendimento implements Serializable, ICRUD {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public static List<HorarioAtendimento> findByWeek(){
-        EntityManagerFactory emf = JpaFactory.getInstance();
-        HorarioAtendimentoJpaController instance = new HorarioAtendimentoJpaController(emf);
-        return instance.findHorarioAtendimentoHoje();
-    }
+
 
     @Override
     public void create() {

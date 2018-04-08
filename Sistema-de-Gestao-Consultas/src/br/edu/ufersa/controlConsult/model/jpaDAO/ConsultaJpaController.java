@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -191,6 +192,23 @@ public class ConsultaJpaController implements Serializable {
             }
         }
         return num;
+    }
+    
+        public List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data) throws NoResultException {
+        List<Consulta> consultas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.porAtendimento");
+            q.setParameter("atendimento", ha);
+            q.setParameter("data", data);
+            consultas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return consultas;
     }
 
 }

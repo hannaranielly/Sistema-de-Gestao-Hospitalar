@@ -5,6 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Consulta;
+import java.util.List;
+
 /**
  *
  * @author leone
@@ -14,8 +17,14 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
     /**
      * Creates new form GerenciarAtendimento
      */
+    List<Consulta> consultas;
     public GerenciarAtendimento() {
         initComponents();
+    }
+    
+    public GerenciarAtendimento(List<Consulta> con){
+        initComponents();
+        this.consultas = con;
     }
 
     /**
@@ -37,7 +46,8 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
         numero_paciente_atual = new javax.swing.JLabel();
         j = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerenciar Atendimentos");
 
         nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         nome_medico.setText("___________");

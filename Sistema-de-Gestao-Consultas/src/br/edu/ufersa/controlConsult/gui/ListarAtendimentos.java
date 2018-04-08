@@ -5,8 +5,14 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Consulta;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,14 +24,31 @@ public class ListarAtendimentos extends javax.swing.JFrame {
      * Creates new form ListarAtendimentos
      */
     List<HorarioAtendimento> list;
-    public ListarAtendimentos() {
+    public ListarAtendimentos(){
         initComponents();
+    }
+    public ListarAtendimentos(List<HorarioAtendimento> l) {
+        initComponents();
+        this.list = l;
+        if(list.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhum horário de atendimento disponível para hoje");
+        }else{
+            int tamanho = list.size();
+            DefaultListModel model = new DefaultListModel();
+            for(int cont = 0; cont < tamanho; cont++){
+                String elemento = "Dia da semana: " + list.get(cont).getDiaSemana().getNome() + 
+                    "; Horario de início: " + String.valueOf(list.get(cont).getInicio())+
+                    ".";
+                model.add(cont, elemento);
+            }
+            listH.setModel(model);
+        }
+        
     }
     
-    public ListarAtendimentos(List<HorarioAtendimento> aten){
-        this.list = aten;
-        initComponents();
-    }
+    
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,8 +71,12 @@ public class ListarAtendimentos extends javax.swing.JFrame {
         jLabel1.setText("Selecione o Atendimento Que Deseja Iniciar:");
 
         jButton1.setText("Iniciar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        listH.setEnabled(false);
         jScrollPane1.setViewportView(listH);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,6 +110,25 @@ public class ListarAtendimentos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(listH.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(this, "selecione algum horário para iniciar o atendimento");
+        }else{
+            Date data = new Date();
+            List<Consulta> lista = Consulta.findporAtendimento(list.get(listH.getSelectedIndex()), data);
+            if(lista.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Não existem consultas para serem iniciadas neste atendimento");
+            }else{
+                GerenciarAtendimento ga = new GerenciarAtendimento(lista);
+                ga.setVisible(true);
+                ga.setLocationRelativeTo(null);
+                this.dispose();
+            }
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -37,7 +37,8 @@ import javax.persistence.TemporalType;
 @Table(name = "consulta")
 @NamedQueries({
     @NamedQuery(name = "Consulta.numconsultaMarcado", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")
-    , @NamedQuery(name = "Consulta.numconsultapaciente", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.paciente = :paciente")})
+    , @NamedQuery(name = "Consulta.numconsultapaciente", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.paciente = :paciente")
+    , @NamedQuery(name = "Consulta.porAtendimento", query = "SELECT p FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")})
 public class Consulta implements Serializable, ICRUD {
 
     public static List<Consulta> findAll() {
@@ -61,6 +62,12 @@ public class Consulta implements Serializable, ICRUD {
 
     public void setHorario_atendimento(HorarioAtendimento horario_atendimento) {
         this.horario_atendimento = horario_atendimento;
+    }
+    
+    public static List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data){
+        EntityManagerFactory emf = JpaFactory.getInstance();
+         ConsultaJpaController instance = new ConsultaJpaController(emf);
+         return instance.findporAtendimento(ha, data);
     }
     
     public static long numconsultaMarcado(HorarioAtendimento ha, Date data){
