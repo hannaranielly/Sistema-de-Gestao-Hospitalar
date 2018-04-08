@@ -5,8 +5,16 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Pessoa;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -20,11 +28,12 @@ public class MarcarConsulta extends javax.swing.JFrame {
     List<Pessoa> medicos;
     public MarcarConsulta() {
         initComponents();
-        
+        loadEspecialidades();
     }
     
     public MarcarConsulta(String nomeDoMedico){
         initComponents();
+        loadEspecialidades();
     }
     
     
@@ -53,6 +62,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
         nome_paciente = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -122,6 +132,8 @@ public class MarcarConsulta extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Mostrar Horários");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,6 +173,10 @@ public class MarcarConsulta extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(jButton1))))
                 .addGap(0, 18, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(145, 145, 145)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +205,9 @@ public class MarcarConsulta extends javax.swing.JFrame {
                 .addComponent(pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -217,6 +235,8 @@ public class MarcarConsulta extends javax.swing.JFrame {
             medicos = Pessoa.findMedicosByNome(nomeDoMedico.getText());
             if (medicos.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com este nome");
+                    DefaultListModel model = new DefaultListModel();
+                    listaDeMedicos.setModel(model);
                 } else {
                     DefaultListModel model = new DefaultListModel();
                     int cont = 0;
@@ -229,7 +249,29 @@ public class MarcarConsulta extends javax.swing.JFrame {
                 }
         }
         if(opcao2.isSelected()){
-            buscarPorEspecialidade(especialidadeDoMedico.getSelectedItem());
+            medicos = Pessoa.findMedicos();
+            Especialidade e = extrairEspecialidade();
+            List<Pessoa> temp = new ArrayList<Pessoa>();
+            for (Pessoa pa : medicos) {
+                    if(pa.getMedico().getEspecialidade().getNome().equals(e.getNome())) {
+                        temp.add(pa);
+                    }
+            }
+            medicos = temp;
+            if (medicos.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com esta especialidade");
+                    DefaultListModel model = new DefaultListModel();
+                    listaDeMedicos.setModel(model);
+                } else {
+                    DefaultListModel model = new DefaultListModel();
+                    int cont = 0;
+                    for (Pessoa pa : medicos) {
+                        model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
+                        cont++;
+                    }
+                    listaDeMedicos.setModel(model);
+                    listaDeMedicos.setEnabled(true);
+                }
         }
     }//GEN-LAST:event_pesquisarActionPerformed
 
@@ -295,6 +337,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField CPFField;
     private javax.swing.JComboBox<String> especialidadeDoMedico;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -309,9 +352,25 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JButton pesquisar;
     // End of variables declaration//GEN-END:variables
 
+private Map<String, Especialidade> especialidesMap = new HashMap<>();
+private void loadEspecialidades() {
+        List<Especialidade> bd_especialidades = Especialidade.findAll();
+        if (bd_especialidades.isEmpty()) { // Default Especialidades
+            bd_especialidades = Arrays.asList(
+                    new Especialidade("Clínico Geral"),
+                    new Especialidade("Pediatra")
+            );
+        }
+        bd_especialidades.forEach(especialidade -> especialidesMap.put(especialidade.getNome(), especialidade));
+        Set<String> keys = especialidesMap.keySet();
+        String[] keys_string = keys.toArray(new String[keys.size()]);
+        Arrays.sort(keys_string);
+        ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
+        especialidadeDoMedico.setModel(model);
+ }
 
-
-    private void buscarPorEspecialidade(Object selectedItem) {
-        
+private Especialidade extrairEspecialidade() { //TODO
+        Especialidade especialidade = especialidesMap.get(especialidadeDoMedico.getModel().getSelectedItem());
+        return especialidade;
     }
 }
