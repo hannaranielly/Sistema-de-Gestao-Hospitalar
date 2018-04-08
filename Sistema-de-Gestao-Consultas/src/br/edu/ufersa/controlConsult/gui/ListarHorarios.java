@@ -137,7 +137,7 @@ public class ListarHorarios extends javax.swing.JFrame {
         if (pessoa != null) {
             medico = pessoa.getMedico();
             if (medico != null) {
-                list = HorarioAtendimento.findByMedicoId(medico.getId());
+                list = medico.getListaHorario();
                 if (list.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Médico não possui horários de atendimento cadastrados");
                 } else {
@@ -162,9 +162,11 @@ public class ListarHorarios extends javax.swing.JFrame {
         if (list == null) {
             JOptionPane.showMessageDialog(null, "Informe primeiro o CPF do médico");
         } else {
-            list.get(listH.getSelectedIndex()).delete();
-            list = HorarioAtendimento.findByMedicoId(medico.getId());
-
+            HorarioAtendimento h = list.get(listH.getSelectedIndex());
+            list.remove(listH.getSelectedIndex());
+            medico.setListaHorario(list);
+            medico.update();
+            h.delete();
             if (list.isEmpty()) {
                 DefaultListModel model = new DefaultListModel();
                 listH.setModel(model);
