@@ -65,6 +65,20 @@ public class EspecialidadeJpaController implements Serializable {
             }
         }
     }
+    
+     public void read(Especialidade especialidade) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.refresh(especialidade);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public void edit(Especialidade especialidade) throws NonexistentEntityException, Exception {
         EntityManager em = null;
