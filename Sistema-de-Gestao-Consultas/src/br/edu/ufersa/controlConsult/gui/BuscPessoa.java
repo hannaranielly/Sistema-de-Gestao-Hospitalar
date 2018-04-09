@@ -46,6 +46,7 @@ public class BuscPessoa extends javax.swing.JFrame {
             paciente_jPanel.setVisible(false);
         } else if (tipoPessoa == TipoPessoaEnum.PACIENTE) {
             medico_jPanel.setVisible(false);
+            jButton3.setEnabled(false);
         }
     }
 
@@ -130,7 +131,7 @@ public class BuscPessoa extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Buscar Médico");
+        setTitle("Buscar Pessoa");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         busca_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
@@ -642,6 +643,7 @@ public class BuscPessoa extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ListarFrequencia lf_frame = new ListarFrequencia(pessoa.getMedico());
         lf_frame.setVisible(true);
+        lf_frame.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public void preencherFormularioPessoa() {
