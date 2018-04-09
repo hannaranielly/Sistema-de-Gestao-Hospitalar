@@ -49,7 +49,7 @@ public class RegFrequencia extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         cpf_jLabel = new javax.swing.JLabel();
-        CPFField = new javax.swing.JFormattedTextField();
+        cpf_formattedField = new javax.swing.JFormattedTextField();
         buscar_jButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -71,18 +71,23 @@ public class RegFrequencia extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         jPanel2.add(cpf_jLabel, gridBagConstraints);
 
-        CPFField.setColumns(10);
+        cpf_formattedField.setColumns(20);
         try {
-            CPFField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            cpf_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        CPFField.addActionListener(new java.awt.event.ActionListener() {
+        cpf_formattedField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CPFFieldActionPerformed(evt);
+                cpf_formattedFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(CPFField, new java.awt.GridBagConstraints());
+        cpf_formattedField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cpf_formattedFieldKeyTyped(evt);
+            }
+        });
+        jPanel2.add(cpf_formattedField, new java.awt.GridBagConstraints());
 
         buscar_jButton.setText("Selecionar");
         buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -164,9 +169,9 @@ public class RegFrequencia extends javax.swing.JFrame {
     }//GEN-LAST:event_buscar_jButtonActionPerformed
 
 
-    private void CPFFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFFieldActionPerformed
+    private void cpf_formattedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_formattedFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CPFFieldActionPerformed
+    }//GEN-LAST:event_cpf_formattedFieldActionPerformed
 
     private void saida_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saida_jButtonActionPerformed
         registrarSaida();
@@ -180,11 +185,17 @@ public class RegFrequencia extends javax.swing.JFrame {
         lf.setVisible(true);
     }//GEN-LAST:event_mostrarFrequencia_jButtonActionPerformed
 
+    private void cpf_formattedFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpf_formattedFieldKeyTyped
+        if (evt.getKeyChar() == '\n') {
+            buscar_jButton.doClick();
+        }
+    }//GEN-LAST:event_cpf_formattedFieldKeyTyped
+
     private void buscarPessoa() {
         try {
-            med = Pessoa.findByCPF(CPFField.getText()).getMedico();
+            med = Pessoa.findByCPF(cpf_formattedField.getText()).getMedico();
             nomeLabel.setText(med.getPessoa().getNome());
-            CPFField.setEditable(false);
+            cpf_formattedField.setEditable(false);
         } catch (NoResultException ex) {
             Logger.getLogger(RegFrequencia.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
@@ -236,7 +247,7 @@ public class RegFrequencia extends javax.swing.JFrame {
 
     private void limpaFormulario() {
         nomeLabel.setText("");
-        CPFField.setText("");
+        cpf_formattedField.setText("");
     }
 
     /**
@@ -288,8 +299,8 @@ public class RegFrequencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField CPFField;
     private javax.swing.JButton buscar_jButton;
+    private javax.swing.JFormattedTextField cpf_formattedField;
     private javax.swing.JLabel cpf_jLabel;
     private javax.swing.JToggleButton entrada_jToggleButton;
     private javax.swing.JLabel jLabel2;
