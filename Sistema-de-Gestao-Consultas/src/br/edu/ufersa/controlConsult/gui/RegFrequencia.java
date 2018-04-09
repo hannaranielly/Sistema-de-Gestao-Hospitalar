@@ -13,6 +13,7 @@ import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
@@ -214,6 +215,7 @@ public class RegFrequencia extends javax.swing.JFrame {
     private void mostrarFrequencia_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarFrequencia_jButtonActionPerformed
         ListarFrequencia lf = new ListarFrequencia(med);
         lf.setVisible(true);
+        lf.setLocationRelativeTo(null);
     }//GEN-LAST:event_mostrarFrequencia_jButtonActionPerformed
 
     private void cpf_formattedFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpf_formattedFieldKeyTyped
@@ -246,7 +248,7 @@ public class RegFrequencia extends javax.swing.JFrame {
         } else {
             Date in_now = new Date(System.currentTimeMillis());
             if (JOptionPane.showConfirmDialog(this,
-                    "Registrar saída em: " + in_now,
+                    "Registrar entrada em: " + in_now,
                     "Confirmação de Entrada",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 frequencia.setEntrada(in_now);
@@ -307,8 +309,13 @@ public class RegFrequencia extends javax.swing.JFrame {
                     saida_jButton.setEnabled(false);
                 }
 
+            }else{
+                mostrarFrequencia_jButton.setEnabled(true);
+                entrada_jButton.setEnabled(true);
+                saida_jButton.setEnabled(false);
             }
         } else {
+            System.out.println("teste");
             mostrarFrequencia_jButton.setEnabled(false);
             entrada_jButton.setEnabled(false);
             saida_jButton.setEnabled(false);
