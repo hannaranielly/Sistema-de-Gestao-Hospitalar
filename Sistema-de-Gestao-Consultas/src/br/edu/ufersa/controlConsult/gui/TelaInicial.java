@@ -388,6 +388,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         RegFrequencia rf = new RegFrequencia(usuarioAutenticado);
+        rf.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**
