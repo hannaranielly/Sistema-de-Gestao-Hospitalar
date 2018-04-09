@@ -133,7 +133,11 @@ public class FormPessoa extends javax.swing.JFrame {
     private void preencheFormularioMedico(Pessoa pessoa) {
         loadEspecialidades();
         crm_jTextField.setText(pessoa.getMedico().getCrm());
-        chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+        if(pessoa.getMedico().getCargaHoraria()==0){
+             chField.setText("  ");
+        }else{
+            chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
+        }
         Especialidade medicoEspecialidade = pessoa.getMedico().getEspecialidade();
         espField_jComboBox.getModel().setSelectedItem(medicoEspecialidade);
     }
@@ -952,7 +956,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void updatePessoaTemp_Medico() {
         int cargaHoraria;
-        if (chField.getText() == null || chField.getText().equals("")) {
+        if (chField.getText() == null || chField.getText().equals("  ")) {
             cargaHoraria = 0;
         } else {
             cargaHoraria = Integer.parseInt(chField.getText());
