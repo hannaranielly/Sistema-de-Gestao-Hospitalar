@@ -65,7 +65,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="nome_jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="hs" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ht" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="nome_jLabel2" min="-2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="nome_jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="hs" min="-2" max="-2" attributes="0"/>
+                      <Component id="ht" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -189,7 +189,7 @@
             <Property name="text" type="java.lang.String" value="_____"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="hs">
+        <Component class="javax.swing.JLabel" name="ht">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>

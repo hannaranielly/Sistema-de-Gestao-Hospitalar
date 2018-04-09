@@ -11,6 +11,7 @@ import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
@@ -22,6 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +35,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "frequencia")
+@NamedQueries({
+    @NamedQuery(name = "Frequencia.porMedico", query = "SELECT p FROM Frequencia p WHERE p.medico = :medico AND p.data_saida != null")})
 public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
 
     @Id
@@ -75,6 +80,12 @@ public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
     public void checkout() {
         Date saida = new Date(System.currentTimeMillis());
         this.setData_saida(saida);
+    }
+    
+    public static List<Frequencia> porMedico(Medico medico){
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        FrequenciaJpaController instance = new FrequenciaJpaController(emf);
+        return instance.findPorMedico(medico);
     }
 
     public Integer getId() {

@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.gui.avaliacao;
 
 import br.edu.ufersa.controlConsult.gui.GerenciarAtendimento;
 import br.edu.ufersa.controlConsult.model.Consulta;
+import br.edu.ufersa.controlConsult.model.Frequencia;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Questionario;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
@@ -48,9 +49,21 @@ public class MostraDesempenho extends javax.swing.JFrame {
         for (Consulta c : consultas) {
             tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
         }
-        long tempo_medio = tempo_total / consultas.size();
-        long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
-        mt.setText(String.valueOf(diffMinutesmedio) + " minutos");
+        if(consultas.isEmpty()){
+            mt.setText("0 minutos");
+        }else{
+            long tempo_medio = tempo_total / consultas.size();
+            long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
+            mt.setText(String.valueOf(diffMinutesmedio) + " minutos");
+        }
+        List<Frequencia> frequencias = Frequencia.porMedico(pessoa.getMedico());
+        tempo_total = 0l;
+        for(Frequencia f: frequencias){
+            tempo_total = tempo_total + (f.getData_saida().getTime() - f.getData_entrada().getTime());
+        }
+        long diffHoras = tempo_total / (60 * 60 * 1000);
+        ht.setText(String.valueOf(diffHoras) + " horas");
+        
     }
 
     /**
@@ -69,7 +82,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
         nome_jLabel2 = new javax.swing.JLabel();
         nome_jLabel3 = new javax.swing.JLabel();
         mt = new javax.swing.JLabel();
-        hs = new javax.swing.JLabel();
+        ht = new javax.swing.JLabel();
         nome_medico = new javax.swing.JLabel();
         especialidade = new javax.swing.JLabel();
         nome_jLabel5 = new javax.swing.JLabel();
@@ -100,8 +113,8 @@ public class MostraDesempenho extends javax.swing.JFrame {
         mt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         mt.setText("_____");
 
-        hs.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        hs.setText("_____");
+        ht.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ht.setText("_____");
 
         nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nome_medico.setText("___________");
@@ -151,7 +164,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hs))
+                                .addComponent(ht))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nome_jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,7 +200,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome_jLabel3)
-                    .addComponent(hs))
+                    .addComponent(ht))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mt, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -260,7 +273,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel especialidade;
-    private javax.swing.JLabel hs;
+    private javax.swing.JLabel ht;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;

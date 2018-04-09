@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.model.jpaDAO;
 
 import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.Frequencia;
+import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -149,7 +151,21 @@ public class FrequenciaJpaController implements Serializable {
             em.close();
         }
     }
-
-   
+    
+    public List<Frequencia> findPorMedico(Medico medico) throws NoResultException {
+        List<Frequencia> frequencias = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Frequencia.porMedico");
+            q.setParameter("medico", medico);
+            frequencias = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return frequencias;
+    }
 
 }
