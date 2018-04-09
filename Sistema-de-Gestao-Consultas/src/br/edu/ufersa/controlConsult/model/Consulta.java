@@ -38,13 +38,21 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Consulta.numconsultaMarcado", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")
     , @NamedQuery(name = "Consulta.numconsultapaciente", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.paciente = :paciente")
-    , @NamedQuery(name = "Consulta.porAtendimento", query = "SELECT p FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.data_inicio = null ORDER BY p.data_marcado")})
+    , @NamedQuery(name = "Consulta.porAtendimento", query = "SELECT p FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.data_inicio = null ORDER BY p.data_marcado")
+    , @NamedQuery(name = "Consulta.porMedico", query = "SELECT p FROM Consulta p WHERE p.medico = :medico AND p.data_inicio != null")})
 public class Consulta implements Serializable, ICRUD {
 
     public static List<Consulta> findAll() {
         EntityManagerFactory emf = JpaFactory.getInstance();
         ConsultaJpaController instance = new ConsultaJpaController(emf);
         List<Consulta> res_consultas = instance.findConsultaEntities();
+        return res_consultas;
+    }
+    
+    public static List<Consulta> findporMedico(Medico m) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        ConsultaJpaController instance = new ConsultaJpaController(emf);
+        List<Consulta> res_consultas = instance.findporMedico(m);
         return res_consultas;
     }
 

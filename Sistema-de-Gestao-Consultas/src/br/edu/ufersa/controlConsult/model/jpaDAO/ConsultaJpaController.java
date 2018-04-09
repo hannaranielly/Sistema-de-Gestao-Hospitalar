@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.model.jpaDAO;
 
 import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
@@ -194,7 +195,7 @@ public class ConsultaJpaController implements Serializable {
         return num;
     }
     
-        public List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data) throws NoResultException {
+    public List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data) throws NoResultException {
         List<Consulta> consultas = null;
         EntityManager em = getEntityManager();
         try {
@@ -202,6 +203,22 @@ public class ConsultaJpaController implements Serializable {
             Query q = em.createNamedQuery("Consulta.porAtendimento");
             q.setParameter("atendimento", ha);
             q.setParameter("data", data);
+            consultas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return consultas;
+    }
+    
+    public List<Consulta> findporMedico(Medico medico) throws NoResultException {
+        List<Consulta> consultas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.porMedico");
+            q.setParameter("medico", medico);
             consultas = q.getResultList();
         } finally {
             if (em != null) {

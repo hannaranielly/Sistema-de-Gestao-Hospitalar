@@ -5,10 +5,16 @@
  */
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
+import br.edu.ufersa.controlConsult.gui.GerenciarAtendimento;
+import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Questionario;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.QuestionarioJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -24,7 +30,8 @@ public class MostraDesempenho extends javax.swing.JFrame {
         initComponents();
     }
     private Pessoa pessoa;
-    public MostraDesempenho(Pessoa p){
+
+    public MostraDesempenho(Pessoa p) {
         this.pessoa = p;
         initComponents();
         nome_medico.setText(pessoa.getNome());
@@ -32,6 +39,19 @@ public class MostraDesempenho extends javax.swing.JFrame {
         mqp1.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "1")));
         mqp2.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "2")));
         mqp3.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "3")));
+        tempoMedio();
+    }
+
+    private void tempoMedio() {
+        List<Consulta> consultas = Consulta.findporMedico(pessoa.getMedico());
+        long tempo_total = 0l;
+        for (Consulta c : consultas) {
+            tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
+            System.out.println("teste");
+        }
+        long tempo_medio = tempo_total / consultas.size();
+        long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
+        mt.setText(String.valueOf(diffMinutesmedio) + " minutos");
     }
 
     /**
