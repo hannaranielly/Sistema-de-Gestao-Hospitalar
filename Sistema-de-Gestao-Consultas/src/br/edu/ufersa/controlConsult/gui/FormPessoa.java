@@ -240,15 +240,18 @@ public class FormPessoa extends javax.swing.JFrame {
 
     /**
      * Creates new form FormPessoa
+     * @param tipoContexto
+     * @param tipoPessoa
+     * @param p
      */
-    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa, Pessoa pessoa) {
+    public FormPessoa(TipoContextoEnum tipoContexto, TipoPessoaEnum tipoPessoa, Pessoa p) {
         this.setTipoContexto(tipoContexto);
         this.setTipoPessoa(tipoPessoa);
-        if (pessoa != null) {
-            this.setPessoa(pessoa);
+        initComponents();
+        if (p != null) {
+            this.pessoa = p;
             this.preencherFormularioPessoa();
         }
-        initComponents();
         loadEspecialidades();
         atualizarContextoJanela();
 

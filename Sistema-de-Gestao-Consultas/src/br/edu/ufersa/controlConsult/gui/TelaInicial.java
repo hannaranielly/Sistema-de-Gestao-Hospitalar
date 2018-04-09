@@ -383,16 +383,19 @@ public class TelaInicial extends javax.swing.JFrame {
         // Listar Pacientes
         ListarPessoa lp = new ListarPessoa(TipoPessoaEnum.PACIENTE);
         lp.setVisible(true);
+        lp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         ListarPessoa lp = new ListarPessoa(TipoPessoaEnum.MEDICO);
         lp.setVisible(true);
+        lp.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         RegFrequencia rf = new RegFrequencia(usuarioAutenticado);
         rf.setVisible(true);
+        rf.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     /**

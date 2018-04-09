@@ -98,6 +98,7 @@ public class ListarPessoa extends javax.swing.JFrame {
             BuscPessoa bp = new BuscPessoa(tipoPessoa, pessoa);
             bp.preencherFormularioPessoa();
             bp.setVisible(true);
+            bp.setLocationRelativeTo(null);
         } catch (IndexOutOfBoundsException e) {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -111,6 +112,7 @@ public class ListarPessoa extends javax.swing.JFrame {
             Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
             FormPessoa fp = new FormPessoa(TipoContextoEnum.ATUALIZAR, tipoPessoa, pessoa);
             fp.setVisible(true);
+            fp.setLocationRelativeTo(null);
         } catch (IndexOutOfBoundsException e) {
         }
     }//GEN-LAST:event_edit_jButtonActionPerformed
