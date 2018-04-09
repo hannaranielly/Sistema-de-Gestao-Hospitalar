@@ -38,7 +38,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Consulta.numconsultaMarcado", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")
     , @NamedQuery(name = "Consulta.numconsultapaciente", query = "SELECT COUNT(p.id) FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.paciente = :paciente")
-    , @NamedQuery(name = "Consulta.porAtendimento", query = "SELECT p FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data")})
+    , @NamedQuery(name = "Consulta.porAtendimento", query = "SELECT p FROM Consulta p WHERE p.horario_atendimento = :atendimento AND p.data_agendada = :data AND p.data_inicio = null ORDER BY p.data_marcado")})
 public class Consulta implements Serializable, ICRUD {
 
     public static List<Consulta> findAll() {
