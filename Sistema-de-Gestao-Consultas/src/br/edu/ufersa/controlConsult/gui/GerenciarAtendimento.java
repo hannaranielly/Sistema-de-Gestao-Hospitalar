@@ -5,6 +5,13 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.model.Consulta;
+import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author leone
@@ -14,8 +21,21 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
     /**
      * Creates new form GerenciarAtendimento
      */
+    private List<Consulta> consultas;
+    private int posicao=0;
     public GerenciarAtendimento() {
         initComponents();
+    }
+    
+    public GerenciarAtendimento(List<Consulta> con){
+        initComponents();
+        this.consultas = con;
+        nome_medico.setText(consultas.get(0).getMedico().getPessoa().getNome());
+        nome_paciente_atual.setText(consultas.get(0).getPaciente().getPessoa().getNome());
+        numero_paciente_atual.setText("1");
+        cpf_paciente_atual.setText(consultas.get(0).getPaciente().getPessoa().getCpf());
+        Date data = new Date();
+        consultas.get(0).setData_inicio(data);
     }
 
     /**
@@ -37,7 +57,8 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
         numero_paciente_atual = new javax.swing.JLabel();
         j = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerenciar Atendimentos");
 
         nome_medico.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         nome_medico.setText("___________");
@@ -58,6 +79,11 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
         jLabel6.setText("CPF:");
 
         jButton1.setText("Próximo Atendimento");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         numero_paciente_atual.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         numero_paciente_atual.setText("_____");
@@ -72,9 +98,9 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
+                        .addGap(23, 23, 23)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nome_medico))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -90,7 +116,7 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
                         .addComponent(j)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nome_paciente_atual)))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -120,6 +146,40 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        posicao++;
+        if(posicao==(consultas.size()-1)){
+            jButton1.setText("Finalizar Atendimento");
+        }
+        if(posicao==consultas.size()){
+            Date data = new Date();
+            consultas.get(posicao-1).setData_fim(data);
+            long tempo_total=0l;
+            for(Consulta c : consultas){
+                tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
+                try {
+                    c.update();
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(GerenciarAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            long tempo_medio = tempo_total/consultas.size();
+            long diffMinutestotal = tempo_total / (60 * 1000) % 60;
+            long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
+            AtendimentoFinalizado af = new AtendimentoFinalizado(String.valueOf(diffMinutestotal)+ " minutos",String.valueOf(diffMinutesmedio)+ " minutos");
+            af.setVisible(true);
+            af.setLocationRelativeTo(null);
+        }else{
+            Date data = new Date();
+            consultas.get(posicao-1).setData_fim(data);
+            consultas.get(posicao).setData_inicio(data);
+            numero_paciente_atual.setText(String.valueOf(posicao+1));
+            nome_paciente_atual.setText(consultas.get(posicao).getPaciente().getPessoa().getNome());
+            cpf_paciente_atual.setText(consultas.get(posicao).getPaciente().getPessoa().getCpf());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

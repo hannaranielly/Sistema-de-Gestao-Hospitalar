@@ -7,7 +7,10 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.gui.avaliacao.SelecionaMedico;
 import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoContextoEnum;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -313,11 +316,38 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         // TODO add your handling code here:
-        ListarAtendimentos la = new ListarAtendimentos();
+        Calendar c = Calendar.getInstance();
+        HorarioAtendimento.DiaSemanaEnum d = diaSemana(c.get(Calendar.DAY_OF_WEEK));
+        List<HorarioAtendimento> lh = HorarioAtendimento.findByDay(d);
+        ListarAtendimentos la = new ListarAtendimentos(lh);
         la.setVisible(true);
         la.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    public HorarioAtendimento.DiaSemanaEnum diaSemana(int n) {
+        if (n == Calendar.SATURDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.SABADO;
+        }
+        if (n == Calendar.MONDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.SEGUNDA;
+        }
+        if (n == Calendar.TUESDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.TERCA;
+        }
+        if (n == Calendar.WEDNESDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.QUARTA;
+        }
+        if (n == Calendar.THURSDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.QUINTA;
+        }
+        if (n == Calendar.FRIDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.SEXTA;
+        }
+        if (n == Calendar.SUNDAY) {
+            return HorarioAtendimento.DiaSemanaEnum.DOMINGO;
+        }
+        return null;
+    }
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         // TODO add your handling code here:
         MarcarConsulta mc = new MarcarConsulta();

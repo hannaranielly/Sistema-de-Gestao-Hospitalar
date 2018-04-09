@@ -6,13 +6,18 @@
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
 import br.edu.ufersa.controlConsult.model.Consulta;
+import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.Medico;
+import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -147,6 +152,80 @@ public class ConsultaJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public long numconsultaMarcado(HorarioAtendimento ha, Date data){
+        long num = 0;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.numconsultaMarcado");
+            q.setParameter("atendimento", ha);
+            q.setParameter("data", data);
+            if(q.getSingleResult()!=null){
+                num = (long) q.getSingleResult();
+            }
+            
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return num;
+    }
+    
+    public long numconsultapaciente(HorarioAtendimento ha, Date data, Paciente paciente){
+        long num = 0;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.numconsultapaciente");
+            q.setParameter("atendimento", ha);
+            q.setParameter("data", data);
+            q.setParameter("paciente", paciente);
+            if(q.getSingleResult()!=null){
+                num = (long) q.getSingleResult();
+            }
+            
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return num;
+    }
+    
+    public List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data) throws NoResultException {
+        List<Consulta> consultas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.porAtendimento");
+            q.setParameter("atendimento", ha);
+            q.setParameter("data", data);
+            consultas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return consultas;
+    }
+    
+    public List<Consulta> findporMedico(Medico medico) throws NoResultException {
+        List<Consulta> consultas = null;
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createNamedQuery("Consulta.porMedico");
+            q.setParameter("medico", medico);
+            consultas = q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return consultas;
     }
 
 }
