@@ -47,7 +47,6 @@ public class MostraDesempenho extends javax.swing.JFrame {
         long tempo_total = 0l;
         for (Consulta c : consultas) {
             tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
-            System.out.println("teste");
         }
         long tempo_medio = tempo_total / consultas.size();
         long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
@@ -96,7 +95,7 @@ public class MostraDesempenho extends javax.swing.JFrame {
         nome_jLabel2.setText("Média de Tempo em Consulta:");
 
         nome_jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nome_jLabel3.setText("Quantidade de Horas Trabalhada na Última Semana:");
+        nome_jLabel3.setText("Quantidade de Horas Trabalhada");
 
         mt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         mt.setText("_____");
