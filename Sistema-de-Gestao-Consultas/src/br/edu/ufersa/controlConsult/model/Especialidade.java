@@ -132,7 +132,7 @@ public class Especialidade implements ICRUD, Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.ufersa.controlConsult.model.jpaDAO.Especialidade[ id=" + id + " ]";
+        return this.getNome();
     }
 
     public static List<Especialidade> findByName(String name) {

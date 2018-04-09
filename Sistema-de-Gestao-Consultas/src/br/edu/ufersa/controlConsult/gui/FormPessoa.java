@@ -11,12 +11,8 @@ import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
@@ -94,7 +90,6 @@ public class FormPessoa extends javax.swing.JFrame {
         switch (tipoDePessoa) {
             case MEDICO:
                 paciente_jPanel.setVisible(false);
-                loadEspecialidades();
                 break;
             case PACIENTE:
                 medico_jPanel.setVisible(false);
@@ -135,13 +130,12 @@ public class FormPessoa extends javax.swing.JFrame {
 
     }
 
-    private Map<String, Especialidade> especialidesMap = new HashMap<>();
-
     private void preencheFormularioMedico(Pessoa pessoa) {
+        loadEspecialidades();
         crm_jTextField.setText(pessoa.getMedico().getCrm());
         chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
-        loadEspecialidades();
-        espField_jComboBox.getModel().setSelectedItem(pessoa.getMedico().getEspecialidade().getNome());
+        Especialidade medicoEspecialidade = pessoa.getMedico().getEspecialidade();
+        espField_jComboBox.getModel().setSelectedItem(medicoEspecialidade);
     }
 
     private void preencheFormularioPaciente(Pessoa pessoa) {
@@ -176,7 +170,7 @@ public class FormPessoa extends javax.swing.JFrame {
     }
 
     private Especialidade extrairEspecialidade() { //TODO
-        Especialidade especialidade = especialidesMap.get(espField_jComboBox.getModel().getSelectedItem());
+        Especialidade especialidade = (Especialidade) espField_jComboBox.getModel().getSelectedItem();
         return especialidade;
     }
 
@@ -185,11 +179,12 @@ public class FormPessoa extends javax.swing.JFrame {
         if (bd_especialidades.isEmpty()) { // Default Especialidades
             bd_especialidades.addAll(Especialidade.setupEspecialidades());
         }
-        bd_especialidades.forEach(especialidade -> especialidesMap.put(especialidade.getNome(), especialidade));
-        Set<String> keys = especialidesMap.keySet();
-        String[] keys_string = keys.toArray(new String[keys.size()]);
-        Arrays.sort(keys_string);
-        ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
+        updateEspecialidadesModel(bd_especialidades);
+    }
+
+    private void updateEspecialidadesModel(List<Especialidade> bd_especialidades) {
+        Object especialidadesArray[] = bd_especialidades.toArray();
+        ComboBoxModel model = new DefaultComboBoxModel(especialidadesArray);
         espField_jComboBox.setModel(model);
     }
 
@@ -250,6 +245,7 @@ public class FormPessoa extends javax.swing.JFrame {
             this.preencherFormularioPessoa();
         }
         initComponents();
+        loadEspecialidades();
         atualizarContextoJanela();
 
     }
@@ -823,7 +819,7 @@ public class FormPessoa extends javax.swing.JFrame {
         } else {
             cargaHoraria = Integer.parseInt(chField.getText());
         }
-        Especialidade especialidade = especialidesMap.get(espField_jComboBox.getSelectedItem());
+        Especialidade especialidade = (Especialidade) espField_jComboBox.getSelectedItem();
         Medico m = new Medico(crm, cargaHoraria, especialidade);
         m.setPessoa(pessoa);
         pessoa.setMedico(m);
