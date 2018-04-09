@@ -52,11 +52,15 @@ public class RegFrequencia extends javax.swing.JFrame {
         cpf_formattedField = new javax.swing.JFormattedTextField();
         buscar_jButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        nomeLabel = new javax.swing.JLabel();
+        nome_jLabel = new javax.swing.JLabel();
+        nome_jTextField = new javax.swing.JTextField();
+        lastEntrada_jLabel = new javax.swing.JLabel();
+        lastEntrada_jTextField = new javax.swing.JTextField();
+        lastSaida_jLabel = new javax.swing.JLabel();
+        lastSaida_jTextField = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         mostrarFrequencia_jButton = new javax.swing.JButton();
-        entrada_jToggleButton = new javax.swing.JToggleButton();
+        entrada_jButton = new javax.swing.JButton();
         saida_jButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -101,41 +105,55 @@ public class RegFrequencia extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setText("Nome:");
+        jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        nomeLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        nome_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        nome_jLabel.setText("Nome:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        jPanel3.add(nome_jLabel, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel2)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(nomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(274, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 119, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(41, 41, 41)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(nomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(61, Short.MAX_VALUE)))
-        );
+        nome_jTextField.setEditable(false);
+        nome_jTextField.setColumns(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(nome_jTextField, gridBagConstraints);
+
+        lastEntrada_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lastEntrada_jLabel.setText("Última entrada: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        jPanel3.add(lastEntrada_jLabel, gridBagConstraints);
+
+        lastEntrada_jTextField.setEditable(false);
+        lastEntrada_jTextField.setColumns(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(lastEntrada_jTextField, gridBagConstraints);
+
+        lastSaida_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lastSaida_jLabel.setText("Última saída: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        jPanel3.add(lastSaida_jLabel, gridBagConstraints);
+
+        lastSaida_jTextField.setEditable(false);
+        lastSaida_jTextField.setColumns(10);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel3.add(lastSaida_jTextField, gridBagConstraints);
 
         getContentPane().add(jPanel3);
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         mostrarFrequencia_jButton.setText("Mostrar Frequência");
+        mostrarFrequencia_jButton.setEnabled(false);
         mostrarFrequencia_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mostrarFrequencia_jButtonActionPerformed(evt);
@@ -143,15 +161,17 @@ public class RegFrequencia extends javax.swing.JFrame {
         });
         jPanel1.add(mostrarFrequencia_jButton);
 
-        entrada_jToggleButton.setText("Registrar Entrada");
-        entrada_jToggleButton.addActionListener(new java.awt.event.ActionListener() {
+        entrada_jButton.setText("Registrar Entrada");
+        entrada_jButton.setEnabled(false);
+        entrada_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                entrada_jToggleButtonActionPerformed(evt);
+                entrada_jButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(entrada_jToggleButton);
+        jPanel1.add(entrada_jButton);
 
         saida_jButton.setText("Registrar Saida");
+        saida_jButton.setEnabled(false);
         saida_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saida_jButtonActionPerformed(evt);
@@ -175,11 +195,8 @@ public class RegFrequencia extends javax.swing.JFrame {
 
     private void saida_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saida_jButtonActionPerformed
         registrarSaida();
-    }//GEN-LAST:event_saida_jButtonActionPerformed
-    private void entrada_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_jToggleButtonActionPerformed
-        registrarEntrada();
         atualizar();
-    }//GEN-LAST:event_entrada_jToggleButtonActionPerformed
+    }//GEN-LAST:event_saida_jButtonActionPerformed
 
     private void mostrarFrequencia_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarFrequencia_jButtonActionPerformed
         ListarFrequencia lf = new ListarFrequencia(med);
@@ -192,11 +209,16 @@ public class RegFrequencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cpf_formattedFieldKeyTyped
 
+    private void entrada_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_jButtonActionPerformed
+        registrarEntrada();
+        atualizar();
+    }//GEN-LAST:event_entrada_jButtonActionPerformed
+
     private void buscarPessoa() {
         try {
             med = Pessoa.findByCPF(cpf_formattedField.getText()).getMedico();
-            nomeLabel.setText(med.getPessoa().getNome());
-            cpf_formattedField.setEditable(false);
+            nome_jTextField.setText(med.getPessoa().getNome());
+            atualizar();
         } catch (NoResultException ex) {
             Logger.getLogger(RegFrequencia.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Médico não encontrado");
@@ -209,15 +231,18 @@ public class RegFrequencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe o CPF do médico!");
             return;
         } else {
+            Date in_now = new Date(System.currentTimeMillis());
             if (JOptionPane.showConfirmDialog(this,
-                    "Você tem certeza que deseja registrar o horário de entrada?",
-                    "Confirmação",
+                    "Registrar saída em: " + in_now,
+                    "Confirmação de Entrada",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                frequencia.checkin();
+                frequencia.setEntrada(in_now);
                 try {
                     frequencia.create();
+                    limpaFormulario();
+                    atualizar();
                 } catch (NoResultException ex) {
-                    JOptionPane.showMessageDialog(this, "Falha na conexão com o banco de dados");
+                    alerta_comportaInesperado();
                 }
                 JOptionPane.showMessageDialog(this, "Entrada Registrada");
             }
@@ -229,27 +254,54 @@ public class RegFrequencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Informe o CPF do médico!");
             return;
         } else {
-            try {
-                Frequencia frequencia = med.getListFrequencia().last();
-                frequencia.checkout();
-                med.update();
-                JOptionPane.showMessageDialog(this, "Saida Registrada");
-                limpaFormulario();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
+            Date out_now = new Date(System.currentTimeMillis());
+            if (JOptionPane.showConfirmDialog(this,
+                    "Registrar saída em: " + out_now,
+                    "Confirmação de Saída",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                try {
+                    Frequencia frequencia = med.getListFrequencia().last();
+                    frequencia.setSaida(out_now);
+                    med.update();
+                    limpaFormulario();
+                    JOptionPane.showMessageDialog(this, "Saida Registrada");
+                } catch (Exception ex) {
+                    alerta_comportaInesperado();
+                }
             }
         }
+    }
+
+    private void alerta_comportaInesperado() {
+        JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
     }
 
     private void atualizar() {
         if (med != null) {
             med.read();
+            mostrarFrequencia_jButton.setEnabled(true);
+            if (med.getListFrequencia() != null && !med.getListFrequencia().isEmpty()) {
+                if (med.getListFrequencia().last().getSaida() == null) {
+                    entrada_jButton.setEnabled(false);
+                    saida_jButton.setEnabled(true);
+                } else {
+                    entrada_jButton.setEnabled(true);
+                    saida_jButton.setEnabled(false);
+                }
+            }
+        } else {
+            mostrarFrequencia_jButton.setEnabled(false);
+            entrada_jButton.setEnabled(false);
+            saida_jButton.setEnabled(false);
         }
     }
 
     private void limpaFormulario() {
-        nomeLabel.setText("");
+        med = null;
+        nome_jTextField.setText("");
         cpf_formattedField.setText("");
+        lastEntrada_jTextField.setText("");
+        lastSaida_jTextField.setText("");
     }
 
     /**
@@ -304,13 +356,17 @@ public class RegFrequencia extends javax.swing.JFrame {
     private javax.swing.JButton buscar_jButton;
     private javax.swing.JFormattedTextField cpf_formattedField;
     private javax.swing.JLabel cpf_jLabel;
-    private javax.swing.JToggleButton entrada_jToggleButton;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton entrada_jButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lastEntrada_jLabel;
+    private javax.swing.JTextField lastEntrada_jTextField;
+    private javax.swing.JLabel lastSaida_jLabel;
+    private javax.swing.JTextField lastSaida_jTextField;
     private javax.swing.JButton mostrarFrequencia_jButton;
-    private javax.swing.JLabel nomeLabel;
+    private javax.swing.JLabel nome_jLabel;
+    private javax.swing.JTextField nome_jTextField;
     private javax.swing.JButton saida_jButton;
     // End of variables declaration//GEN-END:variables
 }
