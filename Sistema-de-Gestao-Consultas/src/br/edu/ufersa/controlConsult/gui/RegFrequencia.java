@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.Frequencia;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Usuario;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -110,42 +111,53 @@ public class RegFrequencia extends javax.swing.JFrame {
         nome_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         nome_jLabel.setText("Nome:");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel3.add(nome_jLabel, gridBagConstraints);
 
         nome_jTextField.setEditable(false);
-        nome_jTextField.setColumns(10);
+        nome_jTextField.setColumns(25);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(nome_jTextField, gridBagConstraints);
 
         lastEntrada_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lastEntrada_jLabel.setText("Última entrada: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel3.add(lastEntrada_jLabel, gridBagConstraints);
 
         lastEntrada_jTextField.setEditable(false);
-        lastEntrada_jTextField.setColumns(10);
+        lastEntrada_jTextField.setColumns(15);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(lastEntrada_jTextField, gridBagConstraints);
 
         lastSaida_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lastSaida_jLabel.setText("Última saída: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(41, 10, 61, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel3.add(lastSaida_jLabel, gridBagConstraints);
 
         lastSaida_jTextField.setEditable(false);
-        lastSaida_jTextField.setColumns(10);
+        lastSaida_jTextField.setColumns(15);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(lastSaida_jTextField, gridBagConstraints);
 
         getContentPane().add(jPanel3);
@@ -281,13 +293,19 @@ public class RegFrequencia extends javax.swing.JFrame {
             med.read();
             mostrarFrequencia_jButton.setEnabled(true);
             if (med.getListFrequencia() != null && !med.getListFrequencia().isEmpty()) {
-                if (med.getListFrequencia().last().getSaida() == null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date lastEntrada = med.getListFrequencia().last().getEntrada();
+                Date lastSaida = med.getListFrequencia().last().getSaida();
+                lastEntrada_jTextField.setText(sdf.format(lastEntrada));
+                if (lastSaida == null) {
                     entrada_jButton.setEnabled(false);
                     saida_jButton.setEnabled(true);
                 } else {
+                    lastSaida_jTextField.setText(sdf.format(lastSaida));
                     entrada_jButton.setEnabled(true);
                     saida_jButton.setEnabled(false);
                 }
+
             }
         } else {
             mostrarFrequencia_jButton.setEnabled(false);
