@@ -104,6 +104,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu1.setMnemonic('P');
         jMenu1.setText("Gerenciar Paciente");
 
         jMenuItem2.setText("Cadastrar");
@@ -140,6 +141,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setMnemonic('M');
         jMenu2.setText("Gerencia Médico");
 
         jMenuItem4.setText("Cadastrar");
@@ -192,6 +194,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setMnemonic('C');
         jMenu3.setText("Gerenciar Consulta");
 
         jMenuItem11.setText("Agendar");
@@ -228,6 +231,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setMnemonic('F');
         jMenu4.setText("Controlar Frequência");
 
         jMenuItem14.setText("Gerenciador de Frequências");
