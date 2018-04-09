@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.model.Frequencia;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Usuario;
+import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -355,16 +356,7 @@ public class RegFrequencia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                List<Usuario> usuarios_teste = Usuario.findAll();
-                if (usuarios_teste.isEmpty()) {
-                    Usuario u = new Usuario("admin", "admin".toCharArray());
-                    System.err.println("Usuario admin foi inserido no banco de dados");
-                    u.create();
-                    usuarios_teste.add(u);
-                }
-                Usuario uAutenticado = usuarios_teste.get(0);
-                System.out.println("[DEBUG] Usuario autenticado: " + uAutenticado.getUsername());
-                new RegFrequencia(uAutenticado).setVisible(true);
+                new RegFrequencia(DEBUG_USUARIO.getUsuarioAleatorio()).setVisible(true);
             }
         }
         );

@@ -9,6 +9,8 @@ import br.edu.ufersa.controlConsult.gui.avaliacao.SelecionaMedico;
 import br.edu.ufersa.controlConsult.gui.FormPessoa.TipoContextoEnum;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
+import br.edu.ufersa.controlConsult.model.Usuario;
+import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,11 +20,14 @@ import java.util.List;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
+    private Usuario usuarioAutenticado;
+
     /**
      * Creates new form telaInicial
      */
-    public TelaInicial() {
+    public TelaInicial(Usuario usuarioAutenticado) {
         initComponents();
+        this.usuarioAutenticado = usuarioAutenticado;
     }
 
     /**
@@ -413,7 +418,7 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicial().setVisible(true);
+                new TelaInicial(DEBUG_USUARIO.getUsuarioAleatorio()).setVisible(true);
             }
         });
     }

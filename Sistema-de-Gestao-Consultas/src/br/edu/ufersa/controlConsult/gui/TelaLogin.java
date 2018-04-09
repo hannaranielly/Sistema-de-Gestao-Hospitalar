@@ -132,7 +132,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         if (adm.login()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
-            TelaInicial te = new TelaInicial();
+            TelaInicial te = new TelaInicial(adm);
             te.setVisible(true);
             te.setLocationRelativeTo(null);
             SistemaDeGestaoHospitalar.usuarioAutenticado = adm;
