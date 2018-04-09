@@ -6,12 +6,26 @@
 package br.edu.ufersa.controlConsult.util.debug;
 
 import br.edu.ufersa.controlConsult.model.Usuario;
+import java.util.List;
 
 /**
  *
  * @author juan
  */
 public class DEBUG_USUARIO extends javax.swing.JFrame {
+
+    public static Usuario getUsuarioAleatorio() {
+        List<Usuario> usuarios_teste = Usuario.findAll();
+        if (usuarios_teste.isEmpty()) {
+            Usuario u = new Usuario("admin", "admin".toCharArray());
+            System.err.println("[DEBUG]Usuario admin foi inserido no banco de dados");
+            u.create();
+            usuarios_teste.add(u);
+        }
+        Usuario uAutenticado = usuarios_teste.get(0);
+        System.err.println("[DEBUG] Usuario autenticado: " + uAutenticado.getUsername());
+        return uAutenticado;
+    }
 
     /**
      * Creates new form DEBUG_USUARIO
