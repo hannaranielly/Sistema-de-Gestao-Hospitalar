@@ -90,7 +90,7 @@ public class Medico implements ICRUD, Serializable {
     @OneToMany(mappedBy = "medico", targetEntity = Questionario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Questionario> questionarios;
 
-    @OneToMany(mappedBy = "medico", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "medico", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @OrderBy("data_entrada DESC")
     private SortedSet<Frequencia> listFrequencia;
 
