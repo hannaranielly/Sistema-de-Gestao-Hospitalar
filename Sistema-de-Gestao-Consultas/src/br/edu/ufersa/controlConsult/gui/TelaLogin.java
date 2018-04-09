@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
+import br.edu.ufersa.controlConsult.SistemaDeGestaoHospitalar;
 import br.edu.ufersa.controlConsult.model.Usuario;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
@@ -131,9 +132,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
         if (adm.login()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
-            TelaInicial te = new TelaInicial();
+            TelaInicial te = new TelaInicial(adm);
             te.setVisible(true);
             te.setLocationRelativeTo(null);
+            SistemaDeGestaoHospitalar.usuarioAutenticado = adm;
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, " Login e/ou senha foram inválidos");
