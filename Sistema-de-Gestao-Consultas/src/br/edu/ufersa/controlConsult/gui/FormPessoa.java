@@ -800,6 +800,21 @@ public class FormPessoa extends javax.swing.JFrame {
         String estado = estado_textField.getText();
         String cep = cep_formattedField.getText();
         Pessoa pessoa = new Pessoa(nome, cpf, rg, email, sexo, data_nascimento, telefone, logradouro, numCasa, bairro, cidade, estado, cep);
+
+        switch (tipoDePessoa) {
+            case MEDICO:
+                setMedicoFormulario(pessoa);
+                break;
+            case PACIENTE:
+                setPacienteFormulario(pessoa);
+                break;
+            case AMBOS:
+                setMedicoFormulario(pessoa);
+                setPacienteFormulario(pessoa);
+                break;
+            default:
+        }
+
         return pessoa;
     }
 
@@ -855,12 +870,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private void cadastrar() {
         if (checarCampoObrigatorio()) {
             Pessoa p = preenchePessoaFormulario();
-
-            if (tipoDePessoa == TipoPessoaEnum.MEDICO) {
-                setMedicoFormulario(p);
-            } else if (tipoDePessoa == TipoPessoaEnum.PACIENTE) {
-                setPacienteFormulario(p);
-            }
             try {
                 p.create();
                 limpaFormulario();
@@ -941,16 +950,15 @@ public class FormPessoa extends javax.swing.JFrame {
 
     }
 
-    private void updatePessoaTemp_Medico() throws NullPointerException {
-        if (pessoa.getMedico() == null) {
-            throw new NullPointerException();
-        }
+    private void updatePessoaTemp_Medico() {
         int cargaHoraria;
-        if (chField.getText() == null || chField.getText().equals("  ")) {
+        if (chField.getText() == null || chField.getText().equals("")) {
             cargaHoraria = 0;
         } else {
             cargaHoraria = Integer.parseInt(chField.getText());
         }
+        String crm = crm_jTextField.getText();
+        pessoa.getMedico().setCrm(crm);
         pessoa.getMedico().setCargaHoraria(cargaHoraria);
         Especialidade especialidade = extrairEspecialidade();
         pessoa.getMedico().setEspecialidade(especialidade);
