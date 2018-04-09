@@ -178,6 +178,7 @@ public class RegFrequencia extends javax.swing.JFrame {
     }//GEN-LAST:event_saida_jButtonActionPerformed
     private void entrada_jToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_jToggleButtonActionPerformed
         registrarEntrada();
+        atualizar();
     }//GEN-LAST:event_entrada_jToggleButtonActionPerformed
 
     private void mostrarFrequencia_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarFrequencia_jButtonActionPerformed
@@ -211,37 +212,38 @@ public class RegFrequencia extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(this,
                     "Você tem certeza que deseja registrar o horário de entrada?",
                     "Confirmação",
-                    JOptionPane.YES_NO_OPTION) == 1) {
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 frequencia.checkin();
+                try {
+                    frequencia.create();
+                } catch (NoResultException ex) {
+                    JOptionPane.showMessageDialog(this, "Falha na conexão com o banco de dados");
+                }
+                JOptionPane.showMessageDialog(this, "Entrada Registrada");
             }
-        }
-        try {
-            frequencia.create();
-            JOptionPane.showMessageDialog(null, "Entrada Registrada");
-            limpaFormulario();
-        } catch (NoResultException ex) {
-            JOptionPane.showMessageDialog(null, "Falha na conexão com o banco de dados");
         }
     }
 
     private void registrarSaida() {
-        Date entrada = new Date(System.currentTimeMillis());
-        Frequencia dados = new Frequencia();
         if (med == null) {
-            JOptionPane.showMessageDialog(null, "Informe o CPF do médico!");
+            JOptionPane.showMessageDialog(this, "Informe o CPF do médico!");
             return;
         } else {
-            entrada = new Date(System.currentTimeMillis());
-            dados.setData_entrada(entrada);
-            dados.setMedico(med);
-
             try {
-                //dados.update();
-                JOptionPane.showMessageDialog(null, "Saida Registrada");
+                Frequencia frequencia = med.getListFrequencia().last();
+                frequencia.checkout();
+                med.update();
+                JOptionPane.showMessageDialog(this, "Saida Registrada");
                 limpaFormulario();
-            } catch (NoResultException ex) {
-                JOptionPane.showMessageDialog(null, "Falha na conexão com o banco de dados");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
             }
+        }
+    }
+
+    private void atualizar() {
+        if (med != null) {
+            med.read();
         }
     }
 
