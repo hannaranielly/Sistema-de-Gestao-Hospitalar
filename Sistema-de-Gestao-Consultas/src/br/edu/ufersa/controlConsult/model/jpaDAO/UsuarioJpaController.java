@@ -167,5 +167,17 @@ public class UsuarioJpaController implements Serializable {
         }
         return false;
     }
+    
+    public Usuario pegar_Banco(Usuario usuario){
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Usuario.login");
+            q.setParameter("username", usuario.getUsername());
+            q.setParameter("password", usuario.getPassword());
+            return (Usuario) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
 
 }

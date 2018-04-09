@@ -91,6 +91,12 @@ public class Usuario implements Serializable, ICRUD {
     public char[] getPassword() {
         return password;
     }
+    
+    public static Usuario pega_Banco(Usuario usuario){
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        UsuarioJpaController instance = new UsuarioJpaController(emf);
+        return instance.pegar_Banco(usuario);
+    }
 
     public void setPassword(char[] password_raw) throws IllegalArgumentException {
         char[] password_hash = Criptografia.criptografar(password_raw);

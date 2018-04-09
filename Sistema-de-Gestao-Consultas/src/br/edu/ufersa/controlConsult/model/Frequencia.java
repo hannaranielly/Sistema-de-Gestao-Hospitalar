@@ -57,6 +57,10 @@ public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
 
     public Frequencia() {
     }
+    
+    public Frequencia(Medico medico) {
+        this.setMedico(medico);
+    }
 
     public Frequencia(Medico medico, Usuario usuario) {
         this.setMedico(medico);
