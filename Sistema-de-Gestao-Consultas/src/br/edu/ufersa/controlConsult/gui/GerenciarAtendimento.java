@@ -171,6 +171,7 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
             AtendimentoFinalizado af = new AtendimentoFinalizado(String.valueOf(diffMinutestotal)+ " minutos",String.valueOf(diffMinutesmedio)+ " minutos");
             af.setVisible(true);
             af.setLocationRelativeTo(null);
+            this.dispose();
         }else{
             Date data = new Date();
             consultas.get(posicao-1).setData_fim(data);
