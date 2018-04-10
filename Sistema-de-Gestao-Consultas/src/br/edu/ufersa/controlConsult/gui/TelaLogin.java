@@ -5,11 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.SistemaDeGestaoHospitalar;
 import br.edu.ufersa.controlConsult.model.Usuario;
-import javax.swing.JOptionPane;
-import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
 import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
+import javax.swing.JOptionPane;
 
 /**
  *

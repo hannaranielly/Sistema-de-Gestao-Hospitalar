@@ -5,18 +5,19 @@
  */
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
-import br.edu.ufersa.controlConsult.gui.GerenciarAtendimento;
 import br.edu.ufersa.controlConsult.model.Consulta;
+import static br.edu.ufersa.controlConsult.model.Consulta.findporMedico;
 import br.edu.ufersa.controlConsult.model.Frequencia;
+import static br.edu.ufersa.controlConsult.model.Frequencia.porMedico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.Questionario;
-import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
-import br.edu.ufersa.controlConsult.model.jpaDAO.QuestionarioJpaController;
-import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import static br.edu.ufersa.controlConsult.model.Questionario.mediaQ;
+import static java.awt.EventQueue.invokeLater;
+import static java.lang.String.valueOf;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getLogger;
+import static javax.swing.UIManager.getInstalledLookAndFeels;
+import static javax.swing.UIManager.setLookAndFeel;
 
 /**
  *
@@ -37,33 +38,33 @@ public class MostraDesempenho extends javax.swing.JFrame {
         initComponents();
         nome_medico.setText(pessoa.getNome());
         especialidade.setText(pessoa.getMedico().getEspecialidade().getNome());
-        mqp1.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "1")));
-        mqp2.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "2")));
-        mqp3.setText(String.valueOf(Questionario.mediaQ(pessoa.getMedico(), "3")));
+        mqp1.setText(valueOf(mediaQ(pessoa.getMedico(), "1")));
+        mqp2.setText(valueOf(mediaQ(pessoa.getMedico(), "2")));
+        mqp3.setText(valueOf(mediaQ(pessoa.getMedico(), "3")));
         tempoMedio();
     }
 
     private void tempoMedio() {
-        List<Consulta> consultas = Consulta.findporMedico(pessoa.getMedico());
+        List<Consulta> consultas = findporMedico(pessoa.getMedico());
         long tempo_total = 0l;
         for (Consulta c : consultas) {
             tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
         }
-        if(consultas.isEmpty()){
+        if (consultas.isEmpty()) {
             mt.setText("0 minutos");
-        }else{
+        } else {
             long tempo_medio = tempo_total / consultas.size();
             long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
-            mt.setText(String.valueOf(diffMinutesmedio) + " minutos");
+            mt.setText(valueOf(diffMinutesmedio) + " minutos");
         }
-        List<Frequencia> frequencias = Frequencia.porMedico(pessoa.getMedico());
+        List<Frequencia> frequencias = porMedico(pessoa.getMedico());
         tempo_total = 0l;
-        for(Frequencia f: frequencias){
+        for (Frequencia f : frequencias) {
             tempo_total = tempo_total + (f.getData_saida().getTime() - f.getData_entrada().getTime());
         }
         long diffHoras = tempo_total / (60 * 60 * 1000);
-        ht.setText(String.valueOf(diffHoras) + " horas");
-        
+        ht.setText(valueOf(diffHoras) + " horas");
+
     }
 
     /**
@@ -246,28 +247,22 @@ public class MostraDesempenho extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info : getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MostraDesempenho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MostraDesempenho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MostraDesempenho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MostraDesempenho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            getLogger(MostraDesempenho.class.getName()).log(SEVERE, null, ex);
         }
         //</editor-fold>
 
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MostraDesempenho().setVisible(true);
-            }
+        invokeLater(() -> {
+            new MostraDesempenho().setVisible(true);
         });
     }
 

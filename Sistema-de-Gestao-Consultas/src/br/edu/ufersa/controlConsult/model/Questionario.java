@@ -20,8 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -31,22 +29,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "questionario")
 
-public class Questionario implements Serializable, ICRUD{
+public class Questionario implements Serializable, ICRUD {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medico")
     private Medico medico;
-    
+
     @Column
     private int q1;
-    
+
     @Column
     private int q2;
-    
+
     @Column
     private int q3;
 
@@ -89,15 +88,13 @@ public class Questionario implements Serializable, ICRUD{
     public void setQ3(int q3) {
         this.q3 = q3;
     }
-    
-    public static double mediaQ(Medico m, String num){
-         EntityManagerFactory emf = JpaFactory.getInstance();
-         QuestionarioJpaController qjc = new QuestionarioJpaController(emf);
-         return qjc.mediaQ(m, num);
+
+    public static double mediaQ(Medico m, String num) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        QuestionarioJpaController qjc = new QuestionarioJpaController(emf);
+        return qjc.mediaQ(m, num);
     }
-    
-    
-    
+
     @Override
     public void create() throws PreexistingEntityException, Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -119,5 +116,5 @@ public class Questionario implements Serializable, ICRUD{
     public void delete() throws NonexistentEntityException, Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

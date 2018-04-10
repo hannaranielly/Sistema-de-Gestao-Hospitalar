@@ -5,7 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import br.edu.ufersa.controlConsult.gui.FormPessoa;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
@@ -155,7 +154,6 @@ public class Pessoa implements Serializable, ICRUD {
     /**
      * O tipo de pessoa que o formulário da janela irá processar.
      */
-
     protected Pessoa() {
     }
 

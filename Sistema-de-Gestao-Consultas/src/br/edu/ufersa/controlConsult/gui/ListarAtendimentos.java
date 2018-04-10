@@ -6,9 +6,7 @@
 package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Consulta;
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento.DiaSemanaEnum;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -24,31 +22,29 @@ public class ListarAtendimentos extends javax.swing.JFrame {
      * Creates new form ListarAtendimentos
      */
     List<HorarioAtendimento> list;
-    public ListarAtendimentos(){
+
+    public ListarAtendimentos() {
         initComponents();
     }
+
     public ListarAtendimentos(List<HorarioAtendimento> l) {
         initComponents();
         this.list = l;
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum horário de atendimento disponível para hoje");
-        }else{
+        } else {
             int tamanho = list.size();
             DefaultListModel model = new DefaultListModel();
-            for(int cont = 0; cont < tamanho; cont++){
-                String elemento = "Dia da semana: " + list.get(cont).getDiaSemana().getNome() + 
-                    "; Horario de início: " + String.valueOf(list.get(cont).getInicio())+
-                    ".";
+            for (int cont = 0; cont < tamanho; cont++) {
+                String elemento = "Dia da semana: " + list.get(cont).getDiaSemana().getNome()
+                        + "; Horario de início: " + String.valueOf(list.get(cont).getInicio())
+                        + ".";
                 model.add(cont, elemento);
             }
             listH.setModel(model);
         }
-        
-    }
-    
-    
-    
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,20 +116,20 @@ public class ListarAtendimentos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(listH.isSelectionEmpty()){
+        if (listH.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(this, "selecione algum horário para iniciar o atendimento");
-        }else{
+        } else {
             Date data = new Date();
             List<Consulta> lista = Consulta.findporAtendimento(list.get(listH.getSelectedIndex()), data);
-            if(lista.isEmpty()){
+            if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Não existem consultas para serem iniciadas neste atendimento");
-            }else{
+            } else {
                 GerenciarAtendimento ga = new GerenciarAtendimento(lista);
                 ga.setVisible(true);
                 ga.setLocationRelativeTo(null);
                 this.dispose();
             }
-            
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -168,7 +164,7 @@ public class ListarAtendimentos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ListarAtendimentos().setVisible(true);
-                
+
             }
         });
     }

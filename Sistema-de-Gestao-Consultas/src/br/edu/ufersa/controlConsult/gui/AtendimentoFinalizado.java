@@ -17,8 +17,8 @@ public class AtendimentoFinalizado extends javax.swing.JFrame {
     public AtendimentoFinalizado() {
         initComponents();
     }
-    
-    public AtendimentoFinalizado(String tempoTotal, String tempoMedio){
+
+    public AtendimentoFinalizado(String tempoTotal, String tempoMedio) {
         initComponents();
         tt.setText(tempoTotal);
         tm.setText(tempoMedio);

@@ -18,7 +18,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-
 public class MarcarConsulta extends javax.swing.JFrame {
 
     /**
@@ -26,17 +25,16 @@ public class MarcarConsulta extends javax.swing.JFrame {
      */
     private Pessoa pessoa;
     List<Pessoa> medicos;
+
     public MarcarConsulta() {
         initComponents();
         loadEspecialidades();
     }
-    
-    public MarcarConsulta(String nomeDoMedico){
+
+    public MarcarConsulta(String nomeDoMedico) {
         initComponents();
         loadEspecialidades();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -221,7 +219,7 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void opcao2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcao2ActionPerformed
         // TODO add your handling code here:
         opcao1.setSelected(false);
-        
+
     }//GEN-LAST:event_opcao2ActionPerformed
 
     private void especialidadeDoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialidadeDoMedicoActionPerformed
@@ -231,52 +229,52 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void opcao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcao1ActionPerformed
         // TODO add your handling code here:
         opcao2.setSelected(false);
-        
+
     }//GEN-LAST:event_opcao1ActionPerformed
 
     private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
         // TODO add your handling code here:
-        if(opcao1.isSelected()){
+        if (opcao1.isSelected()) {
             medicos = Pessoa.findMedicosByNome(nomeDoMedico.getText());
             if (medicos.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com este nome");
-                    DefaultListModel model = new DefaultListModel();
-                    listaDeMedicos.setModel(model);
-                } else {
-                    DefaultListModel model = new DefaultListModel();
-                    int cont = 0;
-                    for (Pessoa pa : medicos) {
-                        model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
-                        cont++;
-                    }
-                    listaDeMedicos.setModel(model);
-                    listaDeMedicos.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com este nome");
+                DefaultListModel model = new DefaultListModel();
+                listaDeMedicos.setModel(model);
+            } else {
+                DefaultListModel model = new DefaultListModel();
+                int cont = 0;
+                for (Pessoa pa : medicos) {
+                    model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
+                    cont++;
                 }
+                listaDeMedicos.setModel(model);
+                listaDeMedicos.setEnabled(true);
+            }
         }
-        if(opcao2.isSelected()){
+        if (opcao2.isSelected()) {
             medicos = Pessoa.findMedicos();
             Especialidade e = extrairEspecialidade();
             List<Pessoa> temp = new ArrayList<Pessoa>();
             for (Pessoa pa : medicos) {
-                    if(pa.getMedico().getEspecialidade().getNome().equals(e.getNome())) {
-                        temp.add(pa);
-                    }
+                if (pa.getMedico().getEspecialidade().getNome().equals(e.getNome())) {
+                    temp.add(pa);
+                }
             }
             medicos = temp;
             if (medicos.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com esta especialidade");
-                    DefaultListModel model = new DefaultListModel();
-                    listaDeMedicos.setModel(model);
-                } else {
-                    DefaultListModel model = new DefaultListModel();
-                    int cont = 0;
-                    for (Pessoa pa : medicos) {
-                        model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
-                        cont++;
-                    }
-                    listaDeMedicos.setModel(model);
-                    listaDeMedicos.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Nenhum médico encontrado com esta especialidade");
+                DefaultListModel model = new DefaultListModel();
+                listaDeMedicos.setModel(model);
+            } else {
+                DefaultListModel model = new DefaultListModel();
+                int cont = 0;
+                for (Pessoa pa : medicos) {
+                    model.add(cont, pa.getNome() + " - " + pa.getMedico().getEspecialidade().getNome());
+                    cont++;
                 }
+                listaDeMedicos.setModel(model);
+                listaDeMedicos.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_pesquisarActionPerformed
 
@@ -291,12 +289,12 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Pessoa p = Pessoa.findByCPF(CPFField.getText());
-        if(p==null){
+        if (p == null) {
             JOptionPane.showMessageDialog(this, "Pessoa não encontrado");
-        }else{
-            if(p.getPaciente()==null){
+        } else {
+            if (p.getPaciente() == null) {
                 JOptionPane.showMessageDialog(this, "A Pessoa selecionada não é um paciente");
-            }else{
+            } else {
                 pessoa = p;
                 nome_paciente.setText(p.getNome());
             }
@@ -305,12 +303,12 @@ public class MarcarConsulta extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(pessoa == null){
+        if (pessoa == null) {
             JOptionPane.showMessageDialog(this, "Informe o CPF do paciente");
-        }else{
-            if(listaDeMedicos.isSelectionEmpty()){
+        } else {
+            if (listaDeMedicos.isSelectionEmpty()) {
                 JOptionPane.showMessageDialog(this, "Selecione algum médico");
-            }else{
+            } else {
                 ConfirmarDataDaConsulta cdc = new ConfirmarDataDaConsulta(pessoa, medicos.get(listaDeMedicos.getSelectedIndex()));
                 cdc.setVisible(true);
                 cdc.setLocationRelativeTo(null);
@@ -372,8 +370,9 @@ public class MarcarConsulta extends javax.swing.JFrame {
     private javax.swing.JButton pesquisar;
     // End of variables declaration//GEN-END:variables
 
-private Map<String, Especialidade> especialidesMap = new HashMap<>();
-private void loadEspecialidades() {
+    private Map<String, Especialidade> especialidesMap = new HashMap<>();
+
+    private void loadEspecialidades() {
         List<Especialidade> bd_especialidades = Especialidade.findAll();
         if (bd_especialidades.isEmpty()) { // Default Especialidades
             bd_especialidades = Arrays.asList(
@@ -387,9 +386,9 @@ private void loadEspecialidades() {
         Arrays.sort(keys_string);
         ComboBoxModel<String> model = new DefaultComboBoxModel<String>(keys_string);
         especialidadeDoMedico.setModel(model);
- }
+    }
 
-private Especialidade extrairEspecialidade() { //TODO
+    private Especialidade extrairEspecialidade() { //TODO
         Especialidade especialidade = especialidesMap.get(especialidadeDoMedico.getModel().getSelectedItem());
         return especialidade;
     }

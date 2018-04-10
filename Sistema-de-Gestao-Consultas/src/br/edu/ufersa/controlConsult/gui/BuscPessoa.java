@@ -7,7 +7,7 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
+import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;

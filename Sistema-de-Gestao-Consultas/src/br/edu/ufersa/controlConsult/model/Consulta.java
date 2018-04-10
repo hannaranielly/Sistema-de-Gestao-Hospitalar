@@ -6,8 +6,8 @@
 package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
-import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.ConsultaJpaController;
+import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class Consulta implements Serializable, ICRUD {
         List<Consulta> res_consultas = instance.findConsultaEntities();
         return res_consultas;
     }
-    
+
     public static List<Consulta> findporMedico(Medico m) {
         EntityManagerFactory emf = JpaFactory.getInstance();
         ConsultaJpaController instance = new ConsultaJpaController(emf);
@@ -71,23 +71,23 @@ public class Consulta implements Serializable, ICRUD {
     public void setHorario_atendimento(HorarioAtendimento horario_atendimento) {
         this.horario_atendimento = horario_atendimento;
     }
-    
-    public static List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data){
+
+    public static List<Consulta> findporAtendimento(HorarioAtendimento ha, Date data) {
         EntityManagerFactory emf = JpaFactory.getInstance();
-         ConsultaJpaController instance = new ConsultaJpaController(emf);
-         return instance.findporAtendimento(ha, data);
+        ConsultaJpaController instance = new ConsultaJpaController(emf);
+        return instance.findporAtendimento(ha, data);
     }
-    
-    public static long numconsultaMarcado(HorarioAtendimento ha, Date data){
-         EntityManagerFactory emf = JpaFactory.getInstance();
-         ConsultaJpaController instance = new ConsultaJpaController(emf);
-         return instance.numconsultaMarcado(ha, data);
+
+    public static long numconsultaMarcado(HorarioAtendimento ha, Date data) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        ConsultaJpaController instance = new ConsultaJpaController(emf);
+        return instance.numconsultaMarcado(ha, data);
     }
-    
-    public static long numconsultapaciente(HorarioAtendimento ha, Date data, Paciente paciente){
-         EntityManagerFactory emf = JpaFactory.getInstance();
-         ConsultaJpaController instance = new ConsultaJpaController(emf);
-         return instance.numconsultapaciente(ha, data, paciente);
+
+    public static long numconsultapaciente(HorarioAtendimento ha, Date data, Paciente paciente) {
+        EntityManagerFactory emf = JpaFactory.getInstance();
+        ConsultaJpaController instance = new ConsultaJpaController(emf);
+        return instance.numconsultapaciente(ha, data, paciente);
     }
 
     @Id

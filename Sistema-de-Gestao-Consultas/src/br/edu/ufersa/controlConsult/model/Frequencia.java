@@ -62,7 +62,7 @@ public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
 
     public Frequencia() {
     }
-    
+
     public Frequencia(Medico medico) {
         this.setMedico(medico);
     }
@@ -81,8 +81,8 @@ public class Frequencia implements Serializable, ICRUD, Comparable<Frequencia> {
         Date saida = new Date(System.currentTimeMillis());
         this.setData_saida(saida);
     }
-    
-    public static List<Frequencia> porMedico(Medico medico){
+
+    public static List<Frequencia> porMedico(Medico medico) {
         EntityManagerFactory emf = JpaFactory.getInstance();
         FrequenciaJpaController instance = new FrequenciaJpaController(emf);
         return instance.findPorMedico(medico);

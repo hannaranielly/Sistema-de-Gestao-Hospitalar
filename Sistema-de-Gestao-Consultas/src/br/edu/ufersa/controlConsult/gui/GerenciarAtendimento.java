@@ -22,12 +22,13 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
      * Creates new form GerenciarAtendimento
      */
     private List<Consulta> consultas;
-    private int posicao=0;
+    private int posicao = 0;
+
     public GerenciarAtendimento() {
         initComponents();
     }
-    
-    public GerenciarAtendimento(List<Consulta> con){
+
+    public GerenciarAtendimento(List<Consulta> con) {
         initComponents();
         this.consultas = con;
         nome_medico.setText(consultas.get(0).getMedico().getPessoa().getNome());
@@ -150,14 +151,14 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         posicao++;
-        if(posicao==(consultas.size()-1)){
+        if (posicao == (consultas.size() - 1)) {
             jButton1.setText("Finalizar Atendimento");
         }
-        if(posicao==consultas.size()){
+        if (posicao == consultas.size()) {
             Date data = new Date();
-            consultas.get(posicao-1).setData_fim(data);
-            long tempo_total=0l;
-            for(Consulta c : consultas){
+            consultas.get(posicao - 1).setData_fim(data);
+            long tempo_total = 0l;
+            for (Consulta c : consultas) {
                 tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
                 try {
                     c.update();
@@ -165,18 +166,18 @@ public class GerenciarAtendimento extends javax.swing.JFrame {
                     Logger.getLogger(GerenciarAtendimento.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            long tempo_medio = tempo_total/consultas.size();
+            long tempo_medio = tempo_total / consultas.size();
             long diffMinutestotal = tempo_total / (60 * 1000) % 60;
             long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
-            AtendimentoFinalizado af = new AtendimentoFinalizado(String.valueOf(diffMinutestotal)+ " minutos",String.valueOf(diffMinutesmedio)+ " minutos");
+            AtendimentoFinalizado af = new AtendimentoFinalizado(String.valueOf(diffMinutestotal) + " minutos", String.valueOf(diffMinutesmedio) + " minutos");
             af.setVisible(true);
             af.setLocationRelativeTo(null);
             this.dispose();
-        }else{
+        } else {
             Date data = new Date();
-            consultas.get(posicao-1).setData_fim(data);
+            consultas.get(posicao - 1).setData_fim(data);
             consultas.get(posicao).setData_inicio(data);
-            numero_paciente_atual.setText(String.valueOf(posicao+1));
+            numero_paciente_atual.setText(String.valueOf(posicao + 1));
             nome_paciente_atual.setText(consultas.get(posicao).getPaciente().getPessoa().getNome());
             cpf_paciente_atual.setText(consultas.get(posicao).getPaciente().getPessoa().getCpf());
         }

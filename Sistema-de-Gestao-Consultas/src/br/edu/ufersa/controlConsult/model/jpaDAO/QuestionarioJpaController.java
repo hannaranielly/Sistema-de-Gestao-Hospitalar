@@ -17,8 +17,9 @@ import javax.persistence.Query;
  *
  * @author leone
  */
-public class QuestionarioJpaController implements Serializable{
-     public QuestionarioJpaController(EntityManagerFactory emf) {
+public class QuestionarioJpaController implements Serializable {
+
+    public QuestionarioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -40,18 +41,18 @@ public class QuestionarioJpaController implements Serializable{
             }
         }
     }
-    
-    public double mediaQ(Medico medico, String num){
+
+    public double mediaQ(Medico medico, String num) {
         double media = 0;
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            Query q = em.createQuery("SELECT AVG(m.q"+ num +") FROM Questionario m WHERE m.medico = :medico");
+            Query q = em.createQuery("SELECT AVG(m.q" + num + ") FROM Questionario m WHERE m.medico = :medico");
             q.setParameter("medico", medico);
-            if(q.getSingleResult()!=null){
+            if (q.getSingleResult() != null) {
                 media = (double) q.getSingleResult();
             }
-            
+
         } finally {
             if (em != null) {
                 em.close();
@@ -59,5 +60,5 @@ public class QuestionarioJpaController implements Serializable{
         }
         return media;
     }
-    
+
 }

@@ -12,8 +12,6 @@ import br.edu.ufersa.controlConsult.model.Usuario;
 import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
@@ -202,7 +200,6 @@ public class RegFrequencia extends javax.swing.JFrame {
         buscarPessoa();
     }//GEN-LAST:event_buscar_jButtonActionPerformed
 
-
     private void cpf_formattedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpf_formattedFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cpf_formattedFieldActionPerformed
@@ -309,7 +306,7 @@ public class RegFrequencia extends javax.swing.JFrame {
                     saida_jButton.setEnabled(false);
                 }
 
-            }else{
+            } else {
                 mostrarFrequencia_jButton.setEnabled(true);
                 entrada_jButton.setEnabled(true);
                 saida_jButton.setEnabled(false);

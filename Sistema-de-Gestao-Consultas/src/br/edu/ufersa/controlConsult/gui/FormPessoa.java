@@ -9,7 +9,7 @@ import br.edu.ufersa.controlConsult.model.Especialidade;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import static br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
+import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.util.Date;
 import java.util.List;
@@ -133,9 +133,9 @@ public class FormPessoa extends javax.swing.JFrame {
     private void preencheFormularioMedico(Pessoa pessoa) {
         loadEspecialidades();
         crm_jTextField.setText(pessoa.getMedico().getCrm());
-        if(pessoa.getMedico().getCargaHoraria()==0){
-             chField.setText("  ");
-        }else{
+        if (pessoa.getMedico().getCargaHoraria() == 0) {
+            chField.setText("  ");
+        } else {
             chField.setText(String.valueOf(pessoa.getMedico().getCargaHoraria()));
         }
         Especialidade medicoEspecialidade = pessoa.getMedico().getEspecialidade();
@@ -240,6 +240,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     /**
      * Creates new form FormPessoa
+     *
      * @param tipoContexto
      * @param tipoPessoa
      * @param p
@@ -1082,7 +1083,6 @@ public class FormPessoa extends javax.swing.JFrame {
         }
         return null;
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField BuscaCpf_textField;

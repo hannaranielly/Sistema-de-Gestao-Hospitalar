@@ -6,18 +6,18 @@
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
 import br.edu.ufersa.controlConsult.model.Especialidade;
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -65,8 +65,8 @@ public class EspecialidadeJpaController implements Serializable {
             }
         }
     }
-    
-     public void read(Especialidade especialidade) throws NonexistentEntityException {
+
+    public void read(Especialidade especialidade) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();

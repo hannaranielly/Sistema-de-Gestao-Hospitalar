@@ -12,8 +12,8 @@ import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -153,7 +153,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario login(Usuario usuario) throws IllegalAccessException{
+    public Usuario login(Usuario usuario) throws IllegalAccessException {
         EntityManager em = getEntityManager();
         Usuario usuarioAutenticado = null;
         try {
@@ -161,7 +161,7 @@ public class UsuarioJpaController implements Serializable {
             q.setParameter("username", usuario.getUsername());
             q.setParameter("password", usuario.getPassword());
             usuarioAutenticado = (Usuario) q.getSingleResult();
-            if(usuarioAutenticado==null){
+            if (usuarioAutenticado == null) {
                 throw new IllegalAccessException("Usuário não existe.");
             }
         } finally {
@@ -169,8 +169,8 @@ public class UsuarioJpaController implements Serializable {
         }
         return usuarioAutenticado;
     }
-    
-    public Usuario pegar_Banco(Usuario usuario){
+
+    public Usuario pegar_Banco(Usuario usuario) {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Usuario.login");

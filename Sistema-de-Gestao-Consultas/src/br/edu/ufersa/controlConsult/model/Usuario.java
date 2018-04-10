@@ -7,7 +7,6 @@ package br.edu.ufersa.controlConsult.model;
 
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
-import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.UsuarioJpaController;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
@@ -91,8 +90,8 @@ public class Usuario implements Serializable, ICRUD {
     public char[] getPassword() {
         return password;
     }
-    
-    public static Usuario pega_Banco(Usuario usuario){
+
+    public static Usuario pega_Banco(Usuario usuario) {
         EntityManagerFactory emf = JpaFactory.getInstance();
         UsuarioJpaController instance = new UsuarioJpaController(emf);
         return instance.pegar_Banco(usuario);
@@ -106,7 +105,7 @@ public class Usuario implements Serializable, ICRUD {
         this.password = password_hash;
     }
 
-    public Usuario login() throws IllegalAccessException{
+    public Usuario login() throws IllegalAccessException {
         EntityManagerFactory emf = JpaFactory.getInstance();
         UsuarioJpaController instance = new UsuarioJpaController(emf);
         return instance.login(this);

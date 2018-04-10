@@ -7,7 +7,6 @@ package br.edu.ufersa.controlConsult.util.debug;
 
 import br.edu.ufersa.controlConsult.model.Usuario;
 import java.util.List;
-import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *

@@ -8,9 +8,7 @@ package br.edu.ufersa.controlConsult.gui;
 import br.edu.ufersa.controlConsult.model.Frequencia;
 import br.edu.ufersa.controlConsult.model.Medico;
 import java.util.SortedSet;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *

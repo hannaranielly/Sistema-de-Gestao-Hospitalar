@@ -7,7 +7,6 @@ package br.edu.ufersa.controlConsult.gui;
 
 import br.edu.ufersa.controlConsult.model.Consulta;
 import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
-import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,27 +22,26 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     /**
      * Creates new form ConfirmarDataDaConsulta
      */
-    
     private Pessoa medico;
     private Pessoa paciente;
-    
-    public ConfirmarDataDaConsulta(){
+
+    public ConfirmarDataDaConsulta() {
         initComponents();
     }
-    
-    public ConfirmarDataDaConsulta(Pessoa paciente, Pessoa medico){
+
+    public ConfirmarDataDaConsulta(Pessoa paciente, Pessoa medico) {
         this.paciente = paciente;
         this.medico = medico;
         initComponents();
-        if(medico.getMedico().getListaHorario().isEmpty()){
+        if (medico.getMedico().getListaHorario().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O médico não possui horários de atendimento cadastrado");
         }
         int tamanho = medico.getMedico().getListaHorario().size();
         DefaultListModel model = new DefaultListModel();
-        for(int cont = 0; cont < tamanho; cont++){
-            String elemento = "Dia da semana: " + medico.getMedico().getListaHorario().get(cont).getDiaSemana() + 
-                    "; Horario de início: " + String.valueOf(medico.getMedico().getListaHorario().get(cont).getInicio())+
-                    ".";
+        for (int cont = 0; cont < tamanho; cont++) {
+            String elemento = "Dia da semana: " + medico.getMedico().getListaHorario().get(cont).getDiaSemana()
+                    + "; Horario de início: " + String.valueOf(medico.getMedico().getListaHorario().get(cont).getInicio())
+                    + ".";
             model.add(cont, elemento);
         }
         listaDeHorarios.setModel(model);
@@ -52,7 +50,6 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         nomeDoMedico.setText(medico.getNome());
         especialidadeDoMedico.setText(medico.getMedico().getEspecialidade().getNome());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,24 +158,24 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
     private void marcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcarActionPerformed
         // TODO add your handling code here:
-        if(Data.getDate()==null){
+        if (Data.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Informe um data válida para marcar a consulta");
-        }else{
-            if(listaDeHorarios.isSelectionEmpty()){
+        } else {
+            if (listaDeHorarios.isSelectionEmpty()) {
                 JOptionPane.showMessageDialog(this, "Selecione algum dos horários");
-            }else{
-                
-               int posicao = listaDeHorarios.getSelectedIndex();
-               Date agendada = Data.getDate();
-               String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().getNome();
-               Calendar cal = Calendar.getInstance();
-               cal.setTime(agendada);
-               String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
-               if(diaDaSemana.equals(diaSemanaListado)){
-                   long marcados = Consulta.numconsultaMarcado(medico.getMedico().getListaHorario().get(posicao),agendada);
-                   if(marcados<20l){
-                       if(Consulta.numconsultapaciente(medico.getMedico().getListaHorario().get(posicao), agendada, paciente.getPaciente())==0){
-                            JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso, seu número de atendimento é: " + (marcados+1));
+            } else {
+
+                int posicao = listaDeHorarios.getSelectedIndex();
+                Date agendada = Data.getDate();
+                String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().getNome();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(agendada);
+                String diaDaSemana = diaSemana(cal.get(Calendar.DAY_OF_WEEK));
+                if (diaDaSemana.equals(diaSemanaListado)) {
+                    long marcados = Consulta.numconsultaMarcado(medico.getMedico().getListaHorario().get(posicao), agendada);
+                    if (marcados < 20l) {
+                        if (Consulta.numconsultapaciente(medico.getMedico().getListaHorario().get(posicao), agendada, paciente.getPaciente()) == 0) {
+                            JOptionPane.showMessageDialog(this, "Consulta marcada com sucesso, seu número de atendimento é: " + (marcados + 1));
                             Consulta con = new Consulta();
                             con.setAgendada(true);
                             con.setData_agendada(agendada);
@@ -188,22 +185,20 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
                             Date data_atual = new Date();
                             con.setData_marcado(data_atual);
                             con.create();
-                       }else{
-                           JOptionPane.showMessageDialog(this, "O paciente já agendou esta consulta");
-                       }
-                       
-                   }else{
-                       JOptionPane.showMessageDialog(this, "O Atendimento para este dia encontra-se lotado.");
-                   }
-                   
-               }
-               else{
-                  JOptionPane.showMessageDialog(this, "A data informada não corresponde a um dia da semana do horário selecionado");
-               }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "O paciente já agendou esta consulta");
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "O Atendimento para este dia encontra-se lotado.");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "A data informada não corresponde a um dia da semana do horário selecionado");
+                }
             }
         }
-        
-        
+
     }//GEN-LAST:event_marcarActionPerformed
 
     private void nomeDoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeDoMedicoActionPerformed
@@ -262,7 +257,6 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField nomeDoMedico;
     // End of variables declaration//GEN-END:variables
 
-    
     public String diaSemana(int n) {
         String retorno = null;
         if (n == Calendar.SATURDAY) {
@@ -291,16 +285,15 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
     private void confimar(HorarioAtendimento horario, Date agendada) {
         int numeroConsultas = 3;//O número de consultas que o médico tem marcadas naquele horário
-        if(numeroConsultas < calcula(horario)){
+        if (numeroConsultas < calcula(horario)) {
             String mensagem;
-            mensagem = ""+ (numeroConsultas +1) + "-esima pessoa na fila";
+            mensagem = "" + (numeroConsultas + 1) + "-esima pessoa na fila";
             /*
             ConsultaValida tela = new ConsultaValida(horario.getInicio(),horario.getFim(),medico,agendada,mensagem);
             tela.setVisible(true);
             tela.setLocationRelativeTo(null);
             this.dispose();*/
-        }
-        else{
+        } else {
             String erro = "Horário lotado";
             /*
             ConsultaInvalida tela = new ConsultaInvalida(medico,erro);
@@ -313,5 +306,5 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     private int calcula(HorarioAtendimento horario) {
         return ((horario.getInicio().getHours()) - (horario.getFim().getHours())) * 6;
     }
-    
+
 }

@@ -21,11 +21,12 @@ public class QuestionarioPaciente extends javax.swing.JFrame {
      * Creates new form QuestionarioPaciente
      */
     private Pessoa pessoa;
+
     public QuestionarioPaciente() {
         initComponents();
     }
-    
-    public QuestionarioPaciente(Pessoa p){
+
+    public QuestionarioPaciente(Pessoa p) {
         initComponents();
         this.pessoa = p;
         medico.setText(pessoa.getNome());
@@ -183,7 +184,7 @@ public class QuestionarioPaciente extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(QuestionarioPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

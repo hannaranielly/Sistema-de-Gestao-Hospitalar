@@ -5,14 +5,15 @@
  */
 package br.edu.ufersa.controlConsult.gui.avaliacao;
 
-import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Pessoa;
-import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
-import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
-import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
+import static br.edu.ufersa.controlConsult.model.Pessoa.findMedicos;
+import static java.awt.EventQueue.invokeLater;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getLogger;
 import javax.swing.DefaultListModel;
+import static javax.swing.UIManager.getInstalledLookAndFeels;
+import static javax.swing.UIManager.setLookAndFeel;
 
 /**
  *
@@ -25,28 +26,29 @@ public class SelecionaMedico extends javax.swing.JFrame {
      */
     private List<Pessoa> list;
     private int tipo;
+
     public SelecionaMedico(int tipo) {
         this.tipo = tipo;
         initComponents();
-        list = Pessoa.findMedicos();
+        list = findMedicos();
         preenche(list);
-        if(tipo==0){
+        if (tipo == 0) {
             jLabel1.setText("Selecione o Médico que Deseja Avaliar");
             jButton1.setText("Avaliar");
-        }else{
+        } else {
             jLabel1.setText("Selecione o Médico que desejar ver o desempenho");
             jButton1.setText("Ver Desempenho");
         }
     }
-    
-    private void preenche(List<Pessoa> list){
-        if(list.isEmpty()){
+
+    private void preenche(List<Pessoa> list) {
+        if (list.isEmpty()) {
             DefaultListModel model = new DefaultListModel();
             listM.setModel(model);
-        }else{
+        } else {
             DefaultListModel model = new DefaultListModel();
             int cont = 0;
-            for(Pessoa p : list){
+            for (Pessoa p : list) {
                 model.add(cont, p.getNome());
                 cont++;
             }
@@ -135,16 +137,16 @@ public class SelecionaMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(tipo==0){
+        if (tipo == 0) {
             QuestionarioPaciente qp = new QuestionarioPaciente(list.get(listM.getSelectedIndex()));
             qp.setVisible(true);
             qp.setLocationRelativeTo(null);
-        }else{
+        } else {
             MostraDesempenho md = new MostraDesempenho(list.get(listM.getSelectedIndex()));
             md.setVisible(true);
             md.setLocationRelativeTo(null);
         }
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -158,28 +160,22 @@ public class SelecionaMedico extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info : getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SelecionaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SelecionaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SelecionaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SelecionaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            getLogger(SelecionaMedico.class.getName()).log(SEVERE, null, ex);
         }
         //</editor-fold>
 
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SelecionaMedico(0).setVisible(true);
-            }
+        invokeLater(() -> {
+            new SelecionaMedico(0).setVisible(true);
         });
     }
 
