@@ -153,19 +153,21 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public boolean login(Usuario usuario) {
+    public Usuario login(Usuario usuario) throws IllegalAccessException{
         EntityManager em = getEntityManager();
+        Usuario usuarioAutenticado = null;
         try {
             Query q = em.createNamedQuery("Usuario.login");
             q.setParameter("username", usuario.getUsername());
             q.setParameter("password", usuario.getPassword());
-            if (!q.getResultList().isEmpty()) {
-                return true;
+            usuarioAutenticado = (Usuario) q.getSingleResult();
+            if(usuarioAutenticado==null){
+                throw new IllegalAccessException("Usuário não existe.");
             }
         } finally {
             em.close();
         }
-        return false;
+        return usuarioAutenticado;
     }
     
     public Usuario pegar_Banco(Usuario usuario){

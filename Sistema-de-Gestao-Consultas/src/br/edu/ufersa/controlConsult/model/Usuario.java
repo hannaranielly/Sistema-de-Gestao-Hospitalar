@@ -106,7 +106,7 @@ public class Usuario implements Serializable, ICRUD {
         this.password = password_hash;
     }
 
-    public boolean login() {
+    public Usuario login() throws IllegalAccessException{
         EntityManagerFactory emf = JpaFactory.getInstance();
         UsuarioJpaController instance = new UsuarioJpaController(emf);
         return instance.login(this);

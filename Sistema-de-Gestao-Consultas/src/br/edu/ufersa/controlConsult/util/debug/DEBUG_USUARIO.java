@@ -160,9 +160,10 @@ public class DEBUG_USUARIO extends javax.swing.JFrame {
         String username = newUsername_jTextField.getText();
         char[] password_raw = newPassword_jPasswordField.getPassword();
         if (!username.isEmpty() && password_raw.length > 0) {
-            if (new Usuario(username, password_raw).login()) {
+            try {
+                new Usuario(username, password_raw).login();
                 status_jLabel.setText("Autenticado.");
-            } else {
+            } catch (IllegalAccessException e) {
                 status_jLabel.setText("Não autenticado!");
             }
         }

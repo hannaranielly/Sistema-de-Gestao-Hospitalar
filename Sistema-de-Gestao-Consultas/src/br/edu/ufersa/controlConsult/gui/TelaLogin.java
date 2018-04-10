@@ -175,15 +175,14 @@ public class TelaLogin extends javax.swing.JFrame {
         String username = txtUser.getText();
         char[] password_raw = txtSenha.getPassword();
         Usuario adm = new Usuario(username, password_raw);
-
-        if (adm.login()) {
-            JOptionPane.showMessageDialog(this, "Bem Vindo: " + adm.getUsername());
-            TelaInicial te = new TelaInicial(adm);
+        try {
+            Usuario admAutenticado = adm.login();
+            JOptionPane.showMessageDialog(this, "Bem Vindo: " + admAutenticado.getUsername());
+            TelaInicial te = new TelaInicial(admAutenticado);
             te.setVisible(true);
             te.setLocationRelativeTo(null);
-            SistemaDeGestaoHospitalar.usuarioAutenticado = adm;
             this.dispose();
-        } else {
+        } catch (IllegalAccessException e) {
             JOptionPane.showMessageDialog(this, " Login e/ou senha foram inválidos");
         }
     }//GEN-LAST:event_entrar_btnActionPerformed
