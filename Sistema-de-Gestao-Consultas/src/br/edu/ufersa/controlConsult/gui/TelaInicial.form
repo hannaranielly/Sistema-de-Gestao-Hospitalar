@@ -199,7 +199,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="465" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="usuarioAutenticado_jLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="263" max="32767" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="136" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -211,7 +215,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jDesktopPane1" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="85" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton1" alignment="3" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="usuarioAutenticado_jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -244,6 +252,16 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usu&#xe1;rio autenticado: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="usuarioAutenticado_jLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;usu&#xe1;rio&gt;"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
