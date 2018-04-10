@@ -7,6 +7,7 @@ package br.edu.ufersa.controlConsult.util.debug;
 
 import br.edu.ufersa.controlConsult.model.Usuario;
 import java.util.List;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -17,14 +18,22 @@ public class DEBUG_USUARIO extends javax.swing.JFrame {
     public static Usuario getUsuarioAleatorio() {
         List<Usuario> usuarios_teste = Usuario.findAll();
         if (usuarios_teste.isEmpty()) {
-            Usuario u = new Usuario("admin", "admin".toCharArray());
-            System.err.println("[DEBUG]Usuario admin foi inserido no banco de dados");
-            u.create();
-            usuarios_teste.add(u);
+            Usuario user_temp = cadastrarAdminUser();
+            usuarios_teste.add(user_temp);
         }
         Usuario uAutenticado = usuarios_teste.get(0);
         System.err.println("[DEBUG] Usuario autenticado: " + uAutenticado.getUsername());
         return uAutenticado;
+    }
+
+    public static Usuario cadastrarAdminUser() {
+        Usuario u = new Usuario("admin", "admin".toCharArray());
+        System.err.println("[DEBUG] Usuario admin foi inserido no banco de dados");
+        try {
+            u.create();
+        } catch (Exception e) {
+        }
+        return u;
     }
 
     /**
