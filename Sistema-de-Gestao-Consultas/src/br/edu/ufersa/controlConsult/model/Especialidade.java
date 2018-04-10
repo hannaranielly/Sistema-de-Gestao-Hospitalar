@@ -56,9 +56,59 @@ public class Especialidade implements ICRUD, Serializable {
 
     public static List<Especialidade> setupEspecialidades() {
         List<Especialidade> bd_especialidades = Arrays.asList(
-                new Especialidade("Clínico Geral"),
-                new Especialidade("Pediatra"),
-                new Especialidade("Cardiologista")
+                new Especialidade("Acupuntura"),
+                new Especialidade("Alergia e imunologia"),
+                new Especialidade("Anestesiologia"),
+                new Especialidade("Angiologia"),
+                new Especialidade("Cancerologia"),
+                new Especialidade("Cardiologia"),
+                new Especialidade("Cirurgia cardiovascular"),
+                new Especialidade("Cirurgia da mão"),
+                new Especialidade("Cirurgia de cabeça e pescoço"),
+                new Especialidade("Cirurgia do aparelho digestivo"),
+                new Especialidade("Cirurgia geral"),
+                new Especialidade("Cirurgia pediátrica"),
+                new Especialidade("Cirurgia plástica"),
+                new Especialidade("Cirurgia torácica"),
+                new Especialidade("Cirurgia vascular"),
+                new Especialidade("Clínica médica"),
+                new Especialidade("Coloproctologia"),
+                new Especialidade("Dermatologia"),
+                new Especialidade("Endocrinologia e metabologia"),
+                new Especialidade("Endoscopia"),
+                new Especialidade("Gastroenterologia"),
+                new Especialidade("Genética médica "),
+                new Especialidade("Geriatria "),
+                new Especialidade("Ginecologia e obstetrícia"),
+                new Especialidade("Hematologia e hemoterapia 26. Homeopatia"),
+                new Especialidade("Infectologia"),
+                new Especialidade("Mastologia "),
+                new Especialidade("Medicina de emergência"),
+                new Especialidade("Medicina de família e comunidade"),
+                new Especialidade("Medicina do trabalho"),
+                new Especialidade("Medicina de tráfego"),
+                new Especialidade("Medicina esportiva"),
+                new Especialidade("Medicina física e reabilitação"),
+                new Especialidade("Medicina intensiva"),
+                new Especialidade("Medicina legal e perícia médica"),
+                new Especialidade("Medicina nuclear"),
+                new Especialidade("Medicina preventiva e social"),
+                new Especialidade("Nefrologia"),
+                new Especialidade("Neurocirurgia"),
+                new Especialidade("Neurologia"),
+                new Especialidade("Nutrologia"),
+                new Especialidade("Oftalmologia"),
+                new Especialidade("Ortopedia e traumatologia"),
+                new Especialidade("Otorrinolaringologia"),
+                new Especialidade("Patologia"),
+                new Especialidade("Patologia clínica/medicina laboratorial"),
+                new Especialidade("Pediatria"),
+                new Especialidade("Pneumologia"),
+                new Especialidade("Psiquiatria"),
+                new Especialidade("Radiologia e diagnóstico por imagem"),
+                new Especialidade("Radioterapia"),
+                new Especialidade("Reumatologia"),
+                new Especialidade("Urologia")
         );
         bd_especialidades.forEach(e -> e.create());
         return bd_especialidades;
@@ -159,8 +209,10 @@ public class Especialidade implements ICRUD, Serializable {
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         try {
             instance.read(this);
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Especialidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
     }
@@ -171,11 +223,15 @@ public class Especialidade implements ICRUD, Serializable {
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         try {
             instance.edit(this);
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Especialidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw ex;
+
         } catch (Exception ex) {
-            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Especialidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -185,8 +241,10 @@ public class Especialidade implements ICRUD, Serializable {
         EspecialidadeJpaController instance = new EspecialidadeJpaController(emf);
         try {
             instance.destroy(this.getId());
+
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(Especialidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Especialidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
     }
