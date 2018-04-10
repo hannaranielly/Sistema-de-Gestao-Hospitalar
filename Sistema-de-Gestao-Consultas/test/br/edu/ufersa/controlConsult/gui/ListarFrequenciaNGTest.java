@@ -5,7 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
+import br.edu.ufersa.controlConsult.model.Medico;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +17,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class TelaInicialNGTest {
+public class ListarFrequenciaNGTest {
     
-    public TelaInicialNGTest() {
+    public ListarFrequenciaNGTest() {
     }
 
     @BeforeClass
@@ -39,28 +39,26 @@ public class TelaInicialNGTest {
     }
 
     /**
-     * Test of diaSemana method, of class TelaInicial.
+     * Test of setMedico method, of class ListarFrequencia.
      */
     @Test
-    public void testDiaSemana() {
-        System.out.println("diaSemana");
-        int n = 0;
-        TelaInicial instance = null;
-        HorarioAtendimento.DiaSemanaEnum expResult = null;
-        HorarioAtendimento.DiaSemanaEnum result = instance.diaSemana(n);
-        assertEquals(result, expResult);
+    public void testSetMedico() {
+        System.out.println("setMedico");
+        Medico medico = null;
+        ListarFrequencia instance = null;
+        instance.setMedico(medico);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of main method, of class TelaInicial.
+     * Test of main method, of class ListarFrequencia.
      */
     @Test
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        TelaInicial.main(args);
+        ListarFrequencia.main(args);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

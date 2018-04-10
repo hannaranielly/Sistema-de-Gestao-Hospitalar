@@ -6,6 +6,8 @@
 package br.edu.ufersa.controlConsult.model;
 
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -36,6 +38,46 @@ public class MedicoNGTest {
 
     @AfterMethod
     public void tearDownMethod() throws Exception {
+    }
+
+    /**
+     * Test of findAll method, of class Medico.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
+        List expResult = null;
+        List result = Medico.findAll();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getQuestionarios method, of class Medico.
+     */
+    @Test
+    public void testGetQuestionarios() {
+        System.out.println("getQuestionarios");
+        Medico instance = new Medico();
+        List expResult = null;
+        List result = instance.getQuestionarios();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setQuestionarios method, of class Medico.
+     */
+    @Test
+    public void testSetQuestionarios() {
+        System.out.println("setQuestionarios");
+        List<Questionario> questionarios = null;
+        Medico instance = new Medico();
+        instance.setQuestionarios(questionarios);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -128,6 +170,60 @@ public class MedicoNGTest {
         Integer cargaHoraria = null;
         Medico instance = new Medico();
         instance.setCargaHoraria(cargaHoraria);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getListFrequencia method, of class Medico.
+     */
+    @Test
+    public void testGetListFrequencia() {
+        System.out.println("getListFrequencia");
+        Medico instance = new Medico();
+        SortedSet expResult = null;
+        SortedSet result = instance.getListFrequencia();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setListFrequencia method, of class Medico.
+     */
+    @Test
+    public void testSetListFrequencia() {
+        System.out.println("setListFrequencia");
+        SortedSet<Frequencia> listFrequencia = null;
+        Medico instance = new Medico();
+        instance.setListFrequencia(listFrequencia);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getListaConsultas method, of class Medico.
+     */
+    @Test
+    public void testGetListaConsultas() {
+        System.out.println("getListaConsultas");
+        Medico instance = new Medico();
+        Set expResult = null;
+        Set result = instance.getListaConsultas();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setListaConsultas method, of class Medico.
+     */
+    @Test
+    public void testSetListaConsultas() {
+        System.out.println("setListaConsultas");
+        Set<Consulta> listaConsultas = null;
+        Medico instance = new Medico();
+        instance.setListaConsultas(listaConsultas);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

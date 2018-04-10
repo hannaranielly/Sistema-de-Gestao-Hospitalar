@@ -68,6 +68,19 @@ public class HorarioAtendimentoJpaControllerNGTest {
     }
 
     /**
+     * Test of read method, of class HorarioAtendimentoJpaController.
+     */
+    @Test
+    public void testRead() throws Exception {
+        System.out.println("read");
+        HorarioAtendimento horarioAtendimento = null;
+        HorarioAtendimentoJpaController instance = null;
+        instance.read(horarioAtendimento);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of edit method, of class HorarioAtendimentoJpaController.
      */
     @Test
@@ -148,19 +161,6 @@ public class HorarioAtendimentoJpaControllerNGTest {
         int expResult = 0;
         int result = instance.getHorarioAtendimentoCount();
         assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of read method, of class HorarioAtendimentoJpaController.
-     */
-    @Test
-    public void testRead() throws Exception {
-        System.out.println("read");
-        HorarioAtendimento horarioAtendimento = null;
-        HorarioAtendimentoJpaController instance = null;
-        instance.read(horarioAtendimento);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

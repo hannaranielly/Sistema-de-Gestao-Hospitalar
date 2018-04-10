@@ -5,7 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
-import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class EspecialidadeNGTest {
+public class QuestionarioNGTest {
     
-    public EspecialidadeNGTest() {
+    public QuestionarioNGTest() {
     }
 
     @BeforeClass
@@ -39,38 +38,12 @@ public class EspecialidadeNGTest {
     }
 
     /**
-     * Test of findAll method, of class Especialidade.
-     */
-    @Test
-    public void testFindAll() {
-        System.out.println("findAll");
-        List expResult = null;
-        List result = Especialidade.findAll();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setupEspecialidades method, of class Especialidade.
-     */
-    @Test
-    public void testSetupEspecialidades() {
-        System.out.println("setupEspecialidades");
-        List expResult = null;
-        List result = Especialidade.setupEspecialidades();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getId method, of class Especialidade.
+     * Test of getId method, of class Questionario.
      */
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         Integer expResult = null;
         Integer result = instance.getId();
         assertEquals(result, expResult);
@@ -79,186 +52,184 @@ public class EspecialidadeNGTest {
     }
 
     /**
-     * Test of setId method, of class Especialidade.
+     * Test of setId method, of class Questionario.
      */
     @Test
     public void testSetId() {
         System.out.println("setId");
         Integer id = null;
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getNome method, of class Especialidade.
+     * Test of getMedico method, of class Questionario.
      */
     @Test
-    public void testGetNome() {
-        System.out.println("getNome");
-        Especialidade instance = new Especialidade();
-        String expResult = "";
-        String result = instance.getNome();
+    public void testGetMedico() {
+        System.out.println("getMedico");
+        Questionario instance = new Questionario();
+        Medico expResult = null;
+        Medico result = instance.getMedico();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of setNome method, of class Especialidade.
+     * Test of setMedico method, of class Questionario.
      */
     @Test
-    public void testSetNome() {
-        System.out.println("setNome");
-        String nome = "";
-        Especialidade instance = new Especialidade();
-        instance.setNome(nome);
+    public void testSetMedico() {
+        System.out.println("setMedico");
+        Medico medico = null;
+        Questionario instance = new Questionario();
+        instance.setMedico(medico);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getMedicoList method, of class Especialidade.
+     * Test of getQ1 method, of class Questionario.
      */
     @Test
-    public void testGetMedicoList() {
-        System.out.println("getMedicoList");
-        Especialidade instance = new Especialidade();
-        List expResult = null;
-        List result = instance.getMedicoList();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setMedicoList method, of class Especialidade.
-     */
-    @Test
-    public void testSetMedicoList() {
-        System.out.println("setMedicoList");
-        List<Medico> medicoList = null;
-        Especialidade instance = new Especialidade();
-        instance.setMedicoList(medicoList);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of hashCode method, of class Especialidade.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Especialidade instance = new Especialidade();
+    public void testGetQ1() {
+        System.out.println("getQ1");
+        Questionario instance = new Questionario();
         int expResult = 0;
-        int result = instance.hashCode();
+        int result = instance.getQ1();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of equals method, of class Especialidade.
+     * Test of setQ1 method, of class Questionario.
      */
     @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object object = null;
-        Especialidade instance = new Especialidade();
-        boolean expResult = false;
-        boolean result = instance.equals(object);
+    public void testSetQ1() {
+        System.out.println("setQ1");
+        int q1 = 0;
+        Questionario instance = new Questionario();
+        instance.setQ1(q1);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getQ2 method, of class Questionario.
+     */
+    @Test
+    public void testGetQ2() {
+        System.out.println("getQ2");
+        Questionario instance = new Questionario();
+        int expResult = 0;
+        int result = instance.getQ2();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of toString method, of class Especialidade.
+     * Test of setQ2 method, of class Questionario.
      */
     @Test
-    public void testToString() {
-        System.out.println("toString");
-        Especialidade instance = new Especialidade();
-        String expResult = "";
-        String result = instance.toString();
+    public void testSetQ2() {
+        System.out.println("setQ2");
+        int q2 = 0;
+        Questionario instance = new Questionario();
+        instance.setQ2(q2);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getQ3 method, of class Questionario.
+     */
+    @Test
+    public void testGetQ3() {
+        System.out.println("getQ3");
+        Questionario instance = new Questionario();
+        int expResult = 0;
+        int result = instance.getQ3();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of findByName method, of class Especialidade.
+     * Test of setQ3 method, of class Questionario.
      */
     @Test
-    public void testFindByName() {
-        System.out.println("findByName");
-        String name = "";
-        List expResult = null;
-        List result = Especialidade.findByName(name);
-        assertEquals(result, expResult);
+    public void testSetQ3() {
+        System.out.println("setQ3");
+        int q3 = 0;
+        Questionario instance = new Questionario();
+        instance.setQ3(q3);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of findByNome method, of class Especialidade.
+     * Test of mediaQ method, of class Questionario.
      */
     @Test
-    public void testFindByNome() {
-        System.out.println("findByNome");
-        String nome = "";
-        List expResult = null;
-        List result = Especialidade.findByNome(nome);
-        assertEquals(result, expResult);
+    public void testMediaQ() {
+        System.out.println("mediaQ");
+        Medico m = null;
+        String num = "";
+        double expResult = 0.0;
+        double result = Questionario.mediaQ(m, num);
+        assertEquals(result, expResult, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of create method, of class Especialidade.
+     * Test of create method, of class Questionario.
      */
     @Test
-    public void testCreate() {
+    public void testCreate() throws Exception {
         System.out.println("create");
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         instance.create();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of read method, of class Especialidade.
+     * Test of read method, of class Questionario.
      */
     @Test
     public void testRead() throws Exception {
         System.out.println("read");
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         instance.read();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of update method, of class Especialidade.
+     * Test of update method, of class Questionario.
      */
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         instance.update();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of delete method, of class Especialidade.
+     * Test of delete method, of class Questionario.
      */
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Especialidade instance = new Especialidade();
+        Questionario instance = new Questionario();
         instance.delete();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

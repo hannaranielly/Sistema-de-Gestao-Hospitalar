@@ -6,6 +6,7 @@
 package br.edu.ufersa.controlConsult.model;
 
 import java.util.Date;
+import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -36,6 +37,19 @@ public class UsuarioNGTest {
 
     @AfterMethod
     public void tearDownMethod() throws Exception {
+    }
+
+    /**
+     * Test of findAll method, of class Usuario.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
+        List expResult = null;
+        List result = Usuario.findAll();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -107,6 +121,20 @@ public class UsuarioNGTest {
     }
 
     /**
+     * Test of pega_Banco method, of class Usuario.
+     */
+    @Test
+    public void testPega_Banco() {
+        System.out.println("pega_Banco");
+        Usuario usuario = null;
+        Usuario expResult = null;
+        Usuario result = Usuario.pega_Banco(usuario);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of setPassword method, of class Usuario.
      */
     @Test
@@ -123,11 +151,11 @@ public class UsuarioNGTest {
      * Test of login method, of class Usuario.
      */
     @Test
-    public void testLogin() {
+    public void testLogin() throws Exception {
         System.out.println("login");
         Usuario instance = new Usuario();
-        boolean expResult = false;
-        boolean result = instance.login();
+        Usuario expResult = null;
+        Usuario result = instance.login();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

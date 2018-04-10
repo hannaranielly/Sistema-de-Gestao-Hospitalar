@@ -68,6 +68,19 @@ public class EspecialidadeJpaControllerNGTest {
     }
 
     /**
+     * Test of read method, of class EspecialidadeJpaController.
+     */
+    @Test
+    public void testRead() throws Exception {
+        System.out.println("read");
+        Especialidade especialidade = null;
+        EspecialidadeJpaController instance = null;
+        instance.read(especialidade);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of edit method, of class EspecialidadeJpaController.
      */
     @Test
