@@ -9,6 +9,7 @@ import br.edu.ufersa.controlConsult.SistemaDeGestaoHospitalar;
 import br.edu.ufersa.controlConsult.model.Usuario;
 import javax.swing.JOptionPane;
 import br.edu.ufersa.controlConsult.model.validacao.Criptografia;
+import br.edu.ufersa.controlConsult.util.debug.DEBUG_USUARIO;
 
 /**
  *
@@ -176,14 +177,14 @@ public class TelaLogin extends javax.swing.JFrame {
         Usuario adm = new Usuario(username, password_raw);
 
         if (adm.login()) {
-            JOptionPane.showMessageDialog(null, "Bem Vindo");
+            JOptionPane.showMessageDialog(this, "Bem Vindo: " + adm.getUsername());
             TelaInicial te = new TelaInicial(adm);
             te.setVisible(true);
             te.setLocationRelativeTo(null);
             SistemaDeGestaoHospitalar.usuarioAutenticado = adm;
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, " Login e/ou senha foram inválidos");
+            JOptionPane.showMessageDialog(this, " Login e/ou senha foram inválidos");
         }
     }//GEN-LAST:event_entrar_btnActionPerformed
 
@@ -228,6 +229,7 @@ public class TelaLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                DEBUG_USUARIO.cadastrarAdminUser();
                 new TelaLogin().setVisible(true);
             }
         });
