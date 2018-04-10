@@ -177,7 +177,6 @@ public class TelaLogin extends javax.swing.JFrame {
 
         if (adm.login()) {
             JOptionPane.showMessageDialog(null, "Bem Vindo");
-            adm = Usuario.pega_Banco(adm);
             TelaInicial te = new TelaInicial(adm);
             te.setVisible(true);
             te.setLocationRelativeTo(null);
