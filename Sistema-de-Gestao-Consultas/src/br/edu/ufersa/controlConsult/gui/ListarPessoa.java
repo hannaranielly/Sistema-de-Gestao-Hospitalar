@@ -44,7 +44,7 @@ public class ListarPessoa extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        atualizar_jButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         edit_jButton = new javax.swing.JButton();
@@ -59,13 +59,13 @@ public class ListarPessoa extends javax.swing.JFrame {
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        jToggleButton1.setText("Atualizar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        atualizar_jButton.setText("Atualizar");
+        atualizar_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                atualizar_jButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(jToggleButton1);
+        jPanel2.add(atualizar_jButton);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
 
@@ -103,10 +103,6 @@ public class ListarPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        load(tipoPessoa);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void edit_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_jButtonActionPerformed
         try {
             Pessoa pessoa = pessoas.get(jList1.getSelectedIndex());
@@ -116,6 +112,10 @@ public class ListarPessoa extends javax.swing.JFrame {
         } catch (IndexOutOfBoundsException e) {
         }
     }//GEN-LAST:event_edit_jButtonActionPerformed
+
+    private void atualizar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizar_jButtonActionPerformed
+        load(tipoPessoa);
+    }//GEN-LAST:event_atualizar_jButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,13 +175,13 @@ public class ListarPessoa extends javax.swing.JFrame {
         jList1.setModel(model);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizar_jButton;
     private javax.swing.JButton edit_jButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
 }
