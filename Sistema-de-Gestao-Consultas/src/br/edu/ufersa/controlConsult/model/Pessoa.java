@@ -122,13 +122,13 @@ public class Pessoa implements Serializable, ICRUD {
     private Date dataDeNascimento;
     @Column(name = "sexo")
     private Character sexo;
-    @Column(name = "email", length = 75)
+    @Column(name = "email", length = 50)
     private String email;
-    @Column(name = "bairro", length = 75)
+    @Column(name = "bairro", length = 50)
     private String bairro;
     @Column(name = "num_casa")
     private Integer numCasa;
-    @Column(name = "logradouro", length = 75)
+    @Column(name = "logradouro", length = 50)
     private String logradouro;
     @Column(name = "cep", length = 15)
     private String cep;
