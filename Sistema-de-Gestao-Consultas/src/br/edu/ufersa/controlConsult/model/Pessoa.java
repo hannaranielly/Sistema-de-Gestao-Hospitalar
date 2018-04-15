@@ -105,10 +105,6 @@ public class Pessoa implements Serializable, ICRUD {
         return instance.findPacientes();
     }
 
-    public static List<Pessoa> findAllMedicos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -162,10 +158,9 @@ public class Pessoa implements Serializable, ICRUD {
      *
      * @throws IllegalArgumentException se algum atributo for inválido.
      */
-    public Pessoa(Integer id, String nome, String cpf, String rg, String email,
+    public Pessoa(String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
             Integer numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
-        this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
         this.setRg(rg);
@@ -179,16 +174,6 @@ public class Pessoa implements Serializable, ICRUD {
         this.setCidade(cidade);
         this.setEstado(estado);
         this.setCep(cep);
-    }
-
-    /**
-     * Construtor sem id na assinatura.
-     */
-    public Pessoa(String nome, String cpf, String rg, String email,
-            char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            int numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
-        this(null, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro,
-                numCasa, bairro, cidade, estado, cep);
     }
 
     public Integer getId() {
