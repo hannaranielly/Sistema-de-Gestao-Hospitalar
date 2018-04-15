@@ -381,8 +381,8 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Override
     public String toString() {
-        return "[id=" + id + "]"
-                + " Nome: " + this.nome + " CPF: " + this.cpf;
+        String string = "Nome: " + this.getNome() + " CPF: " + this.getCpf();
+        return string;
     }
 
     public void setMedico(Medico medico) {
