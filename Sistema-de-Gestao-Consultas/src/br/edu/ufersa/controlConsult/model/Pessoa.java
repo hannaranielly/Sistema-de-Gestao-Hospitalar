@@ -53,6 +53,10 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "Pessoa.paciente", query = "SELECT p FROM Pessoa p WHERE p.paciente!=null")})
 public class Pessoa implements Serializable, ICRUD {
 
+    public static enum TipoPessoaEnum {
+        AMBOS, PACIENTE, MEDICO;
+    }
+
     public static List<Pessoa> findAll() {
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
@@ -103,10 +107,6 @@ public class Pessoa implements Serializable, ICRUD {
 
     public static List<Pessoa> findAllMedicos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static enum TipoPessoaEnum {
-        AMBOS, PACIENTE, MEDICO;
     }
 
     @Id
@@ -264,16 +264,6 @@ public class Pessoa implements Serializable, ICRUD {
 
     public void setCep(String cep) {
         this.cep = cep;
-    }
-
-    public Pessoa(Integer id) {
-        this.id = id;
-    }
-
-    public Pessoa(Integer id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
     }
 
     public Date getDataDeNascimento() {
