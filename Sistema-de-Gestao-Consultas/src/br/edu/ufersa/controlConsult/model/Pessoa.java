@@ -417,11 +417,8 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Override
     public void create() throws PreexistingEntityException, Exception {
-        try {
-            if (Pessoa.findByCPF(this.getCpf()) != null) {
-                throw new PreexistingEntityException("CPF já registrado.");
-            }
-        } catch (NoResultException e) {
+        if (Pessoa.findByCPF(this.getCpf()) != null) {
+            throw new PreexistingEntityException("CPF já registrado.");
         }
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
@@ -447,8 +444,14 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void update() throws Exception {
+    public void update() throws PreexistingEntityException, Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
+        Pessoa duplicate = Pessoa.findByCPF(this.getCpf());
+        if (duplicate != null) {
+            if (!duplicate.getId().equals(this.getId())) {
+                throw new PreexistingEntityException("CPF já está registrado para outra pessoa.");
+            }
+        }
         PessoaJpaController instance = new PessoaJpaController(emf);
         try {
             instance.edit(this);
