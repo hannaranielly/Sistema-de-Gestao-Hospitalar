@@ -5,6 +5,7 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.exceptions.CampoInvalidoException;
 import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
 import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
@@ -97,7 +98,8 @@ public class Medico implements ICRUD, Serializable {
     private SortedSet<Frequencia> listFrequencia;
 
     public Medico(String crm, Integer cargaHoraria, Especialidade especialidade)
-            throws CampoObrigatorioException, CampoLimiteStringException {
+            throws CampoObrigatorioException, CampoLimiteStringException,
+            CampoInvalidoException {
         this.setCrm(crm);
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
@@ -114,9 +116,16 @@ public class Medico implements ICRUD, Serializable {
         return listaHorario;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
-        if (cargaHoraria <= 60 && cargaHoraria > 0) {
-            this.cargaHoraria = cargaHoraria;
+    public void setCargaHoraria(Integer cargaHoraria)
+            throws CampoObrigatorioException, CampoInvalidoException {
+        if (cargaHoraria > 0) {
+            if (cargaHoraria <= 60) {
+                this.cargaHoraria = cargaHoraria;
+            } else {
+                throw new CampoInvalidoException("Carga horária excedeu o limite de 60 horas.");
+            }
+        } else {
+            throw new CampoObrigatorioException("Campo Carga Horária é obrigatório");
         }
     }
 
@@ -134,14 +143,6 @@ public class Medico implements ICRUD, Serializable {
 
     public Especialidade getEspecialidade() {
         return especialidade;
-    }
-
-    public void setCargaHoraria(Integer cargaHoraria) throws CampoObrigatorioException {
-        if (cargaHoraria > 0) {
-            this.cargaHoraria = cargaHoraria;
-        } else {
-            throw new CampoObrigatorioException("Campo Carga Horária é obrigatório");
-        }
     }
 
     public SortedSet<Frequencia> getListFrequencia() {

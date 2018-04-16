@@ -215,12 +215,17 @@ public class Pessoa implements Serializable, ICRUD {
             if (cpf.length() > 20) {
                 throw new CampoLimiteStringException("CPF excedeu máximo de caracteres.");
             }
-            if (!Cpf_Util.isCPF(cpf.replaceAll("[.-]", ""))) {
+            String cpf_noMask = cpf.replaceAll("[.-]", "").replaceAll("\\s+", "");
+            if (cpf_noMask.length() == 11) {
+                if (!Cpf_Util.isCPF(cpf_noMask)) {
+                    throw new CampoInvalidoException("CPF inválido.");
+                }
+                this.cpf = cpf;
+            } else {
                 throw new CampoInvalidoException("CPF inválido.");
             }
-            this.cpf = cpf;
         } else {
-            throw new CampoObrigatorioException("Campo CPF está vazio.");
+            throw new CampoObrigatorioException("Campo CPF é obrigatório.");
         }
     }
 
