@@ -10,6 +10,9 @@ import br.edu.ufersa.controlConsult.model.Medico;
 import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.Pessoa.TipoPessoaEnum;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoInvalidoException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.PreexistingEntityException;
 import java.util.Date;
 import java.util.List;
@@ -808,7 +811,8 @@ public class FormPessoa extends javax.swing.JFrame {
      *
      * @see Pessoa
      */
-    private Pessoa preenchePessoaFormulario() throws IllegalArgumentException {
+    private Pessoa preenchePessoaFormulario() throws CampoObrigatorioException,
+            CampoInvalidoException, CampoLimiteStringException {
         String nome = nome_textField.getText();
         String cpf = cpf_textField.getText();
         String rg = rg_textField.getText();
@@ -849,7 +853,9 @@ public class FormPessoa extends javax.swing.JFrame {
      *
      * @see Medico
      */
-    private void setMedicoFormulario(Pessoa pessoa) {
+    private void setMedicoFormulario(Pessoa pessoa) throws
+            CampoObrigatorioException, CampoLimiteStringException,
+            CampoInvalidoException {
         String crm = crm_jTextField.getText();
         int cargaHoraria;
         if (cargaHoraria_chField.getText() == null || cargaHoraria_chField.getText().equals("  ")) {
@@ -871,7 +877,7 @@ public class FormPessoa extends javax.swing.JFrame {
      *
      * @see Paciente
      */
-    private void setPacienteFormulario(Pessoa pessoa) {
+    private void setPacienteFormulario(Pessoa pessoa) throws CampoObrigatorioException, CampoLimiteStringException {
         Paciente p = new Paciente(sus_formattedtField.getText());
         pessoa.setPaciente(p);
     }
@@ -891,24 +897,30 @@ public class FormPessoa extends javax.swing.JFrame {
      * Paciente.
      */
     private void cadastrar() {
-        if (checarCampoObrigatorio()) {
-            Pessoa p = preenchePessoaFormulario();
-            try {
-                p.create();
-                limpaFormulario();
-                JOptionPane.showMessageDialog(this, tipoDePessoa + " armazenado com sucesso.");
-            } catch (PreexistingEntityException ex) {
-                JOptionPane.showMessageDialog(this, "O " + tipoDePessoa + " já encontra-se cadastrado.");
-                Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
-                ex.printStackTrace();
-                Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Informe os campos obrigattórios nome, CPF,\n"
-                    + "RG e data de nascimento");
+        Pessoa p;
+        try {
+            p = preenchePessoaFormulario();
+        } catch (CampoObrigatorioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        } catch (CampoInvalidoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        } catch (CampoLimiteStringException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        }
+        try {
+            p.create();
+            limpaFormulario();
+            JOptionPane.showMessageDialog(this, tipoDePessoa + " armazenado com sucesso.");
+        } catch (PreexistingEntityException ex) {
+            JOptionPane.showMessageDialog(this, "O " + tipoDePessoa + " já encontra-se cadastrado.");
+            Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
+            ex.printStackTrace();
+            Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -921,12 +933,25 @@ public class FormPessoa extends javax.swing.JFrame {
         if (pessoa == null) {
             throw new NullPointerException();
         }
-        updatePessoaTemp(pessoa);
+        try {
+            updatePessoaTemp(pessoa);
+        } catch (CampoLimiteStringException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        } catch (CampoObrigatorioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        } catch (CampoInvalidoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            return;
+        }
         try {
             pessoa.update();
             limpaFormulario();
             atualizarContextoJanela();
             JOptionPane.showMessageDialog(this, tipoDePessoa + " atualizado com sucesso.");
+        } catch (PreexistingEntityException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Comportamento inesperado.");
             Logger.getLogger(FormPessoa.class.getName()).log(Level.SEVERE, null, ex);
@@ -937,7 +962,9 @@ public class FormPessoa extends javax.swing.JFrame {
      * Extrai todas as informações do formulário para atribuir a pessoa que está
      * sujeito à atualização.
      */
-    private void updatePessoaTemp(Pessoa pessoa) {
+    private void updatePessoaTemp(Pessoa pessoa)
+            throws CampoLimiteStringException, CampoObrigatorioException,
+            CampoInvalidoException {
         // TODO: atualizar Pessoa
         String nome = nome_textField.getText();
         pessoa.setNome(nome);
@@ -973,7 +1000,9 @@ public class FormPessoa extends javax.swing.JFrame {
 
     }
 
-    private void updatePessoaTemp_Medico() {
+    private void updatePessoaTemp_Medico() throws CampoObrigatorioException,
+            CampoLimiteStringException,
+            CampoInvalidoException {
         int cargaHoraria;
         if (cargaHoraria_chField.getText() == null || cargaHoraria_chField.getText().equals("  ")) {
             cargaHoraria = 0;
@@ -987,7 +1016,8 @@ public class FormPessoa extends javax.swing.JFrame {
         pessoa.getMedico().setEspecialidade(especialidade);
     }
 
-    private void updatePessoaTemp_Paciente() throws NullPointerException {
+    private void updatePessoaTemp_Paciente() throws NullPointerException,
+            CampoObrigatorioException, CampoLimiteStringException {
         if (pessoa.getPaciente() == null) {
             throw new NullPointerException();
         }
