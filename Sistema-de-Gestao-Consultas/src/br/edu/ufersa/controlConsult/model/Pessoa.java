@@ -191,6 +191,9 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public String getNome() {
+        if (nome == null) {
+            return "[Sem nome]";
+        }
         return nome;
     }
 
@@ -206,6 +209,9 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public String getCpf() {
+        if (cpf == null) {
+            return "[Sem CPF]";
+        }
         return cpf;
     }
 
@@ -230,6 +236,9 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public String getRg() {
+        if (rg == null) {
+            return "[Sem RG]";
+        }
         return rg;
     }
 
