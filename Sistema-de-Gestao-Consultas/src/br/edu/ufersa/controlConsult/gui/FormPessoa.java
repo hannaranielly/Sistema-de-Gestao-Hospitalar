@@ -173,6 +173,7 @@ public class FormPessoa extends javax.swing.JFrame {
         cargaHoraria_chField.setText("");
         crm_jTextField.setText("");
         BuscaCpf_textField.setText("");
+        nascimento_DateField.setDate(null);
         pessoa = null;
     }
 
