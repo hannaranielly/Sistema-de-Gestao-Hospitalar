@@ -42,22 +42,7 @@ public class EspecialidadeJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Medico> attachedMedicoList = new ArrayList<Medico>();
-            for (Medico medicoListMedicoToAttach : especialidade.getMedicoList()) {
-                medicoListMedicoToAttach = em.getReference(medicoListMedicoToAttach.getClass(), medicoListMedicoToAttach.getId());
-                attachedMedicoList.add(medicoListMedicoToAttach);
-            }
-            especialidade.setMedicoList(attachedMedicoList);
             em.persist(especialidade);
-            for (Medico medicoListMedico : especialidade.getMedicoList()) {
-                Especialidade oldEspecialidadeOfMedicoListMedico = medicoListMedico.getEspecialidade();
-                medicoListMedico.setEspecialidade(especialidade);
-                medicoListMedico = em.merge(medicoListMedico);
-                if (oldEspecialidadeOfMedicoListMedico != null) {
-                    oldEspecialidadeOfMedicoListMedico.getMedicoList().remove(medicoListMedico);
-                    oldEspecialidadeOfMedicoListMedico = em.merge(oldEspecialidadeOfMedicoListMedico);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -141,11 +126,6 @@ public class EspecialidadeJpaController implements Serializable {
                 especialidade.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The especialidade with id " + id + " no longer exists.", enfe);
-            }
-            List<Medico> medicoList = especialidade.getMedicoList();
-            for (Medico medicoListMedico : medicoList) {
-                medicoListMedico.setEspecialidade(null);
-                medicoListMedico = em.merge(medicoListMedico);
             }
             em.remove(especialidade);
             em.getTransaction().commit();

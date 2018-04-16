@@ -5,8 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
-import br.edu.ufersa.controlConsult.model.Medico;
-import br.edu.ufersa.controlConsult.model.Paciente;
 import br.edu.ufersa.controlConsult.model.Pessoa;
 import br.edu.ufersa.controlConsult.model.jpaDAO.exceptions.NonexistentEntityException;
 import java.io.Serializable;
@@ -85,16 +83,6 @@ public class PessoaJpaController implements Serializable {
                 pessoa.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pessoa with id " + id + " no longer exists.", enfe);
-            }
-            Medico medico = pessoa.getMedico();
-            if (medico != null) {
-                medico.setPessoa(null);
-                medico = em.merge(medico);
-            }
-            Paciente paciente = pessoa.getPaciente();
-            if (paciente != null) {
-                paciente.setPessoa(null);
-                paciente = em.merge(paciente);
             }
             em.remove(pessoa);
             em.getTransaction().commit();
