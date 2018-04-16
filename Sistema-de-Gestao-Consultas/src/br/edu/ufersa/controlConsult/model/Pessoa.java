@@ -5,6 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.exceptions.CampoInvalidoException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
@@ -35,6 +38,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.NotSupportedException;
 
 /**
  *
@@ -160,19 +164,21 @@ public class Pessoa implements Serializable, ICRUD {
      */
     public Pessoa(String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            Integer numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
+            Integer numCasa, String bairro, String cidade, String estado, String cep)
+            throws CampoInvalidoException, CampoLimiteStringException,
+            CampoObrigatorioException {
         this.setNome(nome);
         this.setCpf(cpf);
         this.setRg(rg);
-        this.setEmail(email);
         this.setSexo(sexo);
         this.setDataDeNascimento(dataDeNascimento);
+        this.setCidade(cidade);
+        this.setEstado(estado);
+        this.setEmail(email);
         this.setTelefone(telefone);
         this.setLogradouro(logradouro);
         this.setNumCasa(numCasa);
         this.setBairro(bairro);
-        this.setCidade(cidade);
-        this.setEstado(estado);
         this.setCep(cep);
     }
 
@@ -188,14 +194,14 @@ public class Pessoa implements Serializable, ICRUD {
         return nome;
     }
 
-    public void setNome(String nome) throws IllegalArgumentException {
+    public void setNome(String nome) throws CampoLimiteStringException, CampoObrigatorioException {
         if (nome != null || nome.length() > 0) {
             if (nome.length() > 150) {
-                throw new IllegalArgumentException("Nome excedeu máximo de caracteres.");
+                throw new CampoLimiteStringException("Nome excedeu máximo de caracteres.");
             }
             this.nome = nome;
         } else {
-            throw new IllegalArgumentException("Campo Nome está vazio.");
+            throw new CampoObrigatorioException("Campo Nome está vazio.");
         }
     }
 
@@ -203,17 +209,18 @@ public class Pessoa implements Serializable, ICRUD {
         return cpf;
     }
 
-    public void setCpf(String cpf) throws IllegalArgumentException {
+    public void setCpf(String cpf) throws CampoInvalidoException,
+            CampoLimiteStringException, CampoObrigatorioException {
         if (cpf != null || cpf.length() > 0) {
             if (cpf.length() > 20) {
-                throw new IllegalArgumentException("CPF excedeu máximo de caracteres.");
+                throw new CampoLimiteStringException("CPF excedeu máximo de caracteres.");
             }
             if (!Cpf_Util.isCPF(cpf.replaceAll("[.-]", ""))) {
-                throw new IllegalArgumentException("CPF inválido.");
+                throw new CampoInvalidoException("CPF inválido.");
             }
             this.cpf = cpf;
         } else {
-            throw new IllegalArgumentException("Campo CPF está vazio.");
+            throw new CampoObrigatorioException("Campo CPF está vazio.");
         }
     }
 
@@ -221,14 +228,14 @@ public class Pessoa implements Serializable, ICRUD {
         return rg;
     }
 
-    public void setRg(String rg) throws IllegalArgumentException {
+    public void setRg(String rg) throws CampoLimiteStringException, CampoObrigatorioException {
         if (rg != null || rg.length() > 0) {
             if (rg.length() > 20) {
-                throw new IllegalArgumentException("RG excedeu máximo de caracteres.");
+                throw new CampoLimiteStringException("RG excedeu máximo de caracteres.");
             }
             this.rg = rg;
         } else {
-            throw new IllegalArgumentException("Campo RG está vazio.");
+            throw new CampoObrigatorioException("Campo RG está vazio.");
         }
     }
 
@@ -236,10 +243,10 @@ public class Pessoa implements Serializable, ICRUD {
         return telefone;
     }
 
-    public void setTelefone(String telefone) throws IllegalArgumentException {
+    public void setTelefone(String telefone) throws CampoLimiteStringException {
         if (telefone != null) {
-            if (this.telefone.length() > 15) {
-                throw new IllegalArgumentException("Telefone excedeu máximo de caracteres.");
+            if (telefone.length() > 15) {
+                throw new CampoLimiteStringException("Telefone excedeu máximo de caracteres.");
             }
         }
         this.telefone = telefone;
@@ -249,14 +256,15 @@ public class Pessoa implements Serializable, ICRUD {
         return cidade;
     }
 
-    public void setCidade(String cidade) throws IllegalArgumentException {
+    public void setCidade(String cidade) throws CampoLimiteStringException,
+            CampoObrigatorioException {
         if (cidade != null || cidade.length() > 0) {
-            if (this.cidade.length() > 50) {
-                throw new IllegalArgumentException("Cidade excedeu máximo de caracteres.");
+            if (cidade.length() > 50) {
+                throw new CampoLimiteStringException("Cidade excedeu máximo de caracteres.");
             }
             this.cidade = cidade;
         } else {
-            throw new IllegalArgumentException("Campo Cidade está vazio.");
+            throw new CampoObrigatorioException("Campo Cidade está vazio.");
         }
     }
 
@@ -264,10 +272,10 @@ public class Pessoa implements Serializable, ICRUD {
         return bairro;
     }
 
-    public void setBairro(String bairro) throws IllegalArgumentException {
+    public void setBairro(String bairro) throws CampoLimiteStringException {
         if (bairro != null) {
-            if (this.bairro.length() > 50) {
-                throw new IllegalArgumentException("Bairro excedeu máximo de caracteres.");
+            if (bairro.length() > 50) {
+                throw new CampoLimiteStringException("Bairro excedeu máximo de caracteres.");
             }
         }
         this.bairro = bairro;
@@ -277,10 +285,10 @@ public class Pessoa implements Serializable, ICRUD {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) throws IllegalArgumentException {
+    public void setLogradouro(String logradouro) throws CampoLimiteStringException {
         if (logradouro != null) {
-            if (this.logradouro.length() > 50) {
-                throw new IllegalArgumentException("Logradouro excedeu máximo de caracteres.");
+            if (logradouro.length() > 50) {
+                throw new CampoLimiteStringException("Logradouro excedeu máximo de caracteres.");
             }
         }
         this.logradouro = logradouro;
@@ -290,10 +298,10 @@ public class Pessoa implements Serializable, ICRUD {
         return cep;
     }
 
-    public void setCep(String cep) throws IllegalArgumentException {
+    public void setCep(String cep) throws CampoLimiteStringException {
         if (cep != null) {
-            if (this.cep.length() > 15) {
-                throw new IllegalArgumentException("CEP excedeu máximo de caracteres.");
+            if (cep.length() > 15) {
+                throw new CampoLimiteStringException("CEP excedeu máximo de caracteres.");
             }
         }
         this.cep = cep;
@@ -303,11 +311,12 @@ public class Pessoa implements Serializable, ICRUD {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(Date dataDeNascimento)
+            throws CampoObrigatorioException {
         if (dataDeNascimento != null) {
             this.dataDeNascimento = dataDeNascimento;
         } else {
-            throw new IllegalArgumentException("Data de nascimento está vazio.");
+            throw new CampoObrigatorioException("Data de nascimento está vazio.");
         }
     }
 
@@ -315,11 +324,11 @@ public class Pessoa implements Serializable, ICRUD {
         return sexo;
     }
 
-    public void setSexo(Character sexo) {
+    public void setSexo(Character sexo) throws CampoObrigatorioException {
         if (sexo != null) {
             this.sexo = sexo;
         } else {
-            throw new IllegalArgumentException("Campo Gênero sexual está vazio.");
+            throw new CampoObrigatorioException("Campo Gênero sexual está vazio.");
         }
     }
 
@@ -327,10 +336,10 @@ public class Pessoa implements Serializable, ICRUD {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws CampoLimiteStringException {
         if (email != null) {
             if (email.length() > 50) {
-                throw new IllegalArgumentException("E-mail excedeu máximo de caracteres.");
+                throw new CampoLimiteStringException("E-mail excedeu máximo de caracteres.");
             }
         }
         this.email = email;
@@ -348,14 +357,14 @@ public class Pessoa implements Serializable, ICRUD {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(String estado) throws CampoLimiteStringException, CampoObrigatorioException {
         if (estado != null || estado.length() > 0) {
             if (estado.length() > 50) {
-                throw new IllegalArgumentException("Campo Estado excedeu máximo de caracteres.");
+                throw new CampoLimiteStringException("Campo Estado excedeu máximo de caracteres.");
             }
             this.estado = estado;
         } else {
-            throw new IllegalArgumentException("Campo Estado está vazio.");
+            throw new CampoObrigatorioException("Campo Estado está vazio.");
         }
     }
 
@@ -420,7 +429,8 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void read() throws EntityNotFoundException {
+    public void read() throws NotSupportedException {
+        throw new NotSupportedException("Not supported operation.");
 //        EntityManagerFactory emf = JpaFactory.getInstance();
 //        PessoaJpaController instance = new PessoaJpaController(emf);
 //        try {

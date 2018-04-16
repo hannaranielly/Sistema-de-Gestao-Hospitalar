@@ -5,6 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PacienteJpaController;
@@ -47,7 +49,7 @@ public class Paciente implements ICRUD, Serializable {
     public Paciente() {
     }
 
-    public Paciente(String num_sus) {
+    public Paciente(String num_sus) throws CampoObrigatorioException, CampoLimiteStringException {
         this.setNum_sus(num_sus);
     }
 
@@ -55,8 +57,15 @@ public class Paciente implements ICRUD, Serializable {
         return num_sus;
     }
 
-    public void setNum_sus(String num_sus) {
-        this.num_sus = num_sus;
+    public void setNum_sus(String num_sus) throws CampoObrigatorioException, CampoLimiteStringException {
+        if (num_sus != null && num_sus.length() > 0) {
+            if (num_sus.length() > 25) {
+                throw new CampoLimiteStringException("Campo Num SUS excedeu o máximo de caracteres.");
+            }
+            this.num_sus = num_sus;
+        } else {
+            throw new CampoObrigatorioException("Num SUS é obrigatório");
+        }
     }
 
     @Override
@@ -143,8 +152,12 @@ public class Paciente implements ICRUD, Serializable {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoa(Pessoa pessoa) throws CampoObrigatorioException {
+        if (pessoa != null) {
+            this.pessoa = pessoa;
+        } else {
+            throw new CampoObrigatorioException("Não há pessoa asssociada a esse registro.");
+        }
     }
 
 }
