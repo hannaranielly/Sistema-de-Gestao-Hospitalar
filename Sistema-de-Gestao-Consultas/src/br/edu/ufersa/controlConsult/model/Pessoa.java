@@ -195,7 +195,7 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public void setNome(String nome) throws CampoLimiteStringException, CampoObrigatorioException {
-        if (nome != null || nome.length() > 0) {
+        if (nome != null && nome.length() > 0) {
             if (nome.length() > 150) {
                 throw new CampoLimiteStringException("Nome excedeu máximo de caracteres.");
             }
@@ -211,7 +211,7 @@ public class Pessoa implements Serializable, ICRUD {
 
     public void setCpf(String cpf) throws CampoInvalidoException,
             CampoLimiteStringException, CampoObrigatorioException {
-        if (cpf != null || cpf.length() > 0) {
+        if (cpf != null && cpf.replaceAll("[.-]", "").replaceAll("\\s+", "").length() > 0) {
             if (cpf.length() > 20) {
                 throw new CampoLimiteStringException("CPF excedeu máximo de caracteres.");
             }
@@ -229,7 +229,7 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public void setRg(String rg) throws CampoLimiteStringException, CampoObrigatorioException {
-        if (rg != null || rg.length() > 0) {
+        if (rg != null && rg.length() > 0) {
             if (rg.length() > 20) {
                 throw new CampoLimiteStringException("RG excedeu máximo de caracteres.");
             }
@@ -258,7 +258,7 @@ public class Pessoa implements Serializable, ICRUD {
 
     public void setCidade(String cidade) throws CampoLimiteStringException,
             CampoObrigatorioException {
-        if (cidade != null || cidade.length() > 0) {
+        if (cidade != null && cidade.length() > 0) {
             if (cidade.length() > 50) {
                 throw new CampoLimiteStringException("Cidade excedeu máximo de caracteres.");
             }
@@ -358,7 +358,7 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public void setEstado(String estado) throws CampoLimiteStringException, CampoObrigatorioException {
-        if (estado != null || estado.length() > 0) {
+        if (estado != null && estado.length() > 0) {
             if (estado.length() > 50) {
                 throw new CampoLimiteStringException("Campo Estado excedeu máximo de caracteres.");
             }
