@@ -5,6 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.exceptions.CampoInvalidoException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.MedicoJpaController;
@@ -94,7 +97,9 @@ public class Medico implements ICRUD, Serializable {
     @OrderBy("data_entrada DESC")
     private SortedSet<Frequencia> listFrequencia;
 
-    public Medico(String crm, Integer cargaHoraria, Especialidade especialidade) {
+    public Medico(String crm, Integer cargaHoraria, Especialidade especialidade)
+            throws CampoObrigatorioException, CampoLimiteStringException,
+            CampoInvalidoException {
         this.setCrm(crm);
         this.setCargaHoraria(cargaHoraria);
         this.setEspecialidade(especialidade);
@@ -111,9 +116,16 @@ public class Medico implements ICRUD, Serializable {
         return listaHorario;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
-        if (cargaHoraria <= 60 && cargaHoraria > 0) {
-            this.cargaHoraria = cargaHoraria;
+    public void setCargaHoraria(Integer cargaHoraria)
+            throws CampoObrigatorioException, CampoInvalidoException {
+        if (cargaHoraria > 0) {
+            if (cargaHoraria <= 60) {
+                this.cargaHoraria = cargaHoraria;
+            } else {
+                throw new CampoInvalidoException("Carga horária excedeu o limite de 60 horas.");
+            }
+        } else {
+            throw new CampoObrigatorioException("Campo Carga Horária é obrigatório");
         }
     }
 
@@ -121,16 +133,16 @@ public class Medico implements ICRUD, Serializable {
         return cargaHoraria;
     }
 
-    public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
+    public void setEspecialidade(Especialidade especialidade) throws CampoObrigatorioException {
+        if (especialidade != null) {
+            this.especialidade = especialidade;
+        } else {
+            throw new CampoObrigatorioException("Campo Especialidade é obrigatório");
+        }
     }
 
     public Especialidade getEspecialidade() {
         return especialidade;
-    }
-
-    public void setCargaHoraria(Integer cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
     }
 
     public SortedSet<Frequencia> getListFrequencia() {
@@ -234,16 +246,27 @@ public class Medico implements ICRUD, Serializable {
         return pessoa;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoa(Pessoa pessoa) throws CampoObrigatorioException {
+        if (pessoa != null) {
+            this.pessoa = pessoa;
+        } else {
+            throw new CampoObrigatorioException("Não há pessoa asssociada a esse registro.");
+        }
     }
 
     public String getCrm() {
         return crm;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
+    public void setCrm(String crm) throws CampoObrigatorioException, CampoLimiteStringException {
+        if (crm != null && crm.length() > 0) {
+            if (crm.length() > 15) {
+                throw new CampoLimiteStringException("CRM excedeu o máximo de caracteres.");
+            }
+            this.crm = crm;
+        } else {
+            throw new CampoObrigatorioException("Campo CRM é obrigatório.");
+        }
     }
 
     /**

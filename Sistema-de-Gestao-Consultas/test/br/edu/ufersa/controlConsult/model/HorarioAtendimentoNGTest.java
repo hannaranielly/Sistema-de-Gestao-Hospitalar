@@ -40,6 +40,33 @@ public class HorarioAtendimentoNGTest {
     }
 
     /**
+     * Test of findAll method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
+        List expResult = null;
+        List result = HorarioAtendimento.findAll();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByDay method, of class HorarioAtendimento.
+     */
+    @Test
+    public void testFindByDay() {
+        System.out.println("findByDay");
+        HorarioAtendimento.DiaSemanaEnum dia = null;
+        List expResult = null;
+        List result = HorarioAtendimento.findByDay(dia);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of isConflito method, of class HorarioAtendimento.
      */
     @Test

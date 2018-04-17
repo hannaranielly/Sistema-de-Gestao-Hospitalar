@@ -69,7 +69,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
         listaDeHorarios = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         marcar = new javax.swing.JButton();
-        Data = new com.toedter.calendar.JDateChooser();
+        data_jDateChooser = new com.toedter.calendar.JDateChooser();
 
         jButton1.setText("jButton1");
 
@@ -94,6 +94,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
             }
         });
 
+        listaDeHorarios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaDeHorarios);
 
         jLabel3.setText("Data:");
@@ -105,8 +106,8 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
             }
         });
 
-        Data.setMinimumSize(new java.awt.Dimension(120, 20));
-        Data.setPreferredSize(new java.awt.Dimension(120, 20));
+        data_jDateChooser.setMinimumSize(new java.awt.Dimension(120, 20));
+        data_jDateChooser.setPreferredSize(new java.awt.Dimension(120, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +119,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(data_jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(marcar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
@@ -149,7 +150,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(marcar)
-                    .addComponent(Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(data_jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
@@ -158,7 +159,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
 
     private void marcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcarActionPerformed
         // TODO add your handling code here:
-        if (Data.getDate() == null) {
+        if (data_jDateChooser.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Informe um data válida para marcar a consulta");
         } else {
             if (listaDeHorarios.isSelectionEmpty()) {
@@ -166,7 +167,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
             } else {
 
                 int posicao = listaDeHorarios.getSelectedIndex();
-                Date agendada = Data.getDate();
+                Date agendada = data_jDateChooser.getDate();
                 String diaSemanaListado = medico.getMedico().getListaHorario().get(posicao).getDiaSemana().getNome();
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(agendada);
@@ -245,7 +246,7 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser Data;
+    private com.toedter.calendar.JDateChooser data_jDateChooser;
     private javax.swing.JTextField especialidadeDoMedico;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

@@ -40,6 +40,114 @@ public class PessoaNGTest {
     }
 
     /**
+     * Test of findAll method, of class Pessoa.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
+        List expResult = null;
+        List result = Pessoa.findAll();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findMedicosByNome method, of class Pessoa.
+     */
+    @Test
+    public void testFindMedicosByNome() {
+        System.out.println("findMedicosByNome");
+        String nome = "";
+        List expResult = null;
+        List result = Pessoa.findMedicosByNome(nome);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findPacientesByNome method, of class Pessoa.
+     */
+    @Test
+    public void testFindPacientesByNome() {
+        System.out.println("findPacientesByNome");
+        String nome = "";
+        List expResult = null;
+        List result = Pessoa.findPacientesByNome(nome);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByCPF method, of class Pessoa.
+     */
+    @Test
+    public void testFindByCPF() {
+        System.out.println("findByCPF");
+        String cpf = "";
+        Pessoa expResult = null;
+        Pessoa result = Pessoa.findByCPF(cpf);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findByNome method, of class Pessoa.
+     */
+    @Test
+    public void testFindByNome() {
+        System.out.println("findByNome");
+        String nome = "";
+        List expResult = null;
+        List result = Pessoa.findByNome(nome);
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findMedicos method, of class Pessoa.
+     */
+    @Test
+    public void testFindMedicos() {
+        System.out.println("findMedicos");
+        List expResult = null;
+        List result = Pessoa.findMedicos();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findPacientes method, of class Pessoa.
+     */
+    @Test
+    public void testFindPacientes() {
+        System.out.println("findPacientes");
+        List expResult = null;
+        List result = Pessoa.findPacientes();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findAllMedicos method, of class Pessoa.
+     */
+    @Test
+    public void testFindAllMedicos() {
+        System.out.println("findAllMedicos");
+        List expResult = null;
+        List result = Pessoa.findAllMedicos();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of getId method, of class Pessoa.
      */
     @Test
@@ -461,33 +569,6 @@ public class PessoaNGTest {
     }
 
     /**
-     * Test of findAll method, of class Pessoa.
-     */
-    @Test
-    public void testFindAll() {
-        System.out.println("findAll");
-        List expResult = null;
-        List result = Pessoa.findAll();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of findByCPF method, of class Pessoa.
-     */
-    @Test
-    public void testFindByCPF() {
-        System.out.println("findByCPF");
-        String cpf = "";
-        Pessoa expResult = null;
-        Pessoa result = Pessoa.findByCPF(cpf);
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of setMedico method, of class Pessoa.
      */
     @Test
@@ -569,7 +650,7 @@ public class PessoaNGTest {
      * Test of update method, of class Pessoa.
      */
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws Exception {
         System.out.println("update");
         Pessoa instance = new Pessoa();
         instance.update();

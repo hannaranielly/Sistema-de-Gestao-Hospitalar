@@ -68,6 +68,19 @@ public class UsuarioJpaControllerNGTest {
     }
 
     /**
+     * Test of read method, of class UsuarioJpaController.
+     */
+    @Test
+    public void testRead() throws Exception {
+        System.out.println("read");
+        Usuario usuario = null;
+        UsuarioJpaController instance = null;
+        instance.read(usuario);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of edit method, of class UsuarioJpaController.
      */
     @Test
@@ -156,26 +169,28 @@ public class UsuarioJpaControllerNGTest {
      * Test of login method, of class UsuarioJpaController.
      */
     @Test
-    public void testLogin() {
+    public void testLogin() throws Exception {
         System.out.println("login");
-        Usuario aThis = null;
+        Usuario usuario = null;
         UsuarioJpaController instance = null;
-        boolean expResult = false;
-        boolean result = instance.login(aThis);
+        Usuario expResult = null;
+        Usuario result = instance.login(usuario);
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of read method, of class UsuarioJpaController.
+     * Test of pegar_Banco method, of class UsuarioJpaController.
      */
     @Test
-    public void testRead() throws Exception {
-        System.out.println("read");
+    public void testPegar_Banco() {
+        System.out.println("pegar_Banco");
         Usuario usuario = null;
         UsuarioJpaController instance = null;
-        instance.read(usuario);
+        Usuario expResult = null;
+        Usuario result = instance.pegar_Banco(usuario);
+        assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

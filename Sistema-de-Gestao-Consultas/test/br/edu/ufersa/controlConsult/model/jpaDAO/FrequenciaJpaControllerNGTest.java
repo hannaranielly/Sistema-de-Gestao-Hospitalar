@@ -5,7 +5,8 @@
  */
 package br.edu.ufersa.controlConsult.model.jpaDAO;
 
-import br.edu.ufersa.controlConsult.model.Paciente;
+import br.edu.ufersa.controlConsult.model.Frequencia;
+import br.edu.ufersa.controlConsult.model.Medico;
 import java.util.List;
 import javax.persistence.EntityManager;
 import static org.testng.Assert.*;
@@ -19,9 +20,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class PacienteJpaControllerNGTest {
+public class FrequenciaJpaControllerNGTest {
     
-    public PacienteJpaControllerNGTest() {
+    public FrequenciaJpaControllerNGTest() {
     }
 
     @BeforeClass
@@ -41,12 +42,12 @@ public class PacienteJpaControllerNGTest {
     }
 
     /**
-     * Test of getEntityManager method, of class PacienteJpaController.
+     * Test of getEntityManager method, of class FrequenciaJpaController.
      */
     @Test
     public void testGetEntityManager() {
         System.out.println("getEntityManager");
-        PacienteJpaController instance = null;
+        FrequenciaJpaController instance = null;
         EntityManager expResult = null;
         EntityManager result = instance.getEntityManager();
         assertEquals(result, expResult);
@@ -55,111 +56,126 @@ public class PacienteJpaControllerNGTest {
     }
 
     /**
-     * Test of create method, of class PacienteJpaController.
+     * Test of create method, of class FrequenciaJpaController.
      */
     @Test
     public void testCreate() {
         System.out.println("create");
-        Paciente paciente = null;
-        PacienteJpaController instance = null;
-        instance.create(paciente);
+        Frequencia frequencia = null;
+        FrequenciaJpaController instance = null;
+        instance.create(frequencia);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of read method, of class PacienteJpaController.
+     * Test of read method, of class FrequenciaJpaController.
      */
     @Test
     public void testRead() throws Exception {
         System.out.println("read");
-        Paciente paciente = null;
-        PacienteJpaController instance = null;
-        instance.read(paciente);
+        Frequencia frequencia = null;
+        FrequenciaJpaController instance = null;
+        instance.read(frequencia);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of edit method, of class PacienteJpaController.
+     * Test of edit method, of class FrequenciaJpaController.
      */
     @Test
     public void testEdit() throws Exception {
         System.out.println("edit");
-        Paciente paciente = null;
-        PacienteJpaController instance = null;
-        instance.edit(paciente);
+        Frequencia frequencia = null;
+        FrequenciaJpaController instance = null;
+        instance.edit(frequencia);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of destroy method, of class PacienteJpaController.
+     * Test of destroy method, of class FrequenciaJpaController.
      */
     @Test
     public void testDestroy() throws Exception {
         System.out.println("destroy");
         Integer id = null;
-        PacienteJpaController instance = null;
+        FrequenciaJpaController instance = null;
         instance.destroy(id);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of findPacienteEntities method, of class PacienteJpaController.
+     * Test of findFrequenciaEntities method, of class FrequenciaJpaController.
      */
     @Test
-    public void testFindPacienteEntities_0args() {
-        System.out.println("findPacienteEntities");
-        PacienteJpaController instance = null;
+    public void testFindFrequenciaEntities_0args() {
+        System.out.println("findFrequenciaEntities");
+        FrequenciaJpaController instance = null;
         List expResult = null;
-        List result = instance.findPacienteEntities();
+        List result = instance.findFrequenciaEntities();
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of findPacienteEntities method, of class PacienteJpaController.
+     * Test of findFrequenciaEntities method, of class FrequenciaJpaController.
      */
     @Test
-    public void testFindPacienteEntities_int_int() {
-        System.out.println("findPacienteEntities");
+    public void testFindFrequenciaEntities_int_int() {
+        System.out.println("findFrequenciaEntities");
         int maxResults = 0;
         int firstResult = 0;
-        PacienteJpaController instance = null;
+        FrequenciaJpaController instance = null;
         List expResult = null;
-        List result = instance.findPacienteEntities(maxResults, firstResult);
+        List result = instance.findFrequenciaEntities(maxResults, firstResult);
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of findPaciente method, of class PacienteJpaController.
+     * Test of findFrequencia method, of class FrequenciaJpaController.
      */
     @Test
-    public void testFindPaciente() {
-        System.out.println("findPaciente");
+    public void testFindFrequencia() {
+        System.out.println("findFrequencia");
         Integer id = null;
-        PacienteJpaController instance = null;
-        Paciente expResult = null;
-        Paciente result = instance.findPaciente(id);
+        FrequenciaJpaController instance = null;
+        Frequencia expResult = null;
+        Frequencia result = instance.findFrequencia(id);
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getPacienteCount method, of class PacienteJpaController.
+     * Test of getFrequenciaCount method, of class FrequenciaJpaController.
      */
     @Test
-    public void testGetPacienteCount() {
-        System.out.println("getPacienteCount");
-        PacienteJpaController instance = null;
+    public void testGetFrequenciaCount() {
+        System.out.println("getFrequenciaCount");
+        FrequenciaJpaController instance = null;
         int expResult = 0;
-        int result = instance.getPacienteCount();
+        int result = instance.getFrequenciaCount();
+        assertEquals(result, expResult);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of findPorMedico method, of class FrequenciaJpaController.
+     */
+    @Test
+    public void testFindPorMedico() {
+        System.out.println("findPorMedico");
+        Medico medico = null;
+        FrequenciaJpaController instance = null;
+        List expResult = null;
+        List result = instance.findPorMedico(medico);
         assertEquals(result, expResult);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

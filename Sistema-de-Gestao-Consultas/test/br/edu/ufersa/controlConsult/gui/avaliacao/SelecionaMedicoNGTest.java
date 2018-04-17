@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufersa.controlConsult.gui;
+package br.edu.ufersa.controlConsult.gui.avaliacao;
 
-import br.edu.ufersa.controlConsult.model.HorarioAtendimento;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +16,9 @@ import org.testng.annotations.Test;
  *
  * @author juan
  */
-public class TelaInicialNGTest {
+public class SelecionaMedicoNGTest {
     
-    public TelaInicialNGTest() {
+    public SelecionaMedicoNGTest() {
     }
 
     @BeforeClass
@@ -39,28 +38,13 @@ public class TelaInicialNGTest {
     }
 
     /**
-     * Test of diaSemana method, of class TelaInicial.
-     */
-    @Test
-    public void testDiaSemana() {
-        System.out.println("diaSemana");
-        int n = 0;
-        TelaInicial instance = null;
-        HorarioAtendimento.DiaSemanaEnum expResult = null;
-        HorarioAtendimento.DiaSemanaEnum result = instance.diaSemana(n);
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class TelaInicial.
+     * Test of main method, of class SelecionaMedico.
      */
     @Test
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        TelaInicial.main(args);
+        SelecionaMedico.main(args);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

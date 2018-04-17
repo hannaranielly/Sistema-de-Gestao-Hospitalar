@@ -5,6 +5,9 @@
  */
 package br.edu.ufersa.controlConsult.model;
 
+import br.edu.ufersa.controlConsult.model.exceptions.CampoInvalidoException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoLimiteStringException;
+import br.edu.ufersa.controlConsult.model.exceptions.CampoObrigatorioException;
 import br.edu.ufersa.controlConsult.model.interfaces.ICRUD;
 import br.edu.ufersa.controlConsult.model.jpaDAO.JpaFactory;
 import br.edu.ufersa.controlConsult.model.jpaDAO.PessoaJpaController;
@@ -35,6 +38,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.NotSupportedException;
 
 /**
  *
@@ -52,6 +56,10 @@ import javax.persistence.TemporalType;
     , @NamedQuery(name = "Pessoa.medico", query = "SELECT m FROM Pessoa m WHERE m.medico!=null")
     , @NamedQuery(name = "Pessoa.paciente", query = "SELECT p FROM Pessoa p WHERE p.paciente!=null")})
 public class Pessoa implements Serializable, ICRUD {
+
+    public static enum TipoPessoaEnum {
+        AMBOS, PACIENTE, MEDICO;
+    }
 
     public static List<Pessoa> findAll() {
         EntityManagerFactory emf = JpaFactory.getInstance();
@@ -101,14 +109,6 @@ public class Pessoa implements Serializable, ICRUD {
         return instance.findPacientes();
     }
 
-    public static List<Pessoa> findAllMedicos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static enum TipoPessoaEnum {
-        AMBOS, PACIENTE, MEDICO;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -122,13 +122,13 @@ public class Pessoa implements Serializable, ICRUD {
     private Date dataDeNascimento;
     @Column(name = "sexo")
     private Character sexo;
-    @Column(name = "email", length = 75)
+    @Column(name = "email", length = 50)
     private String email;
-    @Column(name = "bairro", length = 75)
+    @Column(name = "bairro", length = 50)
     private String bairro;
     @Column(name = "num_casa")
     private Integer numCasa;
-    @Column(name = "logradouro", length = 75)
+    @Column(name = "logradouro", length = 50)
     private String logradouro;
     @Column(name = "cep", length = 15)
     private String cep;
@@ -162,33 +162,24 @@ public class Pessoa implements Serializable, ICRUD {
      *
      * @throws IllegalArgumentException se algum atributo for inválido.
      */
-    public Pessoa(Integer id, String nome, String cpf, String rg, String email,
+    public Pessoa(String nome, String cpf, String rg, String email,
             char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            Integer numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
-        this.setId(id);
+            Integer numCasa, String bairro, String cidade, String estado, String cep)
+            throws CampoInvalidoException, CampoLimiteStringException,
+            CampoObrigatorioException {
         this.setNome(nome);
         this.setCpf(cpf);
         this.setRg(rg);
-        this.setEmail(email);
         this.setSexo(sexo);
         this.setDataDeNascimento(dataDeNascimento);
+        this.setCidade(cidade);
+        this.setEstado(estado);
+        this.setEmail(email);
         this.setTelefone(telefone);
         this.setLogradouro(logradouro);
         this.setNumCasa(numCasa);
         this.setBairro(bairro);
-        this.setCidade(cidade);
-        this.setEstado(estado);
         this.setCep(cep);
-    }
-
-    /**
-     * Construtor sem id na assinatura.
-     */
-    public Pessoa(String nome, String cpf, String rg, String email,
-            char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            int numCasa, String bairro, String cidade, String estado, String cep) throws IllegalArgumentException {
-        this(null, nome, cpf, rg, email, sexo, dataDeNascimento, telefone, logradouro,
-                numCasa, bairro, cidade, estado, cep);
     }
 
     public Integer getId() {
@@ -200,37 +191,78 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public String getNome() {
+        if (nome == null) {
+            return "[Sem nome]";
+        }
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws CampoLimiteStringException, CampoObrigatorioException {
+        if (nome != null && nome.length() > 0) {
+            if (nome.length() > 150) {
+                throw new CampoLimiteStringException("Nome excedeu máximo de caracteres.");
+            }
+            this.nome = nome;
+        } else {
+            throw new CampoObrigatorioException("Campo Nome está vazio.");
+        }
     }
 
     public String getCpf() {
+        if (cpf == null) {
+            return "[Sem CPF]";
+        }
         return cpf;
     }
 
-    public void setCpf(String cpf) throws IllegalArgumentException {
-        if (!Cpf_Util.isCPF(cpf.replaceAll("[.-]", ""))) {
-            throw new IllegalArgumentException("CPF inválido.");
+    public void setCpf(String cpf) throws CampoInvalidoException,
+            CampoLimiteStringException, CampoObrigatorioException {
+        if (cpf != null && cpf.replaceAll("[.-]", "").replaceAll("\\s+", "").length() > 0) {
+            if (cpf.length() > 20) {
+                throw new CampoLimiteStringException("CPF excedeu máximo de caracteres.");
+            }
+            String cpf_noMask = cpf.replaceAll("[.-]", "").replaceAll("\\s+", "");
+            if (cpf_noMask.length() == 11) {
+                if (!Cpf_Util.isCPF(cpf_noMask)) {
+                    throw new CampoInvalidoException("CPF inválido.");
+                }
+                this.cpf = cpf;
+            } else {
+                throw new CampoInvalidoException("CPF inválido.");
+            }
+        } else {
+            throw new CampoObrigatorioException("Campo CPF é obrigatório.");
         }
-        this.cpf = cpf;
     }
 
     public String getRg() {
+        if (rg == null) {
+            return "[Sem RG]";
+        }
         return rg;
     }
 
-    public void setRg(String rg) {
-        this.rg = rg;
+    public void setRg(String rg) throws CampoLimiteStringException, CampoObrigatorioException {
+        if (rg != null && rg.length() > 0) {
+            if (rg.length() > 20) {
+                throw new CampoLimiteStringException("RG excedeu máximo de caracteres.");
+            }
+            this.rg = rg;
+        } else {
+            throw new CampoObrigatorioException("Campo RG está vazio.");
+        }
     }
 
     public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(String telefone) throws CampoLimiteStringException {
+        if (telefone != null) {
+            if (telefone.length() > 15) {
+                throw new CampoLimiteStringException("Telefone excedeu máximo de caracteres.");
+            }
+        }
         this.telefone = telefone;
     }
 
@@ -238,15 +270,28 @@ public class Pessoa implements Serializable, ICRUD {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setCidade(String cidade) throws CampoLimiteStringException,
+            CampoObrigatorioException {
+        if (cidade != null && cidade.length() > 0) {
+            if (cidade.length() > 50) {
+                throw new CampoLimiteStringException("Cidade excedeu máximo de caracteres.");
+            }
+            this.cidade = cidade;
+        } else {
+            throw new CampoObrigatorioException("Campo Cidade está vazio.");
+        }
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public void setBairro(String bairro) throws CampoLimiteStringException {
+        if (bairro != null) {
+            if (bairro.length() > 50) {
+                throw new CampoLimiteStringException("Bairro excedeu máximo de caracteres.");
+            }
+        }
         this.bairro = bairro;
     }
 
@@ -254,7 +299,12 @@ public class Pessoa implements Serializable, ICRUD {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) {
+    public void setLogradouro(String logradouro) throws CampoLimiteStringException {
+        if (logradouro != null) {
+            if (logradouro.length() > 50) {
+                throw new CampoLimiteStringException("Logradouro excedeu máximo de caracteres.");
+            }
+        }
         this.logradouro = logradouro;
     }
 
@@ -262,41 +312,50 @@ public class Pessoa implements Serializable, ICRUD {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(String cep) throws CampoLimiteStringException {
+        if (cep != null) {
+            if (cep.length() > 15) {
+                throw new CampoLimiteStringException("CEP excedeu máximo de caracteres.");
+            }
+        }
         this.cep = cep;
-    }
-
-    public Pessoa(Integer id) {
-        this.id = id;
-    }
-
-    public Pessoa(Integer id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
     }
 
     public Date getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setDataDeNascimento(Date dataDeNascimento)
+            throws CampoObrigatorioException {
+        if (dataDeNascimento != null) {
+            this.dataDeNascimento = dataDeNascimento;
+        } else {
+            throw new CampoObrigatorioException("Data de nascimento está vazio.");
+        }
     }
 
     public Character getSexo() {
         return sexo;
     }
 
-    public void setSexo(Character sexo) {
-        this.sexo = sexo;
+    public void setSexo(Character sexo) throws CampoObrigatorioException {
+        if (sexo != null) {
+            this.sexo = sexo;
+        } else {
+            throw new CampoObrigatorioException("Campo Gênero sexual está vazio.");
+        }
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws CampoLimiteStringException {
+        if (email != null) {
+            if (email.length() > 50) {
+                throw new CampoLimiteStringException("E-mail excedeu máximo de caracteres.");
+            }
+        }
         this.email = email;
     }
 
@@ -312,8 +371,15 @@ public class Pessoa implements Serializable, ICRUD {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(String estado) throws CampoLimiteStringException, CampoObrigatorioException {
+        if (estado != null && estado.length() > 0) {
+            if (estado.length() > 50) {
+                throw new CampoLimiteStringException("Campo Estado excedeu máximo de caracteres.");
+            }
+            this.estado = estado;
+        } else {
+            throw new CampoObrigatorioException("Campo Estado está vazio.");
+        }
     }
 
     @Override
@@ -338,8 +404,8 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Override
     public String toString() {
-        return "[id=" + id + "]"
-                + " Nome: " + this.nome + " CPF: " + this.cpf;
+        String string = "Nome: " + this.getNome() + " CPF: " + this.getCpf();
+        return string;
     }
 
     public void setMedico(Medico medico) {
@@ -360,11 +426,8 @@ public class Pessoa implements Serializable, ICRUD {
 
     @Override
     public void create() throws PreexistingEntityException, Exception {
-        try {
-            if (Pessoa.findByCPF(this.getCpf()) != null) {
-                throw new PreexistingEntityException("CPF já registrado.");
-            }
-        } catch (NoResultException e) {
+        if (Pessoa.findByCPF(this.getCpf()) != null) {
+            throw new PreexistingEntityException("CPF já registrado.");
         }
         EntityManagerFactory emf = JpaFactory.getInstance();
         PessoaJpaController instance = new PessoaJpaController(emf);
@@ -377,7 +440,8 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void read() throws EntityNotFoundException {
+    public void read() throws NotSupportedException {
+        throw new NotSupportedException("Not supported operation.");
 //        EntityManagerFactory emf = JpaFactory.getInstance();
 //        PessoaJpaController instance = new PessoaJpaController(emf);
 //        try {
@@ -389,8 +453,14 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     @Override
-    public void update() throws Exception {
+    public void update() throws PreexistingEntityException, Exception {
         EntityManagerFactory emf = JpaFactory.getInstance();
+        Pessoa duplicate = Pessoa.findByCPF(this.getCpf());
+        if (duplicate != null) {
+            if (!duplicate.getId().equals(this.getId())) {
+                throw new PreexistingEntityException("CPF já está registrado para outra pessoa.");
+            }
+        }
         PessoaJpaController instance = new PessoaJpaController(emf);
         try {
             instance.edit(this);

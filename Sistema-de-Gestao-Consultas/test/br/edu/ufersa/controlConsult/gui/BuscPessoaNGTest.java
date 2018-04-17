@@ -5,7 +5,6 @@
  */
 package br.edu.ufersa.controlConsult.gui;
 
-import br.edu.ufersa.controlConsult.model.Pessoa;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -44,9 +43,8 @@ public class BuscPessoaNGTest {
     @Test
     public void testPreencherFormularioPessoa() {
         System.out.println("preencherFormularioPessoa");
-        Pessoa pessoa = null;
         BuscPessoa instance = null;
-        instance.preencherFormularioPessoa(pessoa);
+        instance.preencherFormularioPessoa();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

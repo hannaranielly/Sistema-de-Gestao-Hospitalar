@@ -68,6 +68,19 @@ public class MedicoJpaControllerNGTest {
     }
 
     /**
+     * Test of read method, of class MedicoJpaController.
+     */
+    @Test
+    public void testRead() {
+        System.out.println("read");
+        Medico medico = null;
+        MedicoJpaController instance = null;
+        instance.read(medico);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of edit method, of class MedicoJpaController.
      */
     @Test
@@ -148,19 +161,6 @@ public class MedicoJpaControllerNGTest {
         int expResult = 0;
         int result = instance.getMedicoCount();
         assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of read method, of class MedicoJpaController.
-     */
-    @Test
-    public void testRead() {
-        System.out.println("read");
-        Medico medico = null;
-        MedicoJpaController instance = null;
-        instance.read(medico);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

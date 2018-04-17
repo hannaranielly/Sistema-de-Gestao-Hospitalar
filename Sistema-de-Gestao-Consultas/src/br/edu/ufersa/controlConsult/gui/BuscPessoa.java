@@ -530,13 +530,13 @@ public class BuscPessoa extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         paciente_jPanel.add(sus_jLabel, gridBagConstraints);
 
+        sus_formattedtField.setEditable(false);
         sus_formattedtField.setColumns(12);
         try {
             sus_formattedtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        sus_formattedtField.setEnabled(false);
         sus_formattedtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sus_formattedtFieldActionPerformed(evt);
