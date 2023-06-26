@@ -198,31 +198,21 @@ public class ListarHorarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private static final String[] DIAS_SEMANA = {
+        "Sábado", "Domingo", "Segunda-feira", "Terça-feira",
+        "Quarta-feira", "Quinta-feira", "Sexta-feira"
+    };
+
+    // ...
+
     public String diaSemana(int n) {
-        String retorno = null;
-        if (n == 0) {
-            retorno = "Sábado";
+        if (n >= 0 && n < DIAS_SEMANA.length) {
+            return DIAS_SEMANA[n];
         }
-        if (n == 1) {
-            retorno = "Segunda-feira";
-        }
-        if (n == 2) {
-            retorno = "Terça-feira";
-        }
-        if (n == 3) {
-            retorno = "Quarta-feira";
-        }
-        if (n == 4) {
-            retorno = "Quinta-feira";
-        }
-        if (n == 5) {
-            retorno = "Sexta-feira";
-        }
-        if (n == 6) {
-            retorno = "Domingo";
-        }
-        return retorno;
+        return null;
     }
+
+
 
     /**
      * @param args the command line arguments
