@@ -44,28 +44,37 @@ public class MostraDesempenho extends javax.swing.JFrame {
         tempoMedio();
     }
 
+    private static final int MINUTOS_POR_HORA = 60;
+    private static final int MILISEGUNDOS_POR_MINUTO = 1000 * 60;
+    private static final int MILISEGUNDOS_POR_HORA = MILISEGUNDOS_POR_MINUTO * MINUTOS_POR_HORA;
+
     private void tempoMedio() {
         List<Consulta> consultas = findporMedico(pessoa.getMedico());
-        long tempo_total = 0l;
+        long tempoTotal = 0L;
+        
         for (Consulta c : consultas) {
-            tempo_total = tempo_total + (c.getData_fim().getTime() - c.getData_inicio().getTime());
+            tempoTotal += c.getData_fim().getTime() - c.getData_inicio().getTime();
         }
         if (consultas.isEmpty()) {
             mt.setText("0 minutos");
         } else {
-            long tempo_medio = tempo_total / consultas.size();
-            long diffMinutesmedio = tempo_medio / (60 * 1000) % 60;
-            mt.setText(valueOf(diffMinutesmedio) + " minutos");
+            long tempoMedio = tempoTotal / consultas.size();
+            long diffMinutesMedio = tempoMedio / MILISEGUNDOS_POR_MINUTO % MINUTOS_POR_HORA;
+            mt.setText(String.valueOf(diffMinutesMedio) + " minutos");
         }
+        
         List<Frequencia> frequencias = porMedico(pessoa.getMedico());
-        tempo_total = 0l;
+        tempoTotal = 0L;
+        
         for (Frequencia f : frequencias) {
-            tempo_total = tempo_total + (f.getData_saida().getTime() - f.getData_entrada().getTime());
+            tempoTotal += f.getData_saida().getTime() - f.getData_entrada().getTime();
         }
-        long diffHoras = tempo_total / (60 * 60 * 1000);
-        ht.setText(valueOf(diffHoras) + " horas");
-
+        
+        long diffHoras = tempoTotal / MILISEGUNDOS_POR_HORA;
+        ht.setText(String.valueOf(diffHoras) + " horas");
+        }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

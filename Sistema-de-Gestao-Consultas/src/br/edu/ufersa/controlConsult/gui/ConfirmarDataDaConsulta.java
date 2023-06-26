@@ -285,27 +285,55 @@ public class ConfirmarDataDaConsulta extends javax.swing.JFrame {
     }
 
     private void confimar(HorarioAtendimento horario, Date agendada) {
-        int numeroConsultas = 3;//O número de consultas que o médico tem marcadas naquele horário
-        if (numeroConsultas < calcula(horario)) {
-            String mensagem;
-            mensagem = "" + (numeroConsultas + 1) + "-esima pessoa na fila";
-            /*
-            ConsultaValida tela = new ConsultaValida(horario.getInicio(),horario.getFim(),medico,agendada,mensagem);
-            tela.setVisible(true);
-            tela.setLocationRelativeTo(null);
-            this.dispose();*/
+        int numeroConsultas = getNumeroConsultasMarcadas(horario); // O número de consultas que o médico tem marcadas naquele horário
+        int limiteConsultas = calcula(horario);
+        if (numeroConsultas < limiteConsultas) {
+            String mensagem = (numeroConsultas + 1) + "-ésima pessoa na fila";
+            exibirConsultaValida(horario, agendada, mensagem);
         } else {
             String erro = "Horário lotado";
-            /*
-            ConsultaInvalida tela = new ConsultaInvalida(medico,erro);
-            tela.setVisible(true);
-            tela.setLocationRelativeTo(null);
-            this.dispose();*/
+            exibirConsultaInvalida(erro);
         }
     }
 
+    private int getNumeroConsultasMarcadas(HorarioAtendimento horario) {
+        // Lógica para obter o número de consultas marcadas
+        // Retorne o valor correto
+        return 3;
+    }
+
+
+    private void exibirConsultaValida(HorarioAtendimento horario, Date agendada, String
+    mensagem) {
+    // Exibir tela de consulta válida com os parâmetros informados
+    /*
+    ConsultaValida tela = new
+    ConsultaValida(horario.getInicio(),horario.getFim(),medico,agendada,mensagem);
+    tela.setVisible(true);
+    tela.setLocationRelativeTo(null);
+    this.dispose();
+    */
+    }
+
+
+    private void exibirConsultaInvalida(String erro) {
+    // Exibir tela de consulta inválida com a mensagem de erro informada
+    /*
+    ConsultaInvalida tela = new ConsultaInvalida(medico, erro);
+    tela.setVisible(true);
+    tela.setLocationRelativeTo(null);
+    this.dispose();
+    */
+    }
+
+    private static final int CONSULTAS_POR_HORA = 6;
+
     private int calcula(HorarioAtendimento horario) {
-        return ((horario.getInicio().getHours()) - (horario.getFim().getHours())) * 6;
+        int horasInicio = horario.getInicio().getHours();
+        int horasFim = horario.getFim().getHours();
+        int diferencaHoras = horasInicio - horasFim;
+        int consultas = diferencaHoras * CONSULTAS_POR_HORA;
+        return consultas;
     }
 
 }

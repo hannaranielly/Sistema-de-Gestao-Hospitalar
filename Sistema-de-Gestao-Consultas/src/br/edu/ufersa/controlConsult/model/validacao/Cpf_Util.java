@@ -70,8 +70,23 @@ public class Cpf_Util {
         return true;
     }
 
+    private static final int POSICAO_PRIMEIRO_PONTO = 3;
+    private static final int POSICAO_SEGUNDO_PONTO = 6;
+    private static final int POSICAO_TRACO = 9;
+    private static final int TAMANHO_CPF = 11;
+
     public static String imprimeCPF(String CPF) {
-        return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
-                + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+        
+        if (CPF.length() != TAMANHO_CPF) {
+            throw new IllegalArgumentException("CPF inválido: tamanho incorreto");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(CPF.substring(0, POSICAO_PRIMEIRO_PONTO)).append(".");
+        sb.append(CPF.substring(POSICAO_PRIMEIRO_PONTO,POSICAO_SEGUNDO_PONTO)).append(".");
+        sb.append(CPF.substring(POSICAO_SEGUNDO_PONTO, POSICAO_TRACO)).append("-");
+        sb.append(CPF.substring(POSICAO_TRACO));
+        
+        return sb.toString();
     }
 }

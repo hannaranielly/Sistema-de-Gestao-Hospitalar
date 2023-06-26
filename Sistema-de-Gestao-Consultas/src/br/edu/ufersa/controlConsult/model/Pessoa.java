@@ -351,14 +351,16 @@ public class Pessoa implements Serializable, ICRUD {
     }
 
     public void setEmail(String email) throws CampoLimiteStringException {
-        if (email != null) {
-            if (email.length() > 50) {
+        if (email != null && !email.isEmpty()) {
+            final int MAX_EMAIL_LENGTH = 50;
+            if (email.length() > MAX_EMAIL_LENGTH) {
                 throw new CampoLimiteStringException("E-mail excedeu máximo de caracteres.");
             }
         }
         this.email = email;
     }
 
+    
     public int getNumCasa() {
         return numCasa;
     }

@@ -116,13 +116,16 @@ public class Medico implements ICRUD, Serializable {
         return listaHorario;
     }
 
+   
+    private static final int LIMITE_CARGA_HORARIA = 60;
+
     public void setCargaHoraria(Integer cargaHoraria)
             throws CampoObrigatorioException, CampoInvalidoException {
         if (cargaHoraria > 0) {
-            if (cargaHoraria <= 60) {
+            if (cargaHoraria <= LIMITE_CARGA_HORARIA) {
                 this.cargaHoraria = cargaHoraria;
             } else {
-                throw new CampoInvalidoException("Carga horária excedeu o limite de 60 horas.");
+                throw new CampoInvalidoException("Carga horária excedeu o limite de" + LIMITE_CARGA_HORARIA + "horas.");
             }
         } else {
             throw new CampoObrigatorioException("Campo Carga Horária é obrigatório");
@@ -258,14 +261,18 @@ public class Medico implements ICRUD, Serializable {
         return crm;
     }
 
+    private static final int MAX_CARACTERES_CRM = 15;
+
     public void setCrm(String crm) throws CampoObrigatorioException, CampoLimiteStringException {
-        if (crm != null && crm.length() > 0) {
-            if (crm.length() > 15) {
-                throw new CampoLimiteStringException("CRM excedeu o máximo de caracteres.");
+        
+        if (crm != null && !crm.isEmpty()) {
+            if (crm.length() <= MAX_CARACTERES_CRM) {
+                this.crm = crm;
+            } else {
+                throw new CampoLimiteStringException("Campo CRM excedeu o limite de caracteres.");
             }
-            this.crm = crm;
         } else {
-            throw new CampoObrigatorioException("Campo CRM é obrigatório.");
+            throw new CampoObrigatorioException("Campo CRM é obrigatório");
         }
     }
 

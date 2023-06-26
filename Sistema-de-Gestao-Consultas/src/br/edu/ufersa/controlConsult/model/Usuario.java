@@ -97,9 +97,12 @@ public class Usuario implements Serializable, ICRUD {
         return instance.pegar_Banco(usuario);
     }
 
+    private static final int MAX_PASSWORD_LENGTH = 32;
+    
     public void setPassword(char[] password_raw) throws IllegalArgumentException {
         char[] password_hash = Criptografia.criptografar(password_raw);
-        if (password_hash.length > 32) {
+        int password_length = password_hash.length;
+        if (password_length > MAX_PASSWORD_LENGTH) {
             throw new IllegalArgumentException("Senha maior que 32 caracteres.");
         }
         this.password = password_hash;
