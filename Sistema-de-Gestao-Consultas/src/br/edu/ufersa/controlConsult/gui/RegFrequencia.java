@@ -45,156 +45,166 @@ public class RegFrequencia extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+private void initComponents() {
+    java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel2 = new javax.swing.JPanel();
-        cpf_jLabel = new javax.swing.JLabel();
-        cpf_formattedField = new javax.swing.JFormattedTextField();
-        buscar_jButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        nome_jLabel = new javax.swing.JLabel();
-        nome_jTextField = new javax.swing.JTextField();
-        lastEntrada_jLabel = new javax.swing.JLabel();
-        lastEntrada_jTextField = new javax.swing.JTextField();
-        lastSaida_jLabel = new javax.swing.JLabel();
-        lastSaida_jTextField = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        mostrarFrequencia_jButton = new javax.swing.JButton();
-        entrada_jButton = new javax.swing.JButton();
-        saida_jButton = new javax.swing.JButton();
+    jPanel2 = new javax.swing.JPanel();
+    cpf_jLabel = new javax.swing.JLabel();
+    cpf_formattedField = new javax.swing.JFormattedTextField();
+    buscar_jButton = new javax.swing.JButton();
+    jPanel3 = new javax.swing.JPanel();
+    nome_jLabel = new javax.swing.JLabel();
+    nome_jTextField = new javax.swing.JTextField();
+    lastEntrada_jLabel = new javax.swing.JLabel();
+    lastEntrada_jTextField = new javax.swing.JTextField();
+    lastSaida_jLabel = new javax.swing.JLabel();
+    lastSaida_jTextField = new javax.swing.JTextField();
+    jPanel1 = new javax.swing.JPanel();
+    mostrarFrequencia_jButton = new javax.swing.JButton();
+    entrada_jButton = new javax.swing.JButton();
+    saida_jButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gerenciar Frequência");
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    setTitle("Gerenciar Frequência");
+    getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+    setupPanel2();
+    setupPanel3();
+    setupPanel1();
 
-        cpf_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        cpf_jLabel.setText("CPF:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel2.add(cpf_jLabel, gridBagConstraints);
+    pack();
+}// </editor-fold>//GEN-END:initComponents
 
-        cpf_formattedField.setColumns(20);
-        try {
-            cpf_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
+private void setupPanel1() {
+    jPanel2.setLayout(new java.awt.GridBagLayout());
+
+    cpf_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+    cpf_jLabel.setText("CPF:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+    jPanel2.add(cpf_jLabel, gridBagConstraints);
+
+    cpf_formattedField.setColumns(20);
+    try {
+        cpf_formattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+    } catch (java.text.ParseException ex) {
+        ex.printStackTrace();
+    }
+    cpf_formattedField.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cpf_formattedFieldActionPerformed(evt);
         }
-        cpf_formattedField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpf_formattedFieldActionPerformed(evt);
-            }
-        });
-        cpf_formattedField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cpf_formattedFieldKeyTyped(evt);
-            }
-        });
-        jPanel2.add(cpf_formattedField, new java.awt.GridBagConstraints());
+    });
+    cpf_formattedField.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            cpf_formattedFieldKeyTyped(evt);
+        }
+    });
+    jPanel2.add(cpf_formattedField, new java.awt.GridBagConstraints());
 
-        buscar_jButton.setText("Selecionar");
-        buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar_jButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        jPanel2.add(buscar_jButton, gridBagConstraints);
+    buscar_jButton.setText("Selecionar");
+    buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buscar_jButtonActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+    jPanel2.add(buscar_jButton, gridBagConstraints);
 
-        getContentPane().add(jPanel2);
+    getContentPane().add(jPanel2);
+}
 
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+private void setupPanel2() {
+    jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        nome_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        nome_jLabel.setText("Nome:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        jPanel3.add(nome_jLabel, gridBagConstraints);
+    nome_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+    nome_jLabel.setText("Nome:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+    jPanel3.add(nome_jLabel, gridBagConstraints);
 
-        nome_jTextField.setEditable(false);
-        nome_jTextField.setColumns(25);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        jPanel3.add(nome_jTextField, gridBagConstraints);
+    nome_jTextField.setEditable(false);
+    nome_jTextField.setColumns(25);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+    jPanel3.add(nome_jTextField, gridBagConstraints);
 
-        lastEntrada_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lastEntrada_jLabel.setText("Última entrada: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        jPanel3.add(lastEntrada_jLabel, gridBagConstraints);
+    lastEntrada_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+    lastEntrada_jLabel.setText("Última entrada: ");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+    jPanel3.add(lastEntrada_jLabel, gridBagConstraints);
 
-        lastEntrada_jTextField.setEditable(false);
-        lastEntrada_jTextField.setColumns(15);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        jPanel3.add(lastEntrada_jTextField, gridBagConstraints);
+    lastEntrada_jTextField.setEditable(false);
+    lastEntrada_jTextField.setColumns(15);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+    jPanel3.add(lastEntrada_jTextField, gridBagConstraints);
 
-        lastSaida_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lastSaida_jLabel.setText("Última saída: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        jPanel3.add(lastSaida_jLabel, gridBagConstraints);
+    lastSaida_jLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+    lastSaida_jLabel.setText("Última saída: ");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+    jPanel3.add(lastSaida_jLabel, gridBagConstraints);
 
-        lastSaida_jTextField.setEditable(false);
-        lastSaida_jTextField.setColumns(15);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        jPanel3.add(lastSaida_jTextField, gridBagConstraints);
+    lastSaida_jTextField.setEditable(false);
+    lastSaida_jTextField.setColumns(15);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+    jPanel3.add(lastSaida_jTextField, gridBagConstraints);
 
-        getContentPane().add(jPanel3);
+    getContentPane().add(jPanel3);
+}
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+private void setupPanel3() {
+    jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        mostrarFrequencia_jButton.setText("Mostrar Frequência");
-        mostrarFrequencia_jButton.setEnabled(false);
-        mostrarFrequencia_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarFrequencia_jButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(mostrarFrequencia_jButton);
+    mostrarFrequencia_jButton.setText("Mostrar Frequência");
+    mostrarFrequencia_jButton.setEnabled(false);
+    mostrarFrequencia_jButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            mostrarFrequencia_jButtonActionPerformed(evt);
+        }
+    });
+    jPanel1.add(mostrarFrequencia_jButton);
 
-        entrada_jButton.setText("Registrar Entrada");
-        entrada_jButton.setEnabled(false);
-        entrada_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                entrada_jButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(entrada_jButton);
+    entrada_jButton.setText("Registrar Entrada");
+    entrada_jButton.setEnabled(false);
+    entrada_jButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            entrada_jButtonActionPerformed(evt);
+        }
+    });
+    jPanel1.add(entrada_jButton);
 
-        saida_jButton.setText("Registrar Saida");
-        saida_jButton.setEnabled(false);
-        saida_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saida_jButtonActionPerformed(evt);
-            }
-        });
-        jPanel1.add(saida_jButton);
+    saida_jButton.setText("Registrar Saída");
+    saida_jButton.setEnabled(false);
+    saida_jButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            saida_jButtonActionPerformed(evt);
+        }
+    });
+    jPanel1.add(saida_jButton);
 
-        getContentPane().add(jPanel1);
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+    getContentPane().add(jPanel1);
+}
 
     private void buscar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_jButtonActionPerformed
         buscarPessoa();
