@@ -162,24 +162,26 @@ public class Pessoa implements Serializable, ICRUD {
      *
      * @throws IllegalArgumentException se algum atributo for inválido.
      */
-    public Pessoa(String nome, String cpf, String rg, String email,
-            char sexo, Date dataDeNascimento, String telefone, String logradouro,
-            Integer numCasa, String bairro, String cidade, String estado, String cep)
-            throws CampoInvalidoException, CampoLimiteStringException,
-            CampoObrigatorioException {
-        this.setNome(nome);
-        this.setCpf(cpf);
-        this.setRg(rg);
-        this.setSexo(sexo);
-        this.setDataDeNascimento(dataDeNascimento);
-        this.setCidade(cidade);
-        this.setEstado(estado);
-        this.setEmail(email);
-        this.setTelefone(telefone);
-        this.setLogradouro(logradouro);
-        this.setNumCasa(numCasa);
-        this.setBairro(bairro);
-        this.setCep(cep);
+
+    
+    public Pessoa( Builder builder ) {
+        this.id = builder.id;
+        this.nome = builder.nome;
+        this.dataDeNascimento = builder.dataDeNascimento;
+        this.sexo = builder.sexo;
+        this.email = builder.email;
+        this.bairro = builder.bairro;
+        this.numCasa = builder.numCasa;
+        this.logradouro = builder.logradouro;
+        this.cep = builder.cep;
+        this.telefone = builder.telefone;
+        this.cpf = builder.cpf;
+        this.rg = builder.rg;
+        this.estado = builder.estado;
+        this.cidade = builder.cidade;
+        this.medico = builder.medico;
+        this.paciente = builder.paciente;
+
     }
 
     public Integer getId() {
@@ -433,6 +435,109 @@ public class Pessoa implements Serializable, ICRUD {
     public Paciente getPaciente() {
         return this.paciente;
     }
+
+    public static class Builder {
+        private Integer id;
+        private String nome;
+        private Date dataDeNascimento;
+        private Character sexo;
+        private String email;
+        private String bairro;
+        private Integer numCasa;
+        private String logradouro;
+        private String cep;
+        private String telefone;
+        private String cpf;
+        private String rg;
+        private String estado;
+        private String cidade;
+        private Medico medico;
+        private Paciente paciente;
+
+        public Builder(String nome) {
+            this.nome = nome;
+        }
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder dataDeNascimento(Date dataDeNascimento) {
+            this.dataDeNascimento = dataDeNascimento;
+            return this;
+        }
+
+        public Builder sexo(Character sexo) {
+            this.sexo = sexo;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder bairro(String bairro) {
+            this.bairro = bairro;
+            return this;
+        }
+
+        public Builder numCasa(Integer numCasa) {
+            this.numCasa = numCasa;
+            return this;
+        }
+
+        public Builder logradouro(String logradouro) {
+            this.logradouro = logradouro;
+            return this;
+        }
+
+        public Builder cep(String cep) {
+            this.cep = cep;
+            return this;
+        }
+
+        public Builder telefone(String telefone) {
+            this.telefone = telefone;
+            return this;
+        }
+
+        public Builder cpf(String cpf) {
+            this.cpf = cpf;
+            return this;
+        }
+
+        public Builder rg(String rg) {
+            this.rg = rg;
+            return this;
+        }
+
+        public Builder estado(String estado) {
+            this.estado = estado;
+            return this;
+        }
+
+        public Builder cidade(String cidade) {
+            this.cidade = cidade;
+            return this;
+        }
+
+        public Builder medico(Medico medico) {
+            this.medico = medico;
+            return this;
+        }
+
+        public Builder paciente(Paciente paciente) {
+            this.paciente = paciente;
+            return this;
+        }
+
+        public Pessoa build() {
+            return new Pessoa(this);
+        }
+    }
+
 
     @Override
     public void create() throws PreexistingEntityException, Exception {

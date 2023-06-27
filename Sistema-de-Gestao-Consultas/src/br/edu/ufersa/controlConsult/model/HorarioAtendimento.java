@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
@@ -151,11 +152,13 @@ public class HorarioAtendimento implements Serializable, ICRUD {
 
     @Override
     public String toString() {
-        return "Inicio: " + this.getInicio() + "\n"
-                + "Fim: " + this.getFim() + "\n"
-                + "Estado: " + this.getEstado() + "\n"
-                + "Ultima realização: " + this.getUltimaRealizacao() + "\n"
-                + "Dia da semana: " + this.getDiaSemana() + "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Inicio: ").append(this.getInicio()).append("\n");
+        sb.append("Fim: ").append(this.getFim()).append("\n");
+        sb.append("Estado: ").append(this.getEstado()).append("\n");
+        sb.append("Ultima realização: ").append(this.getUltimaRealizacao()).append("\n");
+        sb.append("Dia da semana: ").append(this.getDiaSemana()).append("\n");
+        return sb.toString();
     }
 
     public HorarioAtendimento(Integer id) {
@@ -201,15 +204,14 @@ public class HorarioAtendimento implements Serializable, ICRUD {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (this == object) {
+            return true;
+        }
         if (!(object instanceof HorarioAtendimento)) {
             return false;
         }
         HorarioAtendimento other = (HorarioAtendimento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     public static List<HorarioAtendimento> findByMedicoId(Integer id) {
